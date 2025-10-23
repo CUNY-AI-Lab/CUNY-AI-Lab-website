@@ -6,6 +6,7 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   site: 'https://cuny-ai-lab.github.io',
   // Only use base path in production, not in development
-  base: process.env.NODE_ENV === 'production' ? '/CUNY-AI-Lab-website' : '/',
+  // Base path must have trailing slash for proper URL construction
+  base: process.env.NODE_ENV === 'production' ? '/CUNY-AI-Lab-website/' : '/',
   integrations: [tailwind()]
 });
