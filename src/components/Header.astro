@@ -1,29 +1,52 @@
 ---
+const base = import.meta.env.BASE_URL;
+const currentPath = Astro.url.pathname;
+
+// Helper function to check if link is active
+const isActive = (path: string) => {
+  if (path === base && currentPath === base) return true;
+  if (path !== base && currentPath.startsWith(path.replace(base, base))) return true;
+  return false;
+};
+
+const linkClass = (path: string) => {
+  const baseClass = "px-3 py-2 rounded-md text-sm font-medium transition-colors";
+  return isActive(path)
+    ? `${baseClass} bg-blue-100 text-blue-700 font-semibold`
+    : `${baseClass} text-gray-700 hover:text-blue-600`;
+};
+
+const mobileLinkClass = (path: string) => {
+  const baseClass = "block px-3 py-2 rounded-md text-base font-medium";
+  return isActive(path)
+    ? `${baseClass} bg-blue-100 text-blue-700 font-semibold`
+    : `${baseClass} text-gray-700 hover:text-blue-600`;
+};
 ---
 
 <header class="bg-white shadow-sm sticky top-0 z-50">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
       <div class="flex-shrink-0">
-        <a href="/" class="text-2xl font-bold text-gray-900">
+        <a href={base} class="text-2xl font-bold text-gray-900">
           CUNY AI Lab
         </a>
       </div>
       <div class="hidden md:block">
         <div class="ml-10 flex items-baseline space-x-8">
-          <a href="/" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          <a href={base} class={linkClass(base)}>
             Home
           </a>
-          <a href="/about" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          <a href={`${base}about`} class={linkClass(`${base}about`)}>
             About
           </a>
-          <a href="/tools" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          <a href={`${base}tools`} class={linkClass(`${base}tools`)}>
             Tools
           </a>
-          <a href="/team" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          <a href={`${base}team`} class={linkClass(`${base}team`)}>
             Team
           </a>
-          <a href="/contact" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+          <a href={`${base}contact`} class={linkClass(`${base}contact`)}>
             Contact
           </a>
         </div>
@@ -41,19 +64,19 @@
   <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden md:hidden">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
-      <a href="/" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+      <a href={base} class={mobileLinkClass(base)}>
         Home
       </a>
-      <a href="/about" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+      <a href={`${base}about`} class={mobileLinkClass(`${base}about`)}>
         About
       </a>
-      <a href="/tools" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+      <a href={`${base}tools`} class={mobileLinkClass(`${base}tools`)}>
         Tools
       </a>
-      <a href="/team" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+      <a href={`${base}team`} class={mobileLinkClass(`${base}team`)}>
         Team
       </a>
-      <a href="/contact" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">
+      <a href={`${base}contact`} class={mobileLinkClass(`${base}contact`)}>
         Contact
       </a>
     </div>
