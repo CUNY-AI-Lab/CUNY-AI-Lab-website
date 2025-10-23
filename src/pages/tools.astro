@@ -15,11 +15,16 @@ const base = import.meta.env.BASE_URL;
   <!-- Introduction -->
   <section class="py-16 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-lg text-gray-700">
+      <div class="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+        Pilot Phase - Request Access to Try These Tools
+      </div>
+      <p class="text-lg text-gray-700 mb-6">
         The CUNY AI Lab develops domain-specific tools that address teaching and research needs in collaboration
-        with members of the CUNY community through the Critical AI Literacy Institute. All tools are built with
-        a focus on transparency, privacy, and ethical AI practices.
+        with members of the CUNY community. All tools are built with a focus on transparency, privacy, and ethical AI practices.
       </p>
+      <a href={`${base}request-access`} class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+        Request Access to Tools
+      </a>
     </div>
   </section>
 
@@ -38,7 +43,10 @@ const base = import.meta.env.BASE_URL;
               </svg>
             </div>
             <div class="p-8">
-              <div class="uppercase tracking-wide text-sm text-blue-600 font-semibold mb-2">Language Learning</div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="uppercase tracking-wide text-sm text-blue-600 font-semibold">Language Learning</span>
+                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Available</span>
+              </div>
               <h3 class="text-2xl font-bold text-gray-900 mb-3">AmigAI</h3>
               <p class="text-gray-700 mb-4">
                 A Spanish-language chatbot that helps CUNY students practice conversational Spanish through culturally responsive pedagogy.

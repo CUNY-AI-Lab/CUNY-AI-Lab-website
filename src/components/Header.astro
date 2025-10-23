@@ -33,7 +33,7 @@ const mobileLinkClass = (path: string) => {
         </a>
       </div>
       <div class="hidden md:block">
-        <div class="ml-10 flex items-baseline space-x-8">
+        <div class="ml-10 flex items-baseline space-x-6">
           <a href={base} class={linkClass(base)}>
             Home
           </a>
@@ -48,6 +48,9 @@ const mobileLinkClass = (path: string) => {
           </a>
           <a href={`${base}contact`} class={linkClass(`${base}contact`)}>
             Contact
+          </a>
+          <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">
+            Open WebUI →
           </a>
         </div>
       </div>
@@ -78,6 +81,9 @@ const mobileLinkClass = (path: string) => {
       </a>
       <a href={`${base}contact`} class={mobileLinkClass(`${base}contact`)}>
         Contact
+      </a>
+      <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-base font-medium bg-blue-600 text-white hover:bg-blue-700">
+        Open WebUI →
       </a>
     </div>
   </div>
