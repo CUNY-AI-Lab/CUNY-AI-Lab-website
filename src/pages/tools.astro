@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="Tools & Projects - CUNY AI Lab">
@@ -199,7 +200,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p class="text-lg text-gray-600 mb-8">
         Interested in developing an AI tool for your course or research project? Contact us to learn about collaboration opportunities through CALI.
       </p>
-      <a href="/contact" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+      <a href={`${base}contact`} class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
         Get Started
       </a>
     </div>
