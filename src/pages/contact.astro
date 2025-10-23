@@ -20,162 +20,50 @@ const base = import.meta.env.BASE_URL;
           The CUNY AI Lab welcomes collaboration from faculty, researchers, and students across CUNY who are interested
           in ethical AI experimentation for teaching and research.
         </p>
+      </div>
 
-        <!-- Primary CTA -->
-        <div class="bg-cuny-pearl border-2 border-cuny-blue rounded-lg p-8 mb-12">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Request Access to OpenWebUI</h2>
-          <p class="text-gray-700 mb-6">
-            Ready to start using the CUNY AI Lab's tools and platform? Submit an access request and we'll get back to you within 2-3 business days.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href={`${base}request-access`} class="inline-block bg-cuny-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-cuny-azure transition-colors">
-              Request Access
-            </a>
-            <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="inline-block bg-white text-cuny-blue border-2 border-cuny-blue px-8 py-3 rounded-lg font-semibold hover:bg-cuny-pearl transition-colors">
-              Visit OpenWebUI →
-            </a>
-          </div>
+      <!-- Request Access Section -->
+      <div class="bg-cuny-pearl border-2 border-cuny-blue rounded-lg p-8 mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Request Access to OpenWebUI</h2>
+        <p class="text-gray-700 mb-6">
+          To access the CUNY AI Lab's OpenWebUI platform and tools, submit an access request. We'll get back to you within 2-3 business days.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href={`${base}request-access`} class="inline-block bg-cuny-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-cuny-azure transition-colors">
+            Request Access
+          </a>
+          <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="inline-block bg-white text-cuny-blue border-2 border-cuny-blue px-8 py-3 rounded-lg font-semibold hover:bg-cuny-pearl transition-colors">
+            Visit OpenWebUI →
+          </a>
         </div>
       </div>
 
-      <!-- Contact Options -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-        <!-- Direct Contact -->
-        <div class="bg-cuny-pearl p-8 rounded-lg border-l-4 border-cuny-blue">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Contact the Team</h2>
-          <p class="text-gray-700 mb-4">
-            Questions about the platform, tools, or getting started? Reach out to the core working team:
-          </p>
-          <ul class="text-gray-700 space-y-2 mb-4">
-            <li><strong>Zach Muhlbauer</strong> - Presidential Research Fellow, TLC</li>
-            <li><strong>Stefano Morello</strong> - Assistant Director, ASHP/CML</li>
-            <li><strong>Stephen Zweibel</strong> - Digital Scholarship Librarian</li>
-          </ul>
-          <p class="text-sm text-gray-600">
-            Respond time: 1-3 business days
-          </p>
-        </div>
-
-        <!-- Tool Development -->
-        <div class="bg-green-50 p-8 rounded-lg border-l-4 border-green-600">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Develop Custom Tools</h2>
-          <p class="text-gray-700 mb-4">
-            Work with our team to develop course-specific AI tools tailored to your pedagogical or research needs.
-          </p>
-          <p class="text-gray-700 mb-4">
-            <strong>Focus areas:</strong> Language learning, writing support, historical analysis, library research, and more.
-          </p>
-          <p class="text-gray-700">
-            Submit an access request and mention your custom tool interest in the form.
-          </p>
-        </div>
-
-        <!-- Research Collaboration -->
-        <div class="bg-purple-50 p-8 rounded-lg border-l-4 border-purple-600">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Research Collaboration</h2>
-          <p class="text-gray-700 mb-4">
-            Collaborate on research exploring AI's impact on higher education, ethical AI practices, and open-source infrastructure.
-          </p>
-          <p class="text-gray-700 mb-4">
-            <strong>Topics:</strong> AI pedagogy, model evaluation, accessibility, environmental impact, and more.
-          </p>
-        </div>
-
-        <!-- Platform Access -->
-        <div class="bg-orange-50 p-8 rounded-lg border-l-4 border-orange-600">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Platform Access</h2>
-          <p class="text-gray-700 mb-4">
-            Request access to our OpenWebUI instance for your teaching or research projects.
-          </p>
-          <p class="text-gray-700 mb-4">
-            <strong>Features:</strong> Zero-retention APIs, model comparison, energy tracking, and accessibility support.
-          </p>
-        </div>
-      </div>
-
-      <!-- Contact Information -->
-      <div class="bg-gray-50 p-8 rounded-lg text-center">
+      <!-- Contact Team Section -->
+      <div class="bg-white border-2 border-gray-200 rounded-lg p-8">
         <h2 class="text-2xl font-bold text-gray-900 mb-4">Contact the Team</h2>
         <p class="text-gray-700 mb-6">
-          For inquiries about the CUNY AI Lab, partnerships, or participation opportunities, please reach out
-          to the co-principal investigators through the Graduate Center.
+          Questions about tools, custom development, or research collaboration? Reach out to the core working team:
         </p>
         <div class="space-y-4">
-          <div>
-            <p class="text-gray-700">
-              <strong>Graduate Center Digital Initiatives (GCDI)</strong>
-            </p>
-            <a href="https://gcdi.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700">
-              gcdi.commons.gc.cuny.edu
-            </a>
+          <div class="border-l-4 border-cuny-blue pl-4">
+            <p class="font-semibold text-gray-900">Zach Muhlbauer</p>
+            <p class="text-sm text-gray-600 mb-1">Presidential Research Fellow, Teaching and Learning Center</p>
+            <a href="mailto:zmuhlbauer@gradcenter.cuny.edu" class="text-cuny-blue hover:text-cuny-azure">zmuhlbauer@gradcenter.cuny.edu</a>
           </div>
-          <div>
-            <p class="text-gray-700">
-              <strong>Teaching and Learning Center (TLC)</strong>
-            </p>
-            <a href="https://tlc.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700">
-              tlc.commons.gc.cuny.edu
-            </a>
+          <div class="border-l-4 border-cuny-blue pl-4">
+            <p class="font-semibold text-gray-900">Stefano Morello</p>
+            <p class="text-sm text-gray-600 mb-1">Assistant Director, American Social History Project / Center for Media and Learning</p>
+            <a href="mailto:smorello@gc.cuny.edu" class="text-cuny-blue hover:text-cuny-azure">smorello@gc.cuny.edu</a>
           </div>
-          <div>
-            <p class="text-gray-700">
-              <strong>CUNY Graduate Center</strong>
-            </p>
-            <p class="text-gray-600">365 Fifth Avenue, New York, NY 10016</p>
+          <div class="border-l-4 border-cuny-blue pl-4">
+            <p class="font-semibold text-gray-900">Stephen Zweibel</p>
+            <p class="text-sm text-gray-600 mb-1">Digital Scholarship Librarian, Mina Rees Library</p>
+            <a href="mailto:szweibel@gc.cuny.edu" class="text-cuny-blue hover:text-cuny-azure">szweibel@gc.cuny.edu</a>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Resources Section -->
-  <section class="py-16 bg-gray-50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Related Resources</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <a href="https://commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">CUNY Academic Commons</h3>
-          <p class="text-gray-600 text-sm mb-3">Open-source social network and collaborative platform for CUNY</p>
-          <span class="text-cuny-blue text-sm font-semibold">Visit Site →</span>
-        </a>
-
-        <a href="https://manifoldapp.org/" target="_blank" rel="noopener noreferrer" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">Manifold Scholarship</h3>
-          <p class="text-gray-600 text-sm mb-3">Interactive scholarly publishing platform</p>
-          <span class="text-cuny-blue text-sm font-semibold">Visit Site →</span>
-        </a>
-
-        <a href="https://ashp.cuny.edu/" target="_blank" rel="noopener noreferrer" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">ASHP/CML</h3>
-          <p class="text-gray-600 text-sm mb-3">American Social History Project / Center for Media and Learning</p>
-          <span class="text-cuny-blue text-sm font-semibold">Visit Site →</span>
-        </a>
-
-        <a href="https://library.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">Mina Rees Library</h3>
-          <p class="text-gray-600 text-sm mb-3">Graduate Center library and research support</p>
-          <span class="text-cuny-blue text-sm font-semibold">Visit Site →</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl font-bold text-gray-900 mb-4">
-        Ready to Get Started?
-      </h2>
-      <p class="text-lg text-gray-600 mb-8">
-        Explore our tools and learn more about the CUNY AI Lab initiative.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href={`${base}tools`} class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-          View Our Tools
-        </a>
-        <a href={`${base}about`} class="inline-block bg-white text-blue-600 border-2 border-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
-          Learn More
-        </a>
+        <p class="text-sm text-gray-600 mt-6">
+          Response time: 1-3 business days
+        </p>
       </div>
     </div>
   </section>
