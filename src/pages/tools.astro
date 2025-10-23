@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Tools & Projects - CUNY AI Lab">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-blue-700 to-purple-800 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Tools & Projects</h1>
+      <p class="text-xl text-blue-100">Domain-specific AI tools for teaching and research at CUNY</p>
+    </div>
+  </section>
+
+  <!-- Introduction -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-lg text-gray-700">
+        The CUNY AI Lab develops domain-specific tools that address teaching and research needs in collaboration
+        with members of the CUNY community through the Critical AI Literacy Institute. All tools are built with
+        a focus on transparency, privacy, and ethical AI practices.
+      </p>
+    </div>
+  </section>
+
+  <!-- Tools in Development -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Current Projects</h2>
+
+      <div class="space-y-12">
+        <!-- AmigAI -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="md:flex">
+            <div class="md:flex-shrink-0 bg-gradient-to-br from-blue-600 to-blue-700 md:w-48 flex items-center justify-center p-8">
+              <svg class="w-20 h-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+              </svg>
+            </div>
+            <div class="p-8">
+              <div class="uppercase tracking-wide text-sm text-blue-600 font-semibold mb-2">Language Learning</div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">AmigAI</h3>
+              <p class="text-gray-700 mb-4">
+                A Spanish-language chatbot that helps CUNY students practice conversational Spanish through culturally responsive pedagogy.
+                The system offers multiple difficulty levels: beginners work with present-tense role-play scenarios, while intermediate
+                students tackle dialect-specific conversations emphasizing Peruvian Spanish and imperative voice.
+              </p>
+              <div class="mb-4">
+                <span class="text-sm font-semibold text-gray-700">Faculty Lead:</span>
+                <span class="text-sm text-gray-600"> Victor Sierra Matute, Baruch College</span>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Language Learning</span>
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Differentiated Instruction</span>
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Cultural Responsiveness</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transcription Suite -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="md:flex">
+            <div class="md:flex-shrink-0 bg-gradient-to-br from-green-600 to-green-700 md:w-48 flex items-center justify-center p-8">
+              <svg class="w-20 h-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+              </svg>
+            </div>
+            <div class="p-8">
+              <div class="uppercase tracking-wide text-sm text-green-600 font-semibold mb-2">Audio Processing</div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">Multilingual Transcription Suite</h3>
+              <p class="text-gray-700 mb-4">
+                Utilizes OpenAI's Whisper via a zero-retention API to generate transcriptions with optional translation and diarization.
+                This tool supports oral history projects, AV subtitle generation, and multilingual research across several languages.
+              </p>
+              <div class="mb-4">
+                <span class="text-sm font-semibold text-gray-700">Use Cases:</span>
+                <span class="text-sm text-gray-600"> Nuyorican Poets Cafe Founders Archive Project, AV subtitles, oral history research</span>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Transcription</span>
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Translation</span>
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Oral History</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Library Workflow Assistants -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="md:flex">
+            <div class="md:flex-shrink-0 bg-gradient-to-br from-purple-600 to-purple-700 md:w-48 flex items-center justify-center p-8">
+              <svg class="w-20 h-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <div class="p-8">
+              <div class="uppercase tracking-wide text-sm text-purple-600 font-semibold mb-2">Library Services</div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">Library Workflow Assistants</h3>
+              <p class="text-gray-700 mb-4">
+                Tools that automate cataloging lookups, parse reference queries, generate citation maps, and assist
+                in research exploration. Designed to support library staff and researchers in navigating complex
+                information landscapes.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Cataloging</span>
+                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Reference Services</span>
+                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Research Support</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Who Built America Companion -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="md:flex">
+            <div class="md:flex-shrink-0 bg-gradient-to-br from-orange-600 to-orange-700 md:w-48 flex items-center justify-center p-8">
+              <svg class="w-20 h-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div class="p-8">
+              <div class="uppercase tracking-wide text-sm text-orange-600 font-semibold mb-2">Digital Textbook</div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">Who Built America? Interactive Companion</h3>
+              <p class="text-gray-700 mb-4">
+                An interactive companion to ASHP's open-access history textbook. Features include a "study coach" that
+                generates citation-anchored flashcards and self-tests, and a "source finder" that helps identify relevant
+                primary sources across the textbook's ~2,000 primary sources using keywords and filters.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">History Education</span>
+                <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Primary Sources</span>
+                <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Study Tools</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Course-Specific Assistants -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="md:flex">
+            <div class="md:flex-shrink-0 bg-gradient-to-br from-indigo-600 to-indigo-700 md:w-48 flex items-center justify-center p-8">
+              <svg class="w-20 h-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <div class="p-8">
+              <div class="uppercase tracking-wide text-sm text-indigo-600 font-semibold mb-2">Pedagogy</div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">Course-Specific Assistants</h3>
+              <p class="text-gray-700 mb-4">
+                Purpose-built chatbots tailored to discipline-specific instruction and grounded exclusively in syllabi,
+                readings, and course materials. These tools serve as structured intermediaries between students and complex
+                course material, providing scaffolded support through question-asking behavior and prompt-engineered guardrails.
+              </p>
+              <div class="mb-4">
+                <span class="text-sm font-semibold text-gray-700">Current Tools:</span>
+                <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                  <li>• Writing Process Assistants (Martha Nadalle, Brooklyn College)</li>
+                  <li>• Paratext Analysis Tool for Medieval Studies (Andie Silva, York College)</li>
+                  <li>• Active Reading Companion for History of Europe (Rhiannon Dowling, Lehman College)</li>
+                </ul>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Writing Support</span>
+                <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Active Reading</span>
+                <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Scaffolded Learning</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platform Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Built on OpenWebUI</h2>
+      <div class="bg-blue-50 border-l-4 border-blue-600 p-6">
+        <p class="text-gray-700 mb-4">
+          All tools are deployed through our dedicated OpenWebUI instance, an open-source platform that provides:
+        </p>
+        <ul class="list-disc pl-6 text-gray-700 space-y-2">
+          <li>Model-agnostic access to multiple AI systems simultaneously</li>
+          <li>Zero-retention API services for data privacy</li>
+          <li>Customizable configurations as shareable, citable academic tools</li>
+          <li>Energy/CO₂e estimates for environmental consciousness</li>
+          <li>Accessibility features including text-to-speech and speech-to-text</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">
+        Develop Your Own Tool
+      </h2>
+      <p class="text-lg text-gray-600 mb-8">
+        Interested in developing an AI tool for your course or research project? Contact us to learn about collaboration opportunities through CALI.
+      </p>
+      <a href="/contact" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+        Get Started
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,16 +1,189 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>CUNY AI Lab</title>
-	</head>
-	<body>
-		<h1>Welcome to CUNY AI Lab</h1>
-		<p>This is an Astro static site.</p>
-	</body>
-</html>
+<BaseLayout title="CUNY AI Lab - Open Academic Infrastructure for Research and Pedagogy">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-blue-700 to-purple-800 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          The CUNY AI Lab
+        </h1>
+        <p class="text-2xl md:text-3xl mb-4 text-blue-100 font-semibold max-w-4xl mx-auto">
+          Open Academic Infrastructure for Research and Pedagogy
+        </p>
+        <p class="text-lg md:text-xl mb-8 text-blue-100 max-w-3xl mx-auto">
+          A faculty and staff-led incubator for ethical AI experimentation at CUNY,
+          strengthening CUNY's position at the leading edge of technological innovation
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/tools" class="bg-white text-blue-700 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+            Explore Our Tools
+          </a>
+          <a href="/about" class="bg-blue-800 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors border-2 border-white">
+            Learn More
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Grounding Academic Agency in the Age of AI
+        </h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          The CUNY AI Lab provides domain-specific tools developed with a focus on privacy, sustainability,
+          transparency, and criticality—offering a concrete alternative to commercial AI platforms.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Principles -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
+        Our Principles
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Principle 1: Transparent -->
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            Transparent
+          </h3>
+          <p class="text-gray-600">
+            Allowing faculty to understand dataset provenance, open weights, training model histories, and documentation of system prompts.
+          </p>
+        </div>
+
+        <!-- Principle 2: Ecologically Responsible -->
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            Ecologically Responsible
+          </h3>
+          <p class="text-gray-600">
+            Sharing reporting on tokens used and energy consumed by system actions to promote environmental consciousness.
+          </p>
+        </div>
+
+        <!-- Principle 3: Community-Oriented -->
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+          <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            Community-Oriented
+          </h3>
+          <p class="text-gray-600">
+            Building discursive conversations around AI usage in the classroom and in research.
+          </p>
+        </div>
+
+        <!-- Principle 4: Critically-Driven -->
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+          <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            Critically-Driven
+          </h3>
+          <p class="text-gray-600">
+            Cultivating informed and skeptical conversations around the use of AI in higher education.
+          </p>
+        </div>
+
+        <!-- Principle 5: Open-Source -->
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+          <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">
+            Open-Source
+          </h3>
+          <p class="text-gray-600">
+            Using zero-retention technological infrastructure that can be reshaped in response to community needs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Tools Preview -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
+        Tools in Development
+      </h2>
+      <p class="text-lg text-gray-600 mb-12 text-center max-w-3xl mx-auto">
+        Domain-specific tools addressing teaching and research needs across CUNY, built in collaboration with faculty through the Critical AI Literacy Institute.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-blue-600">
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">AmigAI</h3>
+          <p class="text-gray-600 mb-4">
+            Language learning partner providing conversational practice tailored to different proficiency levels.
+          </p>
+          <a href="/tools" class="text-blue-600 hover:text-blue-700 font-semibold">Learn more →</a>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-green-600">
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Transcription Suite</h3>
+          <p class="text-gray-600 mb-4">
+            Multilingual transcription with optional translation and diarization for oral history and AV projects.
+          </p>
+          <a href="/tools" class="text-blue-600 hover:text-blue-700 font-semibold">Learn more →</a>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-purple-600">
+          <h3 class="text-xl font-semibold text-gray-900 mb-3">Course Assistants</h3>
+          <p class="text-gray-600 mb-4">
+            Purpose-built chatbots tailored to discipline-specific instruction and grounded in course materials.
+          </p>
+          <a href="/tools" class="text-blue-600 hover:text-blue-700 font-semibold">Learn more →</a>
+        </div>
+      </div>
+      <div class="text-center mt-8">
+        <a href="/tools" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+          View All Tools
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-gradient-to-br from-blue-700 to-purple-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        Join the Initiative
+      </h2>
+      <p class="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
+        We welcome CUNY faculty, researchers, and students interested in ethical AI experimentation for teaching and research.
+      </p>
+      <a href="/contact" class="inline-block bg-white text-blue-700 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+        Get Involved
+      </a>
+    </div>
+  </section>
+</BaseLayout>
