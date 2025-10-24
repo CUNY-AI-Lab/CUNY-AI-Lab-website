@@ -4,9 +4,8 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://cuny-ai-lab.github.io',
-  // Only use base path in production, not in development
-  // Base path must have trailing slash for proper URL construction
-  base: process.env.NODE_ENV === 'production' ? '/CUNY-AI-Lab-website/' : '/',
+  site: 'https://www.cunyailab.org',
+  // Base path set to root for custom domain
+  base: '/',
   integrations: [tailwind()]
 });
