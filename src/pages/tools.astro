@@ -5,162 +5,167 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout title="Tools & Projects - CUNY AI Lab">
   <!-- Hero Section -->
-  <section class="bg-gradient-to-br from-teal-700 to-teal-900 text-white py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">Tools & Projects</h1>
-      <p class="text-xl text-white/90">Domain-specific AI tools for teaching and research at CUNY</p>
+  <section class="relative py-20 lg:py-32 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-vibrant-800 to-cuny-indigo"></div>
+    <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-vibrant-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[600px] h-[600px] bg-cuny-blue rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <h1 class="text-4xl md:text-6xl font-bold font-display text-white mb-6">Tools & Projects</h1>
+      <p class="text-xl md:text-2xl text-vibrant-50 max-w-3xl mx-auto font-light">Domain-specific AI tools for teaching and research at CUNY</p>
     </div>
   </section>
 
   <!-- Introduction -->
   <section class="py-16 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-block bg-cuny-gold/20 text-teal-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+      <div class="inline-block bg-vibrant-50 text-vibrant-700 px-4 py-2 rounded-full text-sm font-semibold mb-6 border border-vibrant-100">
         Pilot Phase - Request Access to Try These Tools
       </div>
-      <p class="text-lg text-gray-700 mb-6">
+      <p class="text-lg text-gray-600 mb-8 leading-relaxed">
         The CUNY AI Lab develops tools for teaching and research, built in collaboration with CUNY faculty and
         students. All tools are built with a focus on transparency, privacy, and ethical AI practices.
       </p>
-      <a href={`${base}request-access`} class="inline-block bg-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors">
+      <a href={`${base}request-access`} class="inline-block bg-vibrant-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-vibrant-700 transition-all shadow-lg hover:shadow-vibrant-500/30 transform hover:-translate-y-1">
         Request Access to Tools
       </a>
     </div>
   </section>
 
   <!-- Tools in Development -->
-  <section class="py-16 bg-gray-50">
+  <section class="py-20 bg-neutral-cream">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Current Projects</h2>
+      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-12 text-center">Current Projects</h2>
 
       <div class="space-y-12">
         <!-- AmigAI -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group">
           <div class="md:flex">
-            <div class="md:flex-shrink-0 bg-gradient-to-br from-teal-600 to-teal-700 md:w-48 flex items-center justify-center p-8">
+            <div class="md:flex-shrink-0 bg-gradient-to-br from-vibrant-500 to-vibrant-700 md:w-56 flex items-center justify-center p-8 group-hover:scale-105 transition-transform duration-500">
               <svg class="w-20 h-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
               </svg>
             </div>
-            <div class="p-8">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="uppercase tracking-wide text-sm text-teal-700 font-semibold">Language Learning</span>
-                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Available</span>
+            <div class="p-8 md:p-10 flex-grow">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="uppercase tracking-wide text-xs font-bold text-vibrant-600">Language Learning</span>
+                <span class="bg-green-100 text-green-800 px-2.5 py-0.5 rounded-full text-xs font-semibold">Available</span>
               </div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-3">AmigAI</h3>
-              <p class="text-gray-700 mb-4">
+              <h3 class="text-2xl font-bold font-display text-neutral-stone mb-3">AmigAI</h3>
+              <p class="text-gray-600 mb-6 leading-relaxed">
                 A Spanish-language chatbot that helps CUNY students practice conversational Spanish through culturally responsive pedagogy.
                 The system offers multiple difficulty levels: beginners work with present-tense role-play scenarios, while intermediate
                 students tackle dialect-specific conversations emphasizing Peruvian Spanish and imperative voice.
               </p>
-              <div class="mb-4">
-                <span class="text-sm font-semibold text-gray-700">Faculty Lead:</span>
+              <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-100">
+                <span class="text-sm font-semibold text-neutral-stone">Faculty Lead:</span>
                 <span class="text-sm text-gray-600"> Victor Sierra Matute, Baruch College</span>
               </div>
               <div class="flex flex-wrap gap-2">
-                <span class="bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm">Language Learning</span>
-                <span class="bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm">Differentiated Instruction</span>
-                <span class="bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-sm">Cultural Responsiveness</span>
+                <span class="bg-vibrant-50 text-vibrant-700 px-3 py-1 rounded-full text-sm font-medium">Language Learning</span>
+                <span class="bg-vibrant-50 text-vibrant-700 px-3 py-1 rounded-full text-sm font-medium">Differentiated Instruction</span>
+                <span class="bg-vibrant-50 text-vibrant-700 px-3 py-1 rounded-full text-sm font-medium">Cultural Responsiveness</span>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Transcription Suite -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group">
           <div class="md:flex">
-            <div class="md:flex-shrink-0 bg-gradient-to-br from-green-600 to-green-700 md:w-48 flex items-center justify-center p-8">
+            <div class="md:flex-shrink-0 bg-gradient-to-br from-green-500 to-green-700 md:w-56 flex items-center justify-center p-8 group-hover:scale-105 transition-transform duration-500">
               <svg class="w-20 h-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
               </svg>
             </div>
-            <div class="p-8">
-              <div class="uppercase tracking-wide text-sm text-green-600 font-semibold mb-2">Audio Processing</div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-3">Multilingual Transcription Suite</h3>
-              <p class="text-gray-700 mb-4">
+            <div class="p-8 md:p-10 flex-grow">
+              <div class="uppercase tracking-wide text-xs font-bold text-green-600 mb-3">Audio Processing</div>
+              <h3 class="text-2xl font-bold font-display text-neutral-stone mb-3">Multilingual Transcription Suite</h3>
+              <p class="text-gray-600 mb-6 leading-relaxed">
                 Utilizes OpenAI's Whisper via a zero-retention API to generate transcriptions with optional translation and diarization.
                 This tool supports oral history projects, AV subtitle generation, and multilingual research across several languages.
               </p>
-              <div class="mb-4">
-                <span class="text-sm font-semibold text-gray-700">Use Cases:</span>
+              <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-100">
+                <span class="text-sm font-semibold text-neutral-stone">Use Cases:</span>
                 <span class="text-sm text-gray-600"> Nuyorican Poets Cafe Founders Archive Project, AV subtitles, oral history research</span>
               </div>
               <div class="flex flex-wrap gap-2">
-                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Transcription</span>
-                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Translation</span>
-                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Oral History</span>
+                <span class="bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Transcription</span>
+                <span class="bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Translation</span>
+                <span class="bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Oral History</span>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Library Workflow Assistants -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group">
           <div class="md:flex">
-            <div class="md:flex-shrink-0 bg-gradient-to-br from-purple-600 to-purple-700 md:w-48 flex items-center justify-center p-8">
+            <div class="md:flex-shrink-0 bg-gradient-to-br from-purple-500 to-purple-700 md:w-56 flex items-center justify-center p-8 group-hover:scale-105 transition-transform duration-500">
               <svg class="w-20 h-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
             </div>
-            <div class="p-8">
-              <div class="uppercase tracking-wide text-sm text-purple-600 font-semibold mb-2">Library Services</div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-3">Library Workflow Assistants</h3>
-              <p class="text-gray-700 mb-4">
+            <div class="p-8 md:p-10 flex-grow">
+              <div class="uppercase tracking-wide text-xs font-bold text-purple-600 mb-3">Library Services</div>
+              <h3 class="text-2xl font-bold font-display text-neutral-stone mb-3">Library Workflow Assistants</h3>
+              <p class="text-gray-600 mb-6 leading-relaxed">
                 Tools that automate cataloging lookups, parse reference queries, generate citation maps, and assist
                 in research exploration. Designed to support library staff and researchers in navigating complex
                 information landscapes.
               </p>
               <div class="flex flex-wrap gap-2">
-                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Cataloging</span>
-                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Reference Services</span>
-                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Research Support</span>
+                <span class="bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Cataloging</span>
+                <span class="bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Reference Services</span>
+                <span class="bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Research Support</span>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Who Built America Companion -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group">
           <div class="md:flex">
-            <div class="md:flex-shrink-0 bg-gradient-to-br from-orange-600 to-orange-700 md:w-48 flex items-center justify-center p-8">
+            <div class="md:flex-shrink-0 bg-gradient-to-br from-orange-500 to-orange-700 md:w-56 flex items-center justify-center p-8 group-hover:scale-105 transition-transform duration-500">
               <svg class="w-20 h-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <div class="p-8">
-              <div class="uppercase tracking-wide text-sm text-orange-600 font-semibold mb-2">Digital Textbook</div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-3">Who Built America? Interactive Companion</h3>
-              <p class="text-gray-700 mb-4">
+            <div class="p-8 md:p-10 flex-grow">
+              <div class="uppercase tracking-wide text-xs font-bold text-orange-600 mb-3">Digital Textbook</div>
+              <h3 class="text-2xl font-bold font-display text-neutral-stone mb-3">Who Built America? Interactive Companion</h3>
+              <p class="text-gray-600 mb-6 leading-relaxed">
                 An interactive companion to ASHP's open-access history textbook. Features include a "study coach" that
                 generates citation-anchored flashcards and self-tests, and a "source finder" that helps identify relevant
                 primary sources across the textbook's ~2,000 primary sources using keywords and filters.
               </p>
               <div class="flex flex-wrap gap-2">
-                <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">History Education</span>
-                <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Primary Sources</span>
-                <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Study Tools</span>
+                <span class="bg-orange-50 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">History Education</span>
+                <span class="bg-orange-50 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">Primary Sources</span>
+                <span class="bg-orange-50 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">Study Tools</span>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Course-Specific Assistants -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group">
           <div class="md:flex">
-            <div class="md:flex-shrink-0 bg-gradient-to-br from-indigo-600 to-indigo-700 md:w-48 flex items-center justify-center p-8">
+            <div class="md:flex-shrink-0 bg-gradient-to-br from-indigo-500 to-indigo-700 md:w-56 flex items-center justify-center p-8 group-hover:scale-105 transition-transform duration-500">
               <svg class="w-20 h-20 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
             </div>
-            <div class="p-8">
-              <div class="uppercase tracking-wide text-sm text-indigo-600 font-semibold mb-2">Pedagogy</div>
-              <h3 class="text-2xl font-bold text-gray-900 mb-3">Course-Specific Assistants</h3>
-              <p class="text-gray-700 mb-4">
+            <div class="p-8 md:p-10 flex-grow">
+              <div class="uppercase tracking-wide text-xs font-bold text-indigo-600 mb-3">Pedagogy</div>
+              <h3 class="text-2xl font-bold font-display text-neutral-stone mb-3">Course-Specific Assistants</h3>
+              <p class="text-gray-600 mb-6 leading-relaxed">
                 AI assistants built for specific courses, using only your syllabus, readings, and course materials. These tools
                 help students engage with complex material by asking guiding questions and providing structured support.
               </p>
-              <div class="mb-4">
-                <span class="text-sm font-semibold text-gray-700">Current Tools:</span>
+              <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-100">
+                <span class="text-sm font-semibold text-neutral-stone">Current Tools:</span>
                 <ul class="text-sm text-gray-600 mt-2 space-y-1">
                   <li>• Writing Process Assistants (Martha Nadalle, Brooklyn College)</li>
                   <li>• Paratext Analysis Tool for Medieval Studies (Andie Silva, York College)</li>
@@ -168,9 +173,9 @@ const base = import.meta.env.BASE_URL;
                 </ul>
               </div>
               <div class="flex flex-wrap gap-2">
-                <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Writing Support</span>
-                <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Active Reading</span>
-                <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Scaffolded Learning</span>
+                <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">Writing Support</span>
+                <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">Active Reading</span>
+                <span class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium">Scaffolded Learning</span>
               </div>
             </div>
           </div>
@@ -180,34 +185,49 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <!-- Platform Section -->
-  <section class="py-16 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Built on OpenWebUI</h2>
-      <div class="bg-teal-50 border-l-4 border-teal-600 p-6">
-        <p class="text-gray-700 mb-4">
+      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-8 text-center">Built on OpenWebUI</h2>
+      <div class="bg-vibrant-50 border-l-4 border-vibrant-500 p-8 rounded-r-xl">
+        <p class="text-vibrant-900 mb-6 font-medium">
           All tools are deployed through our dedicated OpenWebUI instance, an open-source platform that provides:
         </p>
-        <ul class="list-disc pl-6 text-gray-700 space-y-2">
-          <li>Model-agnostic access to multiple AI systems simultaneously</li>
-          <li>Zero-retention API services for data privacy</li>
-          <li>Customizable configurations as shareable, citable academic tools</li>
-          <li>Energy/CO₂e estimates for environmental consciousness</li>
-          <li>Accessibility features including text-to-speech and speech-to-text</li>
+        <ul class="space-y-3">
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-vibrant-600 mt-1 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+            <span class="text-gray-700">Model-agnostic access to multiple AI systems simultaneously</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-vibrant-600 mt-1 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+            <span class="text-gray-700">Zero-retention API services for data privacy</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-vibrant-600 mt-1 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+            <span class="text-gray-700">Customizable configurations as shareable, citable academic tools</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-vibrant-600 mt-1 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+            <span class="text-gray-700">Energy/CO₂e estimates for environmental consciousness</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-vibrant-600 mt-1 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+            <span class="text-gray-700">Accessibility features including text-to-speech and speech-to-text</span>
+          </li>
         </ul>
       </div>
     </div>
   </section>
 
   <!-- CTA Section -->
-  <section class="py-16 bg-gray-50">
+  <section class="py-20 bg-neutral-cream">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl font-bold text-gray-900 mb-4">
+      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">
         Develop Your Own Tool
       </h2>
-      <p class="text-lg text-gray-600 mb-8">
+      <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
         Interested in developing an AI tool for your course or research project? Contact us to learn about collaboration opportunities through CALI.
       </p>
-      <a href={`${base}contact`} class="inline-block bg-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors">
+      <a href={`${base}contact`} class="inline-block bg-vibrant-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-vibrant-700 transition-all shadow-lg hover:shadow-vibrant-500/30 transform hover:-translate-y-1">
         Get Started
       </a>
     </div>
