@@ -4,11 +4,17 @@ export default {
 	theme: {
 		extend: {
 			colors: {
+				'logo': {
+					'navy': '#1D3A83',      // Logo dark navy
+					'blue': '#2A86FF',      // Logo bright blue
+					'azure': '#1C79B6',     // Logo medium blue
+					'teal': '#2BB7C6',      // Logo teal/cyan
+				},
 				'cuny': {
-					'blue': '#0033a1',      // CUNY Blue (keep for minimal use)
-					'indigo': '#011d49',    // Dark blue
-					'azure': '#0040f0',     // Bright blue
-					'gold': '#ffb81c',      // Gold
+					'blue': '#1D3A83',      // Logo navy for hero backgrounds
+					'indigo': '#0f172a',    // Deep dark blue
+					'azure': '#1C79B6',     // Logo medium blue
+					'gold': '#ffb81c',      // Gold accent
 					'cream': '#fffcd5',     // Cream
 					'pearl': '#f7f4eb',     // Pearl
 				},
@@ -26,17 +32,17 @@ export default {
 					'950': '#003838',       // Almost black teal
 				},
 				'vibrant': {
-					'50': '#ecfeff',
-					'100': '#cffafe',
-					'200': '#a5f3fc',
-					'300': '#67e8f9',
-					'400': '#22d3ee',
-					'500': '#06b6d4',
-					'600': '#0891b2',
-					'700': '#0e7490',
-					'800': '#155e75',
-					'900': '#164e63',
-					'950': '#083344',
+					'50': '#e8f4fc',
+					'100': '#d1e9f9',
+					'200': '#a3d3f3',
+					'300': '#5ab8e8',
+					'400': '#2BB7C6',       // Logo teal - accents
+					'500': '#2A86FF',       // Logo bright blue
+					'600': '#2A86FF',       // Primary CTA color
+					'700': '#1C79B6',       // Logo medium blue - hover
+					'800': '#1D3A83',       // Logo navy
+					'900': '#162d66',
+					'950': '#0f1d40',
 				},
 				'neutral': {
 					'cream': '#FAFCF8',     // Warm white background

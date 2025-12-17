@@ -9,79 +9,41 @@ const base = import.meta.env.BASE_URL;
     <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
     <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"1\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Get Involved</h1>
+      <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Contact</h1>
     </div>
   </section>
 
   <!-- Main Content -->
   <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <p class="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-          The CUNY AI Lab welcomes collaboration from faculty, researchers, and students across CUNY who are interested
-          in ethical AI experimentation for teaching and research.
-        </p>
-      </div>
+      <!-- Intro -->
+      <p class="text-xl md:text-2xl text-gray-600 leading-relaxed mb-16">
+        The CUNY AI Lab welcomes collaboration from faculty, researchers, and students across CUNY who are interested in exploring ethical AI experimentation for teaching and research purposes.
+      </p>
 
-      <!-- Request Access Section -->
-      <div class="bg-vibrant-50 border border-vibrant-200 rounded-2xl p-10 mb-16 shadow-sm">
-        <h2 class="text-2xl font-bold font-display text-vibrant-900 mb-4">Request Access to OpenWebUI</h2>
-        <p class="text-gray-700 mb-8 leading-relaxed">
-          To access the CUNY AI Lab's OpenWebUI platform and tools, submit an access request. We'll get back to you within 2-3 business days.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-start">
-          <a href={`${base}request-access`} class="inline-block bg-vibrant-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-vibrant-700 transition-all shadow-lg hover:shadow-vibrant-500/30 transform hover:-translate-y-1 text-center">
-            Request Access
+      <!-- Email card -->
+      <div class="relative bg-gradient-to-br from-neutral-cream to-white rounded-3xl p-10 md:p-14 border border-gray-100 shadow-sm overflow-hidden group">
+        <!-- Decorative element -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-vibrant-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+
+        <div class="relative">
+          <p class="text-sm font-semibold text-vibrant-600 uppercase tracking-widest mb-6">For all inquiries</p>
+
+          <a
+            href="mailto:info@cunyailab.org"
+            class="inline-flex items-center text-3xl sm:text-4xl md:text-5xl font-bold font-display text-neutral-stone hover:text-vibrant-600 transition-colors duration-300 tracking-tight"
+          >
+            info@cunyailab.org
+            <svg class="w-8 h-8 md:w-10 md:h-10 ml-4 transform group-hover:translate-x-2 transition-transform duration-300 text-vibrant-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
           </a>
-          <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="inline-block bg-white text-vibrant-700 border-2 border-vibrant-600 px-8 py-3 rounded-full font-semibold hover:bg-vibrant-50 transition-colors text-center">
-            Visit OpenWebUI →
-          </a>
-        </div>
-      </div>
 
-      <!-- Contact Team Section -->
-      <div class="bg-white border border-gray-200 rounded-2xl p-10 shadow-sm">
-        <h2 class="text-2xl font-bold font-display text-neutral-stone mb-6">Contact the Team</h2>
-        <p class="text-gray-600 mb-8 leading-relaxed">
-          Questions about tools, custom development, or research collaboration? Reach out to the core working team:
-        </p>
-        <div class="space-y-8">
-          <div class="flex items-start">
-            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-vibrant-100 flex items-center justify-center text-vibrant-600 font-bold text-xl mr-4">Z</div>
-            <div>
-              <p class="font-bold text-neutral-stone text-lg">Zach Muhlbauer</p>
-              <p class="text-sm text-gray-500 mb-2">Presidential Research Fellow, Teaching and Learning Center</p>
-              <a href="mailto:zmuhlbauer@gradcenter.cuny.edu" class="text-vibrant-600 hover:text-vibrant-800 font-medium transition-colors">zmuhlbauer@gradcenter.cuny.edu</a>
-            </div>
+          <div class="mt-10 pt-8 border-t border-gray-200">
+            <p class="text-gray-500 leading-relaxed max-w-xl">
+              Whether you have questions about our tools, ideas for custom development projects, or interest in research partnerships, we're eager to connect with members of the CUNY community.
+            </p>
           </div>
-          
-          <div class="w-full h-px bg-gray-100"></div>
-
-          <div class="flex items-start">
-            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-vibrant-100 flex items-center justify-center text-vibrant-600 font-bold text-xl mr-4">S</div>
-            <div>
-              <p class="font-bold text-neutral-stone text-lg">Stefano Morello</p>
-              <p class="text-sm text-gray-500 mb-2">Assistant Director, American Social History Project / Center for Media and Learning</p>
-              <a href="mailto:smorello@gc.cuny.edu" class="text-vibrant-600 hover:text-vibrant-800 font-medium transition-colors">smorello@gc.cuny.edu</a>
-            </div>
-          </div>
-
-          <div class="w-full h-px bg-gray-100"></div>
-
-          <div class="flex items-start">
-            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-vibrant-100 flex items-center justify-center text-vibrant-600 font-bold text-xl mr-4">S</div>
-            <div>
-              <p class="font-bold text-neutral-stone text-lg">Stephen Zweibel</p>
-              <p class="text-sm text-gray-500 mb-2">Digital Scholarship Librarian, Mina Rees Library</p>
-              <a href="mailto:szweibel@gc.cuny.edu" class="text-vibrant-600 hover:text-vibrant-800 font-medium transition-colors">szweibel@gc.cuny.edu</a>
-            </div>
-          </div>
-        </div>
-        <div class="mt-8 pt-6 border-t border-gray-100 flex items-center text-sm text-gray-500">
-          <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          Response time: 1-3 business days
         </div>
       </div>
     </div>
