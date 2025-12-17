@@ -5,17 +5,22 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout title="Team - CUNY AI Lab">
   <!-- Hero Section -->
-  <section class="bg-gradient-to-br from-blue-700 to-purple-800 text-white py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4">Our Team</h1>
-      <p class="text-xl text-blue-100">Faculty and staff leading open AI infrastructure at CUNY</p>
+  <section class="relative py-20 lg:py-32 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-cuny-blue to-vibrant-900"></div>
+    <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-vibrant-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[600px] h-[600px] bg-cuny-indigo rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <h1 class="text-4xl md:text-6xl font-bold font-display text-white mb-6">Our Team</h1>
+      <p class="text-xl md:text-2xl text-vibrant-50 max-w-3xl mx-auto font-light">Faculty and staff leading open AI infrastructure at CUNY</p>
     </div>
   </section>
 
   <!-- Introduction -->
-  <section class="py-12 bg-white">
+  <section class="py-16 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-lg text-gray-700">
+      <p class="text-lg text-gray-600 leading-relaxed">
         The team assembled for the CUNY AI Lab brings demonstrated leadership and an established track record in building
         sustainable, humanities-centered digital infrastructure, including the CUNY Academic Commons and Manifold Scholarship.
       </p>
@@ -23,90 +28,96 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <!-- Co-Principal Investigators Section -->
-  <section class="py-16 bg-gray-50">
+  <section class="py-20 bg-neutral-cream">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Co-Principal Investigators</h2>
+      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-12 text-center">Co-Principal Investigators</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
         <!-- Matthew K. Gold -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow w-full max-w-[280px]">
-          <div class="aspect-[3/4] overflow-hidden bg-gray-100">
-            <img src={`${base}images/team/matthew-gold.webp`} alt="Matthew K. Gold" class="w-full h-full object-cover object-center" />
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden w-full max-w-[320px] group border border-gray-100">
+          <div class="aspect-[3/4] overflow-hidden bg-gray-100 relative">
+            <img src={`${base}images/team/matthew-gold.webp`} alt="Matthew K. Gold" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Matthew K. Gold</h3>
-            <p class="text-blue-600 font-semibold mb-3 text-sm">Associate Professor of English and Digital Humanities</p>
-            <p class="text-gray-600 text-sm mb-3">
+            <h3 class="text-xl font-bold font-display text-neutral-stone mb-1">Matthew K. Gold</h3>
+            <p class="text-vibrant-600 font-semibold mb-3 text-sm uppercase tracking-wide">Associate Professor</p>
+            <p class="text-gray-600 text-sm leading-relaxed">
               Director of Graduate Center Digital Initiatives, CUNY Graduate Center
             </p>
           </div>
         </div>
 
         <!-- Stefano Morello -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow w-full max-w-[280px]">
-          <div class="aspect-[3/4] overflow-hidden bg-gray-100">
-            <img src={`${base}images/team/stefano-morello.jpg`} alt="Stefano Morello" class="w-full h-full object-cover object-top" />
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden w-full max-w-[320px] group border border-gray-100">
+          <div class="aspect-[3/4] overflow-hidden bg-gray-100 relative">
+            <img src={`${base}images/team/stefano-morello.jpg`} alt="Stefano Morello" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Stefano Morello</h3>
-            <p class="text-blue-600 font-semibold mb-3 text-sm">Assistant Director for Digital Projects</p>
-            <p class="text-gray-600 text-sm mb-3">
+            <h3 class="text-xl font-bold font-display text-neutral-stone mb-1">Stefano Morello</h3>
+            <p class="text-vibrant-600 font-semibold mb-3 text-sm uppercase tracking-wide">Assistant Director</p>
+            <p class="text-gray-600 text-sm leading-relaxed">
               American Social History Project / Center for Media and Learning, CUNY Graduate Center
             </p>
           </div>
         </div>
 
         <!-- Zach Muhlbauer -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow w-full max-w-[280px]">
-          <div class="aspect-[3/4] overflow-hidden bg-gray-100">
-            <img src={`${base}images/team/zach-muhlbauer.jpg`} alt="Zach Muhlbauer" class="w-full h-full object-cover object-center" />
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden w-full max-w-[320px] group border border-gray-100">
+          <div class="aspect-[3/4] overflow-hidden bg-gray-100 relative">
+            <img src={`${base}images/team/zach-muhlbauer.jpg`} alt="Zach Muhlbauer" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Zach Muhlbauer</h3>
-            <p class="text-blue-600 font-semibold mb-3 text-sm">Presidential Research Fellow</p>
-            <p class="text-gray-600 text-sm mb-3">
-              Teaching and Learning Center; Technical Lead, Critical AI Literacy Institute, CUNY Graduate Center
+            <h3 class="text-xl font-bold font-display text-neutral-stone mb-1">Zach Muhlbauer</h3>
+            <p class="text-vibrant-600 font-semibold mb-3 text-sm uppercase tracking-wide">Presidential Research Fellow</p>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              Teaching and Learning Center; Technical Lead, Critical AI Literacy Institute
             </p>
           </div>
         </div>
 
         <!-- Maura Smale -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow w-full max-w-[280px]">
-          <div class="aspect-[3/4] overflow-hidden bg-gray-100">
-            <img src={`${base}images/team/maura-smale.webp`} alt="Maura Smale" class="w-full h-full object-cover object-top" />
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden w-full max-w-[320px] group border border-gray-100">
+          <div class="aspect-[3/4] overflow-hidden bg-gray-100 relative">
+            <img src={`${base}images/team/maura-smale.webp`} alt="Maura Smale" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Maura Smale</h3>
-            <p class="text-blue-600 font-semibold mb-3 text-sm">Executive Chief Librarian</p>
-            <p class="text-gray-600 text-sm mb-3">
+            <h3 class="text-xl font-bold font-display text-neutral-stone mb-1">Maura Smale</h3>
+            <p class="text-vibrant-600 font-semibold mb-3 text-sm uppercase tracking-wide">Executive Chief Librarian</p>
+            <p class="text-gray-600 text-sm leading-relaxed">
               Mina Rees Library, CUNY Graduate Center
             </p>
           </div>
         </div>
 
         <!-- Luke Waltzer -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow w-full max-w-[280px]">
-          <div class="aspect-[3/4] overflow-hidden bg-gray-100">
-            <img src={`${base}images/team/luke-waltzer.jpg`} alt="Luke Waltzer" class="w-full h-full object-cover object-center" />
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden w-full max-w-[320px] group border border-gray-100">
+          <div class="aspect-[3/4] overflow-hidden bg-gray-100 relative">
+            <img src={`${base}images/team/luke-waltzer.jpg`} alt="Luke Waltzer" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Luke Waltzer</h3>
-            <p class="text-blue-600 font-semibold mb-3 text-sm">Director</p>
-            <p class="text-gray-600 text-sm mb-3">
+            <h3 class="text-xl font-bold font-display text-neutral-stone mb-1">Luke Waltzer</h3>
+            <p class="text-vibrant-600 font-semibold mb-3 text-sm uppercase tracking-wide">Director</p>
+            <p class="text-gray-600 text-sm leading-relaxed">
               Teaching and Learning Center, CUNY Graduate Center
             </p>
           </div>
         </div>
 
         <!-- Stephen Zweibel -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow w-full max-w-[280px]">
-          <div class="aspect-[3/4] overflow-hidden bg-gray-100">
-            <img src={`${base}images/team/stephen-zweibel.webp`} alt="Stephen Zweibel" class="w-full h-full object-cover object-center" />
+        <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden w-full max-w-[320px] group border border-gray-100">
+          <div class="aspect-[3/4] overflow-hidden bg-gray-100 relative">
+            <img src={`${base}images/team/stephen-zweibel.webp`} alt="Stephen Zweibel" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900 mb-2">Stephen Zweibel</h3>
-            <p class="text-blue-600 font-semibold mb-3 text-sm">Associate Professor, Digital Scholarship Librarian</p>
-            <p class="text-gray-600 text-sm mb-3">
-              Mina Rees Library, CUNY Graduate Center
+            <h3 class="text-xl font-bold font-display text-neutral-stone mb-1">Stephen Zweibel</h3>
+            <p class="text-vibrant-600 font-semibold mb-3 text-sm uppercase tracking-wide">Associate Professor</p>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              Digital Scholarship Librarian, Mina Rees Library
             </p>
           </div>
         </div>
@@ -115,51 +126,55 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <!-- Collaborating Units -->
-  <section class="py-16 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Collaborating Units</h2>
+      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-12 text-center">Collaborating Units</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-gray-50 p-8 rounded-lg border-l-4 border-blue-600">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
-            <a href="https://gcdi.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600 transition-colors">
-              Graduate Center Digital Initiatives (GCDI) →
+        <div class="bg-neutral-cream p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow group">
+          <h3 class="text-xl font-bold text-neutral-stone mb-3 group-hover:text-vibrant-600 transition-colors">
+            <a href="https://gcdi.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="flex items-center">
+              Graduate Center Digital Initiatives (GCDI)
+              <svg class="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </a>
           </h3>
-          <p class="text-gray-700">
+          <p class="text-gray-600 leading-relaxed">
             Leading digital scholarship initiatives and infrastructure development across CUNY, including the CUNY Academic Commons
             and Commons In A Box projects.
           </p>
         </div>
 
-        <div class="bg-gray-50 p-8 rounded-lg border-l-4 border-green-600">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
-            <a href="https://tlc.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="hover:text-green-600 transition-colors">
-              Teaching and Learning Center (TLC) →
+        <div class="bg-neutral-cream p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow group">
+          <h3 class="text-xl font-bold text-neutral-stone mb-3 group-hover:text-vibrant-600 transition-colors">
+            <a href="https://tlc.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="flex items-center">
+              Teaching and Learning Center (TLC)
+              <svg class="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </a>
           </h3>
-          <p class="text-gray-700">
+          <p class="text-gray-600 leading-relaxed">
             Supporting pedagogical innovation and faculty development, including leadership of the Critical AI Literacy Institute.
           </p>
         </div>
 
-        <div class="bg-gray-50 p-8 rounded-lg border-l-4 border-purple-600">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
-            <a href="https://library.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="hover:text-purple-600 transition-colors">
-              Mina Rees Library →
+        <div class="bg-neutral-cream p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow group">
+          <h3 class="text-xl font-bold text-neutral-stone mb-3 group-hover:text-vibrant-600 transition-colors">
+            <a href="https://library.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="flex items-center">
+              Mina Rees Library
+              <svg class="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </a>
           </h3>
-          <p class="text-gray-700">
+          <p class="text-gray-600 leading-relaxed">
             Providing research support, digital scholarship services, and expertise in information access and management.
           </p>
         </div>
 
-        <div class="bg-gray-50 p-8 rounded-lg border-l-4 border-orange-600">
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
-            <a href="https://ashp.cuny.edu/" target="_blank" rel="noopener noreferrer" class="hover:text-orange-600 transition-colors">
-              American Social History Project / Center for Media and Learning (ASHP/CML) →
+        <div class="bg-neutral-cream p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow group">
+          <h3 class="text-xl font-bold text-neutral-stone mb-3 group-hover:text-vibrant-600 transition-colors">
+            <a href="https://ashp.cuny.edu/" target="_blank" rel="noopener noreferrer" class="flex items-center">
+              American Social History Project / Center for Media and Learning
+              <svg class="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </a>
           </h3>
-          <p class="text-gray-700">
+          <p class="text-gray-600 leading-relaxed">
             Creating educational media and digital history resources, including the Who Built America? project and multimedia history tools.
           </p>
         </div>
@@ -168,15 +183,15 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <!-- CTA Section -->
-  <section class="py-16 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl font-bold text-gray-900 mb-4">
+      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">
         Join Our Initiative
       </h2>
-      <p class="text-lg text-gray-600 mb-8">
+      <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
         Interested in collaborating with the CUNY AI Lab? We welcome faculty, researchers, and students across CUNY.
       </p>
-      <a href={`${base}contact`} class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+      <a href={`${base}contact`} class="inline-block bg-vibrant-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-vibrant-700 transition-all shadow-lg hover:shadow-vibrant-500/30 transform hover:-translate-y-1">
         Get in Touch
       </a>
     </div>

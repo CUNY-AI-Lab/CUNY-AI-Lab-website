@@ -10,30 +10,30 @@ const isActive = (path: string) => {
 };
 
 const linkClass = (path: string) => {
-  const baseClass = "px-3 py-2 rounded-md text-sm font-medium transition-colors";
+  const baseClass = "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200";
   return isActive(path)
-    ? `${baseClass} bg-teal-100 text-teal-800 font-semibold`
-    : `${baseClass} text-gray-700 hover:text-teal-700`;
+    ? `${baseClass} bg-vibrant-50 text-vibrant-700 font-semibold shadow-sm ring-1 ring-vibrant-200`
+    : `${baseClass} text-neutral-stone hover:text-vibrant-600 hover:bg-white/50`;
 };
 
 const mobileLinkClass = (path: string) => {
-  const baseClass = "block px-3 py-2 rounded-md text-base font-medium";
+  const baseClass = "block px-4 py-3 rounded-lg text-base font-medium transition-colors";
   return isActive(path)
-    ? `${baseClass} bg-teal-100 text-teal-800 font-semibold`
-    : `${baseClass} text-gray-700 hover:text-teal-700`;
+    ? `${baseClass} bg-vibrant-50 text-vibrant-700 font-semibold border-l-4 border-vibrant-500`
+    : `${baseClass} text-neutral-stone hover:text-vibrant-600 hover:bg-gray-50`;
 };
 ---
 
-<header class="bg-white shadow-sm sticky top-0 z-50">
+<header class="fixed w-full top-0 z-50 transition-all duration-300 bg-neutral-glass backdrop-blur-md border-b border-white/20 shadow-sm">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
+    <div class="flex justify-between items-center h-20">
       <div class="flex-shrink-0">
-        <a href={base} class="text-2xl font-bold text-gray-900">
+        <a href={base} class="text-2xl font-bold font-display bg-clip-text text-transparent bg-gradient-to-r from-cuny-blue to-vibrant-600 hover:opacity-80 transition-opacity">
           CUNY AI Lab
         </a>
       </div>
       <div class="hidden md:block">
-        <div class="ml-10 flex items-baseline space-x-6">
+        <div class="ml-10 flex items-baseline space-x-8">
           <a href={base} class={linkClass(base)}>
             Home
           </a>
@@ -49,13 +49,13 @@ const mobileLinkClass = (path: string) => {
           <a href={`${base}contact`} class={linkClass(`${base}contact`)}>
             Contact
           </a>
-          <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="bg-teal-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-teal-700 transition-colors">
+          <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="bg-vibrant-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-vibrant-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
             Open WebUI →
           </a>
         </div>
       </div>
       <div class="md:hidden">
-        <button id="mobile-menu-button" class="text-gray-700 hover:text-teal-700 focus:outline-none">
+        <button id="mobile-menu-button" class="text-neutral-stone hover:text-vibrant-600 focus:outline-none p-2 rounded-md hover:bg-vibrant-50 transition-colors">
           <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -65,8 +65,8 @@ const mobileLinkClass = (path: string) => {
   </nav>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden md:hidden">
-    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
+  <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 absolute w-full shadow-xl">
+    <div class="px-4 pt-4 pb-6 space-y-2">
       <a href={base} class={mobileLinkClass(base)}>
         Home
       </a>
@@ -82,9 +82,11 @@ const mobileLinkClass = (path: string) => {
       <a href={`${base}contact`} class={mobileLinkClass(`${base}contact`)}>
         Contact
       </a>
-      <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-base font-medium bg-teal-600 text-white hover:bg-teal-700">
-        Open WebUI →
-      </a>
+      <div class="pt-4 mt-4 border-t border-gray-100">
+        <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="block w-full text-center px-4 py-3 rounded-lg text-base font-semibold bg-vibrant-600 text-white hover:bg-vibrant-700 shadow-md">
+          Open WebUI →
+        </a>
+      </div>
     </div>
   </div>
 </header>

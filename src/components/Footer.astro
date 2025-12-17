@@ -2,41 +2,15 @@
 const base = import.meta.env.BASE_URL;
 ---
 
-<footer class="bg-gray-900 text-white mt-auto">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<footer class="bg-white border-t border-gray-100 py-12 mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- About Section -->
       <div>
-        <h3 class="text-lg font-semibold mb-4">The CUNY AI Lab</h3>
-        <p class="text-gray-300 text-sm">
-          Open academic infrastructure for ethical AI experimentation in research and pedagogy at the City University of New York.
+        <h3 class="text-lg font-bold font-display text-neutral-stone mb-4">CUNY AI Lab</h3>
+        <p class="text-gray-600 text-sm leading-relaxed">
+          Advancing artificial intelligence research and education at the City University of New York.
         </p>
       </div>
-
-      <!-- Quick Links -->
-      <div>
-        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-        <ul class="space-y-2 text-sm">
-          <li><a href={`${base}about`} class="text-gray-300 hover:text-white transition-colors">About</a></li>
-          <li><a href={`${base}tools`} class="text-gray-300 hover:text-white transition-colors">Tools & Projects</a></li>
-          <li><a href={`${base}team`} class="text-gray-300 hover:text-white transition-colors">Team</a></li>
-          <li><a href={`${base}contact`} class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
-        </ul>
-      </div>
-
-      <!-- Resources -->
-      <div>
-        <h3 class="text-lg font-semibold mb-4">Resources</h3>
-        <ul class="space-y-2 text-sm">
-          <li><a href="https://openwebui.cuny.qzz.io/" class="text-gray-300 hover:text-white transition-colors font-semibold" target="_blank" rel="noopener noreferrer">OpenWebUI Platform →</a></li>
-          <li><a href="https://commons.gc.cuny.edu/" class="text-gray-300 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">CUNY Academic Commons</a></li>
-          <li><a href="https://tlc.commons.gc.cuny.edu/" class="text-gray-300 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Teaching & Learning Center</a></li>
-          <li><a href="https://gcdi.commons.gc.cuny.edu/" class="text-gray-300 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">GC Digital Initiatives</a></li>
-          <li><a href="https://library.gc.cuny.edu/" class="text-gray-300 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">Mina Rees Library</a></li>
-          <li><a href="https://github.com/CUNY-AI-Lab" class="text-gray-300 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-        </ul>
-      </div>
-    </div>
 
     <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-300">
       <p>&copy; {new Date().getFullYear()} CUNY AI Lab. All rights reserved.</p>

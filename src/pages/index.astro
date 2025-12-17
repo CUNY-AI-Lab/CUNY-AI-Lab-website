@@ -3,222 +3,223 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
 <BaseLayout title="CUNY AI Lab - Open Academic Infrastructure for Research and Pedagogy">
   <!-- Hero Section -->
-  <section class="relative bg-neutral-cream py-24 overflow-hidden">
-    <!-- Subtle Grid Pattern -->
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#00b8b8 1px, transparent 1px), linear-gradient(90deg, #00b8b8 1px, transparent 1px); background-size: 50px 50px;"></div>
+  <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+    <div class="absolute inset-0 -z-10">
+      <div class="absolute inset-0 bg-neutral-cream"></div>
+      <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-vibrant-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+      <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[600px] h-[600px] bg-cuny-blue rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-vibrant-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+      <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.02]"></div>
+    </div>
 
-    <!-- Decorative Accent Elements -->
-    <div class="absolute top-20 right-10 w-2 h-32 bg-teal-400 rounded-full opacity-40"></div>
-    <div class="absolute bottom-32 left-10 w-2 h-24 bg-teal-600 rounded-full opacity-40"></div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="text-center">
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-neutral-stone">
-          The CUNY AI Lab
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center max-w-4xl mx-auto">
+        <div class="inline-flex items-center rounded-full px-4 py-1.5 mb-8 border border-vibrant-200 bg-vibrant-50/50 backdrop-blur-sm">
+          <span class="flex h-2 w-2 rounded-full bg-vibrant-500 mr-2"></span>
+          <span class="text-sm font-medium text-vibrant-800 tracking-wide">Open Academic Infrastructure</span>
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl font-bold font-display tracking-tight mb-8 leading-tight text-neutral-stone">
+          The <span class="text-transparent bg-clip-text bg-gradient-to-r from-cuny-blue to-vibrant-500">CUNY AI Lab</span>
         </h1>
-        <div class="w-32 h-1.5 bg-gradient-to-r from-teal-400 to-teal-600 mx-auto mb-6 rounded-full"></div>
-        <p class="text-2xl md:text-3xl lg:text-4xl mb-6 text-teal-700 font-semibold max-w-4xl mx-auto leading-snug">
-          Open Academic Infrastructure for Research and Pedagogy
+        
+        <p class="text-xl md:text-2xl text-gray-600 mb-10 leading-relaxed max-w-3xl mx-auto">
+          A faculty and staff-led initiative for ethical AI experimentation, exploring new possibilities for teaching and research at CUNY.
         </p>
-        <p class="text-lg md:text-xl lg:text-2xl mb-10 text-gray-700 max-w-3xl mx-auto leading-relaxed">
-          A faculty and staff-led initiative for ethical AI experimentation at CUNY,
-          exploring new possibilities for teaching and research
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href={`${base}request-access`} class="bg-teal-100 text-teal-900 px-8 py-3 rounded-lg font-semibold hover:bg-teal-200 transition-colors shadow-lg border-2 border-teal-600">
-            Request Access to OpenWebUI
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a href={`${base}request-access`} class="w-full sm:w-auto px-8 py-4 bg-vibrant-600 text-white rounded-full font-semibold hover:bg-vibrant-700 transition-all shadow-lg hover:shadow-vibrant-500/30 transform hover:-translate-y-1">
+            Request Access
           </a>
-          <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="bg-white text-teal-800 px-8 py-3 rounded-lg font-semibold hover:bg-teal-50 transition-colors border-2 border-teal-600">
+          <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 bg-white text-neutral-stone border border-gray-200 rounded-full font-semibold hover:bg-gray-50 transition-all shadow-sm hover:shadow-md">
             Visit OpenWebUI →
           </a>
         </div>
-        <p class="mt-6 text-gray-600 text-sm">
-          Already have access? <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="text-teal-700 underline hover:text-teal-800">Login here</a>
+
+        <p class="mt-8 text-sm text-gray-500">
+          Already have access? <a href="https://openwebui.cuny.qzz.io/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 font-medium hover:underline">Login here</a>
         </p>
       </div>
-    </div>
-  </section>
-
-  <!-- Status Banner -->
-  <section class="py-8 bg-teal-50 border-y border-teal-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-lg text-gray-900">
-        <span class="inline-block bg-teal-700 text-white px-3 py-1 rounded-full text-sm font-semibold mr-2">Now Available</span>
-        Request pilot access to OpenWebUI and our suite of tools.
-      </p>
     </div>
   </section>
 
   <!-- Mission Section -->
-  <section class="py-16 bg-white">
+  <section class="py-24 bg-white relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          An Alternative to Corporate AI
-        </h2>
-        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-          The CUNY AI Lab provides tools built with privacy, sustainability, transparency, and critical thinking
-          at the center—offering a real alternative to commercial AI platforms.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Core Principles -->
-  <section class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-        Our Principles
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Principle 1: Transparent -->
-        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-          <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-teal-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-3">
-            Transparent
-          </h3>
-          <p class="text-gray-600">
-            You can see where AI models come from, how they were trained, and what instructions they follow.
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold font-display text-neutral-stone mb-6">
+            An Alternative to Corporate AI
+          </h2>
+          <div class="w-20 h-1.5 bg-vibrant-500 rounded-full mb-8"></div>
+          <p class="text-lg text-gray-600 leading-relaxed mb-6">
+            The CUNY AI Lab provides tools built with privacy, sustainability, transparency, and critical thinking at the center—offering a real alternative to commercial AI platforms.
+          </p>
+          <p class="text-lg text-gray-600 leading-relaxed">
+            We believe that academic institutions should own and control their own infrastructure, ensuring that AI serves the needs of students and faculty, not shareholders.
           </p>
         </div>
-
-        <!-- Principle 2: Ecologically Responsible -->
-        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-          <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-teal-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+        <div class="relative">
+          <div class="absolute inset-0 bg-gradient-to-tr from-vibrant-100 to-cuny-blue/10 rounded-2xl transform rotate-3"></div>
+          <div class="relative bg-neutral-cream p-8 rounded-2xl border border-gray-100 shadow-xl">
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-vibrant-100 flex items-center justify-center text-vibrant-600">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-lg font-semibold text-neutral-stone">Zero Data Retention</h3>
+                  <p class="text-gray-600 mt-1">Your conversations are never stored or used for training.</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-vibrant-100 flex items-center justify-center text-vibrant-600">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-lg font-semibold text-neutral-stone">Energy Aware</h3>
+                  <p class="text-gray-600 mt-1">Track the environmental impact of your AI usage.</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-vibrant-100 flex items-center justify-center text-vibrant-600">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                </div>
+                <div class="ml-4">
+                  <h3 class="text-lg font-semibold text-neutral-stone">Community Driven</h3>
+                  <p class="text-gray-600 mt-1">Built by and for the CUNY community.</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-3">
-            Ecologically Responsible
-          </h3>
-          <p class="text-gray-600">
-            Track the energy and environmental cost of your AI usage to make informed choices.
-          </p>
-        </div>
-
-        <!-- Principle 3: Community-Oriented -->
-        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-          <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-teal-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-3">
-            Community-Oriented
-          </h3>
-          <p class="text-gray-600">
-            Built through collaboration with CUNY faculty, staff, and students—not imposed from above.
-          </p>
-        </div>
-
-        <!-- Principle 4: Critically-Driven -->
-        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-          <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-teal-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-3">
-            Critically-Driven
-          </h3>
-          <p class="text-gray-600">
-            Encouraging thoughtful questioning about AI's role in teaching and research, not blind adoption.
-          </p>
-        </div>
-
-        <!-- Principle 5: Open-Source -->
-        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-          <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-teal-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-3">
-            Open-Source
-          </h3>
-          <p class="text-gray-600">
-            Built on open-source tools that can be adapted and modified to meet your specific needs.
-          </p>
-        </div>
-
-        <!-- Principle 6: Privacy-Focused -->
-        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-          <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-teal-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-3">
-            Privacy-Focused
-          </h3>
-          <p class="text-gray-600">
-            Your data stays yours. We use zero-retention services that don't store or train on your conversations.
-          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Featured Tools Preview -->
-  <section class="py-16 bg-white">
+  <!-- Principles Grid -->
+  <section class="py-24 bg-neutral-cream">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
-        Tools in Development
-      </h2>
-      <p class="text-lg text-gray-600 mb-12 text-center max-w-3xl mx-auto">
-        Tools for teaching and research, built with CUNY faculty through the Critical AI Literacy Institute (CALI).
-      </p>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-teal-600">
-          <h3 class="text-xl font-semibold text-gray-900 mb-3">AmigAI</h3>
-          <p class="text-gray-600 mb-4">
-            Practice conversational Spanish at your level with an AI language partner.
-          </p>
-          <a href={`${base}tools`} class="text-teal-700 hover:text-teal-800 font-semibold">Learn more →</a>
-        </div>
-
-        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-teal-600">
-          <h3 class="text-xl font-semibold text-gray-900 mb-3">Transcription Suite</h3>
-          <p class="text-gray-600 mb-4">
-            Transcribe audio in multiple languages, with speaker identification and translation for oral history and AV projects.
-          </p>
-          <a href={`${base}tools`} class="text-teal-700 hover:text-teal-800 font-semibold">Learn more →</a>
-        </div>
-
-        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-teal-600">
-          <h3 class="text-xl font-semibold text-gray-900 mb-3">Course Assistants</h3>
-          <p class="text-gray-600 mb-4">
-            AI assistants built specifically for your course, using only your syllabus and readings.
-          </p>
-          <a href={`${base}tools`} class="text-teal-700 hover:text-teal-800 font-semibold">Learn more →</a>
-        </div>
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold font-display text-neutral-stone mb-4">Core Principles</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Guiding values that shape our approach to AI in education.</p>
       </div>
-      <div class="text-center mt-8">
-        <a href={`${base}tools`} class="inline-block bg-teal-100 text-teal-900 px-8 py-3 rounded-lg font-semibold hover:bg-teal-200 transition-colors border-2 border-teal-600">
-          View All Tools
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[
+          {
+            title: "Transparent",
+            desc: "See where models come from, how they were trained, and what instructions they follow.",
+            icon: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+          },
+          {
+            title: "Ecologically Responsible",
+            desc: "Track the energy and environmental cost of your AI usage to make informed choices.",
+            icon: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          },
+          {
+            title: "Community-Oriented",
+            desc: "Built through collaboration with CUNY faculty, staff, and students—not imposed from above.",
+            icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+          },
+          {
+            title: "Critically-Driven",
+            desc: "Encouraging thoughtful questioning about AI's role in teaching and research, not blind adoption.",
+            icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+          },
+          {
+            title: "Open-Source",
+            desc: "Built on open-source tools that can be adapted and modified to meet your specific needs.",
+            icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+          },
+          {
+            title: "Privacy-Focused",
+            desc: "Your data stays yours. We use zero-retention services that don't store or train on your conversations.",
+            icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+          }
+        ].map(principle => (
+          <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group">
+            <div class="w-12 h-12 bg-vibrant-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-vibrant-100 transition-colors">
+              <svg class="w-6 h-6 text-vibrant-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={principle.icon} />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-neutral-stone mb-3">{principle.title}</h3>
+            <p class="text-gray-600 leading-relaxed">{principle.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Tools -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl md:text-4xl font-bold font-display text-neutral-stone mb-4">Tools in Development</h2>
+          <p class="text-lg text-gray-600">
+            Tools for teaching and research, built with CUNY faculty through the Critical AI Literacy Institute (CALI).
+          </p>
+        </div>
+        <a href={`${base}tools`} class="hidden md:inline-flex items-center font-semibold text-vibrant-600 hover:text-vibrant-700 transition-colors">
+          View all tools <span class="ml-2">→</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          {
+            title: "AmigAI",
+            desc: "Practice conversational Spanish at your level with an AI language partner.",
+            color: "border-l-4 border-vibrant-400"
+          },
+          {
+            title: "Transcription Suite",
+            desc: "Transcribe audio in multiple languages, with speaker identification and translation.",
+            color: "border-l-4 border-vibrant-500"
+          },
+          {
+            title: "Course Assistants",
+            desc: "AI assistants built specifically for your course, using only your syllabus and readings.",
+            color: "border-l-4 border-vibrant-600"
+          }
+        ].map(tool => (
+          <div class={`bg-neutral-cream p-8 rounded-xl ${tool.color} hover:shadow-lg transition-shadow`}>
+            <h3 class="text-xl font-bold text-neutral-stone mb-3">{tool.title}</h3>
+            <p class="text-gray-600 mb-6">{tool.desc}</p>
+            <a href={`${base}tools`} class="text-sm font-semibold text-vibrant-700 hover:text-vibrant-800 uppercase tracking-wide">Learn more</a>
+          </div>
+        ))}
+      </div>
+      
+      <div class="mt-8 text-center md:hidden">
+        <a href={`${base}tools`} class="inline-flex items-center font-semibold text-vibrant-600 hover:text-vibrant-700 transition-colors">
+          View all tools <span class="ml-2">→</span>
         </a>
       </div>
     </div>
   </section>
 
   <!-- CTA Section -->
-  <section class="py-16 bg-gradient-to-br from-teal-700 to-teal-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+  <section class="py-24 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-cuny-indigo to-vibrant-900"></div>
+    <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 font-display">
         Join the Initiative
       </h2>
-      <p class="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
+      <p class="text-xl text-vibrant-50 mb-10 leading-relaxed">
         We welcome CUNY faculty, researchers, and students interested in ethical AI experimentation for teaching and research.
       </p>
-      <a href={`${base}contact`} class="inline-block bg-white text-teal-900 px-8 py-3 rounded-lg font-semibold hover:bg-teal-50 transition-colors border-2 border-white">
+      <a href={`${base}contact`} class="inline-block bg-white text-cuny-indigo px-10 py-4 rounded-full font-bold hover:bg-vibrant-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
         Get Involved
       </a>
     </div>
