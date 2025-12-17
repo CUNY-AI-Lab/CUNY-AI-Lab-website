@@ -10,123 +10,44 @@ const base = import.meta.env.BASE_URL;
     <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
     <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[600px] h-[600px] bg-vibrant-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
     <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[600px] h-[600px] bg-cuny-blue rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-    
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
       <h1 class="text-4xl md:text-6xl font-bold font-display text-white mb-6">About the Lab</h1>
-      <p class="text-xl md:text-2xl text-vibrant-50 max-w-3xl mx-auto font-light">Building open, ethical infrastructure for AI in higher education</p>
     </div>
   </section>
 
-  <!-- Introduction -->
+  <!-- Main Content -->
   <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="prose prose-lg max-w-none">
-        <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">Who We Are</h2>
-        <p class="text-gray-600 mb-6 leading-relaxed">
-          The CUNY AI Lab (CAIL) is a faculty and staff-led initiative for artificial intelligence experimentation at CUNY institutions.
-          Funded by the CUNY Office of Academic Affairs, the Lab prioritizes ethical practice and aligns with CUNY's public mission.
+        <p class="text-gray-600 mb-6 leading-relaxed text-lg">
+          The CUNY AI Lab (CAIL) is a faculty- and staff-led initiative for experimentation with AI by CUNY researchers across disciplines. Based at the CUNY Graduate Center, the Lab supports work with AI that prioritizes ethical practice and aligns with CUNY's public mission.
         </p>
-        <p class="text-gray-600 mb-6 leading-relaxed">
-          This initiative addresses the rapid adoption of AI in higher education through infrastructure development, building on
-          earlier initiatives like the Google.org-sponsored Critical AI Literacy Institute and the CUNY Academic Commons, reflecting
-          our institutional commitment to accessible digital infrastructure.
+        <p class="text-gray-600 mb-6 leading-relaxed text-lg">
+          Funded by the CUNY Office of Academic Affairs, CAIL responds to the rapid adoption of AI in higher education by building infrastructure designed around real campus needs. The Lab's work is organized around experimentation and aims to produce purpose-driven projects developed in response to concrete research and teaching questions. Our goal is to deconstruct the discourse around Generative AI as a single, abstract technology, in favor of building a form of literacy that emphasizes user agency and treats AI as a set of techniques that can be prototyped, evaluated, and revised, allowing faculty, staff, and students to be in control of the tools they use.
         </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Our Approach -->
-  <section class="py-20 bg-neutral-cream">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">Our Approach</h2>
-      <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-        <p class="text-gray-600 mb-6 leading-relaxed">
-          We treat AI as a set of techniques that can be prototyped, evaluated, and revised. This approach enables users to maintain
-          agency and control over these tools rather than viewing AI as a monolithic technology.
+        <p class="text-gray-600 mb-6 leading-relaxed text-lg">
+          CAIL draws on recent work such as the Google.org-sponsored Critical AI Literacy Institute (CALI), as well as initiatives like the CUNY Academic Commons and Manifold Scholarship, which reflect CUNY's longstanding commitment to creating accessible, scalable digital infrastructure. Building on these efforts, we are piloting CAIL in a select number of courses across CUNY and working toward broader access over time. As we scale, we are committed to developing infrastructure grounded in privacy, sustainability, transparency, and critical thinking—and to providing CUNY faculty, staff, and students with reliable access to AI tools that make retention policies, model selection, and evaluation practices explicit.
         </p>
-        <p class="text-gray-600 leading-relaxed">
-          Through transparent practices and open tools, we put faculty and students in control of how AI tools are developed and used
-          in their classrooms and research, while promoting awareness of the environmental and data privacy implications of AI use.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Technical Architecture -->
-  <section class="py-20 bg-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">Technical Architecture</h2>
-      <p class="text-gray-600 mb-8 leading-relaxed">
-        Our goal is to provide CUNY faculty and students with reliable access to AI models through zero-retention API services,
-        accessed through a dedicated OpenWebUI instance. This approach is more cost-effective than local hardware and has been
-        successfully implemented at institutions like Johannes Gutenberg University Mainz and Cornell University.
-      </p>
-      
-      <div class="bg-vibrant-50 border-l-4 border-vibrant-500 p-8 rounded-r-xl mb-8">
-        <h3 class="text-xl font-bold text-vibrant-900 mb-3">OpenWebUI Platform</h3>
-        <p class="text-vibrant-800 leading-relaxed">
-          OpenWebUI is an open-source, modular platform that offers a unified interface layer between users and AI models.
-          It's model-agnostic, maintaining robust support for model evaluation and customization, enabling faculty to package
-          entire AI configurations as shareable, citable academic tools.
-        </p>
-      </div>
-      
-      <p class="text-gray-600 mb-6 leading-relaxed">
-        We maintain a collection of open-weight, auditable AI models suited to specific teaching and research tasks. The platform
-        displays energy and CO₂ estimates for each use and supports accessibility features including text-to-speech, speech-to-text,
-        and upcoming screen-reader compatibility.
-      </p>
-    </div>
-  </section>
-
-  <!-- Partnerships -->
-  <section class="py-20 bg-neutral-cream">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-8">Partnerships & Collaboration</h2>
-      <p class="text-gray-600 mb-8">
-        The CUNY AI Lab is jointly administered by:
-      </p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
-          <h3 class="text-lg font-bold text-neutral-stone mb-2">Graduate Center Digital Initiatives (GCDI)</h3>
-          <p class="text-gray-600 text-sm">Leading digital scholarship and infrastructure development</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
-          <h3 class="text-lg font-bold text-neutral-stone mb-2">Teaching and Learning Center (TLC)</h3>
-          <p class="text-gray-600 text-sm">Supporting pedagogical innovation and faculty development</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
-          <h3 class="text-lg font-bold text-neutral-stone mb-2">Mina Rees Library</h3>
-          <p class="text-gray-600 text-sm">Providing research support and digital resources</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100">
-          <h3 class="text-lg font-bold text-neutral-stone mb-2">American Social History Project / Center for Media and Learning (ASHP/CML)</h3>
-          <p class="text-gray-600 text-sm">Creating educational media and digital history resources</p>
-        </div>
-      </div>
-      
-      <div class="bg-white border border-vibrant-200 p-8 rounded-xl shadow-sm">
-        <h3 class="text-xl font-bold text-vibrant-900 mb-3">Critical AI Literacy Institute (CALI)</h3>
-        <p class="text-gray-600 leading-relaxed">
-          A three-year initiative led by the TLC that recruits CUNY faculty to develop AI curricula through interdisciplinary
-          seminars and summer institutes. The Lab collaborates closely with CALI to develop and deploy tools based on faculty needs.
+        <p class="text-gray-600 mb-6 leading-relaxed text-lg">
+          CAIL is jointly administered by Graduate Center Digital Initiatives (GCDI), the Teaching and Learning Center (TLC), the Mina Rees Library, and the American Social History Project / Center for Media and Learning (ASHP/CML). <a href={`${base}team`} class="text-vibrant-600 hover:text-vibrant-700 underline">Learn more about our team</a>.
         </p>
       </div>
     </div>
   </section>
 
   <!-- CTA Section -->
-  <section class="py-20 bg-white">
+  <section class="py-20 bg-neutral-cream">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">
         Get Involved
       </h2>
       <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-        Interested in participating in the CUNY AI Lab initiative? We invite faculty, researchers, and students to explore our tools, get involved, and join us in shaping ethical AI use in higher education.
+        Interested in participating in the CUNY AI Lab initiative? We welcome collaboration from faculty, researchers, and students across CUNY.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a href={`${base}contact`} class="inline-block bg-vibrant-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-vibrant-700 transition-all shadow-lg hover:shadow-vibrant-500/30 transform hover:-translate-y-1">
-          Contact the Team
+          Contact Us
         </a>
         <a href={`${base}tools`} class="inline-block bg-white text-vibrant-600 border-2 border-vibrant-600 px-8 py-3 rounded-full font-semibold hover:bg-vibrant-50 transition-colors">
           Explore Our Tools
