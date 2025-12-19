@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PasswordGate from '../components/PasswordGate.astro';
 
 interface Props {
   title?: string;
@@ -29,6 +30,7 @@ const {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   </head>
   <body class="flex flex-col min-h-screen bg-neutral-cream font-sans text-neutral-stone selection:bg-vibrant-200 selection:text-vibrant-900">
+    <PasswordGate />
     <Header />
     <main class="flex-grow">
       <slot />
