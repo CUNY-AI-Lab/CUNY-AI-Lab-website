@@ -6,14 +6,14 @@ export default {
 			colors: {
 				'logo': {
 					'navy': '#1D3A83',      // Logo dark navy
-					'blue': '#2A86FF',      // Logo bright blue
-					'azure': '#1C79B6',     // Logo medium blue
-					'teal': '#2BB7C6',      // Logo teal/cyan
+					'blue': '#3B73E6',      // Logo bright blue
+					'azure': '#2A6FB8',     // Logo medium blue
+					'teal': '#2FB8D6',      // Logo teal/cyan
 				},
 				'cuny': {
 					'blue': '#1D3A83',      // Logo navy for hero backgrounds
 					'indigo': '#0f172a',    // Deep dark blue
-					'azure': '#1C79B6',     // Logo medium blue
+					'azure': '#2A6FB8',     // Logo medium blue
 					'gold': '#ffb81c',      // Gold accent
 					'cream': '#fffcd5',     // Cream
 					'pearl': '#f7f4eb',     // Pearl
@@ -36,10 +36,10 @@ export default {
 					'100': '#d1e9f9',
 					'200': '#a3d3f3',
 					'300': '#5ab8e8',
-					'400': '#2BB7C6',       // Logo teal - accents
-					'500': '#2A86FF',       // Logo bright blue
-					'600': '#2A86FF',       // Primary CTA color
-					'700': '#1C79B6',       // Logo medium blue - hover
+					'400': '#2FB8D6',       // Logo teal - accents
+					'500': '#3B73E6',       // Logo bright blue
+					'600': '#3B73E6',       // Primary CTA color
+					'700': '#2A6FB8',       // Logo medium blue - hover
 					'800': '#1D3A83',       // Logo navy
 					'900': '#162d66',
 					'950': '#0f1d40',
