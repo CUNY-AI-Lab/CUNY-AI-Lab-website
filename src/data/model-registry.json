@@ -1,6 +1,16 @@
 {
   "registry_version": "1.0",
   "updated_at": "2026-01-09",
+  "license_taxonomy": {
+    "license_family_enum": [
+      "permissive",
+      "permissive_modified",
+      "community",
+      "restricted_terms",
+      "unknown"
+    ],
+    "notes": "license_family describes how permissive the model-weights terms are; it is not a claim about training-data openness."
+  },
   "models": [
     {
       "key": "deepseek-v3.2",
@@ -8,21 +18,23 @@
       "vendor": "DeepSeek",
       "family": "DeepSeek V3",
       "variant": "V3.2",
-      "modality": ["text"],
+      "modality": [
+        "text"
+      ],
       "parameters": {
         "total_b": 685,
         "active_b": null,
         "architecture": "MoE",
-        "notes": "Total parameter count commonly reported; active parameters vary by routing and provider."
+        "notes": "MoE checkpoint. Routed-expert config is exposed in the model config (e.g., routed experts + top-k routing). 'Active parameters' are not stated in the sources reviewed."
       },
       "context_window_tokens": 128000,
       "capabilities": {
         "vision": false,
         "tool_calling": true,
-        "structured_output": "unknown"
+        "structured_output": true
       },
-      "open_weights": "unknown",
-      "license": "unknown",
+      "open_weights": true,
+      "license": "MIT",
       "best_for": [
         "general academic writing and revision",
         "coding assistance and debugging",
@@ -45,7 +57,30 @@
         "long_context",
         "tool_use"
       ],
-      "ui_badges": ["Long context", "Tool use"]
+      "ui_badges": [
+        "Long context",
+        "Tool use"
+      ],
+      "licensing": {
+        "weights": {
+          "license_id": "MIT",
+          "license_family": "permissive",
+          "requires_clickthrough": false,
+          "gated_weights_download": false,
+          "license_url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2/blob/main/LICENSE",
+          "notes": "Weights are distributed with an MIT License file in the official Hugging Face repository. If accessed via a hosted provider, separate provider terms may apply."
+        },
+        "code": {
+          "license_id": "MIT",
+          "license_url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2/blob/main/LICENSE"
+        }
+      },
+      "license_id": "MIT",
+      "license_family": "permissive",
+      "requires_clickthrough": false,
+      "gated_weights_download": false,
+      "context_window_tokens_max": 163840,
+      "context_window_notes": "DeepSeek API advertises 128K context for V3.2; the checkpoint config indicates max_position_embeddings=163840, and some providers may expose a higher limit."
     },
     {
       "key": "kimi-k2-thinking",
@@ -53,12 +88,14 @@
       "vendor": "MoonshotAI",
       "family": "Kimi K2",
       "variant": "Thinking",
-      "modality": ["text"],
+      "modality": [
+        "text"
+      ],
       "parameters": {
         "total_b": 1000,
         "active_b": 32,
         "architecture": "MoE",
-        "notes": "MoE: 1T total / 32B active commonly listed by providers."
+        "notes": "Hugging Face model card lists: Mixture-of-Experts (MoE), Total Parameters 1T, Activated Parameters 32B."
       },
       "context_window_tokens": 256000,
       "capabilities": {
@@ -66,8 +103,8 @@
         "tool_calling": true,
         "structured_output": "unknown"
       },
-      "open_weights": false,
-      "license": "proprietary",
+      "open_weights": true,
+      "license": "Modified MIT",
       "best_for": [
         "very long-document reading and synthesis",
         "multi-document comparison (policies, articles, book chapters)",
@@ -76,7 +113,8 @@
       ],
       "strengths": [
         "excellent at staying coherent with very large context",
-        "strong reasoning mode for complex, multi-step tasks"
+        "strong reasoning mode for complex, multi-step tasks",
+        "explicitly designed for long-horizon tool use"
       ],
       "limitations": [
         "no image input",
@@ -88,20 +126,43 @@
         "synthesis",
         "tool_use"
       ],
-      "ui_badges": ["Very long context", "Tool use"]
+      "ui_badges": [
+        "Very long context",
+        "Tool use"
+      ],
+      "licensing": {
+        "weights": {
+          "license_id": "modified-mit",
+          "license_family": "permissive_modified",
+          "requires_clickthrough": false,
+          "gated_weights_download": false,
+          "license_url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking/blob/main/LICENSE",
+          "notes": "MIT-like terms with additional branding/trademark notice requirements for very large commercial products (see LICENSE). Hosted services may impose additional API/service terms."
+        },
+        "code": {
+          "license_id": "modified-mit",
+          "license_url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking/blob/main/LICENSE"
+        }
+      },
+      "license_id": "modified-mit",
+      "license_family": "permissive_modified",
+      "requires_clickthrough": false,
+      "gated_weights_download": false
     },
     {
       "key": "glm-4.6",
       "display_name": "GLM 4.6",
-      "vendor": "Z.AI (Zhipu)",
+      "vendor": "Z.ai (Zhipu AI)",
       "family": "GLM",
       "variant": "4.6",
-      "modality": ["text"],
+      "modality": [
+        "text"
+      ],
       "parameters": {
-        "total_b": 357,
-        "active_b": null,
-        "architecture": "unknown",
-        "notes": "Parameter count commonly listed by providers; architecture details vary."
+        "total_b": 355,
+        "active_b": 32,
+        "architecture": "MoE",
+        "notes": "Z.ai repo documents GLM-4.6 as 355B total / 32B active (\"355B-A32B\"), while Hugging Face UI displays model size as 357B params; treat as a counting/measurement difference across sources."
       },
       "context_window_tokens": 200000,
       "capabilities": {
@@ -109,8 +170,8 @@
         "tool_calling": true,
         "structured_output": "unknown"
       },
-      "open_weights": false,
-      "license": "proprietary",
+      "open_weights": true,
+      "license": "MIT",
       "best_for": [
         "long-context writing and analysis",
         "multilingual drafting and translation workflows",
@@ -119,7 +180,7 @@
       ],
       "strengths": [
         "strong long-context handling",
-        "good multilingual coverage (provider-dependent)"
+        "supports tool use during inference"
       ],
       "limitations": [
         "no image input",
@@ -131,7 +192,28 @@
         "general",
         "tool_use"
       ],
-      "ui_badges": ["Long context", "Tool use"]
+      "ui_badges": [
+        "Long context",
+        "Tool use"
+      ],
+      "licensing": {
+        "weights": {
+          "license_id": "MIT",
+          "license_family": "permissive",
+          "requires_clickthrough": false,
+          "gated_weights_download": false,
+          "license_url": "https://huggingface.co/zai-org/GLM-4.6",
+          "notes": "Hugging Face lists the model license as MIT."
+        },
+        "code": {
+          "license_id": "Apache-2.0",
+          "license_url": "https://github.com/zai-org/GLM-4.5/blob/main/LICENSE"
+        }
+      },
+      "license_id": "MIT",
+      "license_family": "permissive",
+      "requires_clickthrough": false,
+      "gated_weights_download": false
     },
     {
       "key": "gpt-oss-120b",
@@ -139,21 +221,23 @@
       "vendor": "OpenAI",
       "family": "gpt-oss",
       "variant": "120b",
-      "modality": ["text"],
+      "modality": [
+        "text"
+      ],
       "parameters": {
-        "total_b": 117,
+        "total_b": 116.8,
         "active_b": 5.1,
         "architecture": "MoE",
-        "notes": "Often described as ~117B total with ~5.1B active."
+        "notes": "OpenAI docs round this as 117B total parameters with 5.1B active; the model card reports 116.8B total / 5.1B active."
       },
       "context_window_tokens": 131072,
       "capabilities": {
         "vision": false,
         "tool_calling": true,
-        "structured_output": "unknown"
+        "structured_output": true
       },
       "open_weights": true,
-      "license": "unknown",
+      "license": "Apache-2.0 (+ gpt-oss usage policy)",
       "best_for": [
         "reproducible open-weights workflows",
         "structured outputs and schema-following tasks",
@@ -162,11 +246,12 @@
       ],
       "strengths": [
         "open-weights option with strong instruction-following",
-        "good candidate for standardized evaluation across courses/projects"
+        "native support for function calling and structured outputs"
       ],
       "limitations": [
         "no image input",
-        "tool-calling behavior depends on provider/template"
+        "tool-calling behavior depends on runtime/template",
+        "availability depends on your hosting/runtime (not served through the OpenAI API per OpenAI help docs)"
       ],
       "tags": [
         "open_weights",
@@ -175,7 +260,30 @@
         "tool_use",
         "evaluation_baseline"
       ],
-      "ui_badges": ["Open weights", "Tool use"]
+      "ui_badges": [
+        "Open weights",
+        "Tool use"
+      ],
+      "licensing": {
+        "weights": {
+          "license_id": "Apache-2.0",
+          "license_family": "permissive",
+          "requires_clickthrough": false,
+          "gated_weights_download": false,
+          "license_url": "https://openai.com/index/gpt-oss-model-card/",
+          "notes": "OpenAI states the model is available under Apache 2.0 plus a gpt-oss usage policy (additional constraints beyond the OSS license)."
+        },
+        "usage_policy": {
+          "name": "gpt-oss usage policy",
+          "reference_url": "https://openai.com/index/gpt-oss-model-card/",
+          "notes": "OpenAI describes use as governed by both Apache 2.0 and a gpt-oss usage policy; see model card / help center for details."
+        }
+      },
+      "license_id": "Apache-2.0",
+      "license_family": "permissive",
+      "requires_clickthrough": false,
+      "gated_weights_download": false,
+      "availability_notes": "OpenAI positions gpt-oss weights for use on infrastructure you control or via hosting providers; OpenAI help docs state they are not served through the OpenAI API."
     },
     {
       "key": "qwen3-235b-a22b",
@@ -183,22 +291,26 @@
       "vendor": "Qwen (Alibaba)",
       "family": "Qwen3",
       "variant": "235B A22B",
-      "modality": ["text"],
+      "modality": [
+        "text"
+      ],
       "parameters": {
         "total_b": 235,
         "active_b": 22,
         "architecture": "MoE",
-        "notes": "MoE: 235B total / 22B active."
+        "notes": "Model card lists 235B total / 22B activated; 128 experts with 8 activated experts."
       },
       "context_window_tokens": 32768,
+      "context_window_tokens_extended": 131072,
+      "context_window_notes": "32,768 tokens native; model card documents validation up to 131,072 tokens with YaRN (RoPE scaling). Provider may or may not enable this by default.",
       "capabilities": {
         "vision": false,
         "tool_calling": true,
         "structured_output": "unknown",
         "reasoning_mode": true
       },
-      "open_weights": "unknown",
-      "license": "unknown",
+      "open_weights": true,
+      "license": "Apache-2.0",
       "best_for": [
         "tool-using agents (multi-step workflows with external actions)",
         "multilingual tutoring and writing support",
@@ -206,13 +318,13 @@
         "classification/extraction plus summarization pipelines"
       ],
       "strengths": [
-        "strong agent/tool behavior when templates are set up well",
-        "good multilingual breadth",
-        "useful reasoning-mode variant"
+        "supports switching between thinking and non-thinking modes",
+        "explicit agent/tool-calling guidance in model docs",
+        "strong multilingual and instruction-following focus"
       ],
       "limitations": [
         "no image input",
-        "native context is smaller than the 128K+ long-context models unless using provider extensions"
+        "native context is 32K; 131K requires YaRN/RoPE scaling support in the serving stack"
       ],
       "tags": [
         "agentic",
@@ -221,7 +333,24 @@
         "reasoning",
         "coding"
       ],
-      "ui_badges": ["Tool use", "Reasoning mode"]
+      "ui_badges": [
+        "Tool use",
+        "Reasoning mode"
+      ],
+      "licensing": {
+        "weights": {
+          "license_id": "Apache-2.0",
+          "license_family": "permissive",
+          "requires_clickthrough": false,
+          "gated_weights_download": false,
+          "license_url": "https://huggingface.co/Qwen/Qwen3-235B-A22B",
+          "notes": "Model page lists license as Apache-2.0."
+        }
+      },
+      "license_id": "Apache-2.0",
+      "license_family": "permissive",
+      "requires_clickthrough": false,
+      "gated_weights_download": false
     },
     {
       "key": "gemma-3-27b-it",
@@ -229,21 +358,24 @@
       "vendor": "Google",
       "family": "Gemma 3",
       "variant": "27B IT",
-      "modality": ["text", "image"],
+      "modality": [
+        "text",
+        "image"
+      ],
       "parameters": {
         "total_b": 27,
         "active_b": null,
-        "architecture": "dense",
-        "notes": "Instruction-tuned variant; multimodal capability depends on deployment."
+        "architecture": "dense (decoder-only transformer)",
+        "notes": "Gemma 3 uses a decoder-only transformer LM with a SigLIP vision encoder for multimodal variants. Technical report parameter breakdown for 27B: vision encoder 417M, embedding params 1,416M, non-embedding params 25,600M."
       },
       "context_window_tokens": 128000,
       "capabilities": {
         "vision": true,
-        "tool_calling": "unknown",
-        "structured_output": "unknown"
+        "tool_calling": true,
+        "structured_output": "prompted"
       },
       "open_weights": true,
-      "license": "unknown",
+      "license": "Gemma Terms of Use",
       "best_for": [
         "everyday writing, summarization, and tutoring-style explanations",
         "image-based interpretation (figures, screenshots, diagrams) when enabled",
@@ -251,21 +383,41 @@
         "drafting and revision with long context"
       ],
       "strengths": [
-        "vision-capable open model (deployment-dependent)",
+        "multimodal (image+text→text) for the 27B size",
         "strong quality-to-size tradeoff",
-        "good long-context support"
+        "128K input context for 27B"
       ],
       "limitations": [
-        "vision availability depends on the exact endpoint/model variant served",
-        "tool calling may require prompting conventions depending on provider"
+        "weights are open but under restricted Terms of Use (not OSI open source)",
+        "function/tool calling and structured outputs depend on the runtime/template implementation"
       ],
       "tags": [
         "open_weights",
         "vision",
         "general",
-        "long_context"
+        "long_context",
+        "tool_use"
       ],
-      "ui_badges": ["Open weights", "Vision", "Long context"]
+      "ui_badges": [
+        "Open weights",
+        "Vision",
+        "Long context",
+        "Tool use"
+      ],
+      "licensing": {
+        "weights": {
+          "license_id": "gemma",
+          "license_family": "restricted_terms",
+          "requires_clickthrough": true,
+          "gated_weights_download": true,
+          "license_url": "https://ai.google.dev/gemma/terms",
+          "notes": "Access on Hugging Face requires agreeing to Google's usage license; redistribution must carry the Terms and enforce use restrictions."
+        }
+      },
+      "license_id": "gemma",
+      "license_family": "restricted_terms",
+      "requires_clickthrough": true,
+      "gated_weights_download": true
     },
     {
       "key": "llama-3.1-70b-instruct",
@@ -273,21 +425,23 @@
       "vendor": "Meta",
       "family": "Llama 3.1",
       "variant": "70B Instruct",
-      "modality": ["text"],
+      "modality": [
+        "text"
+      ],
       "parameters": {
         "total_b": 70,
         "active_b": null,
-        "architecture": "dense",
-        "notes": "Standard dense 70B class model."
+        "architecture": "dense (autoregressive transformer, GQA)",
+        "notes": "Meta model card describes Llama 3.1 as an autoregressive transformer; 70B is the text-only instruct-tuned size."
       },
       "context_window_tokens": 128000,
       "capabilities": {
         "vision": false,
-        "tool_calling": "unknown",
-        "structured_output": "unknown"
+        "tool_calling": true,
+        "structured_output": "prompted"
       },
       "open_weights": true,
-      "license": "unknown",
+      "license": "Llama 3.1 Community License",
       "best_for": [
         "general academic chat and drafting",
         "revision and editorial assistance",
@@ -295,20 +449,42 @@
         "evaluation baseline for comparisons across tasks"
       ],
       "strengths": [
-        "reliable open model with strong general performance",
-        "good baseline for side-by-side evaluation"
+        "reliable open-weights baseline with strong general performance",
+        "128K context for long prompts and multi-document work",
+        "documented tool-use prompting formats (serving-stack dependent)"
       ],
       "limitations": [
         "no image input",
-        "tool calling depends on serving stack and prompt template"
+        "tool calling depends on serving stack and prompt template",
+        "structured JSON/schema adherence is not guaranteed without runtime enforcement"
       ],
       "tags": [
         "open_weights",
         "general",
         "long_context",
-        "evaluation_baseline"
+        "evaluation_baseline",
+        "tool_use"
       ],
-      "ui_badges": ["Open weights", "Long context"]
+      "ui_badges": [
+        "Open weights",
+        "Long context",
+        "Tool use"
+      ],
+      "licensing": {
+        "weights": {
+          "license_id": "llama3.1",
+          "license_family": "community",
+          "requires_clickthrough": true,
+          "gated_weights_download": true,
+          "license_url": "https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct/blob/main/LICENSE",
+          "notes": "Distributed under the Llama 3.1 Community License (redistribution + attribution requirements, incorporates the Acceptable Use Policy, and includes additional commercial terms such as an MAU threshold clause)."
+        },
+        "policy_url": "https://www.llama.com/llama3_1/use-policy/"
+      },
+      "license_id": "llama3.1",
+      "license_family": "community",
+      "requires_clickthrough": true,
+      "gated_weights_download": true
     }
   ]
 }

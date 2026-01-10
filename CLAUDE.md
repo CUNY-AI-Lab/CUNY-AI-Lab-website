@@ -12,18 +12,22 @@ npm run preview  # Preview production build locally
 
 ## Architecture
 
-This is an Astro static site using Tailwind CSS. Deploys automatically to GitHub Pages on push to main.
+Astro static site with Tailwind CSS. Auto-deploys to GitHub Pages (cunyailab.org) on push to main.
 
 **Structure:**
-- `src/layouts/BaseLayout.astro` - Main layout wrapper (includes Header, Footer, fonts, favicon)
-- `src/components/` - Header.astro, Footer.astro
-- `src/pages/` - Route pages (index, about, tools, team, contact, request-access)
-- `public/images/` - Static assets including logo and partner logos
+- `src/layouts/BaseLayout.astro` - Main layout wrapper (Header, Footer, fonts, favicon)
+- `src/components/` - Header.astro, Footer.astro, PasswordGate.astro
+- `src/pages/` - Route pages (index, about, tools, models, team, contact, request-access)
+- `src/data/` - JSON data files (model-registry.json)
+- `public/images/` - Static assets (logos, partner logos)
 - `tailwind.config.mjs` - Color palette and theme configuration
 
-**Color System (defined in tailwind.config.mjs):**
-- `vibrant-600` (#2A86FF) - Primary CTA buttons
-- `vibrant-700` (#1C79B6) - Button hover states
+**Data Files:**
+- `src/data/model-registry.json` - Model registry data displayed on /models page. Update `updated_at` field when modifying.
+
+**Color System (tailwind.config.mjs):**
+- `vibrant-600` (#3B73E6) - Primary CTA buttons
+- `vibrant-700` (#2A6FB8) - Button hover states
 - `cuny-blue` (#1D3A83) - Hero section backgrounds
 - `neutral-stone` (#333333) - Body text
 - `neutral-cream` (#FAFCF8) - Page backgrounds
@@ -33,8 +37,16 @@ This is an Astro static site using Tailwind CSS. Deploys automatically to GitHub
 - Body: Inter (via `font-sans`)
 
 **URL Handling:**
-All internal links use `${base}` prefix from `import.meta.env.BASE_URL` for correct path resolution.
+All internal links must use `${base}` prefix from `import.meta.env.BASE_URL` for correct path resolution.
 
-## Deployment
+**JSON Data Loading:**
+Use `fs.readFileSync` in Astro frontmatter to load JSON files from `src/data/`:
+```javascript
+import fs from 'node:fs';
+import path from 'node:path';
+const jsonPath = path.join(process.cwd(), 'src/data/filename.json');
+const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+```
 
-Pushes to `main` trigger GitHub Actions workflow that builds and deploys to GitHub Pages at cunyailab.org.
+**Client-side Scripts:**
+Use `<script is:inline>` for vanilla JavaScript. Avoid TypeScript syntax in inline scripts.
