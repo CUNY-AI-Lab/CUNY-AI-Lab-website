@@ -1,0 +1,521 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const base = import.meta.env.BASE_URL;
+
+// Load model registry at build time
+const jsonPath = path.join(process.cwd(), 'src/data/model-registry.json');
+const modelData = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+const models = modelData.models;
+const updatedAt = modelData.updated_at;
+
+// Helper to get license family display info
+function getLicenseFamilyInfo(family: string) {
+  const families: Record<string, { label: string; color: string; bg: string; border: string }> = {
+    'permissive': { label: 'Permissive', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
+    'permissive_modified': { label: 'Permissive+', color: 'text-teal-700', bg: 'bg-teal-50', border: 'border-teal-200' },
+    'community': { label: 'Community', color: 'text-blue-700', bg: 'bg-blue-50', border: 'border-blue-200' },
+    'restricted_terms': { label: 'Restricted', color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200' },
+    'unknown': { label: 'Unknown', color: 'text-gray-600', bg: 'bg-gray-100', border: 'border-gray-200' }
+  };
+  return families[family] || families['unknown'];
+}
+
+// Helper for structured output display
+function getStructuredOutputInfo(value: any) {
+  if (value === true) return { label: 'Native', color: 'text-emerald-600', dot: 'bg-emerald-500' };
+  if (value === 'prompted') return { label: 'Prompted', color: 'text-blue-600', dot: 'bg-blue-500' };
+  return { label: 'Unknown', color: 'text-gray-400', dot: 'bg-gray-300' };
+}
+---
+
+<BaseLayout title="Model Registry (List View) - CUNY AI Lab">
+  <!-- Hero Section - Compact -->
+  <section class="relative pt-24 pb-8 lg:pt-28 lg:pb-10">
+    <div class="absolute inset-0 bg-gradient-to-br from-cuny-blue via-logo-navy to-vibrant-900"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 20%, rgba(59, 115, 230, 0.15) 0%, transparent 50%);"></div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="px-2.5 py-1 bg-vibrant-500/20 text-vibrant-300 text-xs font-medium rounded-full border border-vibrant-400/30">
+              List View
+            </span>
+            <a href={`${base}models`} class="text-vibrant-300/70 hover:text-vibrant-200 text-xs transition-colors">
+              Switch to Grid View →
+            </a>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold font-display text-white tracking-tight">Model Registry</h1>
+          <p class="mt-2 text-vibrant-200/80 text-base max-w-xl">
+            Auditable AI models for teaching and research.
+          </p>
+        </div>
+        <a href={`${base}models/guide`} class="hidden sm:flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-vibrant-200 hover:text-white text-sm font-medium transition-all border border-white/10">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          Guide
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky Filter Bar -->
+  <section class="py-4 bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        <!-- Search -->
+        <div class="relative flex-1 max-w-sm">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search models..."
+            class="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50/50"
+          />
+        </div>
+
+        <!-- Filter Pills -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button data-filter="open_weights" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-400 hover:text-vibrant-600 transition-all">
+            Open
+          </button>
+          <button data-filter="vision" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-purple-400 hover:text-purple-600 transition-all">
+            Vision
+          </button>
+          <button data-filter="tool_use" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-blue-400 hover:text-blue-600 transition-all">
+            Tools
+          </button>
+          <button data-filter="long_context" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-amber-400 hover:text-amber-600 transition-all">
+            Long Context
+          </button>
+          <button data-filter="permissive" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-400 transition-all">
+            Permissive
+          </button>
+          <div class="h-4 w-px bg-gray-200 mx-1"></div>
+          <span id="results-count" class="text-xs text-gray-500">{models.length} models</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Single Column Model List -->
+  <section class="py-6 bg-gradient-to-b from-gray-50 to-neutral-cream min-h-[60vh]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="models-list" class="space-y-3">
+        {models.map((model: any, index: number) => {
+          const licenseInfo = getLicenseFamilyInfo(model.license_family);
+          const structuredInfo = getStructuredOutputInfo(model.capabilities.structured_output);
+          const hasExtendedContext = model.context_window_tokens_extended || model.context_window_tokens_max;
+
+          return (
+            <article
+              class="model-card group bg-white rounded-xl border border-gray-100 hover:border-vibrant-300 hover:shadow-lg transition-all duration-200 overflow-hidden"
+              data-name={model.display_name.toLowerCase()}
+              data-vendor={model.vendor.toLowerCase()}
+              data-license={model.license_id?.toLowerCase() || ''}
+              data-tags={model.tags.join(',')}
+              data-open-weights={model.open_weights === true ? 'true' : 'false'}
+              data-vision={model.capabilities.vision === true ? 'true' : 'false'}
+              data-tool-use={model.capabilities.tool_calling === true ? 'true' : 'false'}
+              data-structured-output={model.capabilities.structured_output === true || model.capabilities.structured_output === 'prompted' ? 'true' : 'false'}
+              data-long-context={model.context_window_tokens >= 100000 ? 'true' : 'false'}
+              data-license-family={model.license_family || 'unknown'}
+              data-permissive={model.license_family === 'permissive' || model.license_family === 'permissive_modified' ? 'true' : 'false'}
+              data-no-clickthrough={model.requires_clickthrough === false ? 'true' : 'false'}
+              style={`animation-delay: ${index * 30}ms`}
+            >
+              <!-- Main Row -->
+              <div class="p-4 sm:p-5">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+
+                  <!-- Left: Identity -->
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-3">
+                      <h3 class="font-bold text-lg text-neutral-stone font-display group-hover:text-vibrant-600 transition-colors truncate">
+                        {model.display_name}
+                      </h3>
+                      {model.requires_clickthrough === false && model.open_weights === true && (
+                        <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-sm">
+                          Open
+                        </span>
+                      )}
+                      {model.requires_clickthrough === true && (
+                        <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-700 border border-amber-200">
+                          Gated
+                        </span>
+                      )}
+                    </div>
+                    <div class="flex items-center gap-2 mt-1">
+                      <span class="text-sm text-gray-500">{model.vendor}</span>
+                      <span class="text-gray-300">·</span>
+                      <span class={`text-xs ${licenseInfo.color}`}>{model.license_id}</span>
+                    </div>
+                  </div>
+
+                  <!-- Center: Key Specs (horizontal on desktop) -->
+                  <div class="flex items-center gap-6 text-sm">
+                    <!-- Parameters -->
+                    <div class="text-center">
+                      <div class="font-bold text-neutral-stone">{model.parameters.total_b}B</div>
+                      <div class="text-xs text-gray-400">
+                        {model.parameters.active_b ? `${model.parameters.active_b}B active` : model.parameters.architecture}
+                      </div>
+                    </div>
+
+                    <!-- Context -->
+                    <div class="text-center">
+                      <div class="font-bold text-neutral-stone">{(model.context_window_tokens / 1000).toFixed(0)}K</div>
+                      <div class="text-xs text-gray-400">
+                        {hasExtendedContext ? `→ ${((model.context_window_tokens_extended || model.context_window_tokens_max) / 1000).toFixed(0)}K` : 'context'}
+                      </div>
+                    </div>
+
+                    <!-- Capabilities Icons -->
+                    <div class="flex items-center gap-1.5">
+                      {model.capabilities.vision && (
+                        <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center" title="Vision">
+                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
+                        </span>
+                      )}
+                      {model.capabilities.tool_calling && (
+                        <span class="w-7 h-7 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center" title="Tool Use">
+                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                        </span>
+                      )}
+                      {model.context_window_tokens >= 100000 && (
+                        <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center" title="Long Context">
+                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                          </svg>
+                        </span>
+                      )}
+                      {model.capabilities.reasoning_mode && (
+                        <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center" title="Reasoning Mode">
+                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                          </svg>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <!-- Right: Expand -->
+                  <button class="expand-btn flex-shrink-0 w-10 h-10 rounded-xl bg-gray-50 hover:bg-vibrant-50 text-gray-400 hover:text-vibrant-600 flex items-center justify-center transition-all">
+                    <svg class="expand-icon w-5 h-5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Expandable Details -->
+              <div class="details-panel hidden">
+                <div class="border-t border-gray-100 bg-gradient-to-b from-gray-50/50 to-white">
+                  <div class="p-5 grid md:grid-cols-3 gap-6">
+                    <!-- Best For -->
+                    <div>
+                      <h4 class="text-xs font-semibold text-vibrant-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Best For
+                      </h4>
+                      <ul class="space-y-2">
+                        {model.best_for.map((item: string) => (
+                          <li class="text-sm text-gray-600 flex items-start gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-vibrant-400 flex-shrink-0 mt-1.5"></span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <!-- Strengths -->
+                    <div>
+                      <h4 class="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Strengths
+                      </h4>
+                      <ul class="space-y-2">
+                        {model.strengths.map((item: string) => (
+                          <li class="text-sm text-gray-600 flex items-start gap-2">
+                            <span class="text-emerald-500 font-bold flex-shrink-0">+</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <!-- Limitations -->
+                    <div>
+                      <h4 class="text-xs font-semibold text-amber-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        Limitations
+                      </h4>
+                      <ul class="space-y-2">
+                        {model.limitations.map((item: string) => (
+                          <li class="text-sm text-gray-600 flex items-start gap-2">
+                            <span class="text-amber-500 font-bold flex-shrink-0">–</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Footer with license info -->
+                  <div class="px-5 py-3 border-t border-gray-100 flex items-center justify-between text-xs bg-gray-50/50">
+                    <div class="flex items-center gap-3">
+                      <span class={`inline-flex items-center px-2.5 py-1 rounded-lg ${licenseInfo.bg} ${licenseInfo.color} ${licenseInfo.border} border font-medium`}>
+                        {licenseInfo.label}
+                      </span>
+                      <span class="text-gray-400">{model.parameters.architecture}</span>
+                      <span class="text-gray-400">·</span>
+                      <span class={`flex items-center gap-1 ${structuredInfo.color}`}>
+                        <span class={`w-1.5 h-1.5 rounded-full ${structuredInfo.dot}`}></span>
+                        Structured: {structuredInfo.label}
+                      </span>
+                    </div>
+                    {model.licensing?.weights?.license_url && (
+                      <a
+                        href={model.licensing.weights.license_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-vibrant-600 hover:text-vibrant-700 hover:underline flex items-center gap-1 font-medium"
+                      >
+                        View License
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="hidden py-16 text-center">
+        <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <p class="text-gray-500 text-lg">No models match your filters</p>
+        <button id="clear-filters" class="mt-4 px-4 py-2 bg-vibrant-600 hover:bg-vibrant-700 text-white rounded-lg text-sm font-medium transition-colors">
+          Clear all filters
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to Tools -->
+  <section class="py-6 bg-neutral-cream border-t border-gray-100">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <a href={`${base}tools`} class="inline-flex items-center gap-2 text-vibrant-600 hover:text-vibrant-700 font-medium transition-colors">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Tools
+      </a>
+      <span class="text-xs text-gray-400">Updated: {updatedAt}</span>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  // Filter state
+  const activeFilters = new Set();
+  let searchQuery = '';
+
+  // DOM elements
+  const searchInput = document.getElementById('search-input');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const modelCards = document.querySelectorAll('.model-card');
+  const resultsCount = document.getElementById('results-count');
+  const emptyState = document.getElementById('empty-state');
+  const modelsList = document.getElementById('models-list');
+  const clearFiltersBtn = document.getElementById('clear-filters');
+
+  // Expand/collapse functionality
+  document.querySelectorAll('.expand-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const card = btn.closest('.model-card');
+      const panel = card ? card.querySelector('.details-panel') : null;
+      const icon = btn.querySelector('.expand-icon');
+
+      if (panel && panel.classList.contains('hidden')) {
+        panel.classList.remove('hidden');
+        if (icon) icon.classList.add('rotate-180');
+        card.classList.add('ring-2', 'ring-vibrant-200');
+      } else if (panel) {
+        panel.classList.add('hidden');
+        if (icon) icon.classList.remove('rotate-180');
+        card.classList.remove('ring-2', 'ring-vibrant-200');
+      }
+    });
+  });
+
+  // Filter logic
+  function applyFilters() {
+    let visibleCount = 0;
+
+    modelCards.forEach(function(card) {
+      const name = card.getAttribute('data-name') || '';
+      const vendor = card.getAttribute('data-vendor') || '';
+      const license = card.getAttribute('data-license') || '';
+      const isOpenWeights = card.getAttribute('data-open-weights') === 'true';
+      const hasVision = card.getAttribute('data-vision') === 'true';
+      const hasToolUse = card.getAttribute('data-tool-use') === 'true';
+      const hasStructuredOutput = card.getAttribute('data-structured-output') === 'true';
+      const isLongContext = card.getAttribute('data-long-context') === 'true';
+      const isPermissive = card.getAttribute('data-permissive') === 'true';
+
+      // Check search query
+      const query = searchQuery.toLowerCase();
+      const matchesSearch = searchQuery === '' ||
+        name.includes(query) ||
+        vendor.includes(query) ||
+        license.includes(query);
+
+      // Check filters
+      let matchesFilters = true;
+      if (activeFilters.has('open_weights') && !isOpenWeights) matchesFilters = false;
+      if (activeFilters.has('vision') && !hasVision) matchesFilters = false;
+      if (activeFilters.has('tool_use') && !hasToolUse) matchesFilters = false;
+      if (activeFilters.has('structured_output') && !hasStructuredOutput) matchesFilters = false;
+      if (activeFilters.has('long_context') && !isLongContext) matchesFilters = false;
+      if (activeFilters.has('permissive') && !isPermissive) matchesFilters = false;
+
+      if (matchesSearch && matchesFilters) {
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Update count
+    if (resultsCount) {
+      resultsCount.textContent = visibleCount + ' model' + (visibleCount !== 1 ? 's' : '');
+    }
+
+    // Show/hide empty state
+    if (visibleCount === 0) {
+      if (emptyState) emptyState.classList.remove('hidden');
+      if (modelsList) modelsList.classList.add('hidden');
+    } else {
+      if (emptyState) emptyState.classList.add('hidden');
+      if (modelsList) modelsList.classList.remove('hidden');
+    }
+  }
+
+  // Search handler
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      searchQuery = e.target.value;
+      applyFilters();
+    });
+  }
+
+  // Filter button handlers
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const filter = btn.getAttribute('data-filter');
+      if (!filter) return;
+
+      if (activeFilters.has(filter)) {
+        activeFilters.delete(filter);
+        btn.classList.remove('bg-vibrant-600', 'text-white', 'border-vibrant-600', 'bg-emerald-600', 'border-emerald-600');
+        if (filter === 'permissive') {
+          btn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
+        } else {
+          btn.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
+        }
+      } else {
+        activeFilters.add(filter);
+        if (filter === 'permissive') {
+          btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
+          btn.classList.remove('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
+        } else {
+          btn.classList.add('bg-vibrant-600', 'text-white', 'border-vibrant-600');
+          btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-200');
+        }
+      }
+
+      applyFilters();
+    });
+  });
+
+  // Clear filters
+  if (clearFiltersBtn) {
+    clearFiltersBtn.addEventListener('click', function() {
+      activeFilters.clear();
+      searchQuery = '';
+      if (searchInput) searchInput.value = '';
+
+      filterBtns.forEach(function(btn) {
+        const filter = btn.getAttribute('data-filter');
+        btn.classList.remove('bg-vibrant-600', 'text-white', 'border-vibrant-600', 'bg-emerald-600', 'border-emerald-600');
+        if (filter === 'permissive') {
+          btn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
+        } else {
+          btn.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
+        }
+      });
+
+      applyFilters();
+    });
+  }
+</script>
+
+<style>
+  .model-card {
+    animation: slideIn 0.4s ease-out both;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .details-panel {
+    animation: expandDown 0.25s ease-out;
+  }
+
+  @keyframes expandDown {
+    from {
+      opacity: 0;
+      max-height: 0;
+    }
+    to {
+      opacity: 1;
+      max-height: 500px;
+    }
+  }
+</style>
