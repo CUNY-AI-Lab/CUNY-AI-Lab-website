@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="CUNY AI Lab">
+  <!-- Hero -->
+  <section class="relative min-h-[75vh] flex items-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-neutral-cream via-white to-neutral-cream"></div>
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-vibrant-50/50 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-cuny-blue/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7">
+          <p class="text-vibrant-600 font-medium tracking-wide uppercase text-sm mb-6">
+            A Graduate Center Initiative
+          </p>
+
+          <h1 class="text-5xl sm:text-6xl lg:text-6xl font-bold font-display text-neutral-stone leading-[1.1] mb-8">
+            AI Infrastructure for CUNY, by CUNY
+          </h1>
+
+          <p class="text-xl text-gray-600 leading-relaxed mb-10 max-w-xl">
+            The CUNY AI Lab is a faculty- and staff-led initiative that develops and maintains AI tools for teaching, learning, and research. We prioritize privacy, transparency, and thoughtful integration of AI into academic work.
+          </p>
+
+          <div class="flex flex-wrap gap-4 items-center">
+            <a href={`${base}about`} class="px-7 py-3 bg-vibrant-600 text-white rounded-full font-medium hover:bg-vibrant-700 transition-colors">
+              About the Lab
+            </a>
+            <a href={`${base}tools`} class="text-vibrant-600 font-medium hover:text-vibrant-700 transition-colors">
+              Explore Tools &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Guiding Principles -->
+        <div class="lg:col-span-5">
+          <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-gray-100">
+            <h2 class="text-sm font-medium text-gray-500 uppercase tracking-wide mb-6">Guiding Principles</h2>
+            <div class="space-y-5">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-vibrant-100 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-vibrant-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-neutral-stone">Privacy by Design</h3>
+                  <p class="text-gray-600 text-sm mt-1">We use providers that don't retain or train on user data</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-cuny-blue/10 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-cuny-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-neutral-stone">Transparency</h3>
+                  <p class="text-gray-600 text-sm mt-1">We prioritize open-weight models that can be examined and understood</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-neutral-stone">Environmental Accountability</h3>
+                  <p class="text-gray-600 text-sm mt-1">Tools include visibility into computational costs</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

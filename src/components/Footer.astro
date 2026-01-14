@@ -1,0 +1,58 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<footer class="relative bg-neutral-stone text-white overflow-hidden">
+  <!-- Subtle texture overlay -->
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-5">
+    <!-- Main content -->
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+      <!-- Left: Brand and message -->
+      <div class="lg:max-w-xl">
+        <h3 class="text-xl font-semibold font-display tracking-tight mb-2">
+          CUNY AI Lab
+        </h3>
+        <p class="text-sm text-gray-400">
+          AI tools and infrastructure for teaching, learning, and research.
+        </p>
+      </div>
+
+      <!-- Right: Contact CTA -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <a href={`${base}contact`} class="group inline-flex items-center text-gray-300 hover:text-white transition-colors">
+          <span class="text-sm font-medium">Contact</span>
+          <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="my-6 h-px bg-gray-600/50"></div>
+
+    <!-- Collaborating units with copyright -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <p class="text-xs text-gray-500">&copy; {new Date().getFullYear()} CUNY AI Lab</p>
+      <div class="flex flex-wrap items-center gap-6">
+        <a href="https://gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-60 hover:opacity-100 transition-opacity">
+          <img src={`${base}images/partners/gc-logo-white.png`} alt="The Graduate Center, CUNY" class="h-8 w-auto" />
+        </a>
+        <a href="https://gcdi.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-50 hover:opacity-100 transition-opacity">
+          <img src={`${base}images/partners/logo-gcdi.png`} alt="Graduate Center Digital Initiatives" class="h-7 w-auto brightness-0 invert" />
+        </a>
+        <a href="https://tlc.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-50 hover:opacity-100 transition-opacity">
+          <img src={`${base}images/partners/TLC-Logo-v4.png`} alt="Teaching and Learning Center" class="h-7 w-auto brightness-0 invert" />
+        </a>
+        <a href="https://library.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-50 hover:opacity-100 transition-opacity">
+          <img src={`${base}images/partners/MRS_logo_One_Search.png`} alt="Mina Rees Library" class="h-7 w-auto brightness-0 invert" />
+        </a>
+        <a href="https://ashp.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-50 hover:opacity-100 transition-opacity">
+          <img src={`${base}images/partners/ashp-logo-blue.png`} alt="American Social History Project" class="h-7 w-auto brightness-0 invert" />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
