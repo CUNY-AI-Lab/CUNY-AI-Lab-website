@@ -53,3 +53,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
 **Client-side Scripts:**
 Use `<script is:inline>` for vanilla JavaScript. Avoid TypeScript syntax in inline scripts.
+
+**Images:**
+- Team photos in `public/images/team/` should be resized to max 800px width to prevent GitHub Pages deployment timeouts
+- Use `sips -Z 800 filename.jpg` on macOS to resize
