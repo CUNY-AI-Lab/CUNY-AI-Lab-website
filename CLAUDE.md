@@ -17,13 +17,16 @@ Astro static site with Tailwind CSS. Auto-deploys to GitHub Pages (cunyailab.org
 **Structure:**
 - `src/layouts/BaseLayout.astro` - Main layout wrapper (Header, Footer, fonts, favicon)
 - `src/components/` - Header.astro, Footer.astro, PasswordGate.astro
-- `src/pages/` - Route pages (index, about, tools, models, team, contact, request-access)
+- `src/pages/` - Route pages (index, about, tools, team, contact, request-access)
+- `src/pages/models.astro` - Model registry grid view
+- `src/pages/models/list.astro` - Model registry single-column list view
+- `src/pages/models/guide.astro` - Field guide explaining registry UI elements
 - `src/data/` - JSON data files (model-registry.json)
 - `public/images/` - Static assets (logos, partner logos)
 - `tailwind.config.mjs` - Color palette and theme configuration
 
 **Data Files:**
-- `src/data/model-registry.json` - Model registry data displayed on /models page. Update `updated_at` field when modifying.
+- `src/data/model-registry.json` - Model registry data displayed on /models and /models/list pages. Update `updated_at` field when modifying.
 
 **Color System (tailwind.config.mjs):**
 - `vibrant-600` (#3B73E6) - Primary CTA buttons
