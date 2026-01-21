@@ -12,11 +12,11 @@ npm run preview  # Preview production build locally
 
 ## Architecture
 
-Astro static site with Tailwind CSS. Auto-deploys to GitHub Pages (cunyailab.org) on push to main.
+Astro static site with Tailwind CSS. Auto-deploys to AWS Amplify (ailab.gc.cuny.edu) on push to main.
 
 **Structure:**
 - `src/layouts/BaseLayout.astro` - Main layout wrapper (Header, Footer, fonts, favicon)
-- `src/components/` - Header.astro, Footer.astro, PasswordGate.astro
+- `src/components/` - Header.astro, Footer.astro
 - `src/pages/` - Route pages (index, about, tools, team, contact, request-access)
 - `src/pages/models.astro` - Model registry grid view
 - `src/pages/models/list.astro` - Model registry single-column list view
@@ -39,9 +39,6 @@ Astro static site with Tailwind CSS. Auto-deploys to GitHub Pages (cunyailab.org
 - Display: Outfit (headings via `font-display`)
 - Body: Inter (via `font-sans`)
 
-**URL Handling:**
-All internal links must use `${base}` prefix from `import.meta.env.BASE_URL` for correct path resolution.
-
 **JSON Data Loading:**
 Use `fs.readFileSync` in Astro frontmatter to load JSON files from `src/data/`:
 ```javascript
@@ -55,5 +52,5 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 Use `<script is:inline>` for vanilla JavaScript. Avoid TypeScript syntax in inline scripts.
 
 **Images:**
-- Team photos in `public/images/team/` should be resized to max 800px width to prevent GitHub Pages deployment timeouts
+- Team photos in `public/images/team/` should be resized to max 800px width for faster builds
 - Use `sips -Z 800 filename.jpg` on macOS to resize
