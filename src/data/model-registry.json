@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0",
-  "updated_at": "2026-01-09",
+  "updated_at": "2026-01-27",
   "license_taxonomy": {
     "license_family_enum": [
       "permissive",
@@ -57,10 +57,7 @@
         "long_context",
         "tool_use"
       ],
-      "ui_badges": [
-        "Long context",
-        "Tool use"
-      ],
+      "ui_badges": [],
       "licensing": {
         "weights": {
           "license_id": "MIT",
@@ -127,8 +124,7 @@
         "tool_use"
       ],
       "ui_badges": [
-        "Very long context",
-        "Tool use"
+        "Very long context"
       ],
       "licensing": {
         "weights": {
@@ -193,8 +189,7 @@
         "tool_use"
       ],
       "ui_badges": [
-        "Long context",
-        "Tool use"
+        "Long context"
       ],
       "licensing": {
         "weights": {
@@ -261,8 +256,7 @@
         "evaluation_baseline"
       ],
       "ui_badges": [
-        "Open weights",
-        "Tool use"
+        "Open weights"
       ],
       "licensing": {
         "weights": {
@@ -334,7 +328,6 @@
         "coding"
       ],
       "ui_badges": [
-        "Tool use",
         "Reasoning mode"
       ],
       "licensing": {
@@ -400,9 +393,7 @@
       ],
       "ui_badges": [
         "Open weights",
-        "Vision",
-        "Long context",
-        "Tool use"
+        "Vision"
       ],
       "licensing": {
         "weights": {
@@ -466,9 +457,7 @@
         "tool_use"
       ],
       "ui_badges": [
-        "Open weights",
-        "Long context",
-        "Tool use"
+        "Open weights"
       ],
       "licensing": {
         "weights": {

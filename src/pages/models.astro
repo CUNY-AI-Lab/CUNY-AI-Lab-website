@@ -13,303 +13,283 @@ const updatedAt = modelData.updated_at;
 
 // Helper to get license family display info
 function getLicenseFamilyInfo(family: string) {
-  const families: Record<string, { label: string; color: string; bg: string }> = {
-    'permissive': { label: 'Permissive', color: 'text-emerald-700', bg: 'bg-emerald-50' },
-    'permissive_modified': { label: 'Permissive+', color: 'text-teal-700', bg: 'bg-teal-50' },
-    'community': { label: 'Community', color: 'text-blue-700', bg: 'bg-blue-50' },
-    'restricted_terms': { label: 'Restricted', color: 'text-orange-700', bg: 'bg-orange-50' },
-    'unknown': { label: 'Unknown', color: 'text-gray-600', bg: 'bg-gray-100' }
+  const families: Record<string, { label: string; color: string; bg: string; border: string }> = {
+    'permissive': { label: 'Permissive', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
+    'permissive_modified': { label: 'Permissive+', color: 'text-teal-700', bg: 'bg-teal-50', border: 'border-teal-200' },
+    'community': { label: 'Community', color: 'text-blue-700', bg: 'bg-blue-50', border: 'border-blue-200' },
+    'restricted_terms': { label: 'Restricted', color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200' },
+    'unknown': { label: 'Unknown', color: 'text-gray-600', bg: 'bg-gray-100', border: 'border-gray-200' }
   };
   return families[family] || families['unknown'];
 }
 
 // Helper for structured output display
 function getStructuredOutputInfo(value: any) {
-  if (value === true) return { label: 'Native', color: 'text-emerald-600' };
-  if (value === 'prompted') return { label: 'Prompted', color: 'text-blue-600' };
-  return { label: 'Unknown', color: 'text-gray-400' };
+  if (value === true) return { label: 'Native', color: 'text-emerald-600', dot: 'bg-emerald-500' };
+  if (value === 'prompted') return { label: 'Prompted', color: 'text-blue-600', dot: 'bg-blue-500' };
+  return { label: 'Unknown', color: 'text-gray-400', dot: 'bg-gray-300' };
 }
 ---
 
 <BaseLayout title="Model Registry - CUNY AI Lab">
-  <!-- Hero Section -->
-  <section class="relative pt-24 pb-10 lg:pt-28 lg:pb-12">
-    <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"1\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Model Registry</h1>
-      <p class="mt-4 text-vibrant-200 text-lg max-w-2xl">
-        Auditable AI models curated for teaching and research. All models are accessed through zero-retention providers.
-      </p>
-      <p class="mt-2 text-vibrant-300/70 text-sm">Last updated: {updatedAt}</p>
-      <a href={`${base}models/guide`} class="inline-flex items-center gap-2 mt-4 text-vibrant-300 hover:text-white text-sm font-medium transition-colors">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-        How to Use This Registry
-      </a>
+  <!-- Hero Section - Compact -->
+  <section class="relative pt-24 pb-8 lg:pt-28 lg:pb-10">
+    <div class="absolute inset-0 bg-gradient-to-br from-cuny-blue via-logo-navy to-vibrant-900"></div>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 20%, rgba(59, 115, 230, 0.15) 0%, transparent 50%);"></div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-bold font-display text-white tracking-tight">Model Registry</h1>
+          <p class="mt-2 text-vibrant-200/80 text-base max-w-xl">
+            Auditable AI models for teaching and research.
+          </p>
+          <p class="mt-3 text-vibrant-200/60 text-sm max-w-2xl">
+            All models support multilingual input/output and tool calling. Badges highlight capabilities that vary between models.
+          </p>
+        </div>
+        <a href={`${base}models/guide`} class="hidden sm:flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-vibrant-200 hover:text-white text-sm font-medium transition-all border border-white/10">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          Guide
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- Filters Section -->
-  <section class="py-5 bg-white border-b border-gray-100 sticky top-0 z-40 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col gap-4">
-        <!-- Search Row -->
-        <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-          <div class="relative flex-1 max-w-md">
-            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <input
-              type="text"
-              id="search-input"
-              placeholder="Search models, vendors, or licenses..."
-              class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-neutral-cream/50"
-            />
-          </div>
-          <div id="results-count" class="text-sm text-gray-500">
-            {models.length} models
-          </div>
+  <!-- Sticky Filter Bar -->
+  <section class="py-4 bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        <!-- Search -->
+        <div class="relative flex-1 max-w-sm">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search models..."
+            class="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50/50"
+          />
         </div>
 
         <!-- Filter Pills -->
-        <div class="flex flex-wrap gap-2">
-          <span class="text-xs text-gray-400 uppercase tracking-wider self-center mr-1">Capabilities:</span>
-          <button data-filter="open_weights" class="filter-btn px-3 py-1.5 rounded-full text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-500 hover:text-vibrant-600 transition-all">
-            Open Weights
+        <div class="flex flex-wrap items-center gap-2">
+          <button data-filter="open_weights" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-400 hover:text-vibrant-600 transition-all">
+            Open
           </button>
-          <button data-filter="vision" class="filter-btn px-3 py-1.5 rounded-full text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-500 hover:text-vibrant-600 transition-all">
+          <button data-filter="vision" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-purple-400 hover:text-purple-600 transition-all">
             Vision
           </button>
-          <button data-filter="tool_use" class="filter-btn px-3 py-1.5 rounded-full text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-500 hover:text-vibrant-600 transition-all">
-            Tool Use
-          </button>
-          <button data-filter="structured_output" class="filter-btn px-3 py-1.5 rounded-full text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-500 hover:text-vibrant-600 transition-all">
-            Structured Output
-          </button>
-          <button data-filter="long_context" class="filter-btn px-3 py-1.5 rounded-full text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-500 hover:text-vibrant-600 transition-all">
+          <button data-filter="long_context" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-amber-400 hover:text-amber-600 transition-all">
             Long Context
           </button>
-
-          <span class="text-xs text-gray-400 uppercase tracking-wider self-center ml-3 mr-1">License:</span>
-          <button data-filter="permissive" class="filter-btn px-3 py-1.5 rounded-full text-xs font-medium border border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-400 hover:bg-emerald-100 transition-all">
+          <button data-filter="permissive" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-400 transition-all">
             Permissive
           </button>
-          <button data-filter="no_clickthrough" class="filter-btn px-3 py-1.5 rounded-full text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-500 hover:text-vibrant-600 transition-all">
-            No Clickthrough
-          </button>
+          <div class="h-4 w-px bg-gray-200 mx-1"></div>
+          <span id="results-count" class="text-xs text-gray-500">{models.length} models</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Models Grid -->
-  <section class="py-8 bg-neutral-cream min-h-[60vh]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div id="models-grid" class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {models.map((model: any) => {
+  <!-- Single Column Model List -->
+  <section class="py-6 bg-gradient-to-b from-gray-50 to-neutral-cream min-h-[60vh]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="models-list" class="space-y-3">
+        {models.map((model: any, index: number) => {
           const licenseInfo = getLicenseFamilyInfo(model.license_family);
           const structuredInfo = getStructuredOutputInfo(model.capabilities.structured_output);
           const hasExtendedContext = model.context_window_tokens_extended || model.context_window_tokens_max;
 
           return (
             <article
-              class="model-card group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-vibrant-200 transition-all duration-300"
+              class="model-card group bg-white rounded-xl border border-gray-100 hover:border-vibrant-300 hover:shadow-lg transition-all duration-200 overflow-hidden"
               data-name={model.display_name.toLowerCase()}
               data-vendor={model.vendor.toLowerCase()}
               data-license={model.license_id?.toLowerCase() || ''}
               data-tags={model.tags.join(',')}
               data-open-weights={model.open_weights === true ? 'true' : 'false'}
               data-vision={model.capabilities.vision === true ? 'true' : 'false'}
-              data-tool-use={model.capabilities.tool_calling === true ? 'true' : 'false'}
               data-structured-output={model.capabilities.structured_output === true || model.capabilities.structured_output === 'prompted' ? 'true' : 'false'}
-              data-long-context={model.context_window_tokens >= 100000 ? 'true' : 'false'}
+              data-long-context={model.context_window_tokens >= 200000 ? 'true' : 'false'}
               data-license-family={model.license_family || 'unknown'}
               data-permissive={model.license_family === 'permissive' || model.license_family === 'permissive_modified' ? 'true' : 'false'}
               data-no-clickthrough={model.requires_clickthrough === false ? 'true' : 'false'}
+              style={`animation-delay: ${index * 30}ms`}
             >
-              <!-- Card Header -->
-              <div class="p-5 pb-3">
-                <div class="flex items-start justify-between gap-3">
-                  <div class="min-w-0 flex-1">
-                    <h3 class="font-bold text-lg text-neutral-stone font-display group-hover:text-vibrant-600 transition-colors truncate">
-                      {model.display_name}
-                    </h3>
-                    <p class="text-sm text-gray-500 mt-0.5">{model.vendor}</p>
+              <!-- Main Row -->
+              <div class="p-4 sm:p-5">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+
+                  <!-- Left: Identity -->
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-3">
+                      <h3 class="font-bold text-lg text-neutral-stone font-display group-hover:text-vibrant-600 transition-colors truncate">
+                        {model.display_name}
+                      </h3>
+                      {model.requires_clickthrough === false && model.open_weights === true && (
+                        <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-sm">
+                          Open
+                        </span>
+                      )}
+                      {model.requires_clickthrough === true && (
+                        <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-700 border border-amber-200">
+                          Gated
+                        </span>
+                      )}
+                    </div>
+                    <div class="flex items-center gap-2 mt-1">
+                      <span class="text-sm text-gray-500">{model.vendor}</span>
+                      <span class="text-gray-300">·</span>
+                      <span class={`text-xs ${licenseInfo.color}`}>{model.license_id}</span>
+                    </div>
                   </div>
-                  <div class="flex-shrink-0 flex items-center gap-2">
-                    {model.requires_clickthrough === false && model.open_weights === true && (
-                      <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-emerald-100 text-emerald-700" title="No clickthrough required">
-                        <svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                        </svg>
-                        Open
-                      </span>
-                    )}
-                    {model.requires_clickthrough === true && (
-                      <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-amber-100 text-amber-700" title="Requires agreement to terms">
-                        <svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                        </svg>
-                        Gated
-                      </span>
-                    )}
+
+                  <!-- Center: Key Specs (horizontal on desktop) -->
+                  <div class="flex items-center gap-6 text-sm">
+                    <!-- Parameters -->
+                    <div class="text-center">
+                      <div class="font-bold text-neutral-stone">{model.parameters.total_b}B</div>
+                      <div class="text-xs text-gray-400">
+                        {model.parameters.active_b ? `${model.parameters.active_b}B active` : model.parameters.architecture}
+                      </div>
+                    </div>
+
+                    <!-- Context -->
+                    <div class="text-center">
+                      <div class="font-bold text-neutral-stone">{(model.context_window_tokens / 1000).toFixed(0)}K</div>
+                      <div class="text-xs text-gray-400">
+                        {hasExtendedContext ? `→ ${((model.context_window_tokens_extended || model.context_window_tokens_max) / 1000).toFixed(0)}K` : 'context'}
+                      </div>
+                    </div>
+
+                    <!-- Capabilities Icons -->
+                    <div class="flex items-center gap-1.5">
+                      {model.capabilities.vision && (
+                        <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center" title="Vision">
+                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
+                        </span>
+                      )}
+                      {model.context_window_tokens >= 200000 && (
+                        <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center" title="Long Context">
+                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                          </svg>
+                        </span>
+                      )}
+                      {model.capabilities.reasoning_mode && (
+                        <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center" title="Reasoning Mode">
+                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                          </svg>
+                        </span>
+                      )}
+                    </div>
                   </div>
+
+                  <!-- Right: Expand -->
+                  <button class="expand-btn flex-shrink-0 w-10 h-10 rounded-xl bg-gray-50 hover:bg-vibrant-50 text-gray-400 hover:text-vibrant-600 flex items-center justify-center transition-all">
+                    <svg class="expand-icon w-5 h-5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
                 </div>
-
-                <!-- Capability Badges -->
-                <div class="flex flex-wrap gap-1.5 mt-3">
-                  {model.ui_badges.map((badge: string) => (
-                    <span class={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
-                      badge.includes('Vision') ? 'bg-purple-100 text-purple-700' :
-                      badge.includes('Tool') ? 'bg-blue-100 text-blue-700' :
-                      badge.includes('context') ? 'bg-amber-100 text-amber-700' :
-                      badge.includes('Open') ? 'bg-green-100 text-green-700' :
-                      badge.includes('Reasoning') ? 'bg-indigo-100 text-indigo-700' :
-                      'bg-gray-100 text-gray-600'
-                    }`}>
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <!-- Specs Grid -->
-              <div class="px-5 py-3 bg-gradient-to-r from-neutral-cream/80 to-neutral-cream/40 border-y border-gray-100">
-                <div class="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
-                  <!-- Parameters -->
-                  <div class="flex items-center gap-1.5 text-gray-600">
-                    <svg class="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <span class="font-medium">{model.parameters.total_b}B</span>
-                    {model.parameters.active_b && <span class="text-gray-400">/ {model.parameters.active_b}B active</span>}
-                  </div>
-
-                  <!-- Context Window -->
-                  <div class="flex items-center gap-1.5 text-gray-600">
-                    <svg class="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
-                    <span class="font-medium">{(model.context_window_tokens / 1000).toFixed(0)}K</span>
-                    {hasExtendedContext && (
-                      <span class="text-gray-400">→ {((model.context_window_tokens_extended || model.context_window_tokens_max) / 1000).toFixed(0)}K</span>
-                    )}
-                  </div>
-
-                  <!-- Architecture -->
-                  <div class="flex items-center gap-1.5 text-gray-600">
-                    <svg class="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                    </svg>
-                    <span class="truncate">{model.parameters.architecture}</span>
-                  </div>
-
-                  <!-- Structured Output -->
-                  <div class="flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7C5 4 4 5 4 7z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h8M8 8h4" />
-                    </svg>
-                    <span class={structuredInfo.color}>{structuredInfo.label}</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- License Bar -->
-              <div class="px-5 py-2.5 flex items-center justify-between text-xs border-b border-gray-100">
-                <div class="flex items-center gap-2">
-                  <span class={`inline-flex items-center px-2 py-0.5 rounded ${licenseInfo.bg} ${licenseInfo.color} font-medium`}>
-                    {licenseInfo.label}
-                  </span>
-                  <span class="text-gray-500 truncate max-w-[140px]" title={model.license_id}>{model.license_id}</span>
-                </div>
-                {model.licensing?.weights?.license_url && (
-                  <a
-                    href={model.licensing.weights.license_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-vibrant-600 hover:text-vibrant-700 hover:underline flex items-center gap-1"
-                    onclick="event.stopPropagation()"
-                  >
-                    <span>View</span>
-                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
-                )}
               </div>
 
               <!-- Expandable Details -->
               <div class="details-panel hidden">
-                <div class="p-5 pt-4 space-y-4 bg-white">
-                  <!-- Best For -->
-                  <div>
-                    <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Best For</h4>
-                    <ul class="space-y-1.5">
-                      {model.best_for.map((item: string) => (
-                        <li class="flex items-start gap-2 text-sm text-gray-600">
-                          <svg class="w-4 h-4 text-vibrant-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
-                          </svg>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <!-- Strengths -->
-                  <div>
-                    <h4 class="text-xs font-semibold text-green-600 uppercase tracking-wider mb-2">Strengths</h4>
-                    <ul class="space-y-1">
-                      {model.strengths.map((item: string) => (
-                        <li class="text-sm text-gray-600 flex items-start gap-2">
-                          <span class="text-green-500 font-bold flex-shrink-0">+</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <!-- Limitations -->
-                  <div>
-                    <h4 class="text-xs font-semibold text-amber-600 uppercase tracking-wider mb-2">Limitations</h4>
-                    <ul class="space-y-1">
-                      {model.limitations.map((item: string) => (
-                        <li class="text-sm text-gray-600 flex items-start gap-2">
-                          <span class="text-amber-500 font-bold flex-shrink-0">–</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <!-- License Notes (if any) -->
-                  {model.licensing?.weights?.notes && (
-                    <div class="pt-3 border-t border-gray-100">
-                      <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">License Notes</h4>
-                      <p class="text-sm text-gray-500 leading-relaxed">{model.licensing.weights.notes}</p>
+                <div class="border-t border-gray-100 bg-gradient-to-b from-gray-50/50 to-white">
+                  <div class="p-5 grid md:grid-cols-3 gap-6">
+                    <!-- Best For -->
+                    <div>
+                      <h4 class="text-xs font-semibold text-vibrant-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Best For
+                      </h4>
+                      <ul class="space-y-2">
+                        {model.best_for.map((item: string) => (
+                          <li class="text-sm text-gray-600 flex items-start gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-vibrant-400 flex-shrink-0 mt-1.5"></span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  )}
 
-                  <!-- Context Notes (if any) -->
-                  {model.context_window_notes && (
-                    <div class="pt-3 border-t border-gray-100">
-                      <h4 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Context Notes</h4>
-                      <p class="text-sm text-gray-500 leading-relaxed">{model.context_window_notes}</p>
+                    <!-- Strengths -->
+                    <div>
+                      <h4 class="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Strengths
+                      </h4>
+                      <ul class="space-y-2">
+                        {model.strengths.map((item: string) => (
+                          <li class="text-sm text-gray-600 flex items-start gap-2">
+                            <span class="text-emerald-500 font-bold flex-shrink-0">+</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  )}
+
+                    <!-- Limitations -->
+                    <div>
+                      <h4 class="text-xs font-semibold text-amber-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        Limitations
+                      </h4>
+                      <ul class="space-y-2">
+                        {model.limitations.map((item: string) => (
+                          <li class="text-sm text-gray-600 flex items-start gap-2">
+                            <span class="text-amber-500 font-bold flex-shrink-0">–</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Footer with license info -->
+                  <div class="px-5 py-3 border-t border-gray-100 flex items-center justify-between text-xs bg-gray-50/50">
+                    <div class="flex items-center gap-3">
+                      <span class={`inline-flex items-center px-2.5 py-1 rounded-lg ${licenseInfo.bg} ${licenseInfo.color} ${licenseInfo.border} border font-medium`}>
+                        {licenseInfo.label}
+                      </span>
+                      <span class="text-gray-400">{model.parameters.architecture}</span>
+                      <span class="text-gray-400">·</span>
+                      <span class={`flex items-center gap-1 ${structuredInfo.color}`}>
+                        <span class={`w-1.5 h-1.5 rounded-full ${structuredInfo.dot}`}></span>
+                        Structured: {structuredInfo.label}
+                      </span>
+                    </div>
+                    {model.licensing?.weights?.license_url && (
+                      <a
+                        href={model.licensing.weights.license_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-vibrant-600 hover:text-vibrant-700 hover:underline flex items-center gap-1 font-medium"
+                      >
+                        View License
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
-
-              <!-- Toggle Button -->
-              <button class="expand-btn w-full px-5 py-3 text-sm font-medium text-vibrant-600 hover:text-vibrant-700 hover:bg-vibrant-50/50 transition-all flex items-center justify-center gap-2">
-                <span class="expand-text">Show details</span>
-                <svg class="expand-icon w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
             </article>
           );
         })}
@@ -317,51 +297,29 @@ function getStructuredOutputInfo(value: any) {
 
       <!-- Empty State -->
       <div id="empty-state" class="hidden py-16 text-center">
-        <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+        <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
         <p class="text-gray-500 text-lg">No models match your filters</p>
-        <button id="clear-filters" class="mt-4 text-vibrant-600 hover:text-vibrant-700 font-medium text-sm">
+        <button id="clear-filters" class="mt-4 px-4 py-2 bg-vibrant-600 hover:bg-vibrant-700 text-white rounded-lg text-sm font-medium transition-colors">
           Clear all filters
         </button>
       </div>
     </div>
   </section>
 
-  <!-- Legend Section -->
-  <section class="py-8 bg-white border-t border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h3 class="text-sm font-semibold text-gray-700 mb-4">License Families</h3>
-      <div class="flex flex-wrap gap-4 text-xs">
-        <div class="flex items-center gap-2">
-          <span class="inline-flex items-center px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-medium">Permissive</span>
-          <span class="text-gray-500">MIT, Apache-2.0 — minimal restrictions</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="inline-flex items-center px-2 py-0.5 rounded bg-teal-50 text-teal-700 font-medium">Permissive+</span>
-          <span class="text-gray-500">Modified MIT with additional terms</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="inline-flex items-center px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-medium">Community</span>
-          <span class="text-gray-500">Llama-style licenses with usage policies</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="inline-flex items-center px-2 py-0.5 rounded bg-orange-50 text-orange-700 font-medium">Restricted</span>
-          <span class="text-gray-500">Requires terms agreement, use restrictions</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Back to Tools CTA -->
-  <section class="py-8 bg-neutral-cream border-t border-gray-100">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <!-- Back to Tools -->
+  <section class="py-6 bg-neutral-cream border-t border-gray-100">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
       <a href={`${base}tools`} class="inline-flex items-center gap-2 text-vibrant-600 hover:text-vibrant-700 font-medium transition-colors">
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
-        Back to Tools & Projects
+        Back to Tools
       </a>
+      <span class="text-xs text-gray-400">Updated: {updatedAt}</span>
     </div>
   </section>
 </BaseLayout>
@@ -377,25 +335,25 @@ function getStructuredOutputInfo(value: any) {
   const modelCards = document.querySelectorAll('.model-card');
   const resultsCount = document.getElementById('results-count');
   const emptyState = document.getElementById('empty-state');
-  const modelsGrid = document.getElementById('models-grid');
+  const modelsList = document.getElementById('models-list');
   const clearFiltersBtn = document.getElementById('clear-filters');
 
   // Expand/collapse functionality
   document.querySelectorAll('.expand-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
       const card = btn.closest('.model-card');
       const panel = card ? card.querySelector('.details-panel') : null;
-      const text = btn.querySelector('.expand-text');
       const icon = btn.querySelector('.expand-icon');
 
       if (panel && panel.classList.contains('hidden')) {
         panel.classList.remove('hidden');
-        if (text) text.textContent = 'Hide details';
         if (icon) icon.classList.add('rotate-180');
+        card.classList.add('ring-2', 'ring-vibrant-200');
       } else if (panel) {
         panel.classList.add('hidden');
-        if (text) text.textContent = 'Show details';
         if (icon) icon.classList.remove('rotate-180');
+        card.classList.remove('ring-2', 'ring-vibrant-200');
       }
     });
   });
@@ -410,11 +368,9 @@ function getStructuredOutputInfo(value: any) {
       const license = card.getAttribute('data-license') || '';
       const isOpenWeights = card.getAttribute('data-open-weights') === 'true';
       const hasVision = card.getAttribute('data-vision') === 'true';
-      const hasToolUse = card.getAttribute('data-tool-use') === 'true';
       const hasStructuredOutput = card.getAttribute('data-structured-output') === 'true';
       const isLongContext = card.getAttribute('data-long-context') === 'true';
       const isPermissive = card.getAttribute('data-permissive') === 'true';
-      const noClickthrough = card.getAttribute('data-no-clickthrough') === 'true';
 
       // Check search query
       const query = searchQuery.toLowerCase();
@@ -427,11 +383,9 @@ function getStructuredOutputInfo(value: any) {
       let matchesFilters = true;
       if (activeFilters.has('open_weights') && !isOpenWeights) matchesFilters = false;
       if (activeFilters.has('vision') && !hasVision) matchesFilters = false;
-      if (activeFilters.has('tool_use') && !hasToolUse) matchesFilters = false;
       if (activeFilters.has('structured_output') && !hasStructuredOutput) matchesFilters = false;
       if (activeFilters.has('long_context') && !isLongContext) matchesFilters = false;
       if (activeFilters.has('permissive') && !isPermissive) matchesFilters = false;
-      if (activeFilters.has('no_clickthrough') && !noClickthrough) matchesFilters = false;
 
       if (matchesSearch && matchesFilters) {
         card.style.display = '';
@@ -449,10 +403,10 @@ function getStructuredOutputInfo(value: any) {
     // Show/hide empty state
     if (visibleCount === 0) {
       if (emptyState) emptyState.classList.remove('hidden');
-      if (modelsGrid) modelsGrid.classList.add('hidden');
+      if (modelsList) modelsList.classList.add('hidden');
     } else {
       if (emptyState) emptyState.classList.add('hidden');
-      if (modelsGrid) modelsGrid.classList.remove('hidden');
+      if (modelsList) modelsList.classList.remove('hidden');
     }
   }
 
@@ -472,17 +426,14 @@ function getStructuredOutputInfo(value: any) {
 
       if (activeFilters.has(filter)) {
         activeFilters.delete(filter);
-        // Reset to default styles
+        btn.classList.remove('bg-vibrant-600', 'text-white', 'border-vibrant-600', 'bg-emerald-600', 'border-emerald-600');
         if (filter === 'permissive') {
-          btn.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-600');
           btn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
         } else {
-          btn.classList.remove('bg-vibrant-600', 'text-white', 'border-vibrant-600');
           btn.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
         }
       } else {
         activeFilters.add(filter);
-        // Active styles
         if (filter === 'permissive') {
           btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
           btn.classList.remove('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
@@ -505,11 +456,10 @@ function getStructuredOutputInfo(value: any) {
 
       filterBtns.forEach(function(btn) {
         const filter = btn.getAttribute('data-filter');
+        btn.classList.remove('bg-vibrant-600', 'text-white', 'border-vibrant-600', 'bg-emerald-600', 'border-emerald-600');
         if (filter === 'permissive') {
-          btn.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-600');
           btn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
         } else {
-          btn.classList.remove('bg-vibrant-600', 'text-white', 'border-vibrant-600');
           btn.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
         }
       });
@@ -521,13 +471,13 @@ function getStructuredOutputInfo(value: any) {
 
 <style>
   .model-card {
-    animation: fadeIn 0.3s ease-out;
+    animation: slideIn 0.4s ease-out both;
   }
 
-  @keyframes fadeIn {
+  @keyframes slideIn {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(12px);
     }
     to {
       opacity: 1;
@@ -536,17 +486,17 @@ function getStructuredOutputInfo(value: any) {
   }
 
   .details-panel {
-    animation: slideDown 0.2s ease-out;
+    animation: expandDown 0.25s ease-out;
   }
 
-  @keyframes slideDown {
+  @keyframes expandDown {
     from {
       opacity: 0;
       max-height: 0;
     }
     to {
       opacity: 1;
-      max-height: 600px;
+      max-height: 500px;
     }
   }
 </style>
