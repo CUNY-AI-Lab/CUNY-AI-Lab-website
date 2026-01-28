@@ -234,7 +234,8 @@
       "capabilities": {
         "vision": false,
         "tool_calling": true,
-        "structured_output": true
+        "structured_output": true,
+        "reasoning_mode": true
       },
       "open_weights": true,
       "license": "Apache-2.0 (+ gpt-oss usage policy)",
@@ -245,6 +246,7 @@
         "agent-style tool workflows (provider-dependent)"
       ],
       "strengths": [
+        "three reasoning effort levels (low, medium, high) like o-series",
         "open-weights option with strong instruction-following",
         "native support for function calling and structured outputs"
       ],
@@ -261,7 +263,8 @@
         "evaluation_baseline"
       ],
       "ui_badges": [
-        "Open weights"
+        "Open weights",
+        "Reasoning mode"
       ],
       "licensing": {
         "weights": {
