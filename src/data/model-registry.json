@@ -80,50 +80,55 @@
       "context_window_notes": "DeepSeek API advertises 128K context for V3.2; the checkpoint config indicates max_position_embeddings=163840, and some providers may expose a higher limit."
     },
     {
-      "key": "kimi-k2-thinking",
-      "display_name": "Kimi K2 Thinking",
+      "key": "kimi-k2.5",
+      "display_name": "Kimi K2.5",
       "vendor": "MoonshotAI",
-      "family": "Kimi K2",
-      "variant": "Thinking",
+      "family": "Kimi K2.5",
+      "variant": null,
       "modality": [
-        "text"
+        "text",
+        "image"
       ],
       "parameters": {
         "total_b": 1000,
         "active_b": 32,
         "architecture": "MoE",
-        "notes": "Hugging Face model card lists: Mixture-of-Experts (MoE), Total Parameters 1T, Activated Parameters 32B."
+        "notes": "1T total / 32B active. 61 layers, 384 experts with 8 selected per token. Includes MoonViT vision encoder (400M params)."
       },
       "context_window_tokens": 256000,
       "capabilities": {
-        "vision": false,
+        "vision": true,
         "tool_calling": true,
-        "structured_output": "unknown"
+        "structured_output": "unknown",
+        "reasoning_mode": true
       },
       "open_weights": true,
       "license": "Modified MIT",
       "best_for": [
+        "visual reasoning and image understanding",
         "very long-document reading and synthesis",
-        "multi-document comparison (policies, articles, book chapters)",
-        "large-context coding tasks (many files/snippets in one session)",
-        "building and maintaining coherent project plans across long chats"
+        "agentic workflows with multi-step tool use",
+        "coding from UI designs and visual references"
       ],
       "strengths": [
-        "excellent at staying coherent with very large context",
-        "strong reasoning mode for complex, multi-step tasks",
-        "explicitly designed for long-horizon tool use"
+        "native multimodality with strong visual reasoning",
+        "Agent Swarm for coordinated multi-agent task execution",
+        "excellent long-context coherence (256K tokens)",
+        "strong reasoning mode for complex, multi-step tasks"
       ],
       "limitations": [
-        "no image input",
-        "higher latency/cost typical for very large-context models"
+        "higher latency typical for very large-context models",
+        "Agent Swarm features may require specific API configuration"
       ],
       "tags": [
         "long_context",
         "reasoning",
-        "synthesis",
+        "vision",
+        "agentic",
         "tool_use"
       ],
       "ui_badges": [
+        "Vision",
         "Very long context"
       ],
       "licensing": {
@@ -132,12 +137,12 @@
           "license_family": "permissive_modified",
           "requires_clickthrough": false,
           "gated_weights_download": false,
-          "license_url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking/blob/main/LICENSE",
+          "license_url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/main/LICENSE",
           "notes": "MIT-like terms with additional branding/trademark notice requirements for very large commercial products (see LICENSE). Hosted services may impose additional API/service terms."
         },
         "code": {
           "license_id": "modified-mit",
-          "license_url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking/blob/main/LICENSE"
+          "license_url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/main/LICENSE"
         }
       },
       "license_id": "modified-mit",
