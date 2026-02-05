@@ -106,6 +106,36 @@ function getStructuredOutputInfo(value: any) {
   </section>
 
   <style is:global>
+    .capability-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.25rem 0.5rem;
+      background: #333;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 500;
+      border-radius: 0.375rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+      margin-bottom: 0.25rem;
+      z-index: 50;
+    }
+    .capability-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-top-color: #333;
+    }
+    .capability-icon:hover .capability-tooltip {
+      opacity: 1;
+    }
     .filter-tooltip {
       position: absolute;
       bottom: 100%;
@@ -211,25 +241,28 @@ function getStructuredOutputInfo(value: any) {
                     <!-- Capabilities Icons -->
                     <div class="flex items-center gap-1.5">
                       {model.capabilities.vision && (
-                        <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center" title="Vision">
+                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center cursor-help">
                           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                           </svg>
+                          <span class="capability-tooltip">Vision</span>
                         </span>
                       )}
                       {model.context_window_tokens >= 200000 && (
-                        <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center" title="Long Context">
+                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center cursor-help">
                           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                           </svg>
+                          <span class="capability-tooltip">Long Context</span>
                         </span>
                       )}
                       {model.capabilities.reasoning_mode && (
-                        <span class="w-7 h-7 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center" title="Reasoning Mode">
+                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center cursor-help">
                           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                           </svg>
+                          <span class="capability-tooltip">Reasoning</span>
                         </span>
                       )}
                     </div>
