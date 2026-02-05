@@ -136,7 +136,32 @@ const base = import.meta.env.BASE_URL;
   <section class="py-16 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold font-display text-neutral-stone mb-2">Media Processing Tools</h2>
-      <p class="text-gray-500 mb-10">Zero-retention APIs for media workflows</p>
+      <p class="text-gray-500 mb-8">Zero-retention APIs for media workflows</p>
+
+      <!-- Tool selector buttons -->
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <a href="https://tools.ailab.gc.cuny.edu/asr/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-vibrant-300 transition-all hover:shadow-lg group" data-slide="0">
+          <div class="flex items-start justify-between gap-2">
+            <h3 class="font-bold text-neutral-stone mb-1">Multilingual Transcription Suite</h3>
+            <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          </div>
+          <p class="text-gray-600 text-sm">Uses OpenAI's Whisper for transcripts with optional translation and diarization.</p>
+        </a>
+        <a href="https://tools.ailab.gc.cuny.edu/alt-text/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-white rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="1">
+          <div class="flex items-start justify-between gap-2">
+            <h3 class="font-bold text-neutral-stone mb-1">Image Description</h3>
+            <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          </div>
+          <p class="text-gray-600 text-sm">Uses Qwen 3 VL vision model to generate captions, alt-text, and detailed image descriptions for accessibility purposes.</p>
+        </a>
+        <a href="https://tools.ailab.gc.cuny.edu/ocr/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-white rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="2">
+          <div class="flex items-start justify-between gap-2">
+            <h3 class="font-bold text-neutral-stone mb-1">Document OCR</h3>
+            <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          </div>
+          <p class="text-gray-600 text-sm">Uses Qwen 3 VL to extract text from PDFs and scanned images, including difficult layouts and imperfect scans.</p>
+        </a>
+      </div>
 
       <!-- Screenshot Slider -->
       <div class="relative mb-12">
@@ -164,30 +189,6 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
 
-      <!-- Tool descriptions -->
-      <div class="grid md:grid-cols-3 gap-6">
-        <a href="https://tools.ailab.gc.cuny.edu/asr/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-vibrant-300 transition-all hover:shadow-lg group" data-slide="0">
-          <div class="flex items-start justify-between gap-2">
-            <h3 class="font-bold text-neutral-stone mb-1">Multilingual Transcription Suite</h3>
-            <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-          </div>
-          <p class="text-gray-600 text-sm">Uses OpenAI's Whisper for transcripts with optional translation and diarization.</p>
-        </a>
-        <a href="https://tools.ailab.gc.cuny.edu/alt-text/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-white rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="1">
-          <div class="flex items-start justify-between gap-2">
-            <h3 class="font-bold text-neutral-stone mb-1">Image Description</h3>
-            <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-          </div>
-          <p class="text-gray-600 text-sm">Uses Qwen 3 VL vision model to generate captions, alt-text, and detailed image descriptions for accessibility purposes.</p>
-        </a>
-        <a href="https://tools.ailab.gc.cuny.edu/ocr/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-white rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="2">
-          <div class="flex items-start justify-between gap-2">
-            <h3 class="font-bold text-neutral-stone mb-1">Document OCR</h3>
-            <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-          </div>
-          <p class="text-gray-600 text-sm">Uses Qwen 3 VL to extract text from PDFs and scanned images, including difficult layouts and imperfect scans.</p>
-        </a>
-      </div>
     </div>
   </section>
 
@@ -232,40 +233,38 @@ const base = import.meta.env.BASE_URL;
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Agent Studio -->
-        <div class="bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg hover:border-vibrant-200 transition-all">
+        <a href="https://tools.ailab.gc.cuny.edu/agent-studio" target="_blank" rel="noopener noreferrer" class="block bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg hover:border-vibrant-200 transition-all group">
           <div class="p-6">
             <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mb-4">
               <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
               </svg>
             </div>
-            <h3 class="text-lg font-bold text-neutral-stone mb-2">Agent Studio</h3>
+            <div class="flex items-start justify-between gap-2">
+              <h3 class="text-lg font-bold text-neutral-stone mb-2">Agent Studio</h3>
+              <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+            </div>
             <p class="text-gray-600 text-sm leading-relaxed">Supports research workflows such as exploring datasets, searching academic sources, and producing draft visualizations and summaries.</p>
           </div>
-        </div>
+        </a>
 
         <!-- Site Studio -->
-        <div class="bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg hover:border-vibrant-200 transition-all">
+        <a href="https://tools.ailab.gc.cuny.edu/site-studio/" target="_blank" rel="noopener noreferrer" class="block bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg hover:border-vibrant-200 transition-all group">
           <div class="p-6">
             <div class="w-10 h-10 rounded-lg bg-pink-100 flex items-center justify-center mb-4">
               <svg class="w-5 h-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
               </svg>
             </div>
-            <h3 class="text-lg font-bold text-neutral-stone mb-2">Site Studio</h3>
+            <div class="flex items-start justify-between gap-2">
+              <h3 class="text-lg font-bold text-neutral-stone mb-2">Site Studio</h3>
+              <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+            </div>
             <p class="text-gray-600 text-sm leading-relaxed">Helps build academic websites — portfolios, CV pages, research sites, and project documentation — through a guided, conversational workflow.</p>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Library Workflow Assistants -->
-  <section class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-2">Library Workflow Assistants</h2>
-      <p class="text-gray-500 mb-6 max-w-3xl">Tools that automate cataloging lookups, parse reference queries, generate citation maps, and assist in research exploration. Designed to support library staff and researchers in navigating complex information landscapes.</p>
-      <p class="text-sm text-gray-400 italic">More details coming soon.</p>
-    </div>
-  </section>
 </BaseLayout>
