@@ -12,7 +12,7 @@ npm run preview  # Preview production build locally
 
 ## Architecture
 
-Astro static site with Tailwind CSS. Auto-deploys to AWS Amplify (ailab.gc.cuny.edu) on push to main.
+Astro static site with Tailwind CSS. Auto-deploys to AWS Amplify on push to main. Production URL: cunyailab.org
 
 **Key Files:**
 - `src/layouts/BaseLayout.astro` - Main layout wrapper (Header, Footer, fonts, favicon)
@@ -57,6 +57,7 @@ Use `<script is:inline>` for vanilla JavaScript. Avoid TypeScript syntax in inli
 Use `<style is:global>` when CSS selectors need to target dynamically generated elements or work across component boundaries (e.g., hover tooltips).
 
 **Images:**
-- Tool screenshots in `public/images/tools/`
+- Tool screenshots in `public/images/tools/` — avoid `screenshot-*.png` prefix (blocked by `.gitignore`); use `tool-` or `demo-` prefix instead
 - Team photos in `public/images/team/` — resize to max 800px width (`sips -Z 800 filename.jpg`)
 - Partner logos in `public/images/partners/`
+- Animated GIFs from screenshots: `magick -delay 250 -loop 0 frame1.png frame2.png frame3.png output.gif` (2.5s per frame)

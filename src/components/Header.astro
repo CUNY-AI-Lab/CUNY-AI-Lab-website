@@ -5,6 +5,8 @@ const currentPath = Astro.url.pathname;
 // Helper function to check if link is active
 const isActive = (path: string) => {
   if (path === base && currentPath === base) return true;
+  // "Resources" nav item also highlights on /models and /models/guide
+  if (path === `${base}resources` && (currentPath.startsWith(`${base}models`) || currentPath.startsWith(`${base}resources`))) return true;
   if (path !== base && currentPath.startsWith(path.replace(base, base))) return true;
   return false;
 };
@@ -43,8 +45,8 @@ const mobileLinkClass = (path: string) => {
           <a href={`${base}tools`} class={linkClass(`${base}tools`)}>
             Tools
           </a>
-          <a href={`${base}models`} class={linkClass(`${base}models`)}>
-            Models
+          <a href={`${base}resources`} class={linkClass(`${base}resources`)}>
+            Resources
           </a>
           <a href={`${base}team`} class={linkClass(`${base}team`)}>
             Team
@@ -79,8 +81,8 @@ const mobileLinkClass = (path: string) => {
       <a href={`${base}tools`} class={mobileLinkClass(`${base}tools`)}>
         Tools
       </a>
-      <a href={`${base}models`} class={mobileLinkClass(`${base}models`)}>
-        Models
+      <a href={`${base}resources`} class={mobileLinkClass(`${base}resources`)}>
+        Resources
       </a>
       <a href={`${base}team`} class={mobileLinkClass(`${base}team`)}>
         Team
