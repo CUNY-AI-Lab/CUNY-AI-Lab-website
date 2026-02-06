@@ -18,10 +18,14 @@ Astro static site with Tailwind CSS. Auto-deploys to AWS Amplify (ailab.gc.cuny.
 - `src/layouts/BaseLayout.astro` - Main layout wrapper (Header, Footer, fonts, favicon)
 - `src/components/` - Header.astro, Footer.astro
 - `src/pages/` - Route pages (index, about, tools, team, contact, request-access)
-- `src/pages/models.astro` - Model registry grid view
+- `src/pages/models.astro` - Model registry with filters and collapsible guide
 - `src/pages/models/guide.astro` - Field guide explaining registry UI elements
 - `src/data/model-registry.json` - Model registry data. Update `updated_at` field when modifying.
 - `tailwind.config.mjs` - Color palette and theme configuration
+
+**External Tool URLs:**
+- Open WebUI: https://chat.ailab.gc.cuny.edu/
+- Tools subdomain: https://tools.ailab.gc.cuny.edu/ (asr, alt-text, ocr, agent-studio, site-studio)
 
 **Color System (tailwind.config.mjs):**
 - `vibrant-600` (#3B73E6) - Primary CTA buttons
@@ -48,6 +52,9 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
 **Client-side Scripts:**
 Use `<script is:inline>` for vanilla JavaScript. Avoid TypeScript syntax in inline scripts.
+
+**Astro Styles:**
+Use `<style is:global>` when CSS selectors need to target dynamically generated elements or work across component boundaries (e.g., hover tooltips).
 
 **Images:**
 - Tool screenshots in `public/images/tools/`

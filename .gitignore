@@ -26,3 +26,12 @@ pnpm-debug.log*
 # OS files
 .DS_Store
 Thumbs.db
+
+# Playwright MCP
+.playwright-mcp/
+
+# Source/working files
+fellows/
+screenshot-*.png
+hover-test.png
+TLC-Logo-v4-No-GC*.png
