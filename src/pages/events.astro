@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Events - CUNY AI Lab">
+  <!-- Hero Section -->
+  <section class="relative pt-24 pb-10 lg:pt-28 lg:pb-12">
+    <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Events</h1>
+      <p class="mt-4 text-vibrant-200/80 text-lg max-w-2xl">Workshops and training sessions from the CUNY AI Lab.</p>
+    </div>
+  </section>
+
+  <!-- Spring 2026 Workshop Series -->
+  <section class="py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-4">Spring 2026 Workshop Series</h2>
+      <p class="text-lg text-gray-600 leading-relaxed mb-10">
+        A three-part series on building digital projects with AI, from command-line basics to independent prototyping.
+      </p>
+
+      <!-- Info callout -->
+      <div class="bg-vibrant-50 border border-vibrant-200 rounded-2xl p-6 md:p-8 mb-12">
+        <h3 class="text-sm font-bold text-vibrant-900 uppercase tracking-wide mb-4 flex items-center">
+          <svg class="w-5 h-5 mr-2 text-vibrant-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Before You Register
+        </h3>
+        <ul class="space-y-3">
+          <li class="flex items-start">
+            <span class="w-2 h-2 bg-vibrant-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+            <span class="text-gray-700">Because the series is scaffolded, participants who are new to the command line and/or Git should plan to attend <strong>both</strong> the March 3 and March 10 workshops.</span>
+          </li>
+          <li class="flex items-start">
+            <span class="w-2 h-2 bg-vibrant-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+            <span class="text-gray-700">Each session is limited to <strong>20 students</strong> and will be held in the <strong><a href="https://newmedialab.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:underline">New Media Lab</a> (Room 7388.01)</strong>.</span>
+          </li>
+          <li class="flex items-start">
+            <span class="w-2 h-2 bg-vibrant-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+            <span class="text-gray-700">Participants are encouraged to bring a laptop so they can set up a workflow on their own machine. Workstations in the New Media Lab are available upon request.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Workshop cards -->
+      <div class="space-y-8">
+
+        <!-- Workshop 1 -->
+        <div class="relative bg-white rounded-2xl border border-gray-200 p-6 md:p-8 overflow-hidden">
+          <div class="absolute top-0 left-0 w-1.5 h-full bg-vibrant-600 rounded-l-2xl"></div>
+          <div class="flex flex-col md:flex-row md:items-start gap-5">
+            <div class="flex-shrink-0">
+              <div class="inline-flex items-center gap-2 bg-vibrant-50 text-vibrant-700 text-sm font-semibold px-4 py-2 rounded-full">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                March 3, 4:00–5:30 pm
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold font-display text-neutral-stone mb-2">Foundations: AI, Command Line, and Version Control</h3>
+              <p class="text-gray-600 leading-relaxed">
+                This workshop covers the fundamentals of using AI tools to develop a digital project, including core AI concepts, setting up your environment, running commands in Terminal or PowerShell, and using Git to track project changes. We'll walk through a basic workflow and use AI to troubleshoot errors as we go.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workshop 2 -->
+        <div class="relative bg-white rounded-2xl border border-gray-200 p-6 md:p-8 overflow-hidden">
+          <div class="absolute top-0 left-0 w-1.5 h-full bg-vibrant-600 rounded-l-2xl"></div>
+          <div class="flex flex-col md:flex-row md:items-start gap-5">
+            <div class="flex-shrink-0">
+              <div class="inline-flex items-center gap-2 bg-vibrant-50 text-vibrant-700 text-sm font-semibold px-4 py-2 rounded-full">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                March 10, 4:00–5:30 pm
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold font-display text-neutral-stone mb-2">Vibe-Coding Prototypes</h3>
+              <p class="text-gray-600 leading-relaxed mb-3">
+                This workshop focuses on using AI via the command line to build a small prototype. We'll model prompting, project design, and troubleshooting. After building the same starter project, participants will choose one feature to customize.
+              </p>
+              <p class="text-sm text-gray-500 italic">
+                Prerequisite: Participation in the Foundations workshop, or prior familiarity with the command line and Git/GitHub.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workshop 3 -->
+        <div class="relative bg-white rounded-2xl border border-gray-200 p-6 md:p-8 overflow-hidden">
+          <div class="absolute top-0 left-0 w-1.5 h-full bg-vibrant-600 rounded-l-2xl"></div>
+          <div class="flex flex-col md:flex-row md:items-start gap-5">
+            <div class="flex-shrink-0">
+              <div class="inline-flex items-center gap-2 bg-vibrant-50 text-vibrant-700 text-sm font-semibold px-4 py-2 rounded-full">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                March 24, 4:00–5:30 pm
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold font-display text-neutral-stone mb-2">BYOP (Bring Your Own Project) Build Clinic</h3>
+              <p class="text-gray-600 leading-relaxed">
+                This session offers structured time to build your own digital scholarly project, with facilitators available to support you. Ahead of the workshop, we'll collect a short description of what you're building and group participants by project type. During the session, each group will work with a facilitator to clarify goals, break work into small steps, and troubleshoot as issues come up.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration CTA -->
+  <section class="py-16 bg-neutral-cream">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h3 class="text-2xl font-bold font-display text-neutral-stone mb-4">Register for the Workshop Series</h3>
+      <p class="text-gray-600 mb-8">Space is limited to 20 participants per session. Sign up early to secure your spot.</p>
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSenSkDfoz3ftYiz6t5KJUEdYDGrbkUKmR6SGVC4j-fF6qNbdA/viewform?usp=publish-editor"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-8 py-4 bg-vibrant-600 text-white rounded-full font-bold text-lg hover:bg-vibrant-700 transition-colors shadow-lg hover:shadow-vibrant-500/30"
+      >
+        Register Now
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
