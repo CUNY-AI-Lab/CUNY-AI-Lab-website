@@ -34,8 +34,8 @@ const mobileLinkClass = (path: string) => {
           <img src={`${base}images/logo-horizontal.png`} alt="CUNY AI Lab" class="h-10 w-auto" />
         </a>
       </div>
-      <div class="hidden md:block">
-        <div class="ml-4 lg:ml-10 flex items-baseline space-x-3 lg:space-x-8">
+      <div class="hidden lg:block">
+        <div class="ml-10 flex items-baseline space-x-8">
           <a href={base} class={linkClass(base)}>
             Home
           </a>
@@ -59,7 +59,7 @@ const mobileLinkClass = (path: string) => {
           </a>
         </div>
       </div>
-      <div class="md:hidden">
+      <div class="lg:hidden">
         <button id="mobile-menu-button" class="text-neutral-stone hover:text-vibrant-600 focus:outline-none p-2 rounded-md hover:bg-vibrant-50 transition-colors">
           <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -70,7 +70,7 @@ const mobileLinkClass = (path: string) => {
   </nav>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 absolute w-full shadow-xl">
+  <div id="mobile-menu" class="hidden lg:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 absolute w-full shadow-xl">
     <div class="px-4 pt-4 pb-6 space-y-2">
       <a href={base} class={mobileLinkClass(base)}>
         Home
