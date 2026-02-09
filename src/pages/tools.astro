@@ -36,13 +36,13 @@ const base = import.meta.env.BASE_URL;
           <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">CAIL Sandbox</h2>
           <div class="space-y-4 text-gray-600 leading-relaxed">
             <p>
-              The <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a>, our Open WebUI instance, provides faculty, staff, and students with access to an AI chat interface through which they can access a curated set of open-weight models—models whose weights are publicly available, making them more transparent and independently auditable than closed, proprietary systems.
+              The <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a>, our Open WebUI instance, provides faculty, staff, and students with access to an AI chat interface through which they can access a curated set of open-weight models—models whose weights are publicly available, making them more transparent and independently auditable than closed, proprietary systems. Access to the CAIL Sandbox is limited during the Spring 2026 semester. To learn more, <a href={`${base}contact`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">contact us</a>.
             </p>
             <p>
               CUNY faculty, students, and researchers can use the <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a> to access the most robust open-weight AI models while ensuring that their chats and data remain secure. Our zero-retention providers (AWS Bedrock and OpenRouter) do not store any data from prompts or responses and users can configure the models based on their needs, while also gaining insight into the environmental impacts of their tool use.
             </p>
             <p>
-              The platform also supports evaluation and customization workflows especially useful for teaching and research.
+              For a full list of available models with capabilities, licensing, and recommended use cases, see our <a href={`${base}models`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">Model Registry</a>.
             </p>
           </div>
 
@@ -161,7 +161,8 @@ const base = import.meta.env.BASE_URL;
       <!-- Media Processing subsection -->
       <div class="mb-16">
         <h3 class="text-2xl font-bold font-display text-neutral-stone mb-2">Media Processing</h3>
-        <p class="text-gray-500 mb-8">Powered by Whisper via Fireworks AI, AssemblyAI, and Qwen 3 VL via OpenRouter</p>
+        <p class="text-gray-500 mb-2">Powered by Whisper via Fireworks AI, AssemblyAI, and Qwen 3 VL via OpenRouter</p>
+        <p class="text-sm text-gray-400 mb-8">Need on-premises processing for sensitive data (FERPA, IRB, HIPAA)? <a href={`${base}contact`} class="text-vibrant-600 hover:underline">Contact us</a>.</p>
 
         <!-- Tool selector buttons -->
         <div class="grid md:grid-cols-3 gap-6 mb-8">
