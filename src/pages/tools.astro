@@ -20,15 +20,63 @@ const base = import.meta.env.BASE_URL;
   <section class="py-16 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <!-- OpenWebUI Hero -->
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <!-- Left: Screenshot -->
-        <div class="relative">
-          <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-200">
-            <img src={`${base}images/tools/tool-owu.png`} alt="CAIL Sandbox interface showing CUNY AI Lab chat platform" class="w-full h-auto" />
+      <!-- CAIL Sandbox Hero -->
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <!-- Left: Screenshot + Feature badges -->
+        <div>
+          <div class="relative">
+            <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-200">
+              <img src={`${base}images/tools/tool-owu.png`} alt="CAIL Sandbox interface showing CUNY AI Lab chat platform" class="w-full h-auto" />
+            </div>
+            <!-- Decorative glow -->
+            <div class="absolute -inset-4 bg-gradient-to-br from-vibrant-400/10 to-cuny-blue/10 rounded-3xl -z-10 blur-2xl"></div>
           </div>
-          <!-- Decorative glow -->
-          <div class="absolute -inset-4 bg-gradient-to-br from-vibrant-400/10 to-cuny-blue/10 rounded-3xl -z-10 blur-2xl"></div>
+
+          <!-- Feature badges -->
+          <div class="mt-8 space-y-3">
+            <div class="flex items-start gap-3">
+              <div class="w-2 h-2 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
+              <div>
+                <span class="font-semibold text-neutral-stone text-sm">Open-weight models</span>
+                <span class="text-gray-500 text-sm ml-1">— Publicly available weights for transparency and auditability</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-2 h-2 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
+              <div>
+                <span class="font-semibold text-neutral-stone text-sm">Open-source platform</span>
+                <span class="text-gray-500 text-sm ml-1">— Built on Open WebUI, a community-driven interface you can inspect, modify, and self-host</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-2 h-2 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
+              <div>
+                <span class="font-semibold text-neutral-stone text-sm">Zero-retention</span>
+                <span class="text-gray-500 text-sm ml-1">— Prompts and outputs are never stored or used for vendor training</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-2 h-2 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
+              <div>
+                <span class="font-semibold text-neutral-stone text-sm">Citable configs</span>
+                <span class="text-gray-500 text-sm ml-1">— Shareable, reproducible configurations for scholarly use</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-2 h-2 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
+              <div>
+                <span class="font-semibold text-neutral-stone text-sm">CO₂ estimates</span>
+                <span class="text-gray-500 text-sm ml-1">— Visible energy and carbon cost per interaction</span>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-2 h-2 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
+              <div>
+                <span class="font-semibold text-neutral-stone text-sm">Accessibility</span>
+                <span class="text-gray-500 text-sm ml-1">— Text-to-speech, speech-to-text, and more planned</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Right: Content -->
@@ -36,53 +84,14 @@ const base = import.meta.env.BASE_URL;
           <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">CAIL Sandbox</h2>
           <div class="space-y-4 text-gray-600 leading-relaxed">
             <p>
-              The <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a>, our Open WebUI instance, provides faculty, staff, and students with access to an AI chat interface through which they can access a curated set of open-weight models—models whose weights are publicly available, making them more transparent and independently auditable than closed, proprietary systems. Access to the CAIL Sandbox is limited during the Spring 2026 semester. To learn more, <a href={`${base}contact`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">contact us</a>.
+              The <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a> provides faculty, staff, and students with access to an AI chat interface through which they can access a curated set of open-weight models. CUNY faculty, students, and researchers can use the <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a> to access the most robust open-weight AI models while ensuring that their chats and data remain secure. Our zero-retention providers (AWS Bedrock and OpenRouter) do not store any data from prompts or responses, and users can configure the models to their needs while also gaining insight into the environmental impacts of their tool use.
             </p>
             <p>
-              CUNY faculty, students, and researchers can use the <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a> to access the most robust open-weight AI models while ensuring that their chats and data remain secure. Our zero-retention providers (AWS Bedrock and OpenRouter) do not store any data from prompts or responses and users can configure the models based on their needs, while also gaining insight into the environmental impacts of their tool use.
+              Access to the CAIL Sandbox is limited during the Spring 2026 semester. To learn more, <a href={`${base}contact`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">contact us</a>.
             </p>
             <p>
               For a full list of available models with capabilities, licensing, and recommended use cases, see our <a href={`${base}models`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">Model Registry</a>.
             </p>
-          </div>
-
-          <!-- Feature badges with definitions -->
-          <div class="mt-8 space-y-4">
-            <div class="flex items-start gap-3">
-              <div class="w-2 h-2 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
-              <div>
-                <span class="font-semibold text-neutral-stone">Open-weight models</span>
-                <span class="text-gray-500 text-sm ml-1">— Publicly available weights for transparency and auditability</span>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-2 h-2 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
-              <div>
-                <span class="font-semibold text-neutral-stone">Zero-retention</span>
-                <span class="text-gray-500 text-sm ml-1">— Prompts and outputs are never stored or used for vendor training</span>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-2 h-2 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
-              <div>
-                <span class="font-semibold text-neutral-stone">Citable configs</span>
-                <span class="text-gray-500 text-sm ml-1">— Shareable, reproducible configurations for scholarly use</span>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-2 h-2 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
-              <div>
-                <span class="font-semibold text-neutral-stone">CO₂ estimates</span>
-                <span class="text-gray-500 text-sm ml-1">— Visible energy and carbon cost per interaction</span>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="w-2 h-2 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
-              <div>
-                <span class="font-semibold text-neutral-stone">Accessibility</span>
-                <span class="text-gray-500 text-sm ml-1">— Text-to-speech, speech-to-text, and more planned</span>
-              </div>
-            </div>
           </div>
 
           <div class="mt-8 flex flex-wrap gap-4">
