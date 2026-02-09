@@ -20,7 +20,7 @@ const base = import.meta.env.BASE_URL;
         <!-- Left: Screenshot -->
         <div class="relative">
           <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-200">
-            <img src={`${base}images/tools/screenshot-owu.png`} alt="OpenWebUI interface showing CUNY AI Lab with Kimi K2.5 model" class="w-full h-auto" />
+            <img src={`${base}images/tools/tool-owu.png`} alt="OpenWebUI interface showing CUNY AI Lab with Kimi K2.5 model" class="w-full h-auto" />
           </div>
           <!-- Decorative glow -->
           <div class="absolute -inset-4 bg-gradient-to-br from-vibrant-400/10 to-cuny-blue/10 rounded-3xl -z-10 blur-2xl"></div>
@@ -34,7 +34,7 @@ const base = import.meta.env.BASE_URL;
               Our CUNY-hosted instance of <strong class="text-neutral-stone">Open WebUI</strong> provides a unified interface for interacting with a curated set of open-weight AI models — models whose weights are publicly available, making them more transparent and independently auditable than closed, proprietary systems.
             </p>
             <p>
-              All models are accessed through zero-retention providers and the platform supports evaluation and customization workflows especially useful for teaching and research.
+              Models are offered via AWS Bedrock and OpenRouter, all through zero-retention providers. The platform supports evaluation and customization workflows especially useful for teaching and research.
             </p>
           </div>
 
@@ -145,21 +145,21 @@ const base = import.meta.env.BASE_URL;
             <h3 class="font-bold text-neutral-stone mb-1">Multilingual Transcription Suite</h3>
             <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
           </div>
-          <p class="text-gray-600 text-sm">Uses OpenAI's Whisper for transcripts with optional translation and diarization.</p>
+          <p class="text-gray-600 text-sm">Generate transcripts from audio and video in dozens of languages, with optional translation and speaker identification. Powered by Whisper via Fireworks AI and AssemblyAI.</p>
         </a>
         <a href="https://tools.ailab.gc.cuny.edu/alt-text/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-white rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="1">
           <div class="flex items-start justify-between gap-2">
             <h3 class="font-bold text-neutral-stone mb-1">Image Description</h3>
             <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
           </div>
-          <p class="text-gray-600 text-sm">Uses Qwen 3 VL vision model to generate captions, alt-text, and detailed image descriptions for accessibility purposes.</p>
+          <p class="text-gray-600 text-sm">Create alt-text, captions, and detailed descriptions for images to improve accessibility and support digital publishing workflows. Powered by Qwen 3 VL via OpenRouter.</p>
         </a>
         <a href="https://tools.ailab.gc.cuny.edu/ocr/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-white rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="2">
           <div class="flex items-start justify-between gap-2">
             <h3 class="font-bold text-neutral-stone mb-1">Document OCR</h3>
             <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
           </div>
-          <p class="text-gray-600 text-sm">Uses Qwen 3 VL to extract text from PDFs and scanned images, including difficult layouts and imperfect scans.</p>
+          <p class="text-gray-600 text-sm">Extract searchable text from PDFs, scanned documents, and archival images — even with difficult layouts or imperfect scans. Powered by Qwen 3 VL via OpenRouter.</p>
         </a>
       </div>
 
@@ -260,7 +260,7 @@ const base = import.meta.env.BASE_URL;
               <h3 class="text-lg font-bold text-neutral-stone mb-2">Site Studio</h3>
               <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
             </div>
-            <p class="text-gray-600 text-sm leading-relaxed">Helps build academic websites — portfolios, CV pages, research sites, and project documentation — through a guided, conversational workflow.</p>
+            <p class="text-gray-600 text-sm leading-relaxed">Helps build academic websites — portfolios, CV pages, research sites, and project documentation — through a guided, conversational workflow. Powered by the Anthropic API.</p>
           </div>
         </a>
       </div>
