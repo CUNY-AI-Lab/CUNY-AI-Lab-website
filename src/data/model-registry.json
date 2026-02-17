@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0",
-  "updated_at": "2026-01-27",
+  "updated_at": "2026-02-17",
   "license_taxonomy": {
     "license_family_enum": [
       "permissive",
@@ -93,7 +93,7 @@
         "total_b": 1000,
         "active_b": 32,
         "architecture": "MoE",
-        "notes": "1T total / 32B active. 61 layers, 384 experts with 8 selected per token. Includes MoonViT vision encoder (400M params)."
+        "notes": "1T total / 32B active. 61 layers, 384 experts with 8 selected per token. Includes MoonViT vision encoder (400M params). Video input supported experimentally via official API."
       },
       "context_window_tokens": 256000,
       "capabilities": {
@@ -151,49 +151,57 @@
       "gated_weights_download": false
     },
     {
-      "key": "glm-4.6",
-      "display_name": "GLM 4.6",
+      "key": "glm-5",
+      "display_name": "GLM 5",
       "vendor": "Z.ai (Zhipu AI)",
       "family": "GLM",
-      "variant": "4.6",
+      "variant": "5",
       "modality": [
         "text"
       ],
       "parameters": {
-        "total_b": 355,
-        "active_b": 32,
+        "total_b": 744,
+        "active_b": 40,
         "architecture": "MoE",
-        "notes": "Z.ai repo documents GLM-4.6 as 355B total / 32B active (\"355B-A32B\"), while Hugging Face UI displays model size as 357B params; treat as a counting/measurement difference across sources."
+        "notes": "744B total / 40B active. Uses DeepSeek Sparse Attention (DSA) for efficient long-context inference. Pre-trained on 28.5T tokens. Supports speculative decoding via MTP and EAGLE."
       },
-      "context_window_tokens": 200000,
+      "context_window_tokens": 128000,
+      "context_window_tokens_max": 202700,
+      "context_window_notes": "128K default context; model supports up to ~202.7K tokens depending on task, enabled by DeepSeek Sparse Attention (DSA).",
       "capabilities": {
         "vision": false,
         "tool_calling": true,
-        "structured_output": "unknown"
+        "structured_output": true,
+        "reasoning_mode": true
       },
       "open_weights": true,
       "license": "MIT",
       "best_for": [
-        "long-context writing and analysis",
-        "multilingual drafting and translation workflows",
-        "extraction/classification pipelines with tool use",
-        "comparison baseline against other long-context models"
+        "complex reasoning and multi-step problem solving",
+        "coding assistance and software engineering tasks",
+        "agentic workflows with long-horizon planning",
+        "multilingual drafting and analysis"
       ],
       "strengths": [
-        "strong long-context handling",
-        "supports tool use during inference"
+        "strong reasoning with up to 131K token generation budget",
+        "agentic task execution with integrated tool use",
+        "sparse attention reduces deployment cost while maintaining long-context capacity",
+        "speculative decoding support (MTP/EAGLE) for faster inference"
       ],
       "limitations": [
         "no image input",
         "tool-calling behavior depends on provider/template"
       ],
       "tags": [
+        "reasoning",
+        "coding",
+        "agentic",
+        "tool_use",
         "long_context",
-        "multilingual",
-        "general",
-        "tool_use"
+        "multilingual"
       ],
       "ui_badges": [
+        "Reasoning mode",
         "Long context"
       ],
       "licensing": {
@@ -202,12 +210,12 @@
           "license_family": "permissive",
           "requires_clickthrough": false,
           "gated_weights_download": false,
-          "license_url": "https://huggingface.co/zai-org/GLM-4.6",
+          "license_url": "https://huggingface.co/zai-org/GLM-5",
           "notes": "Hugging Face lists the model license as MIT."
         },
         "code": {
-          "license_id": "Apache-2.0",
-          "license_url": "https://github.com/zai-org/GLM-4.5/blob/main/LICENSE"
+          "license_id": "MIT",
+          "license_url": "https://huggingface.co/zai-org/GLM-5"
         }
       },
       "license_id": "MIT",
