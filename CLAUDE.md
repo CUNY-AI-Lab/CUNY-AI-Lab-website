@@ -12,7 +12,7 @@ npm run preview  # Preview production build locally
 
 ## Architecture
 
-Astro static site with Tailwind CSS. Auto-deploys to AWS Amplify on push to main. Production URL: cunyailab.org
+Astro static site with Tailwind CSS. Auto-deploys to AWS Amplify on push to main. Production URL: ailab.gc.cuny.edu
 
 **Key Files:**
 - `src/layouts/BaseLayout.astro` - Main layout wrapper (Header, Footer, fonts, favicon)
