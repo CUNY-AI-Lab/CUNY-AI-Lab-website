@@ -1,0 +1,37 @@
+{
+  "title": "Events",
+  "subtitle": "Workshops and training sessions from the CUNY AI Lab.",
+  "series_title": "Spring 2026 Workshop Series",
+  "series_description": "A three-part series on building digital projects with AI, from command-line basics to independent prototyping.",
+  "prerequisites": [
+    "Because the series is scaffolded, participants who are new to the command line and/or Git should plan to attend <strong>both</strong> the March 3 and March 10 workshops.",
+    "Each session is limited to <strong>20 students</strong> and will be held in the <strong><a href=\"https://newmedialab.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:underline\">New Media Lab</a> (Room 7388.01)</strong>.",
+    "Participants are encouraged to bring a laptop so they can set up a workflow on their own machine. Workstations in the New Media Lab are available upon request."
+  ],
+  "workshops": [
+    {
+      "date": "March 3, 4:00–5:30 pm",
+      "title": "Foundations: AI, Command Line, and Version Control",
+      "description": "This workshop covers the fundamentals of using AI tools to develop a digital project, including core AI concepts, setting up your environment, running commands in Terminal or PowerShell, and using Git to track project changes. We'll walk through a basic workflow and use AI to troubleshoot errors as we go.",
+      "prerequisite": null
+    },
+    {
+      "date": "March 10, 4:00–5:30 pm",
+      "title": "Vibe-Coding Prototypes",
+      "description": "This workshop focuses on using AI via the command line to build a small prototype. We'll model prompting, project design, and troubleshooting. After building the same starter project, participants will choose one feature to customize.",
+      "prerequisite": "Prerequisite: Participation in the Foundations workshop, or prior familiarity with the command line and Git/GitHub."
+    },
+    {
+      "date": "March 24, 4:00–5:30 pm",
+      "title": "BYOP (Bring Your Own Project) Build Clinic",
+      "description": "This session offers structured time to build your own digital scholarly project, with facilitators available to support you. Ahead of the workshop, we'll collect a short description of what you're building and group participants by project type. During the session, each group will work with a facilitator to clarify goals, break work into small steps, and troubleshoot as issues come up.",
+      "prerequisite": null
+    }
+  ],
+  "registration": {
+    "heading": "Register for the Workshop Series",
+    "description": "Space is limited to 20 participants per session. Sign up early to secure your spot.",
+    "url": "https://docs.google.com/forms/d/e/1FAIpQLSenSkDfoz3ftYiz6t5KJUEdYDGrbkUKmR6SGVC4j-fF6qNbdA/viewform?usp=publish-editor",
+    "button_text": "Register Now"
+  }
+}
