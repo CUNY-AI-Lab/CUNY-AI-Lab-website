@@ -1,18 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import fs from 'node:fs';
-import path from 'node:path';
+import { getEntry } from 'astro:content';
 
 const base = import.meta.env.BASE_URL;
-const jsonPath = path.join(process.cwd(), 'src/data/contact.json');
-const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+const entry = await getEntry('pages', 'contact');
+const data = entry.data;
+const { Content } = await entry.render();
 ---
 
 <BaseLayout title="Contact - CUNY AI Lab">
   <!-- Hero Section -->
   <section class="relative pt-24 pb-10 lg:pt-28 lg:pb-12">
     <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"1\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">{data.title}</h1>
     </div>
@@ -21,10 +21,10 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
   <!-- Main Content -->
   <section class="py-16 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Intro -->
-      <p class="text-xl md:text-2xl text-gray-600 leading-relaxed mb-12">
-        {data.intro}
-      </p>
+      <!-- Intro (first paragraph from markdown) -->
+      <div class="contact-intro mb-12">
+        <Content />
+      </div>
 
       <!-- Email card -->
       <div class="relative bg-gradient-to-br from-neutral-cream to-white rounded-3xl p-10 md:p-14 border border-gray-100 shadow-sm overflow-hidden group">
@@ -43,14 +43,26 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
               <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </a>
-
-          <div class="mt-10 pt-8 border-t border-gray-200">
-            <p class="text-gray-500 leading-relaxed max-w-xl">
-              {data.description}
-            </p>
-          </div>
         </div>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style is:global>
+  .contact-intro p:first-child {
+    font-size: 1.25rem;
+    line-height: 1.75;
+    color: #4b5563;
+  }
+  @media (min-width: 768px) {
+    .contact-intro p:first-child {
+      font-size: 1.5rem;
+    }
+  }
+  .contact-intro p:last-child {
+    color: #6b7280;
+    line-height: 1.75;
+    max-width: 36rem;
+  }
+</style>
