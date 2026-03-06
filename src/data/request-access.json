@@ -1,0 +1,54 @@
+{
+  "title": "Request Access",
+  "intro_heading": "Get Started with CAIL Sandbox",
+  "intro_description": "The CUNY AI Lab provides CUNY faculty, staff, and students with access to the CAIL Sandbox, our Open WebUI platform—a secure, zero-retention interface for working with AI models.",
+  "features_heading": "What You'll Get Access To:",
+  "features": [
+    "CAIL Sandbox platform with multiple AI models",
+    "Domain-specific tools (AmigAI, Transcription Suite, and more)",
+    "Zero-retention API services for data privacy",
+    "Support from the CUNY AI Lab team"
+  ],
+  "form_heading": "Access Request Form",
+  "form_action": "https://formspree.io/f/mkgqdggp",
+  "form_fields": {
+    "name": { "label": "Full Name", "placeholder": "Jane Doe", "required": true },
+    "email": { "label": "Email Address", "placeholder": "jane.doe@cuny.edu", "required": true },
+    "affiliation": {
+      "label": "CUNY Affiliation",
+      "required": true,
+      "options": [
+        { "value": "", "label": "Select your affiliation..." },
+        { "value": "faculty", "label": "Faculty" },
+        { "value": "staff", "label": "Staff" },
+        { "value": "graduate-student", "label": "Graduate Student" },
+        { "value": "undergraduate-student", "label": "Undergraduate Student" },
+        { "value": "other", "label": "Other" }
+      ]
+    },
+    "department": { "label": "Department/Program", "placeholder": "e.g., English, Digital Humanities, Library", "required": true },
+    "campus": { "label": "CUNY College/Campus", "placeholder": "e.g., Graduate Center, Hunter College, Baruch", "required": true },
+    "intended_use": { "label": "Intended Use", "placeholder": "Please describe how you plan to use the CAIL Sandbox and the CUNY AI Lab tools (e.g., course integration, research project, language learning, etc.)", "required": true }
+  },
+  "tools_of_interest": {
+    "label": "Specific Tools of Interest (Optional)",
+    "options": [
+      { "value": "amigai", "label": "AmigAI (Language Learning)" },
+      { "value": "transcription", "label": "Multilingual Transcription Suite" },
+      { "value": "library", "label": "Library Workflow Assistants" },
+      { "value": "course-assistant", "label": "Course-Specific Assistants" },
+      { "value": "general", "label": "General CAIL Sandbox Access" }
+    ]
+  },
+  "submit_text": "Submit Access Request",
+  "privacy_note": "Your information will only be used to process your access request and provide support. The CUNY AI Lab follows CUNY's privacy policies and uses zero-retention practices.",
+  "next_steps_heading": "What Happens Next?",
+  "next_steps": [
+    { "step": 1, "title": "Review", "description": "We review your request within 2-3 business days." },
+    { "step": 2, "title": "Approval", "description": "You'll receive an email with login credentials." },
+    { "step": 3, "title": "Access", "description_html": "Log in to <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:underline\">chat.ailab.gc.cuny.edu</a>" },
+    { "step": 4, "title": "Support", "description": "Contact us if you need help getting started." }
+  ],
+  "questions_text": "Have questions about access or the platform?",
+  "questions_link_text": "Contact the CUNY AI Lab Team →"
+}
