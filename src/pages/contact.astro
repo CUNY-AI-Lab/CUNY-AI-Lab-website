@@ -43,6 +43,10 @@ const { Content } = await entry.render();
               <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </a>
+
+          <div class="mt-10 pt-8 border-t border-gray-200">
+            <p class="text-gray-500 leading-relaxed max-w-xl">{data.card_detail}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -52,22 +56,12 @@ const { Content } = await entry.render();
 <style is:global>
   .contact-intro p {
     font-family: Inter, system-ui, sans-serif;
-    color: #4b5563;
-    line-height: 1.75;
-    font-size: 1.125rem;
-  }
-  .contact-intro p:first-child {
     font-size: 1.25rem;
+    line-height: 1.625;
     color: #4b5563;
-  }
-  .contact-intro p + p {
-    margin-top: 1rem;
-    color: #6b7280;
-    font-size: 1rem;
-    max-width: 36rem;
   }
   @media (min-width: 768px) {
-    .contact-intro p:first-child {
+    .contact-intro p {
       font-size: 1.5rem;
     }
   }
