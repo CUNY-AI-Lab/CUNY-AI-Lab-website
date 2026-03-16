@@ -21,7 +21,7 @@ const { Content } = await entry.render();
   <!-- Main Content -->
   <section class="py-16 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Intro (first paragraph from markdown) -->
+      <!-- Intro -->
       <div class="contact-intro mb-12">
         <Content />
       </div>
@@ -51,21 +51,24 @@ const { Content } = await entry.render();
 
 <style is:global>
   .contact-intro p {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: Inter, system-ui, sans-serif;
+    color: #4b5563;
+    line-height: 1.75;
+    font-size: 1.125rem;
   }
   .contact-intro p:first-child {
     font-size: 1.25rem;
-    line-height: 1.75;
     color: #4b5563;
+  }
+  .contact-intro p + p {
+    margin-top: 1rem;
+    color: #6b7280;
+    font-size: 1rem;
+    max-width: 36rem;
   }
   @media (min-width: 768px) {
     .contact-intro p:first-child {
       font-size: 1.5rem;
     }
-  }
-  .contact-intro p:last-child {
-    color: #6b7280;
-    line-height: 1.75;
-    max-width: 36rem;
   }
 </style>
