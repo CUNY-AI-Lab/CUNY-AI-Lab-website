@@ -29,8 +29,9 @@ const {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   </head>
   <body class="flex flex-col min-h-screen bg-neutral-cream font-sans text-neutral-stone selection:bg-vibrant-200 selection:text-vibrant-900">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:bg-vibrant-600 focus:text-white focus:rounded-lg focus:font-medium focus:shadow-lg">Skip to main content</a>
     <Header />
-    <main class="flex-grow">
+    <main id="main-content" class="flex-grow">
       <slot />
     </main>
     <Footer />

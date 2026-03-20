@@ -59,11 +59,11 @@ function getStructuredOutputInfo(value: any) {
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Collapsible Mini Guide -->
       <div class="mb-4">
-        <button id="guide-toggle" class="flex items-center gap-2 text-sm text-gray-500 hover:text-vibrant-600 transition-colors">
-          <svg id="guide-chevron" class="w-4 h-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        <button id="guide-toggle" aria-expanded="false" aria-controls="guide-content" class="flex items-center gap-2 text-sm text-gray-500 hover:text-vibrant-600 transition-colors">
+          <svg id="guide-chevron" class="w-4 h-4 transition-transform" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
           <span>How to read model cards</span>
         </button>
-        <div id="guide-content" class="hidden mt-3 p-4 bg-gray-50 rounded-xl border border-gray-200 text-sm text-gray-600">
+        <div id="guide-content" class="hidden mt-3 p-4 bg-gray-50 rounded-xl border border-gray-200 text-sm text-gray-600" role="region" aria-labelledby="guide-toggle">
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
               <p class="font-medium text-neutral-stone mb-1">Capability badges</p>
@@ -82,22 +82,23 @@ function getStructuredOutputInfo(value: any) {
       </div>
 
       <!-- Filter Pills -->
-      <div class="flex flex-wrap items-center gap-2">
-        <button data-filter="open_weights" class="filter-btn group relative px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-400 hover:text-vibrant-600 transition-all">
+      <h2 class="sr-only">Filter models</h2>
+      <div class="flex flex-wrap items-center gap-2" role="toolbar" aria-label="Model filters">
+        <button data-filter="open_weights" aria-label="Filter by open-weight models" aria-pressed="false" class="filter-btn group relative px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-400 hover:text-vibrant-600 transition-all">
           Open
-          <span class="filter-tooltip">Weights can be downloaded and self-hosted</span>
+          <span class="filter-tooltip" role="tooltip">Weights can be downloaded and self-hosted</span>
         </button>
-        <button data-filter="vision" class="filter-btn group relative px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-purple-400 hover:text-purple-600 transition-all">
+        <button data-filter="vision" aria-label="Filter by vision capability" aria-pressed="false" class="filter-btn group relative px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-purple-400 hover:text-purple-600 transition-all">
           Vision
-          <span class="filter-tooltip">Can process images, charts, and documents</span>
+          <span class="filter-tooltip" role="tooltip">Can process images, charts, and documents</span>
         </button>
-        <button data-filter="long_context" class="filter-btn group relative px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-amber-400 hover:text-amber-600 transition-all">
+        <button data-filter="long_context" aria-label="Filter by long context window" aria-pressed="false" class="filter-btn group relative px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-amber-400 hover:text-amber-600 transition-all">
           Long Context
-          <span class="filter-tooltip">Handles 100K+ tokens at once</span>
+          <span class="filter-tooltip" role="tooltip">Handles 100K+ tokens at once</span>
         </button>
-        <button data-filter="permissive" class="filter-btn group relative px-3 py-1.5 rounded-lg text-xs font-medium border border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-400 transition-all">
+        <button data-filter="permissive" aria-label="Filter by permissive license" aria-pressed="false" class="filter-btn group relative px-3 py-1.5 rounded-lg text-xs font-medium border border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-400 transition-all">
           Permissive
-          <span class="filter-tooltip">Minimal legal restrictions (MIT, Apache-2.0)</span>
+          <span class="filter-tooltip" role="tooltip">Minimal legal restrictions (MIT, Apache-2.0)</span>
         </button>
         <div class="h-4 w-px bg-gray-200 mx-1"></div>
         <span id="results-count" class="text-xs text-gray-500">{models.length} models</span>
@@ -241,36 +242,36 @@ function getStructuredOutputInfo(value: any) {
                     <!-- Capabilities Icons -->
                     <div class="flex items-center gap-1.5">
                       {model.capabilities.vision && (
-                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center cursor-help">
-                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center cursor-help" role="img" aria-label="Vision: Can process images, charts, and documents">
+                          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                           </svg>
-                          <span class="capability-tooltip">Vision</span>
+                          <span class="capability-tooltip" role="tooltip">Vision</span>
                         </span>
                       )}
                       {model.context_window_tokens >= 200000 && (
-                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center cursor-help">
-                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center cursor-help" role="img" aria-label="Long Context: Handles 100K+ tokens at once">
+                          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                           </svg>
-                          <span class="capability-tooltip">Long Context</span>
+                          <span class="capability-tooltip" role="tooltip">Long Context</span>
                         </span>
                       )}
                       {model.capabilities.reasoning_mode && (
-                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center cursor-help">
-                          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center cursor-help" role="img" aria-label="Reasoning: Extended chain-of-thought reasoning">
+                          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                           </svg>
-                          <span class="capability-tooltip">Reasoning</span>
+                          <span class="capability-tooltip" role="tooltip">Reasoning</span>
                         </span>
                       )}
                     </div>
                   </div>
 
                   <!-- Right: Expand -->
-                  <button class="expand-btn flex-shrink-0 w-10 h-10 rounded-xl bg-gray-50 hover:bg-vibrant-50 text-gray-400 hover:text-vibrant-600 flex items-center justify-center transition-all">
-                    <svg class="expand-icon w-5 h-5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <button class="expand-btn flex-shrink-0 w-10 h-10 rounded-xl bg-gray-50 hover:bg-vibrant-50 text-gray-400 hover:text-vibrant-600 flex items-center justify-center transition-all" aria-label="Show model details" aria-expanded="false">
+                    <svg class="expand-icon w-5 h-5 transition-transform" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
@@ -419,6 +420,8 @@ function getStructuredOutputInfo(value: any) {
     guideToggle.addEventListener('click', function() {
       guideContent.classList.toggle('hidden');
       guideChevron.classList.toggle('rotate-90');
+      var isOpen = !guideContent.classList.contains('hidden');
+      guideToggle.setAttribute('aria-expanded', String(isOpen));
     });
   }
 
@@ -434,10 +437,14 @@ function getStructuredOutputInfo(value: any) {
         panel.classList.remove('hidden');
         if (icon) icon.classList.add('rotate-180');
         card.classList.add('ring-2', 'ring-vibrant-200');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-label', 'Hide model details');
       } else if (panel) {
         panel.classList.add('hidden');
         if (icon) icon.classList.remove('rotate-180');
         card.classList.remove('ring-2', 'ring-vibrant-200');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Show model details');
       }
     });
   });
@@ -492,6 +499,7 @@ function getStructuredOutputInfo(value: any) {
 
       if (activeFilters.has(filter)) {
         activeFilters.delete(filter);
+        btn.setAttribute('aria-pressed', 'false');
         btn.classList.remove('bg-vibrant-600', 'text-white', 'border-vibrant-600', 'bg-emerald-600', 'border-emerald-600');
         if (filter === 'permissive') {
           btn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
@@ -500,6 +508,7 @@ function getStructuredOutputInfo(value: any) {
         }
       } else {
         activeFilters.add(filter);
+        btn.setAttribute('aria-pressed', 'true');
         if (filter === 'permissive') {
           btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
           btn.classList.remove('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
@@ -520,6 +529,7 @@ function getStructuredOutputInfo(value: any) {
 
       filterBtns.forEach(function(btn) {
         const filter = btn.getAttribute('data-filter');
+        btn.setAttribute('aria-pressed', 'false');
         btn.classList.remove('bg-vibrant-600', 'text-white', 'border-vibrant-600', 'bg-emerald-600', 'border-emerald-600');
         if (filter === 'permissive') {
           btn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');

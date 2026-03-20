@@ -21,17 +21,17 @@ const base = import.meta.env.BASE_URL;
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
       <!-- Mobile: Horizontal selector (visible < lg) -->
-      <div class="flex gap-2 mb-8 lg:hidden overflow-x-auto pb-2 -mx-1 px-1">
-        <button class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-vibrant-500 bg-vibrant-50 text-vibrant-700" data-panel="sandbox">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
+      <div class="flex gap-2 mb-8 lg:hidden overflow-x-auto pb-2 -mx-1 px-1" role="tablist" aria-label="Tool categories">
+        <button class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-vibrant-500 bg-vibrant-50 text-vibrant-700" data-panel="sandbox" role="tab" aria-selected="true" aria-controls="panel-sandbox">
+          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
           CAIL Sandbox
         </button>
-        <button class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-transparent bg-white text-gray-600 hover:border-gray-200" data-panel="media">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
+        <button class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-transparent bg-white text-gray-600 hover:border-gray-200" data-panel="media" role="tab" aria-selected="false" aria-controls="panel-media">
+          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
           Media Processing
         </button>
-        <button class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-transparent bg-white text-gray-600 hover:border-gray-200" data-panel="assistants">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+        <button class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-transparent bg-white text-gray-600 hover:border-gray-200" data-panel="assistants" role="tab" aria-selected="false" aria-controls="panel-assistants">
+          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
           AI Assistants
         </button>
       </div>
@@ -104,7 +104,7 @@ const base = import.meta.env.BASE_URL;
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
           <!-- Panel: CAIL Sandbox               -->
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
-          <div id="panel-sandbox" class="content-panel">
+          <div id="panel-sandbox" class="content-panel" role="tabpanel" aria-label="CAIL Sandbox">
             <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
 
               <!-- Main content -->
@@ -237,7 +237,7 @@ const base = import.meta.env.BASE_URL;
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
           <!-- Panel: Media Processing           -->
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
-          <div id="panel-media" class="content-panel hidden">
+          <div id="panel-media" class="content-panel hidden" role="tabpanel" aria-label="Media Processing">
             <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
 
               <!-- Portal header -->
@@ -291,11 +291,11 @@ const base = import.meta.env.BASE_URL;
                       <img id="slide-2" src={`${base}images/tools/tool-ocr.png`} alt="Document OCR tool interface showing text extraction" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
                     </div>
                   </div>
-                  <button id="slider-prev" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white transition-colors z-10">
-                    <svg class="w-5 h-5 text-neutral-stone" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+                  <button id="slider-prev" aria-label="Previous screenshot" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white transition-colors z-10">
+                    <svg class="w-5 h-5 text-neutral-stone" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
                   </button>
-                  <button id="slider-next" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white transition-colors z-10">
-                    <svg class="w-5 h-5 text-neutral-stone" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+                  <button id="slider-next" aria-label="Next screenshot" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white transition-colors z-10">
+                    <svg class="w-5 h-5 text-neutral-stone" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                   </button>
                   <div class="flex justify-center gap-2 mt-4">
                     <button class="slider-dot w-2.5 h-2.5 rounded-full bg-teal-500 transition-colors" data-slide="0"></button>
@@ -311,7 +311,7 @@ const base = import.meta.env.BASE_URL;
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
           <!-- Panel: AI Assistants              -->
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
-          <div id="panel-assistants" class="content-panel hidden">
+          <div id="panel-assistants" class="content-panel hidden" role="tabpanel" aria-label="AI Assistants">
             <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
 
               <div class="p-8 lg:p-10">
@@ -427,6 +427,7 @@ const base = import.meta.env.BASE_URL;
         mobileTabs.forEach(function(tab) {
           var id = tab.dataset.panel;
           var colors = tabColors[id];
+          tab.setAttribute('aria-selected', id === panelId ? 'true' : 'false');
           if (id === panelId) {
             tab.className = 'mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 ' + colors.border + ' ' + colors.bg + ' ' + colors.text;
           } else {

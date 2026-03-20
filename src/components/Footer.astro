@@ -4,7 +4,7 @@ const base = import.meta.env.BASE_URL;
 
 <footer class="relative bg-neutral-stone text-white overflow-hidden">
   <!-- Subtle texture overlay -->
-  <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
+  <div class="absolute inset-0 opacity-[0.03]" aria-hidden="true" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
 
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -13,16 +13,16 @@ const base = import.meta.env.BASE_URL;
         <a href="https://gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-60 hover:opacity-100 transition-opacity">
           <img src={`${base}images/partners/gc-logo-white.png`} alt="The Graduate Center, CUNY" class="h-8 w-auto" />
         </a>
-        <a href="https://gcdi.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-50 hover:opacity-100 transition-opacity">
+        <a href="https://gcdi.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
           <img src={`${base}images/partners/logo-gcdi.png`} alt="Graduate Center Digital Initiatives" class="h-7 w-auto brightness-0 invert" />
         </a>
-        <a href="https://tlc.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-50 hover:opacity-100 transition-opacity">
+        <a href="https://tlc.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
           <img src={`${base}images/partners/TLC-Logo-v4-No-GC-white.png`} alt="Teaching and Learning Center" class="h-7 w-auto brightness-0 invert" />
         </a>
-        <a href="https://library.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-50 hover:opacity-100 transition-opacity">
+        <a href="https://library.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
           <img src={`${base}images/partners/MRS_logo_One_Search.png`} alt="Mina Rees Library" class="h-7 w-auto brightness-0 invert" />
         </a>
-        <a href="https://ashp.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-50 hover:opacity-100 transition-opacity">
+        <a href="https://ashp.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
           <img src={`${base}images/partners/ashp-logo-blue.png`} alt="American Social History Project" class="h-7 w-auto brightness-0 invert" />
         </a>
       </div>
