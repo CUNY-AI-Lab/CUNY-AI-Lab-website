@@ -75,49 +75,44 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
 
-      <!-- Using the CAIL Sandbox in the Classroom -->
+      <!-- Sandbox Workshops -->
       <div class="mb-12">
         <div class="flex items-center gap-3 mb-6">
           <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0">
-            <svg class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg class="w-4 h-4 text-amber-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.636 50.636 0 00-2.658-.813A59.906 59.906 0 0112 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0112 13.489a50.702 50.702 0 017.74-3.342" />
             </svg>
           </div>
-          <div>
-            <h3 class="text-xl font-bold font-display text-neutral-stone">Using the CAIL Sandbox in the Classroom</h3>
-            <p class="text-sm text-gray-500 mt-0.5">Three-part series (more coming soon)</p>
-          </div>
+          <h3 class="text-xl font-bold font-display text-neutral-stone">Sandbox Workshops</h3>
         </div>
-        <div class="grid md:grid-cols-2 gap-6">
-          <a href="https://cuny-ai-lab.github.io/system-prompting/" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-gray-200 hover:border-amber-300 hover:shadow-lg transition-all p-6">
-            <div class="flex items-start justify-between gap-3 mb-3">
-              <span class="inline-flex items-center px-2.5 py-0.5 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 1</span>
-              <svg class="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-            </div>
-            <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600 transition-colors">System Prompting</h4>
-            <p class="text-gray-600 text-sm leading-relaxed">How to craft effective system prompts to shape AI behavior for classroom use cases and custom assistants.</p>
-          </a>
-          <div class="flex items-center justify-center bg-white/50 rounded-xl border border-dashed border-gray-300 p-6">
-            <p class="text-gray-400 text-sm text-center">Parts 2 and 3 coming soon</p>
-          </div>
-        </div>
-      </div>
 
-      <!-- Standalone -->
-      <div>
-        <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center flex-shrink-0">
-            <svg class="w-4 h-4 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-            </svg>
+        <!-- Workspace Foundations series -->
+        <div class="mb-8">
+          <div class="flex items-center gap-2 mb-4">
+            <h4 class="text-base font-bold font-display text-neutral-stone">Workspace Foundations</h4>
+            <span class="text-xs text-gray-400">Three-part series (more coming soon)</span>
           </div>
-          <h3 class="text-xl font-bold font-display text-neutral-stone">Standalone</h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <a href="https://cuny-ai-lab.github.io/system-prompting/" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-gray-200 hover:border-amber-300 hover:shadow-lg transition-all p-6">
+              <div class="flex items-start justify-between gap-3 mb-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 1</span>
+                <svg class="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors flex-shrink-0" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+              </div>
+              <h5 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600 transition-colors">System Prompting</h5>
+              <p class="text-gray-600 text-sm leading-relaxed">How to craft effective system prompts to shape AI behavior for classroom use cases and custom assistants.</p>
+            </a>
+            <div class="flex items-center justify-center bg-white/50 rounded-xl border border-dashed border-gray-300 p-6">
+              <p class="text-gray-400 text-sm text-center">Parts 2 and 3 coming soon</p>
+            </div>
+          </div>
         </div>
+
+        <!-- Creative Coding -->
         <div class="grid md:grid-cols-2 gap-6">
-          <a href="https://cuny-ai-lab.github.io/creative-coding" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-gray-200 hover:border-teal-300 hover:shadow-lg transition-all p-6">
+          <a href="https://cuny-ai-lab.github.io/creative-coding" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-gray-200 hover:border-amber-300 hover:shadow-lg transition-all p-6">
             <div class="flex items-start justify-between gap-3 mb-3">
-              <h4 class="text-lg font-bold text-neutral-stone group-hover:text-teal-600 transition-colors">Creative Coding</h4>
-              <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+              <h5 class="text-lg font-bold text-neutral-stone group-hover:text-amber-600 transition-colors">Creative Coding</h5>
+              <svg class="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors flex-shrink-0 mt-1" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
             </div>
             <p class="text-gray-600 text-sm leading-relaxed">An introduction to creative coding with AI, exploring generative art and creative applications of programming.</p>
           </a>
