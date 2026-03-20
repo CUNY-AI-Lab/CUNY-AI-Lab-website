@@ -28,6 +28,21 @@
       "prerequisite": null
     }
   ],
+  "coworking_title": "Co-Working Sessions",
+  "coworking_description": "Drop-in sessions for structured working time on your AI-assisted projects. Bring what you're building and work alongside others — facilitators are available for troubleshooting and feedback.",
+  "coworking_sessions": [
+    {
+      "date": "April 15, 12:00–2:00 pm",
+      "format": "Online",
+      "location": null,
+      "registration_url": "https://gc-cuny-edu.zoom.us/meeting/register/8HQhhsqySnCTvvWaPNPtIg"
+    },
+    {
+      "date": "May 7, 12:00–2:00 pm",
+      "format": "In-Person",
+      "location": "New Media Lab (Room 7388.01)"
+    }
+  ],
   "registration": {
     "heading": "Register for the Workshop Series",
     "description": "Space is limited to 20 participants per session. Sign up early to secure your spot.",
