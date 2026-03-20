@@ -19,8 +19,16 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     </div>
   </section>
 
+  <!-- Section Nav -->
+  <nav class="bg-white border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-6 py-4">
+      <a href="#workshops" class="text-sm font-semibold text-vibrant-600 hover:text-vibrant-700 transition-colors">Workshop Series</a>
+      <a href="#coworking" class="text-sm font-semibold text-vibrant-600 hover:text-vibrant-700 transition-colors">Co-Working Sessions</a>
+    </div>
+  </nav>
+
   <!-- Workshop Series -->
-  <section class="py-16 bg-white">
+  <section id="workshops" class="py-16 bg-white scroll-mt-16">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold font-display text-neutral-stone mb-4">{data.series_title}</h2>
       <p class="text-lg text-gray-600 leading-relaxed mb-10">
@@ -77,8 +85,27 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     </div>
   </section>
 
-  <!-- Co-Working Sessions -->
+  <!-- Registration CTA -->
   <section class="py-16 bg-neutral-cream">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h3 class="text-2xl font-bold font-display text-neutral-stone mb-4">{data.registration.heading}</h3>
+      <p class="text-gray-600 mb-8">{data.registration.description}</p>
+      <a
+        href={data.registration.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-8 py-4 bg-vibrant-600 text-white rounded-full font-bold text-lg hover:bg-vibrant-700 transition-colors shadow-lg hover:shadow-vibrant-500/30"
+      >
+        {data.registration.button_text}
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Co-Working Sessions -->
+  <section id="coworking" class="py-16 bg-white scroll-mt-16">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold font-display text-neutral-stone mb-4">{data.coworking_title}</h2>
       <p class="text-lg text-gray-600 leading-relaxed mb-10">
@@ -129,25 +156,6 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
           </div>
         ))}
       </div>
-    </div>
-  </section>
-
-  <!-- Registration CTA -->
-  <section class="py-16 bg-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h3 class="text-2xl font-bold font-display text-neutral-stone mb-4">{data.registration.heading}</h3>
-      <p class="text-gray-600 mb-8">{data.registration.description}</p>
-      <a
-        href={data.registration.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-8 py-4 bg-vibrant-600 text-white rounded-full font-bold text-lg hover:bg-vibrant-700 transition-colors shadow-lg hover:shadow-vibrant-500/30"
-      >
-        {data.registration.button_text}
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-        </svg>
-      </a>
     </div>
   </section>
 </BaseLayout>
