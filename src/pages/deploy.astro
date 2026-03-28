@@ -41,7 +41,7 @@ const base = import.meta.env.BASE_URL;
             Kale Deploy is a publishing tool from the CUNY AI Lab. It connects your GitHub repository to CUNY infrastructure so that every push to <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded font-mono text-vibrant-700">main</code> automatically builds and deploys your app to a live URL.
           </p>
           <p class="text-lg text-gray-600 leading-relaxed">
-            You work with an AI coding agent — Claude Code, Codex, or Gemini CLI — to build your project, and Kale Deploy handles the rest. No server configuration, no YAML files, no manual deployment steps.
+            You work with an AI coding agent (Claude Code, Codex, or Gemini CLI) to build your project, and Kale Deploy handles the rest. No server configuration, no YAML files, no manual deployment steps.
           </p>
         </div>
         <div class="lg:col-span-2">
@@ -86,7 +86,7 @@ const base = import.meta.env.BASE_URL;
   <section class="py-16 bg-neutral-cream">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold font-display text-neutral-stone mb-4">How It Works</h2>
-      <p class="text-gray-600 mb-12 max-w-2xl">Five steps from zero to a live URL. Your AI agent handles most of the work.</p>
+      <p class="text-gray-600 mb-12 max-w-2xl">Five steps from zero to a live URL. Your AI agent handles the heavy lifting.</p>
 
       <div class="space-y-0">
         {[
@@ -190,7 +190,7 @@ const base = import.meta.env.BASE_URL;
         <div class="lg:col-span-3">
           <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">Under the Hood</h2>
           <p class="text-gray-600 leading-relaxed mb-6">
-            Kale Deploy runs on Cloudflare Workers. Your project is built automatically on a CUNY AI Lab runner and published as a Worker — similar to Vercel or Netlify, but on CUNY-managed infrastructure.
+            Kale Deploy runs on Cloudflare Workers. A CUNY AI Lab runner builds your project automatically and publishes it as a Worker, similar to Vercel or Netlify but on CUNY-managed infrastructure.
           </p>
           <p class="text-gray-600 leading-relaxed">
             Projects use TypeScript or JavaScript, and Hono is the recommended framework. Storage is available through D1 (database), R2 (files), and KV (cache). GitHub shows build status directly on each commit.
