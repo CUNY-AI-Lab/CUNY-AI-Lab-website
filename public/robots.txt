@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ailab.gc.cuny.edu/sitemap-index.xml
