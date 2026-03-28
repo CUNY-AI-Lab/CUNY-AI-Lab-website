@@ -1,0 +1,243 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Kale Deploy - CUNY AI Lab" description="Publish web apps to CUNY infrastructure with an AI agent and a GitHub push.">
+  <!-- Hero Section -->
+  <section class="relative pt-24 pb-14 lg:pt-28 lg:pb-16">
+    <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Kale Deploy</h1>
+        <p class="mt-4 text-vibrant-200/80 text-lg">Publish web apps to CUNY infrastructure with an AI agent and a GitHub push.</p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4">
+          <a href="https://cuny.qzz.io/kale" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-white text-cuny-blue px-7 py-3 rounded-full text-base font-semibold hover:bg-vibrant-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+            Get Started
+            <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          </a>
+        </div>
+      </div>
+      <!-- URL preview pill -->
+      <div class="mt-10 inline-flex items-center gap-3 bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] rounded-xl px-5 py-3.5">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></span>
+          <span class="text-green-300 text-xs font-medium uppercase tracking-wider">Live</span>
+        </div>
+        <span class="text-white/30">|</span>
+        <code class="text-vibrant-200 text-sm font-mono">https://<span class="text-white font-medium">your-project</span>.cuny.qzz.io</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- What Is It -->
+  <section class="py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-5 gap-12 lg:gap-16">
+        <div class="lg:col-span-3">
+          <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">What is Kale Deploy?</h2>
+          <p class="text-lg text-gray-600 leading-relaxed mb-6">
+            Kale Deploy is a publishing tool from the CUNY AI Lab. It connects your GitHub repository to CUNY infrastructure so that every push to <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded font-mono text-vibrant-700">main</code> automatically builds and deploys your app to a live URL.
+          </p>
+          <p class="text-lg text-gray-600 leading-relaxed">
+            You work with an AI coding agent — Claude Code, Codex, or Gemini CLI — to build your project, and Kale Deploy handles the rest. No server configuration, no YAML files, no manual deployment steps.
+          </p>
+        </div>
+        <div class="lg:col-span-2">
+          <div class="bg-neutral-cream rounded-2xl p-6 border border-gray-100">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-5">Supported Agents</h3>
+            <ul class="space-y-4">
+              <li class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-vibrant-50 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-4 h-4 text-vibrant-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                </div>
+                <div>
+                  <span class="font-semibold text-neutral-stone">Claude Code</span>
+                  <p class="text-xs text-gray-500">Anthropic</p>
+                </div>
+              </li>
+              <li class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-vibrant-50 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-4 h-4 text-vibrant-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                </div>
+                <div>
+                  <span class="font-semibold text-neutral-stone">Codex</span>
+                  <p class="text-xs text-gray-500">OpenAI</p>
+                </div>
+              </li>
+              <li class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-vibrant-50 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-4 h-4 text-vibrant-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                </div>
+                <div>
+                  <span class="font-semibold text-neutral-stone">Gemini CLI</span>
+                  <p class="text-xs text-gray-500">Google</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-16 bg-neutral-cream">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-4">How It Works</h2>
+      <p class="text-gray-600 mb-12 max-w-2xl">Five steps from zero to a live URL. Your AI agent handles most of the work.</p>
+
+      <div class="space-y-0">
+        {[
+          { step: '1', title: 'Sign in', desc: 'Open cuny.qzz.io/kale and authenticate with your CUNY email.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />' },
+          { step: '2', title: 'Connect your agent', desc: 'Choose Claude Code, Codex, or Gemini CLI. Copy the setup prompt and paste it into your agent.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />' },
+          { step: '3', title: 'Build the app', desc: 'Tell the agent what you want to make. It creates a deployable project structure for you.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />' },
+          { step: '4', title: 'Approve GitHub', desc: 'Approve the Kale Deploy GitHub App for your repository. This is a one-time step per repo.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />' },
+          { step: '5', title: 'Push to main', desc: 'Your app builds automatically and goes live at your project URL. Every future push redeploys.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />' },
+        ].map((item, i) => (
+          <div class="deploy-step flex gap-6 relative">
+            <!-- Connector line -->
+            <div class="flex flex-col items-center flex-shrink-0">
+              <div class="w-11 h-11 rounded-xl bg-white border-2 border-vibrant-500 text-vibrant-600 flex items-center justify-center relative z-10 shadow-sm">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <Fragment set:html={item.icon} />
+                </svg>
+              </div>
+              {i < 4 && (
+                <div class="w-0.5 h-full bg-vibrant-200 min-h-[2rem]"></div>
+              )}
+            </div>
+            <div class="pb-10">
+              <div class="flex items-baseline gap-3 mb-1">
+                <span class="text-xs font-bold text-vibrant-600 uppercase tracking-wider">Step {item.step}</span>
+                <h3 class="text-lg font-bold font-display text-neutral-stone">{item.title}</h3>
+              </div>
+              <p class="text-gray-600 leading-relaxed">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What You Can Build -->
+  <section class="py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-10">What You Can Build</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <!-- Good Fits -->
+        <div class="rounded-2xl border border-gray-200 p-8 bg-gradient-to-b from-white to-green-50/30">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold font-display text-neutral-stone">Works Well</h3>
+          </div>
+          <ul class="space-y-3">
+            {[
+              'Exhibit and portfolio sites',
+              'Course or project websites',
+              'Forms and guestbooks',
+              'Small APIs and data apps',
+              'Archive browsers and catalogs',
+              'Lightweight AI interfaces',
+            ].map((item) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-green-500 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Not Supported -->
+        <div class="rounded-2xl border border-gray-200 p-8 bg-gradient-to-b from-white to-amber-50/30">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold font-display text-neutral-stone">Not the Right Fit</h3>
+          </div>
+          <ul class="space-y-3">
+            {[
+              'Python backends (Django, Flask, FastAPI)',
+              'Traditional Node servers (Express, Koa)',
+              'Apps that need native binaries or containers',
+              'Long-running background jobs',
+              'Apps that write to the local filesystem',
+            ].map((item) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-amber-500 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Under the Hood -->
+  <section class="py-16 bg-neutral-cream">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-5 gap-12 lg:gap-16">
+        <div class="lg:col-span-3">
+          <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">Under the Hood</h2>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            Kale Deploy runs on Cloudflare Workers. Your project is built automatically on a CUNY AI Lab runner and published as a Worker — similar to Vercel or Netlify, but on CUNY-managed infrastructure.
+          </p>
+          <p class="text-gray-600 leading-relaxed">
+            Projects use TypeScript or JavaScript, and Hono is the recommended framework. Storage is available through D1 (database), R2 (files), and KV (cache). GitHub shows build status directly on each commit.
+          </p>
+        </div>
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-5">Tech Stack</h3>
+            <div class="space-y-3">
+              {[
+                { label: 'Runtime', value: 'Cloudflare Workers' },
+                { label: 'Language', value: 'TypeScript / JavaScript' },
+                { label: 'Framework', value: 'Hono (recommended)' },
+                { label: 'Database', value: 'D1 (SQLite)' },
+                { label: 'Files', value: 'R2 (object storage)' },
+                { label: 'Cache', value: 'KV (key-value)' },
+                { label: 'CI/CD', value: 'GitHub push to main' },
+              ].map((item) => (
+                <div class="flex items-baseline justify-between gap-4 py-1.5 border-b border-gray-100 last:border-0">
+                  <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide flex-shrink-0">{item.label}</span>
+                  <span class="text-sm font-medium text-neutral-stone text-right">{item.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-4">Ready to Deploy?</h2>
+      <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
+        Head to the Kale Deploy homepage to get started. Pick your AI agent, copy the setup prompt, and build something.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://cuny.qzz.io/kale" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-vibrant-600 text-white px-8 py-3.5 rounded-full text-base font-semibold hover:bg-vibrant-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+          Get Started
+          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+        </a>
+        <a href={`${base}tools`} class="inline-flex items-center justify-center gap-2 bg-white text-vibrant-600 px-8 py-3.5 rounded-full text-base font-semibold border-2 border-vibrant-200 hover:border-vibrant-400 transition-all">
+          Explore Other Tools
+          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
