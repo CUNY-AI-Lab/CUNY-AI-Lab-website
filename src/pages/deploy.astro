@@ -141,7 +141,6 @@ const base = import.meta.env.BASE_URL;
           <ul class="space-y-3">
             {[
               'Web apps that store and query data',
-              'AI-powered tools and chatbots',
               'Real-time collaborative apps',
               'APIs and data services',
               'Exhibit, portfolio, and course sites',
@@ -195,7 +194,7 @@ const base = import.meta.env.BASE_URL;
             Kale Deploy runs on Cloudflare Workers. A CUNY AI Lab runner builds your project automatically and publishes it as a Worker, similar to Vercel or Netlify but on infrastructure managed by the CUNY AI Lab.
           </p>
           <p class="text-gray-600 leading-relaxed">
-            Projects use TypeScript or JavaScript, and Hono is the recommended framework. Each project gets its own database, file storage, and caching. You can also use built-in AI models and vector search. GitHub shows build status directly on each commit.
+            Projects use TypeScript or JavaScript, and Hono is the recommended framework. Each project gets its own database, file storage, and caching. GitHub shows build status directly on each commit.
           </p>
         </div>
         <div class="lg:col-span-2">
@@ -209,8 +208,6 @@ const base = import.meta.env.BASE_URL;
                 { label: 'Database', value: 'D1 (SQLite)' },
                 { label: 'Files', value: 'R2 (object storage)' },
                 { label: 'Cache', value: 'KV (key-value)' },
-                { label: 'AI', value: 'Workers AI' },
-                { label: 'Search', value: 'Vectorize' },
                 { label: 'Realtime', value: 'Durable Objects' },
                 { label: 'CI/CD', value: 'GitHub push to main' },
               ].map((item) => (
