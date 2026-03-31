@@ -458,6 +458,33 @@ const base = import.meta.env.BASE_URL;
         });
       });
 
+      // Randomize order of sidebar cards and mobile tabs on each page load
+      function shuffleChildren(parent) {
+        var children = Array.from(parent.children);
+        for (var i = children.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = children[i];
+          children[i] = children[j];
+          children[j] = temp;
+        }
+        children.forEach(function(child) { parent.appendChild(child); });
+      }
+
+      var sidebarContainer = document.querySelector('.tools-sidebar .sticky');
+      if (sidebarContainer) shuffleChildren(sidebarContainer);
+
+      var mobileContainer = document.querySelector('[role="tablist"]');
+      if (mobileContainer) shuffleChildren(mobileContainer);
+
+      // Re-query after shuffle so event listeners reference correct elements
+      sidebarCards = document.querySelectorAll('.sidebar-card');
+      mobileTabs = document.querySelectorAll('.mobile-tab');
+
+      // Pick a random panel to show first
+      var panelIds = ['sandbox', 'media', 'assistants'];
+      var randomPanel = panelIds[Math.floor(Math.random() * panelIds.length)];
+      switchPanel(randomPanel);
+
       // Initialize panel opacity
       panels.forEach(function(p) {
         if (!p.classList.contains('hidden')) {
