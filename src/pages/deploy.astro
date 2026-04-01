@@ -29,7 +29,7 @@ const base = import.meta.env.BASE_URL;
         <div class="lg:col-span-3">
           <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">What is Kale Deploy?</h2>
           <p class="text-lg text-gray-600 leading-relaxed mb-6">
-            Kale Deploy is a publishing tool from the CUNY AI Lab. It connects your GitHub repository to a live URL so that every push to <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded font-mono text-vibrant-700">main</code> automatically builds and deploys your app.
+            Kale Deploy is a publishing tool from the CUNY AI Lab. It connects your GitHub repository to a live URL so that every push automatically builds and deploys your app.
           </p>
           <p class="text-lg text-gray-600 leading-relaxed">
             You work with any AI coding agent to build your project, and Kale Deploy handles the rest. No server configuration, no YAML files, no manual deployment steps.
@@ -38,7 +38,7 @@ const base = import.meta.env.BASE_URL;
         <div class="lg:col-span-2">
           <div class="bg-neutral-cream rounded-2xl p-6 border border-gray-100">
             <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Works With Any Agent</h3>
-            <p class="text-sm text-gray-600 mb-5">Kale Deploy exposes a standard MCP server and JSON API, so any coding agent can use it. These three have ready-made setup prompts:</p>
+            <p class="text-sm text-gray-600 mb-5">Kale Deploy exposes a standard MCP server and JSON API, so any coding agent can use it. The site shows agent-specific install and connection steps for these common setups:</p>
             <ul class="space-y-4">
               <li class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-lg bg-vibrant-50 flex items-center justify-center flex-shrink-0">
@@ -78,15 +78,15 @@ const base = import.meta.env.BASE_URL;
   <section class="py-16 bg-neutral-cream">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold font-display text-neutral-stone mb-4">How It Works</h2>
-      <p class="text-gray-600 mb-12 max-w-2xl">Five steps from zero to a live URL. Your AI agent handles the heavy lifting.</p>
+      <p class="text-gray-600 mb-12 max-w-2xl">Five steps from first connection to a live URL.</p>
 
       <div class="space-y-0">
         {[
-          { step: '1', title: 'Copy the setup prompt', desc: 'Open cuny.qzz.io/kale, choose your agent, and copy the setup prompt.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />' },
-          { step: '2', title: 'Paste it into your agent', desc: 'The agent connects to Kale Deploy and authenticates through your browser.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />' },
-          { step: '3', title: 'Describe what you want', desc: 'Tell the agent what to build. It creates a deployable project and a GitHub repository.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />' },
-          { step: '4', title: 'Approve GitHub', desc: 'Approve the Kale Deploy GitHub App for your repository when the agent prompts you. One-time per repo.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />' },
-          { step: '5', title: 'Push to main', desc: 'Your app builds automatically and goes live at your project URL. Every future push redeploys.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />' },
+          { step: '1', title: 'Install or connect Kale', desc: 'Open cuny.qzz.io/kale, choose your agent, and run the command it shows you.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />' },
+          { step: '2', title: 'Connect your agent', desc: 'Follow the sign-in step so your agent can reach Kale Deploy.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />' },
+          { step: '3', title: 'Build or connect your repo', desc: 'Tell the agent what to build, or point it at an existing repository. It prepares a Kale-compatible project.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />' },
+          { step: '4', title: 'Approve GitHub', desc: 'Approve the Kale Deploy GitHub App for that repository when prompted. This is a one-time step per repo.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />' },
+          { step: '5', title: 'Push to your default branch', desc: 'Kale builds automatically and publishes your app at its project URL. Every future push redeploys.', icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />' },
         ].map((item, i) => (
           <div class="deploy-step flex gap-6 relative">
             <!-- Connector line -->
@@ -219,7 +219,7 @@ const base = import.meta.env.BASE_URL;
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl font-bold font-display text-neutral-stone mb-4">Ready to Deploy?</h2>
       <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">
-        Head to the Kale Deploy homepage to get started. Pick your AI agent, copy the setup prompt, and build something.
+        Head to the Kale Deploy homepage to get started. Pick your AI agent, run the install or connection step it shows, and build something.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a href="https://cuny.qzz.io/kale" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-vibrant-600 text-white px-8 py-3.5 rounded-full text-base font-semibold hover:bg-vibrant-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
