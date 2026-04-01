@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Kale Deploy - CUNY AI Lab" description="Publish web apps to CUNY infrastructure with an AI agent and a GitHub push.">
+<BaseLayout title="Kale Deploy - CUNY AI Lab" description="Publish web apps to a live URL with an AI agent and a GitHub push.">
   <!-- Hero Section -->
   <section class="relative pt-24 pb-14 lg:pt-28 lg:pb-16">
     <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
@@ -11,7 +11,7 @@ const base = import.meta.env.BASE_URL;
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="max-w-3xl">
         <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Kale Deploy</h1>
-        <p class="mt-4 text-vibrant-200/80 text-lg">Publish web apps to CUNY infrastructure with an AI agent and a GitHub push.</p>
+        <p class="mt-4 text-vibrant-200/80 text-lg">Publish web apps to a live URL with an AI agent and a GitHub push.</p>
         <div class="mt-8 flex flex-col sm:flex-row gap-4">
           <a href="https://cuny.qzz.io/kale" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-white text-cuny-blue px-7 py-3 rounded-full text-base font-semibold hover:bg-vibrant-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
             Get Started
@@ -29,7 +29,7 @@ const base = import.meta.env.BASE_URL;
         <div class="lg:col-span-3">
           <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">What is Kale Deploy?</h2>
           <p class="text-lg text-gray-600 leading-relaxed mb-6">
-            Kale Deploy is a publishing tool from the CUNY AI Lab. It connects your GitHub repository to CUNY infrastructure so that every push to <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded font-mono text-vibrant-700">main</code> automatically builds and deploys your app to a live URL.
+            Kale Deploy is a publishing tool from the CUNY AI Lab. It connects your GitHub repository to a live URL so that every push to <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded font-mono text-vibrant-700">main</code> automatically builds and deploys your app.
           </p>
           <p class="text-lg text-gray-600 leading-relaxed">
             You work with any AI coding agent to build your project, and Kale Deploy handles the rest. No server configuration, no YAML files, no manual deployment steps.
