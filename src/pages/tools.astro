@@ -34,6 +34,10 @@ const base = import.meta.env.BASE_URL;
           <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
           AI Assistants
         </button>
+        <button class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-transparent bg-white text-gray-600 hover:border-gray-200" data-panel="deploy" role="tab" aria-selected="false" aria-controls="panel-deploy">
+          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+          Deploy
+        </button>
       </div>
 
       <div class="tools-layout">
@@ -92,6 +96,23 @@ const base = import.meta.env.BASE_URL;
               <div class="flex flex-wrap gap-1 pl-12">
                 <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[10px] font-medium rounded-full">Agent Studio</span>
                 <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[10px] font-medium rounded-full">Site Studio</span>
+              </div>
+            </button>
+
+            <!-- Sidebar: Deploy -->
+            <button class="sidebar-card group w-full text-left rounded-xl p-5 transition-all duration-300 bg-white/60 border-l-4 border-transparent hover:bg-white hover:shadow-sm" data-panel="deploy">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="w-9 h-9 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-4.5 h-4.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                  </svg>
+                </div>
+                <h2 class="text-base font-bold font-display text-neutral-stone">Deploy</h2>
+              </div>
+              <p class="text-gray-500 text-xs leading-relaxed mb-3 pl-12">Publish web apps to a live URL</p>
+              <div class="flex flex-wrap gap-1 pl-12">
+                <span class="px-2 py-0.5 bg-amber-50 text-amber-700 text-[10px] font-medium rounded-full">Kale Deploy</span>
+                <span class="px-2 py-0.5 bg-amber-50 text-amber-700 text-[10px] font-medium rounded-full">Hosting</span>
               </div>
             </button>
 
@@ -365,6 +386,69 @@ const base = import.meta.env.BASE_URL;
             </div>
           </div>
 
+          <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
+          <!-- Panel: Deploy                     -->
+          <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
+          <div id="panel-deploy" class="content-panel hidden" role="tabpanel" aria-label="Deploy">
+            <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+
+              <div class="p-8 lg:p-10">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+                  <div>
+                    <h2 class="text-3xl font-bold font-display text-neutral-stone">Kale Deploy</h2>
+                    <p class="text-gray-500 mt-1">Publish web apps to a live URL with an AI agent and a GitHub push</p>
+                  </div>
+                  <a href={`${base}deploy`} class="inline-flex items-center gap-2 px-5 py-2.5 bg-vibrant-600 text-white rounded-full text-sm font-medium hover:bg-vibrant-700 transition-colors flex-shrink-0">
+                    Learn More
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  </a>
+                </div>
+                <p class="text-gray-600 mb-10 max-w-3xl">Kale Deploy connects your GitHub repository to a live URL so that every push automatically builds and deploys your app. You work with any AI coding agent to build your project, and Kale Deploy handles the rest. No server configuration, no YAML files, no manual deployment steps.</p>
+
+                <div class="grid md:grid-cols-3 gap-5 mb-10">
+                  <div class="bg-neutral-cream rounded-xl p-5 border border-gray-100">
+                    <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center mb-3">
+                      <svg class="w-4.5 h-4.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-neutral-stone text-sm mb-1">Push to Deploy</h4>
+                    <p class="text-gray-600 text-xs leading-relaxed">Push to GitHub and your app goes live. Every commit triggers an automatic build and deployment.</p>
+                  </div>
+                  <div class="bg-neutral-cream rounded-xl p-5 border border-gray-100">
+                    <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center mb-3">
+                      <svg class="w-4.5 h-4.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-neutral-stone text-sm mb-1">Works With Any Agent</h4>
+                    <p class="text-gray-600 text-xs leading-relaxed">Use Claude Code, Codex, Gemini CLI, or any MCP-compatible coding agent to build your project.</p>
+                  </div>
+                  <div class="bg-neutral-cream rounded-xl p-5 border border-gray-100">
+                    <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center mb-3">
+                      <svg class="w-4.5 h-4.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2" />
+                      </svg>
+                    </div>
+                    <h4 class="font-bold text-neutral-stone text-sm mb-1">Zero Configuration</h4>
+                    <p class="text-gray-600 text-xs leading-relaxed">No server setup, no YAML, no CI/CD pipelines. Runs on Cloudflare Workers with built-in database and storage.</p>
+                  </div>
+                </div>
+
+                <div class="flex flex-wrap gap-4">
+                  <a href="https://cuny.qzz.io/kale" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-vibrant-600 text-white rounded-full font-medium hover:bg-vibrant-700 transition-colors shadow-md">
+                    Get Started
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                  </a>
+                  <a href={`${base}deploy`} class="inline-flex items-center gap-2 px-6 py-3 border border-gray-300 text-neutral-stone rounded-full font-medium hover:border-vibrant-300 hover:text-vibrant-600 transition-colors">
+                    Full Details
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -386,14 +470,16 @@ const base = import.meta.env.BASE_URL;
       var cardColors = {
         sandbox: { border: 'border-vibrant-500', bg: 'bg-white', shadow: 'shadow-md' },
         media: { border: 'border-teal-500', bg: 'bg-white', shadow: 'shadow-md' },
-        assistants: { border: 'border-indigo-500', bg: 'bg-white', shadow: 'shadow-md' }
+        assistants: { border: 'border-indigo-500', bg: 'bg-white', shadow: 'shadow-md' },
+        deploy: { border: 'border-amber-500', bg: 'bg-white', shadow: 'shadow-md' }
       };
 
       // Color configs for mobile tab active states
       var tabColors = {
         sandbox: { border: 'border-vibrant-500', bg: 'bg-vibrant-50', text: 'text-vibrant-700' },
         media: { border: 'border-teal-500', bg: 'bg-teal-50', text: 'text-teal-700' },
-        assistants: { border: 'border-indigo-500', bg: 'bg-indigo-50', text: 'text-indigo-700' }
+        assistants: { border: 'border-indigo-500', bg: 'bg-indigo-50', text: 'text-indigo-700' },
+        deploy: { border: 'border-amber-500', bg: 'bg-amber-50', text: 'text-amber-700' }
       };
 
       function switchPanel(panelId) {
@@ -481,7 +567,7 @@ const base = import.meta.env.BASE_URL;
       mobileTabs = document.querySelectorAll('.mobile-tab');
 
       // Pick a random panel to show first
-      var panelIds = ['sandbox', 'media', 'assistants'];
+      var panelIds = ['sandbox', 'media', 'assistants', 'deploy'];
       var randomPanel = panelIds[Math.floor(Math.random() * panelIds.length)];
       switchPanel(randomPanel);
 
