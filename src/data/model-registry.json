@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0",
-  "updated_at": "2026-02-17",
+  "updated_at": "2026-04-09",
   "license_taxonomy": {
     "license_family_enum": [
       "permissive",
@@ -224,11 +224,11 @@
       "gated_weights_download": false
     },
     {
-      "key": "gpt-oss-120b",
-      "display_name": "gpt-oss-120b",
+      "key": "gpt-oss-safeguard-120b",
+      "display_name": "GPT-OSS-Safeguard-120b",
       "vendor": "OpenAI",
       "family": "gpt-oss",
-      "variant": "120b",
+      "variant": "Safeguard-120b",
       "modality": [
         "text"
       ],
@@ -236,7 +236,7 @@
         "total_b": 116.8,
         "active_b": 5.1,
         "architecture": "MoE",
-        "notes": "OpenAI docs round this as 117B total parameters with 5.1B active; the model card reports 116.8B total / 5.1B active."
+        "notes": "116.8B total / 5.1B active (same architecture as gpt-oss-120b base). Safeguard variant adds additional safety alignment and guardrails on top of the base open-weights checkpoint."
       },
       "context_window_tokens": 131072,
       "capabilities": {
@@ -248,13 +248,14 @@
       "open_weights": true,
       "license": "Apache-2.0 (+ gpt-oss usage policy)",
       "best_for": [
-        "reproducible open-weights workflows",
+        "reproducible open-weights workflows with built-in safety alignment",
         "structured outputs and schema-following tasks",
         "evaluation baselines and benchmarking across tasks",
         "agent-style tool workflows (provider-dependent)"
       ],
       "strengths": [
         "three reasoning effort levels (low, medium, high) like o-series",
+        "additional safety alignment and guardrails over the base gpt-oss-120b checkpoint",
         "open-weights option with strong instruction-following",
         "native support for function calling and structured outputs"
       ],
@@ -268,11 +269,13 @@
         "reasoning",
         "general",
         "tool_use",
-        "evaluation_baseline"
+        "evaluation_baseline",
+        "safety_tuned"
       ],
       "ui_badges": [
         "Open weights",
-        "Reasoning mode"
+        "Reasoning mode",
+        "Safeguard"
       ],
       "licensing": {
         "weights": {
