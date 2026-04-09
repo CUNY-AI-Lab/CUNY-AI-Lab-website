@@ -224,11 +224,11 @@
       "gated_weights_download": false
     },
     {
-      "key": "gpt-oss-safeguard-120b",
-      "display_name": "gpt-oss-safeguard-120b",
+      "key": "gpt-oss-120b",
+      "display_name": "gpt-oss-120b",
       "vendor": "OpenAI",
       "family": "gpt-oss",
-      "variant": "Safeguard-120b",
+      "variant": "120b",
       "modality": [
         "text"
       ],
@@ -236,7 +236,7 @@
         "total_b": 116.8,
         "active_b": 5.1,
         "architecture": "MoE",
-        "notes": "116.8B total / 5.1B active (same architecture as gpt-oss-120b base). Safeguard variant adds additional safety alignment and guardrails on top of the base open-weights checkpoint."
+        "notes": "OpenAI docs round this as 117B total parameters with 5.1B active; the model card reports 116.8B total / 5.1B active."
       },
       "context_window_tokens": 131072,
       "capabilities": {
@@ -248,14 +248,13 @@
       "open_weights": true,
       "license": "Apache-2.0 (+ gpt-oss usage policy)",
       "best_for": [
-        "reproducible open-weights workflows with built-in safety alignment",
+        "reproducible open-weights workflows",
         "structured outputs and schema-following tasks",
         "evaluation baselines and benchmarking across tasks",
         "agent-style tool workflows (provider-dependent)"
       ],
       "strengths": [
         "three reasoning effort levels (low, medium, high) like o-series",
-        "additional safety alignment and guardrails over the base gpt-oss-120b checkpoint",
         "open-weights option with strong instruction-following",
         "native support for function calling and structured outputs"
       ],
@@ -269,13 +268,11 @@
         "reasoning",
         "general",
         "tool_use",
-        "evaluation_baseline",
-        "safety_tuned"
+        "evaluation_baseline"
       ],
       "ui_badges": [
         "Open weights",
-        "Reasoning mode",
-        "Safeguard"
+        "Reasoning mode"
       ],
       "licensing": {
         "weights": {
