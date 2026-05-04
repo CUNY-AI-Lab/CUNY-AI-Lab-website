@@ -1,0 +1,69 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F8F4EC"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1035" cy="105" r="260" fill="#37B6CC" fill-opacity="0.14"/>
+  <circle cx="106" cy="540" r="230" fill="#24428F" fill-opacity="0.12"/>
+
+  <g opacity="0.38">
+    <path d="M760 122H1064" stroke="#24428F" stroke-width="2"/>
+    <path d="M760 192H1064" stroke="#24428F" stroke-width="2"/>
+    <path d="M760 262H1064" stroke="#24428F" stroke-width="2"/>
+    <path d="M760 332H1064" stroke="#24428F" stroke-width="2"/>
+    <path d="M760 402H1064" stroke="#24428F" stroke-width="2"/>
+    <path d="M830 80V444" stroke="#24428F" stroke-width="2"/>
+    <path d="M900 80V444" stroke="#24428F" stroke-width="2"/>
+    <path d="M970 80V444" stroke="#24428F" stroke-width="2"/>
+    <path d="M1040 80V444" stroke="#24428F" stroke-width="2"/>
+  </g>
+
+  <g transform="translate(86 86)">
+    <rect x="0" y="0" width="292" height="48" rx="24" fill="#24428F"/>
+    <rect x="0" y="71" width="252" height="48" rx="24" fill="#3D73E5"/>
+    <rect x="62" y="142" width="292" height="48" rx="24" fill="#37B6CC"/>
+    <rect x="31" y="213" width="292" height="48" rx="24" fill="#2D72B8"/>
+  </g>
+
+  <text x="438" y="165" fill="#111827" font-family="Arial Black, Arial, sans-serif" font-size="82" font-weight="900" letter-spacing="-1">
+    CUNY AI LAB
+  </text>
+  <text x="438" y="248" fill="#24428F" font-family="Arial, sans-serif" font-size="34" font-weight="700">
+    AI Infrastructure for CUNY, by CUNY
+  </text>
+
+  <rect x="86" y="384" width="590" height="2" fill="#37B6CC"/>
+  <text x="86" y="458" fill="#111827" font-family="Arial, sans-serif" font-size="35" font-weight="700">
+    Teaching, learning, and research
+  </text>
+  <text x="86" y="510" fill="#374151" font-family="Arial, sans-serif" font-size="28" font-weight="400">
+    Public higher education needs AI tools it can run,
+  </text>
+  <text x="86" y="548" fill="#374151" font-family="Arial, sans-serif" font-size="28" font-weight="400">
+    examine, teach with, and maintain.
+  </text>
+
+  <g transform="translate(790 390)">
+    <rect x="0" y="0" width="110" height="88" rx="16" fill="white" stroke="#D1D5DB" stroke-width="2"/>
+    <rect x="22" y="22" width="66" height="10" rx="5" fill="#24428F"/>
+    <rect x="22" y="44" width="42" height="10" rx="5" fill="#37B6CC"/>
+    <rect x="132" y="34" width="110" height="88" rx="16" fill="white" stroke="#D1D5DB" stroke-width="2"/>
+    <rect x="154" y="56" width="66" height="10" rx="5" fill="#24428F"/>
+    <rect x="154" y="78" width="42" height="10" rx="5" fill="#37B6CC"/>
+    <rect x="264" y="0" width="110" height="88" rx="16" fill="white" stroke="#D1D5DB" stroke-width="2"/>
+    <rect x="286" y="22" width="66" height="10" rx="5" fill="#24428F"/>
+    <rect x="286" y="44" width="42" height="10" rx="5" fill="#37B6CC"/>
+    <path d="M111 44H132" stroke="#6B7280" stroke-width="3" stroke-linecap="round"/>
+    <path d="M243 78H264" stroke="#6B7280" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <text x="86" y="592" fill="#6B7280" font-family="Arial, sans-serif" font-size="22" font-weight="600">
+    ailab.gc.cuny.edu
+  </text>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.86"/>
+      <stop offset="0.54" stop-color="#F8F4EC" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#EEF6FF" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+</svg>
