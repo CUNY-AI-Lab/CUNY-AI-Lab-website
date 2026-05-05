@@ -6,6 +6,34 @@ import path from 'node:path';
 const base = import.meta.env.BASE_URL;
 const jsonPath = path.join(process.cwd(), 'src/data/homepage.json');
 const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
+
+const featuredWork = [
+  {
+    title: 'Shared AI access',
+    text: 'The CAIL Sandbox gives CUNY users a shared environment for model access and course assistants. Faculty can document the model and configuration they choose.',
+    href: `${base}tools`,
+    link: 'View the Sandbox'
+  },
+  {
+    title: 'Agentic project work',
+    text: 'Site Studio, Agent Studio, and Kale Deploy support CUNY people building small digital projects with AI agents.',
+    href: `${base}work`,
+    link: 'See current projects'
+  },
+  {
+    title: 'Media and accessibility tools',
+    text: 'The tools portal includes transcription, OCR, image description, and PDF remediation experiments.',
+    href: `${base}tools`,
+    link: 'Explore tools'
+  }
+];
+
+const unitPaths = [
+  'Sandbox access for a course or program',
+  'A workshop built around real materials',
+  'A pilot with a CAIL tool',
+  'A consultation on model choice, privacy, or project hosting'
+];
 ---
 
 <BaseLayout title="CUNY AI Lab">
@@ -60,6 +88,66 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
               ))}
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        <div class="lg:col-span-4">
+          <p class="text-vibrant-600 font-medium tracking-wide uppercase text-sm mb-4">Current work</p>
+          <h2 class="text-3xl md:text-4xl font-bold font-display text-neutral-stone mb-5">What CAIL is building now</h2>
+          <p class="text-gray-600 leading-relaxed">
+            The Lab maintains working systems, course materials, documentation, and small tools for the situations that come up regularly across CUNY.
+          </p>
+        </div>
+        <div class="lg:col-span-8 grid md:grid-cols-3 gap-5">
+          {featuredWork.map((item) => (
+            <article class="rounded-xl border border-gray-200 bg-neutral-cream/60 p-6">
+              <h3 class="text-lg font-bold font-display text-neutral-stone mb-3">{item.title}</h3>
+              <p class="text-sm text-gray-600 leading-relaxed mb-5">{item.text}</p>
+              <a href={item.href} class="inline-flex items-center gap-2 text-sm font-semibold text-vibrant-600 hover:text-vibrant-800 transition-colors">
+                {item.link}
+                <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-neutral-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div>
+          <p class="text-vibrant-600 font-medium tracking-wide uppercase text-sm mb-4">For CUNY units</p>
+          <h2 class="text-3xl md:text-4xl font-bold font-display text-neutral-stone mb-5">Start with a concrete problem</h2>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            CAIL works with units across CUNY that have a real question or project. Common examples are a class that needs AI access, a workshop, a collection that needs processing, or a project that needs publishing.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href={`${base}for-cuny`} class="inline-flex items-center justify-center gap-2 bg-vibrant-600 text-white px-7 py-3 rounded-full font-semibold hover:bg-vibrant-700 transition-colors shadow-md">
+              Work with the Lab
+              <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </a>
+            <a href={`${base}request-access`} class="inline-flex items-center justify-center gap-2 bg-white text-vibrant-600 border border-vibrant-200 px-7 py-3 rounded-full font-semibold hover:border-vibrant-400 transition-colors">
+              Request access
+            </a>
+          </div>
+        </div>
+        <div class="rounded-xl bg-white border border-gray-200 p-6">
+          <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-5">Useful starting points</h3>
+          <ul class="space-y-4">
+            {unitPaths.map((item) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 h-2 w-2 rounded-full bg-vibrant-500 flex-shrink-0"></span>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

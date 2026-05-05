@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const requests = [
+  {
+    title: 'Course and program support',
+    body: 'Faculty can ask us for Sandbox access, help configuring a classroom assistant around a syllabus, or advice on which model fits a particular assignment.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />'
+  },
+  {
+    title: 'Workshops and build clinics',
+    body: 'Units can work with us on workshops where participants bring real course materials or research files. We design the sessions so people leave with concrete decisions about their own work.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75" />'
+  },
+  {
+    title: 'Model and tool evaluation',
+    body: 'We can help a group read vendor claims, choose among available models, and decide what users should see before they work with the tool.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0119 9.414V19a2 2 0 01-2 2z" />'
+  },
+  {
+    title: 'Digital project publishing',
+    body: 'Students and researchers are producing more small web projects with AI agents. We can help think through Site Studio, Kale Deploy, and where the project should live.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />'
+  },
+  {
+    title: 'Media and accessibility workflows',
+    body: 'The tools portal includes transcription, OCR, image description, and accessibility experiments. The tools work best when a unit brings files or material that needs the work done.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0119 9.414V19a2 2 0 01-2 2z" />'
+  }
+];
+
+const starts = [
+  {
+    heading: 'A course',
+    text: 'A faculty member wants students to use AI with assigned readings and a clear explanation of the model.'
+  },
+  {
+    heading: 'A workshop',
+    text: 'A program or office wants participants to practice with tools on materials they already use.'
+  },
+  {
+    heading: 'A tool problem',
+    text: 'A unit has files or documents that might benefit from AI-assisted processing.'
+  },
+  {
+    heading: 'A hosting problem',
+    text: 'A student or researcher has a digital project and needs a stable place to publish it.'
+  }
+];
+---
+
+<BaseLayout
+  title="For CUNY Units - CUNY AI Lab"
+  description="Ways CUNY programs, offices, libraries, centers, and teaching teams can work with the CUNY AI Lab."
+>
+  <section class="relative pt-24 pb-14 lg:pt-28 lg:pb-16">
+    <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
+    <div class="absolute inset-0 opacity-[0.03]" aria-hidden="true" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <p class="text-vibrant-200/80 font-medium tracking-wide uppercase text-sm mb-4">For CUNY units</p>
+        <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Work with the Lab</h1>
+        <p class="mt-5 text-lg text-vibrant-50/90 leading-relaxed">
+          CAIL works with courses, programs, libraries, centers, and campus offices across CUNY. If your unit has a specific teaching, research, accessibility, or publishing problem, we'd like to hear about it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-5 gap-10 lg:gap-14">
+        <div class="lg:col-span-2">
+          <h2 class="text-3xl font-bold font-display text-neutral-stone mb-5">What a unit can ask for</h2>
+          <p class="text-gray-600 leading-relaxed mb-5">
+            CUNY units bring us practical questions that come up over and over. Which AI tool should a class use, and what happens to the writing students type into it? Can a unit run a workshop without each participant needing their own private account?
+          </p>
+          <a href={`${base}request-access`} class="inline-flex items-center gap-2 text-vibrant-600 font-semibold hover:text-vibrant-800 transition-colors">
+            Request access or support
+            <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+          </a>
+        </div>
+        <div class="lg:col-span-3 grid md:grid-cols-2 gap-5">
+          {requests.map((request) => (
+            <article class="rounded-xl border border-gray-200 bg-neutral-cream/60 p-6">
+              <div class="w-11 h-11 rounded-lg bg-vibrant-50 text-vibrant-600 flex items-center justify-center mb-5">
+                <svg class="w-5 h-5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <Fragment set:html={request.icon} />
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold font-display text-neutral-stone mb-3">{request.title}</h3>
+              <p class="text-gray-600 leading-relaxed">{request.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-neutral-cream">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 gap-10 lg:gap-14">
+        <div>
+          <h2 class="text-3xl font-bold font-display text-neutral-stone mb-5">Start with something real</h2>
+          <p class="text-gray-600 leading-relaxed">
+            Bring us something specific to look at. A syllabus, a stack of PDFs, a workshop audience, or a project draft are all useful starting points.
+          </p>
+        </div>
+        <div class="lg:col-span-2 grid md:grid-cols-2 gap-5">
+          {starts.map((item) => (
+            <div class="rounded-xl bg-white border border-gray-200 p-6">
+              <h3 class="font-bold text-neutral-stone mb-3">{item.heading}</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-5 gap-10 lg:gap-14 items-start">
+        <div class="lg:col-span-3">
+          <h2 class="text-3xl font-bold font-display text-neutral-stone mb-5">What happens after you contact us</h2>
+          <div class="space-y-5 text-gray-600 leading-relaxed">
+            <p>
+              When a request comes in, we try to understand what the unit is actually trying to do. People sometimes ask for a tool when the question they really have is about course design, hosting, or privacy.
+            </p>
+            <p>
+              If we can help, we suggest a next step. The options include Sandbox access, a short consultation, a workshop plan, or a pilot with one of the tools we run.
+            </p>
+          </div>
+        </div>
+        <div class="lg:col-span-2 rounded-xl border border-vibrant-200 bg-vibrant-50 p-6">
+          <h3 class="text-xl font-bold font-display text-neutral-stone mb-4">Send a specific request</h3>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            The form is the easiest path for Sandbox access and tool pilots. For a unit conversation, write a note that includes the campus, the audience, the materials involved, and what you are trying to decide.
+          </p>
+          <div class="flex flex-col gap-3">
+            <a href={`${base}request-access`} class="inline-flex items-center justify-center gap-2 bg-vibrant-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-vibrant-700 transition-all shadow-md">
+              Request access or support
+              <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </a>
+            <a href={`${base}contact`} class="inline-flex items-center justify-center gap-2 bg-white text-vibrant-600 border border-vibrant-200 px-6 py-3 rounded-full font-semibold hover:border-vibrant-400 transition-colors">
+              Contact the Lab
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
