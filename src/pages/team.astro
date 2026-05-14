@@ -39,10 +39,9 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             <div class="p-5">
-              <h3 class="text-lg font-bold font-display text-neutral-stone mb-1">{member.name}</h3>
-              <p class="text-vibrant-600 font-semibold mb-3 text-sm uppercase tracking-wide">{member.title}</p>
-              <p class="text-gray-600 text-sm leading-relaxed">
-                {member.subtitle}
+              <h3 class="text-lg font-bold font-display text-neutral-stone mb-2 leading-tight">{member.name}</h3>
+              <p class="text-sm text-gray-600 leading-snug">
+                {member.title} <span class="text-gray-400" aria-hidden="true">·</span> {member.subtitle}
               </p>
             </div>
           </div>
