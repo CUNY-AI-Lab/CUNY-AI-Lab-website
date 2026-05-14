@@ -22,7 +22,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
   <!-- Resource Cards -->
   <section class="py-16 bg-white">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-2 gap-8">
+      <div class="grid md:grid-cols-2 gap-5">
         {data.cards.map((card: any) => (
           <a href={card.external ? card.url : `${base}${card.url.replace(/^\//, '')}`} target={card.external ? '_blank' : undefined} rel={card.external ? 'noopener noreferrer' : undefined} class="group block bg-white rounded-xl border border-transparent hover:border-vibrant-300 hover:shadow-xl transition-all duration-200 overflow-hidden">
             <div class="p-8">
