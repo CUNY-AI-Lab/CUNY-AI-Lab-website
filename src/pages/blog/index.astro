@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL;
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+
+const formatAuthors = (authors: string[]) => {
+  if (authors.length === 1) return authors[0];
+  if (authors.length === 2) return `${authors[0]} and ${authors[1]}`;
+  return `${authors.slice(0, -1).join(', ')}, and ${authors[authors.length - 1]}`;
+};
+---
+
+<BaseLayout title="Blog - CUNY AI Lab">
+  <section class="relative pt-24 pb-10 lg:pt-28 lg:pb-12">
+    <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"1\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Blog</h1>
+      <p class="mt-4 text-lg text-white/80 max-w-2xl">Notes from fellows, staff, and contributors on the practical and critical work of using AI at a public university.</p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      {posts.length === 0 ? (
+        <p class="text-gray-600">No posts yet. Check back soon.</p>
+      ) : (
+        <ul class="space-y-12">
+          {posts.map((post) => (
+            <li>
+              <article>
+                <p class="text-xs uppercase tracking-wide text-gray-500 mb-2">
+                  <time datetime={post.data.pubDate.toISOString()}>{dateFmt.format(post.data.pubDate)}</time>
+                  <span aria-hidden="true"> · </span>
+                  <span>{formatAuthors(post.data.authors)}</span>
+                </p>
+                <h2 class="text-2xl md:text-3xl font-bold font-display text-neutral-stone leading-tight mb-3">
+                  <a href={`${base}blog/${post.slug}`} class="hover:text-vibrant-600 transition-colors">{post.data.title}</a>
+                </h2>
+                <p class="text-gray-600 leading-relaxed mb-4">{post.data.description}</p>
+                <a href={`${base}blog/${post.slug}`} class="inline-flex items-center text-sm font-semibold text-vibrant-600 hover:text-vibrant-700 transition-colors">
+                  Read post <span aria-hidden="true" class="ml-1">→</span>
+                </a>
+              </article>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</BaseLayout>
