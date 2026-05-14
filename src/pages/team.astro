@@ -78,7 +78,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
       <h2 class="text-2xl font-bold font-display text-neutral-stone mb-8">Collaborating Units</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         {data.partners.map((partner: any) => (
-          <a href={partner.url} target="_blank" rel="noopener noreferrer" class={`flex items-center justify-center ${partner.bg_class || 'bg-white'} p-3 rounded-lg border border-gray-200 hover:border-vibrant-300 hover:shadow-md transition-all group`}>
+          <a href={partner.url} target="_blank" rel="noopener noreferrer" class={`flex items-center justify-center ${partner.bg_class || 'bg-white'} p-3 rounded-lg border border-transparent hover:border-vibrant-300 hover:shadow-md transition-all group`}>
             <img src={`${base}${partner.logo}`} alt={partner.name} class="h-20 w-auto object-contain group-hover:scale-105 transition-transform" />
           </a>
         ))}

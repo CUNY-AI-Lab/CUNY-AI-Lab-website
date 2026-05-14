@@ -179,7 +179,7 @@ function getStructuredOutputInfo(value: any) {
 
           return (
             <article
-              class="model-card group bg-white rounded-xl border border-gray-100 hover:border-vibrant-300 hover:shadow-lg transition-all duration-200 overflow-hidden"
+              class="model-card group bg-white rounded-xl border border-transparent hover:border-vibrant-300 hover:shadow-lg transition-all duration-200 overflow-hidden"
               data-name={model.display_name.toLowerCase()}
               data-vendor={model.vendor.toLowerCase()}
               data-license={model.license_id?.toLowerCase() || ''}
