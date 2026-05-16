@@ -1,0 +1,187 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const projects = [
+  {
+    name: 'CAIL Sandbox',
+    label: 'Shared AI access',
+    status: 'Pilot access',
+    body: 'The Sandbox gives CUNY users a shared place to work with a documented set of models. Faculty can configure course assistants around syllabi and readings, then show students the model choice, prompt, and loaded sources.',
+    href: `${base}tools`,
+    link: 'View the Sandbox',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />'
+  },
+  {
+    name: 'Model Registry',
+    label: 'Model documentation',
+    status: 'Public resource',
+    body: 'The registry records the models available through the Sandbox, including capabilities, context window size, open-weight status, and license terms. It gives instructors a way to explain model selection as part of course design.',
+    href: `${base}models`,
+    link: 'Browse models',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />'
+  },
+  {
+    name: 'Site Studio',
+    label: 'Agentic web publishing',
+    status: 'In development',
+    body: 'Site Studio helps CUNY people build small public web projects through an agentic workflow. A user describes a page or change, reviews the files the agent edits, and works from a live preview.',
+    href: 'https://tools.ailab.gc.cuny.edu/site-studio/',
+    link: 'Open Site Studio',
+    external: true,
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0 0c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9h18" />'
+  },
+  {
+    name: 'Kale Deploy',
+    label: 'Project hosting',
+    status: 'Active prototype',
+    body: 'Kale Deploy publishes CUNY digital projects from a GitHub push. Students and researchers get a live URL for agent-built web projects, with the hosting handled by the lab.',
+    href: `${base}deploy`,
+    link: 'Read about Kale Deploy',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />'
+  },
+  {
+    name: 'Agent Studio',
+    label: 'Research workspace',
+    status: 'Prototype',
+    body: 'Agent Studio places files, charts, tables, and drafts on an infinite canvas. Researchers can compare materials, group related outputs, and keep asking questions with the local context they select.',
+    href: 'https://tools.ailab.gc.cuny.edu/agent-studio/',
+    link: 'Open Agent Studio',
+    external: true,
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />'
+  },
+  {
+    name: 'Accessibility and Media Tools',
+    label: 'Routine scholarly workflows',
+    status: 'Tool portal',
+    body: 'The tools portal includes transcription, image description, OCR, PDF remediation experiments, and dissertation accessibility checks. We work to make the technical work easier to inspect.',
+    href: `${base}tools`,
+    link: 'Explore tools',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />'
+  }
+];
+
+const workEvidence = [
+  {
+    heading: 'Access',
+    text: 'The Sandbox gives CUNY users a shared institutional route to model access.'
+  },
+  {
+    heading: 'Documentation',
+    text: 'The model registry, workshop materials, and tool notes give instructors and students something to read when they need to talk about model choice or system behavior.'
+  },
+  {
+    heading: 'Local capacity',
+    text: 'CAIL builds and maintains tools inside a CUNY context. Privacy and teaching needs are part of the work from the start.'
+  },
+  {
+    heading: 'Practice',
+    text: 'Workshops ask participants to bring real course materials, research files, or project ideas and work with the systems during the session.'
+  }
+];
+---
+
+<BaseLayout
+  title="What We Are Building - CUNY AI Lab"
+  description="Current CUNY AI Lab projects for AI access, model documentation, agentic development, accessibility, media work, and public digital infrastructure."
+>
+  <section class="relative pt-24 pb-14 lg:pt-28 lg:pb-16">
+    <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
+    <div class="absolute inset-0 opacity-[0.03]" aria-hidden="true" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <p class="text-vibrant-200/80 font-medium tracking-wide uppercase text-sm mb-4">Current work</p>
+        <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">What we are building</h1>
+        <p class="mt-5 text-lg text-vibrant-50/90 leading-relaxed">
+          CAIL is building shared AI infrastructure for teaching, research, accessibility, and public digital work at CUNY. The Sandbox provides access. The model registry documents the choices. Site Studio, Kale Deploy, Agent Studio, and the media tools help people work with the materials they already have.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 gap-10 lg:gap-14">
+        <div class="lg:col-span-1">
+          <h2 class="text-3xl font-bold font-display text-neutral-stone mb-5">What the projects address</h2>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            Faculty planning AI assignments need stable access and a way to explain the model. A researcher working with sources may need workspace support. A student with a small web project needs a stable place to publish. The lab works on the underlying infrastructure.
+          </p>
+          <a href={`${base}for-cuny`} class="inline-flex items-center gap-2 text-vibrant-600 font-semibold hover:text-vibrant-800 transition-colors">
+            See how CUNY units can work with us
+            <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+          </a>
+        </div>
+        <div class="lg:col-span-2 grid md:grid-cols-2 gap-5">
+          {projects.map((project) => (
+            <article class="rounded-xl border border-gray-200 bg-neutral-cream/50 p-6 shadow-sm">
+              <div class="flex items-start gap-4 mb-5">
+                <div class="w-11 h-11 rounded-lg bg-vibrant-50 text-vibrant-600 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <Fragment set:html={project.icon} />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">{project.label}</p>
+                  <h3 class="text-xl font-bold font-display text-neutral-stone">{project.name}</h3>
+                </div>
+              </div>
+              <p class="text-xs font-semibold text-vibrant-700 mb-3">{project.status}</p>
+              <p class="text-gray-600 leading-relaxed mb-5">{project.body}</p>
+              <a href={project.href} target={project.external ? '_blank' : undefined} rel={project.external ? 'noopener noreferrer' : undefined} class="inline-flex items-center gap-2 text-sm font-semibold text-vibrant-600 hover:text-vibrant-800 transition-colors">
+                {project.link}
+                <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-neutral-cream">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-10">
+        <h2 class="text-3xl font-bold font-display text-neutral-stone mb-5">What CAIL provides at CUNY</h2>
+        <p class="text-gray-600 leading-relaxed">
+          CUNY needs enough local AI capacity to make good decisions about external tools, classroom practices, and which systems to keep under institutional control.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {workEvidence.map((item) => (
+          <div class="rounded-xl bg-white p-6 border border-gray-200">
+            <h3 class="font-bold text-neutral-stone mb-3">{item.heading}</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-5 gap-10 lg:gap-14 items-start">
+        <div class="lg:col-span-3">
+          <h2 class="text-3xl font-bold font-display text-neutral-stone mb-5">What we need next</h2>
+          <p class="text-gray-600 leading-relaxed mb-5">
+            The Lab needs course pilots, workshop participants, faculty collaborators, unit partners, and small projects to use the infrastructure and tell us what works.
+          </p>
+          <p class="text-gray-600 leading-relaxed">
+            The access form asks people to describe what they want to do. A concrete course, tool, or project gives us something to start from.
+          </p>
+        </div>
+        <div class="lg:col-span-2 rounded-xl border border-vibrant-200 bg-vibrant-50 p-6">
+          <h3 class="text-xl font-bold font-display text-neutral-stone mb-4">Start with a project</h3>
+          <p class="text-gray-600 leading-relaxed mb-6">
+            Ask for Sandbox access, a workshop, a tool pilot, or a consultation. Tell us about the course, project, or unit you have in mind.
+          </p>
+          <a href={`${base}request-access`} class="inline-flex items-center justify-center gap-2 bg-vibrant-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-vibrant-700 transition-all shadow-md">
+            Request access or support
+            <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
