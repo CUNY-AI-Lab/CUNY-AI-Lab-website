@@ -1,4 +1,6 @@
 ---
+import socials from "../data/socials.json";
+
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -8,7 +10,24 @@ const base = import.meta.env.BASE_URL;
 
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-      <p class="text-xs text-gray-500">&copy; {new Date().getFullYear()} CUNY AI Lab</p>
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+        <p class="text-xs text-gray-500">&copy; {new Date().getFullYear()} CUNY AI Lab</p>
+        <div class="flex items-center gap-4">
+          {socials.map((social) => (
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`CUNY AI Lab on ${social.name}`}
+              class="text-gray-400 hover:text-white transition-colors"
+            >
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d={social.path} />
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
       <div class="flex flex-wrap items-center gap-6">
         <a href="https://gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-60 hover:opacity-100 transition-opacity">
           <img src={`${base}images/partners/gc-logo-white.png`} alt="The Graduate Center, CUNY" class="h-8 w-auto" />
