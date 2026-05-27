@@ -41,13 +41,14 @@ const subItemClass = (path: string) =>
 <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-sm">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-[4.5rem]">
-      <div class="flex-shrink-0">
-        <a href={base} class="hover:opacity-80 transition-opacity">
-          <img src={`${base}images/logo-horizontal.png`} alt="CUNY AI Lab" class="h-10 w-auto" />
-        </a>
-      </div>
-      <div class="hidden lg:block">
-        <div class="ml-10 flex items-baseline space-x-8">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <a href={base} class="hover:opacity-80 transition-opacity">
+            <img src={`${base}images/logo-horizontal.png`} alt="CUNY AI Lab" class="h-10 w-auto" />
+          </a>
+        </div>
+        <div class="hidden lg:block">
+          <div class="ml-10 flex items-baseline space-x-8">
           <a href={base} class={linkClass(base)}>
             Home
           </a>
@@ -88,17 +89,20 @@ const subItemClass = (path: string) =>
           <a href={`${base}blog`} class={linkClass(`${base}blog`)}>
             Blog
           </a>
-          <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="bg-vibrant-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-vibrant-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-            CAIL Sandbox <span aria-hidden="true">→</span>
-          </a>
+          </div>
         </div>
       </div>
-      <div class="lg:hidden">
-        <button id="mobile-menu-button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="text-neutral-stone hover:text-vibrant-600 focus:outline-none p-2 rounded-md hover:bg-vibrant-50 transition-colors">
-          <svg class="h-6 w-6" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
+      <div class="flex items-center">
+        <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="hidden lg:inline-block bg-vibrant-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-vibrant-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+          CAIL Sandbox <span aria-hidden="true">→</span>
+        </a>
+        <div class="lg:hidden">
+          <button id="mobile-menu-button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="text-neutral-stone hover:text-vibrant-600 focus:outline-none p-2 rounded-md hover:bg-vibrant-50 transition-colors">
+            <svg class="h-6 w-6" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
