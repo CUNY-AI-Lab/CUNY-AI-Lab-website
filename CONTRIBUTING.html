@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contributing to the CUNY AI Lab Website</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #333; line-height: 1.7; max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 4rem; background: #fafafa; }
+    h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: #1D3A83; }
+    h2 { font-size: 1.3rem; margin: 2.5rem 0 1rem; color: #1D3A83; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.4rem; }
+    h3 { font-size: 1.05rem; margin: 1.5rem 0 0.5rem; color: #444; }
+    p { margin-bottom: 1rem; }
+    a { color: #3B73E6; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.95rem; }
+    th, td { text-align: left; padding: 0.6rem 0.8rem; border: 1px solid #d1d5db; }
+    th { background: #1D3A83; color: white; font-weight: 600; }
+    tr:nth-child(even) { background: #f3f4f6; }
+    td code { background: #e8f4fc; color: #1D3A83; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85rem; font-family: 'SF Mono', Menlo, monospace; }
+    ol, ul { margin: 0.5rem 0 1.5rem 1.5rem; }
+    li { margin-bottom: 0.4rem; }
+    pre { background: #1e293b; color: #e2e8f0; padding: 1rem 1.2rem; border-radius: 8px; overflow-x: auto; margin: 0.8rem 0 1.5rem; font-size: 0.85rem; line-height: 1.6; }
+    pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+    code { background: #e8f4fc; color: #1D3A83; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; font-family: 'SF Mono', Menlo, monospace; }
+    .subtitle { color: #6b7280; margin-bottom: 2rem; font-size: 1.05rem; }
+    .step-num { display: inline-block; background: #3B73E6; color: white; width: 1.6rem; height: 1.6rem; border-radius: 50%; text-align: center; line-height: 1.6rem; font-size: 0.8rem; font-weight: 700; margin-right: 0.4rem; }
+    .callout { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+    .callout-blue { background: #e8f4fc; border-left-color: #3B73E6; }
+    .steps { list-style: none; margin-left: 0; counter-reset: step; }
+    .steps li { counter-increment: step; margin-bottom: 0.6rem; padding-left: 2.2rem; position: relative; }
+    .steps li::before { content: counter(step); position: absolute; left: 0; top: 0.1rem; display: inline-block; background: #3B73E6; color: white; width: 1.5rem; height: 1.5rem; border-radius: 50%; text-align: center; line-height: 1.5rem; font-size: 0.8rem; font-weight: 700; }
+    strong { color: #111; }
+    .important { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1rem 1.2rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+  </style>
+</head>
+<body>
+
+  <h1>Contributing to the CUNY AI Lab Website</h1>
+  <p class="subtitle">A guide for making content changes and submitting them for review.</p>
+
+  <h2>Quick Reference: What to Edit</h2>
+  <table>
+    <thead>
+      <tr><th>What you want to change</th><th>File to edit</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Homepage text/links</td><td><code>src/data/homepage.json</code></td></tr>
+      <tr><td>About page text</td><td><code>src/content/pages/about.md</code></td></tr>
+      <tr><td>Contact page text</td><td><code>src/content/pages/contact.md</code></td></tr>
+      <tr><td>Team members</td><td><code>src/data/team.json</code></td></tr>
+      <tr><td>Tools descriptions</td><td><code>src/data/tools.json</code></td></tr>
+      <tr><td>Resources list</td><td><code>src/data/resources.json</code></td></tr>
+      <tr><td>Events</td><td><code>src/data/events.json</code></td></tr>
+      <tr><td>Request Access form</td><td><code>src/data/request-access.json</code></td></tr>
+      <tr><td>Model registry</td><td><code>src/data/model-registry.json</code></td></tr>
+    </tbody>
+  </table>
+
+  <h2>First: Accept Your Invitation</h2>
+  <p>You've been invited as a collaborator on the repo. Before you can make changes, you need to accept the invitation:</p>
+  <ol class="steps">
+    <li>Check your email for an invitation from GitHub (subject line: "You've been invited to collaborate")</li>
+    <li>Click <strong>"View invitation"</strong> in the email, or go directly to <a href="https://github.com/CUNY-AI-Lab/CUNY-AI-Lab-website/invitations">github.com/CUNY-AI-Lab/CUNY-AI-Lab-website/invitations</a></li>
+    <li>Click <strong>"Accept invitation"</strong></li>
+  </ol>
+
+  <h2>Making Changes on GitHub.com</h2>
+
+  <ol class="steps">
+    <li>Go to the repo: <a href="https://github.com/CUNY-AI-Lab/CUNY-AI-Lab-website">github.com/CUNY-AI-Lab/CUNY-AI-Lab-website</a></li>
+    <li><strong>Navigate to the file</strong> you want to edit (see table above)</li>
+    <li>Click the <strong>pencil icon</strong> (Edit this file) in the top-right of the file view</li>
+    <li>Make your changes in the editor</li>
+    <li>Click <strong>"Commit changes..."</strong> (green button)</li>
+    <li>Select <strong>"Create a new branch for this commit and start a pull request"</strong></li>
+    <li>Give your branch a short name describing the change (e.g., <code>update-team-bios</code>)</li>
+    <li>Click <strong>"Propose changes"</strong>, then <strong>"Create pull request"</strong></li>
+    <li>Add a brief description of what you changed and why, then submit</li>
+  </ol>
+
+  <div class="callout-blue callout">
+    An admin will review and merge your PR. You'll get a GitHub notification when it's approved. Once merged, changes auto-deploy to the live site.
+  </div>
+
+  <h2>Editing Tips</h2>
+
+  <h3>Markdown files (<code>.md</code>)</h3>
+  <p>Files like <code>about.md</code> and <code>contact.md</code> use Markdown. The section between the <code>---</code> lines at the top is called <strong>frontmatter</strong> (structured data). The text below is the page content.</p>
+<pre><code>---
+title: About the Lab
+---
+
+This is the page content. You can use **bold**, *italics*,
+and [links](https://example.com).</code></pre>
+
+  <h3>JSON files (<code>.json</code>)</h3>
+  <p>Most page data lives in JSON files. Be careful with the syntax:</p>
+  <ul>
+    <li>All strings must be in <code>"double quotes"</code></li>
+    <li>No trailing commas after the last item in a list</li>
+    <li>Use <code>\"</code> for quotes inside strings</li>
+  </ul>
+  <p>Example &mdash; adding a team member to <code>team.json</code>:</p>
+<pre><code>{
+  "name": "New Person",
+  "title": "Their Title",
+  "subtitle": "Their Department",
+  "photo": "images/team/new-person.jpg",
+  "photo_position": "center"
+}</code></pre>
+
+  <h3>Adding images</h3>
+  <ol>
+    <li>Navigate to the target folder (e.g., <code>public/images/team/</code>)</li>
+    <li>Click <strong>"Add file" &gt; "Upload files"</strong></li>
+    <li>Upload your image, commit to a new branch</li>
+    <li>Team photos should be resized to max 800px width before uploading</li>
+  </ol>
+
+  <h2>Making Changes Locally (Optional)</h2>
+  <p>If you prefer working on your own computer:</p>
+<pre><code># Clone the repo
+git clone https://github.com/CUNY-AI-Lab/CUNY-AI-Lab-website.git
+cd CUNY-AI-Lab-website
+
+# Install dependencies
+npm install
+
+# Create a branch for your changes
+git checkout -b your-branch-name
+
+# Start the dev server to preview changes
+npm run dev
+# Opens at http://localhost:4321
+
+# After making changes, commit and push
+git add .
+git commit -m "Brief description of changes"
+git push -u origin your-branch-name</code></pre>
+  <p>Then go to GitHub and create a pull request from your branch.</p>
+
+  <div class="important">
+    <strong>Important:</strong> Never push directly to <code>main</code> &mdash; always use a pull request. Changes to <code>main</code> auto-deploy to the live site at <a href="https://ailab.gc.cuny.edu">ailab.gc.cuny.edu</a>. If you're unsure about a change, open the PR anyway and ask for feedback in the description.
+  </div>
+
+</body>
+</html>
