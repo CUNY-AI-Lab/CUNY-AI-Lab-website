@@ -12,7 +12,7 @@ draft: true
 ---
 
 <figure>
-  <img src="/images/blog/thinkwith-tool.png" alt="The ThinkWith tool's two-panel interface. On the left, three labeled text fields: 'Thinking With,' 'Being Thought Upon,' and 'Your Paragraph,' with an 'Analyze' button. On the right, an illustrated darkroom with a sheet of photographic paper in a developer tray and the prompt 'Begin writing to develop your thinking…'" />
+  <img src="/images/blog/thinkwith-tool.png" alt="The ThinkWith tool's two-panel interface. On the left, three labeled text fields: 'Thinking With,' 'Being Thought Upon,' and 'Your Paragraph,' with an 'Analyze' button. On the right, an illustrated red-lit darkroom with a sheet of photographic paper developing and the prompt 'Begin writing to develop your thinking…'" />
   <figcaption>The ThinkWith tool's two-panel interface: students draft on the left, and an image develops in the darkroom on the right as their paragraph moves toward full synthesis.</figcaption>
 </figure>
 
