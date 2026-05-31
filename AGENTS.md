@@ -25,7 +25,8 @@ const jsonPath = path.join(process.cwd(), 'src/data/filename.json');
 const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 ```
 - Some pages (tools, guides) have content inline in the `.astro` file rather than in JSON — edit the page directly.
-- `src/content/config.ts` — Content collection schema (passthrough, so frontmatter fields are flexible)
+- `src/content/blog/*.md` — Blog posts (Astro content collection). Filename = slug. Rendered by `src/pages/blog/[slug].astro`, listed by `src/pages/blog/index.astro`.
+- `src/content/config.ts` — Collection schemas. The `pages` collection is passthrough (flexible frontmatter); the `blog` collection is strict-typed: requires `title`, `description`, `pubDate`, `authors` (string array); optional `tags`, `draft`.
 
 **Key Files:**
 - `src/layouts/BaseLayout.astro` - Main layout wrapper (Header, Footer, fonts, favicon)
@@ -33,7 +34,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 - `src/pages/` - Route pages (index, about, tools, team, contact, request-access, events, resources, models, guides)
 - `src/pages/models.astro` - Model registry with filters and collapsible guide
 - `src/pages/models/guide.astro` - Field guide explaining registry UI elements
-- `src/data/model-registry.json` - Model registry data. Update `updated_at` field when modifying.
+- `src/data/model-registry.json` - Model registry data. Update `updated_at` when modifying. New entries need both the `licensing` block and the mirrored top-level `license_id`/`license_family`/`requires_clickthrough`/`gated_weights_download` fields. Validate after editing: `node -e "require('./src/data/model-registry.json')"`. Source specs from the vendor model card + Hugging Face repo, don't guess.
 - `tailwind.config.mjs` - Color palette and theme configuration
 
 **Tailwind Content Scanning:**
@@ -42,6 +43,11 @@ The Tailwind content glob includes `.json` files: `'./src/**/*.{astro,html,js,js
 **External Tool URLs:**
 - Open WebUI: https://chat.ailab.gc.cuny.edu/
 - Tools subdomain: https://tools.ailab.gc.cuny.edu/ (asr, alt-text, ocr, agent-studio, site-studio)
+
+**Blog:**
+- Staging/publish workflow: commit new posts with `draft: true` and a future `pubDate`; on publish day, flip `draft: false` and push.
+- Both `index.astro` and `[slug].astro` filter `!data.draft`, and `rss.xml` excludes drafts — so a `draft: true` post is hidden from the index, its own URL, and the feed. To preview locally, temporarily set `draft: false`.
+- `[slug].astro` gives post images (`.post-content figure img`) a click-to-enlarge lightbox via a native `<dialog>` (Esc/backdrop/button to close). Images are already clickable — don't reinvent it. Top-of-post media uses `<figure>`/`<figcaption>`.
 
 **Color System (tailwind.config.mjs):**
 - `vibrant-600` (#3B73E6) - Primary CTA buttons
