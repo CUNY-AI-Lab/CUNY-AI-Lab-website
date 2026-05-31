@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0",
-  "updated_at": "2026-04-09",
+  "updated_at": "2026-05-31",
   "license_taxonomy": {
     "license_family_enum": [
       "permissive",
@@ -354,6 +354,84 @@
           "gated_weights_download": false,
           "license_url": "https://huggingface.co/Qwen/Qwen3-235B-A22B",
           "notes": "Model page lists license as Apache-2.0."
+        }
+      },
+      "license_id": "Apache-2.0",
+      "license_family": "permissive",
+      "requires_clickthrough": false,
+      "gated_weights_download": false
+    },
+    {
+      "key": "gemma-4-31b-it",
+      "display_name": "Gemma-4-31b",
+      "vendor": "Google",
+      "family": "Gemma 4",
+      "variant": "31B IT",
+      "modality": [
+        "text",
+        "image"
+      ],
+      "parameters": {
+        "total_b": 31,
+        "active_b": null,
+        "architecture": "dense (decoder-only transformer)",
+        "notes": "Dense decoder-only LM paired with a ~550M-parameter vision encoder and a hybrid attention scheme that interleaves local sliding-window attention with full global attention. Google's model card headlines 30.7B parameters; the Hugging Face checkpoint reports ~32.7B total. Google's 31B model card lists Text + Image input only (no audio at this size); some third-party summaries also describe experimental video-frame input."
+      },
+      "context_window_tokens": 256000,
+      "context_window_notes": "Model card advertises an input context window of up to 256K tokens.",
+      "capabilities": {
+        "vision": true,
+        "tool_calling": true,
+        "structured_output": "prompted",
+        "reasoning_mode": true
+      },
+      "open_weights": true,
+      "license": "Apache-2.0",
+      "best_for": [
+        "image-based interpretation (figures, screenshots, diagrams, OCR-style reading)",
+        "long-document reading and synthesis with very long context",
+        "agentic workflows with native function calling",
+        "everyday writing, summarization, and tutoring-style explanations"
+      ],
+      "strengths": [
+        "native multimodality (image+text → text) in a single dense 31B model",
+        "very long 256K input context",
+        "configurable reasoning/thinking mode for step-by-step problem solving",
+        "native function-calling support for agentic use",
+        "permissive Apache-2.0 license with ungated weights"
+      ],
+      "limitations": [
+        "structured-output adherence depends on prompting/runtime enforcement (not a documented native feature)",
+        "tool-calling behavior depends on provider/template",
+        "audio input not supported at the 31B size (per Google's model card); video support is not consistently documented across sources"
+      ],
+      "tags": [
+        "open_weights",
+        "vision",
+        "reasoning",
+        "agentic",
+        "tool_use",
+        "long_context",
+        "general"
+      ],
+      "ui_badges": [
+        "Open weights",
+        "Vision",
+        "Reasoning mode",
+        "Very long context"
+      ],
+      "licensing": {
+        "weights": {
+          "license_id": "Apache-2.0",
+          "license_family": "permissive",
+          "requires_clickthrough": false,
+          "gated_weights_download": false,
+          "license_url": "https://huggingface.co/google/gemma-4-31B-it",
+          "notes": "Hugging Face lists the model license as Apache-2.0. Unlike Gemma 3, the Gemma 4 31B weights are not gated and do not require accepting Google's Gemma Terms of Use. Hosted providers may impose separate service terms."
+        },
+        "code": {
+          "license_id": "Apache-2.0",
+          "license_url": "https://huggingface.co/google/gemma-4-31B-it"
         }
       },
       "license_id": "Apache-2.0",
