@@ -84,21 +84,21 @@ function getStructuredOutputInfo(value: any) {
       <!-- Filter Pills -->
       <h2 class="sr-only">Filter models</h2>
       <div class="flex flex-wrap items-center gap-2" role="toolbar" aria-label="Model filters">
-        <button data-filter="open_weights" aria-label="Filter by open-weight models" aria-pressed="false" class="filter-btn group relative px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-400 hover:text-vibrant-600 transition-all">
+        <button data-filter="open_weights" aria-label="Filter by open-weight models" aria-describedby="tip-open_weights" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-400 hover:text-vibrant-600 transition-all">
           Open
-          <span class="filter-tooltip" role="tooltip">Weights can be downloaded and self-hosted</span>
+          <span id="tip-open_weights" class="filter-tooltip" role="tooltip">Weights can be downloaded and self-hosted</span>
         </button>
-        <button data-filter="vision" aria-label="Filter by vision capability" aria-pressed="false" class="filter-btn group relative px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-purple-400 hover:text-purple-600 transition-all">
+        <button data-filter="vision" aria-label="Filter by vision capability" aria-describedby="tip-vision" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-purple-400 hover:text-purple-600 transition-all">
           Vision
-          <span class="filter-tooltip" role="tooltip">Can process images, charts, and documents</span>
+          <span id="tip-vision" class="filter-tooltip" role="tooltip">Can process images, charts, and documents</span>
         </button>
-        <button data-filter="long_context" aria-label="Filter by long context window" aria-pressed="false" class="filter-btn group relative px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-amber-400 hover:text-amber-600 transition-all">
+        <button data-filter="long_context" aria-label="Filter by long context window" aria-describedby="tip-long_context" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-amber-400 hover:text-amber-600 transition-all">
           Long Context
-          <span class="filter-tooltip" role="tooltip">Handles 100K+ tokens at once</span>
+          <span id="tip-long_context" class="filter-tooltip" role="tooltip">Handles 100K+ tokens at once</span>
         </button>
-        <button data-filter="permissive" aria-label="Filter by permissive license" aria-pressed="false" class="filter-btn group relative px-3 py-1.5 rounded-lg text-xs font-medium border border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-400 transition-all">
+        <button data-filter="permissive" aria-label="Filter by permissive license" aria-describedby="tip-permissive" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-400 transition-all">
           Permissive
-          <span class="filter-tooltip" role="tooltip">Minimal legal restrictions (MIT, Apache-2.0)</span>
+          <span id="tip-permissive" class="filter-tooltip" role="tooltip">Minimal legal restrictions (MIT, Apache-2.0)</span>
         </button>
         <div class="h-4 w-px bg-gray-200 mx-1"></div>
         <span id="results-count" class="text-xs text-gray-500">{models.length} models</span>
@@ -107,7 +107,13 @@ function getStructuredOutputInfo(value: any) {
   </section>
 
   <style is:global>
+    /* Capability icon tooltips (inside cards): a pointer-only convenience.
+       Removed from layout by default so their off-screen nowrap text can't
+       widen the page on mobile. Touch/screen-reader users get the same
+       information from each icon's aria-label and the "How to read model
+       cards" guide above the list. */
     .capability-tooltip {
+      display: none;
       position: absolute;
       bottom: 100%;
       left: 50%;
@@ -119,9 +125,7 @@ function getStructuredOutputInfo(value: any) {
       font-weight: 500;
       border-radius: 0.375rem;
       white-space: nowrap;
-      opacity: 0;
       pointer-events: none;
-      transition: opacity 0.15s;
       margin-bottom: 0.25rem;
       z-index: 50;
     }
@@ -134,37 +138,34 @@ function getStructuredOutputInfo(value: any) {
       border: 4px solid transparent;
       border-top-color: #333;
     }
-    .capability-icon:hover .capability-tooltip {
-      opacity: 1;
+    @media (hover: hover) and (pointer: fine) {
+      .capability-icon:hover .capability-tooltip { display: block; }
     }
+
+    /* Filter pill definitions: an accessible toggletip shown on hover, keyboard
+       focus, and tap (driven by the inline script). Fixed-positioned and
+       clamped to the viewport in JS, so it lives outside normal flow and can
+       never cause the horizontal overflow that the old nowrap tooltip did. */
     .filter-tooltip {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      max-width: min(16rem, calc(100vw - 1rem));
       padding: 0.375rem 0.625rem;
       background: #333;
       color: white;
       font-size: 0.7rem;
       font-weight: 400;
+      line-height: 1.3;
       border-radius: 0.375rem;
-      white-space: nowrap;
-      opacity: 0;
+      white-space: normal;
       pointer-events: none;
-      transition: opacity 0.15s;
-      margin-bottom: 0.375rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+      z-index: 60;
     }
-    .filter-tooltip::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 4px solid transparent;
-      border-top-color: #333;
-    }
-    .filter-btn:hover .filter-tooltip {
-      opacity: 1;
+    .filter-tooltip.is-visible {
+      display: block;
     }
   </style>
 
@@ -541,6 +542,81 @@ function getStructuredOutputInfo(value: any) {
       applyFilters();
     });
   }
+
+  // Accessible filter toggletips: show each pill's definition on hover,
+  // keyboard focus, and tap. Fixed-positioned and clamped to the viewport so
+  // they never push the page wider (the cause of the old mobile blank column).
+  (function() {
+    var pinnedBtn = null;   // pill whose tip was opened by tap/click
+    var openTip = null;
+
+    // The sticky filter bar uses backdrop-filter, which makes it the containing
+    // block for position: fixed descendants. Portal each tip to <body> so its
+    // fixed coordinates are genuinely viewport-relative.
+    filterBtns.forEach(function(btn) {
+      btn._tip = document.getElementById('tip-' + btn.getAttribute('data-filter'));
+    });
+
+    function showTip(btn) {
+      var tip = btn._tip;
+      if (!tip) return;
+      hideTip();
+      if (tip.parentElement !== document.body) document.body.appendChild(tip);
+      tip.classList.add('is-visible');
+      var btnRect = btn.getBoundingClientRect();
+      var tipRect = tip.getBoundingClientRect();
+      var vw = document.documentElement.clientWidth;
+      var margin = 8;
+      var left = btnRect.left + btnRect.width / 2 - tipRect.width / 2;
+      left = Math.max(margin, Math.min(left, vw - tipRect.width - margin));
+      var top = btnRect.top - tipRect.height - 8;
+      if (top < margin) top = btnRect.bottom + 8; // flip below if no room above
+      tip.style.left = left + 'px';
+      tip.style.top = top + 'px';
+      openTip = tip;
+    }
+
+    function hideTip() {
+      if (openTip) {
+        openTip.classList.remove('is-visible');
+        openTip.style.left = '';
+        openTip.style.top = '';
+        openTip = null;
+      }
+    }
+
+    filterBtns.forEach(function(btn) {
+      btn.addEventListener('mouseenter', function() { if (!pinnedBtn) showTip(btn); });
+      btn.addEventListener('mouseleave', function() { if (!pinnedBtn) hideTip(); });
+      btn.addEventListener('focus', function() { showTip(btn); });
+      btn.addEventListener('blur', function() { if (!pinnedBtn) hideTip(); });
+      // Tap/click also toggles the filter (handled above); here we pin the
+      // definition open so touch users can read it, dismissing on next tap.
+      btn.addEventListener('click', function() {
+        if (pinnedBtn === btn) {
+          pinnedBtn = null;
+          hideTip();
+        } else {
+          pinnedBtn = btn;
+          showTip(btn);
+        }
+      });
+    });
+
+    // Dismiss a pinned tip on outside tap, scroll, or Escape.
+    document.addEventListener('click', function(e) {
+      if (pinnedBtn && !e.target.closest('.filter-btn')) {
+        pinnedBtn = null;
+        hideTip();
+      }
+    });
+    window.addEventListener('scroll', function() {
+      if (openTip) { pinnedBtn = null; hideTip(); }
+    }, { passive: true });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { pinnedBtn = null; hideTip(); }
+    });
+  })();
 </script>
 
 <style is:global>
