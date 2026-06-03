@@ -84,19 +84,19 @@ function getStructuredOutputInfo(value: any) {
       <!-- Filter Pills -->
       <h2 class="sr-only">Filter models</h2>
       <div class="flex flex-wrap items-center gap-2" role="toolbar" aria-label="Model filters">
-        <button data-filter="open_weights" aria-label="Filter by open-weight models" aria-describedby="tip-open_weights" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-vibrant-400 hover:text-vibrant-600 transition-all">
+        <button data-filter="open_weights" data-accent="vibrant" aria-label="Filter by open-weight models" aria-describedby="tip-open_weights" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border transition-all">
           Open
           <span id="tip-open_weights" class="filter-tooltip" role="tooltip">Weights can be downloaded and self-hosted</span>
         </button>
-        <button data-filter="vision" aria-label="Filter by vision capability" aria-describedby="tip-vision" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-purple-400 hover:text-purple-600 transition-all">
+        <button data-filter="vision" data-accent="purple" aria-label="Filter by vision capability" aria-describedby="tip-vision" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border transition-all">
           Vision
           <span id="tip-vision" class="filter-tooltip" role="tooltip">Can process images, charts, and documents</span>
         </button>
-        <button data-filter="long_context" aria-label="Filter by long context window" aria-describedby="tip-long_context" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border border-gray-200 bg-white text-gray-600 hover:border-amber-400 hover:text-amber-600 transition-all">
+        <button data-filter="long_context" data-accent="amber" aria-label="Filter by long context window" aria-describedby="tip-long_context" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border transition-all">
           Long Context
           <span id="tip-long_context" class="filter-tooltip" role="tooltip">Handles 100K+ tokens at once</span>
         </button>
-        <button data-filter="permissive" aria-label="Filter by permissive license" aria-describedby="tip-permissive" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border border-emerald-200 bg-emerald-50 text-emerald-700 hover:border-emerald-400 transition-all">
+        <button data-filter="permissive" data-accent="emerald" aria-label="Filter by permissive license" aria-describedby="tip-permissive" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border transition-all">
           Permissive
           <span id="tip-permissive" class="filter-tooltip" role="tooltip">Minimal legal restrictions (MIT, Apache-2.0)</span>
         </button>
@@ -166,6 +166,41 @@ function getStructuredOutputInfo(value: any) {
     }
     .filter-tooltip.is-visible {
       display: block;
+    }
+
+    /* Filter pill states are driven by the aria-pressed attribute (kept in sync
+       by the script) rather than by toggling conflicting utility classes. This
+       guarantees the active/filled pill always keeps white text: previously a
+       base hover:text-* utility could override it, and on touch the :hover state
+       sticks after a tap, leaving unreadable colored text on a colored fill.
+       Hover styling is therefore limited to pointer devices and inactive pills. */
+    .filter-btn {
+      background-color: #ffffff;
+      color: #4b5563;            /* gray-600 */
+      border-color: #e5e7eb;     /* gray-200 */
+    }
+    .filter-btn[data-accent="emerald"] {
+      background-color: #ecfdf5; /* emerald-50 */
+      color: #047857;            /* emerald-700 */
+      border-color: #a7f3d0;     /* emerald-200 */
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .filter-btn[data-accent="vibrant"]:not([aria-pressed="true"]):hover { color: #2a6fb8; border-color: #2fb8d6; }
+      .filter-btn[data-accent="purple"]:not([aria-pressed="true"]):hover  { color: #9333ea; border-color: #c084fc; }
+      .filter-btn[data-accent="amber"]:not([aria-pressed="true"]):hover   { color: #b45309; border-color: #fbbf24; }
+      .filter-btn[data-accent="emerald"]:not([aria-pressed="true"]):hover { border-color: #34d399; }
+    }
+    /* Active fills use the -700 shades so white text clears WCAG AA (4.5:1) at
+       this small pill size; the -600 shades came in just under. */
+    .filter-btn[aria-pressed="true"] {
+      background-color: #2a6fb8; /* vibrant-700 — white text 5.2:1 */
+      color: #ffffff;
+      border-color: #2a6fb8;
+    }
+    .filter-btn[data-accent="emerald"][aria-pressed="true"] {
+      background-color: #047857; /* emerald-700 — white text 5.5:1 */
+      color: #ffffff;
+      border-color: #047857;
     }
   </style>
 
@@ -492,7 +527,7 @@ function getStructuredOutputInfo(value: any) {
     }
   }
 
-  // Filter button handlers
+  // Filter button handlers — aria-pressed drives the visual state via CSS.
   filterBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
       const filter = btn.getAttribute('data-filter');
@@ -501,22 +536,9 @@ function getStructuredOutputInfo(value: any) {
       if (activeFilters.has(filter)) {
         activeFilters.delete(filter);
         btn.setAttribute('aria-pressed', 'false');
-        btn.classList.remove('bg-vibrant-600', 'text-white', 'border-vibrant-600', 'bg-emerald-600', 'border-emerald-600');
-        if (filter === 'permissive') {
-          btn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
-        } else {
-          btn.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
-        }
       } else {
         activeFilters.add(filter);
         btn.setAttribute('aria-pressed', 'true');
-        if (filter === 'permissive') {
-          btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
-          btn.classList.remove('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
-        } else {
-          btn.classList.add('bg-vibrant-600', 'text-white', 'border-vibrant-600');
-          btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-200');
-        }
       }
 
       applyFilters();
@@ -527,18 +549,9 @@ function getStructuredOutputInfo(value: any) {
   if (clearFiltersBtn) {
     clearFiltersBtn.addEventListener('click', function() {
       activeFilters.clear();
-
       filterBtns.forEach(function(btn) {
-        const filter = btn.getAttribute('data-filter');
         btn.setAttribute('aria-pressed', 'false');
-        btn.classList.remove('bg-vibrant-600', 'text-white', 'border-vibrant-600', 'bg-emerald-600', 'border-emerald-600');
-        if (filter === 'permissive') {
-          btn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
-        } else {
-          btn.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
-        }
       });
-
       applyFilters();
     });
   }
