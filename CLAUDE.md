@@ -25,7 +25,7 @@ const jsonPath = path.join(process.cwd(), 'src/data/filename.json');
 const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 ```
 - Some pages (tools, guides) have content inline in the `.astro` file rather than in JSON — edit the page directly.
-- `src/content/blog/*.md` — Blog posts (Astro content collection). Filename = slug. Rendered by `src/pages/blog/[slug].astro`, listed by `src/pages/blog/index.astro`.
+- `src/content/blog/*.md` — Blog posts (Astro content collection). Filename = slug. Rendered by `src/pages/blog/[slug].astro`, listed by `src/pages/blog/index.astro`. Tags are clickable: `src/pages/blog/tags/[tag].astro` statically generates one archive page per unique tag (from non-draft posts only), listing the posts that share it. Keep tags URL-safe kebab-case — the tag string is used verbatim as the route param.
 - `src/content/config.ts` — Collection schemas. The `pages` collection is passthrough (flexible frontmatter); the `blog` collection is strict-typed: requires `title`, `description`, `pubDate`, `authors` (string array); optional `tags`, `draft`.
 
 **Key Files:**
