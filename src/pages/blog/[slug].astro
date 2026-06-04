@@ -52,7 +52,9 @@ const formatAuthors = (authors: string[]) => {
           <p class="text-xs uppercase tracking-wide text-gray-500 mb-3">Filed under</p>
           <ul class="flex flex-wrap gap-2">
             {post.data.tags.map((tag) => (
-              <li class="text-xs px-3 py-1 rounded-full bg-vibrant-50 text-vibrant-700 font-medium">{tag}</li>
+              <li>
+                <a href={`${base}blog/tags/${tag}`} class="inline-block text-xs px-3 py-1 rounded-full bg-vibrant-50 text-vibrant-700 font-medium hover:bg-vibrant-100 hover:text-vibrant-800 transition-colors">{tag}</a>
+              </li>
             ))}
           </ul>
         </div>
