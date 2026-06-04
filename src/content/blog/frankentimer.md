@@ -8,7 +8,7 @@ tags:
   - "fellows"
   - "workshops"
   - "ai-assisted-coding"
-draft: true
+draft: false
 ---
 
 <figure>
