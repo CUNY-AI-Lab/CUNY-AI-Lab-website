@@ -32,9 +32,9 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 - `src/layouts/BaseLayout.astro` - Main layout wrapper (Header, Footer, fonts, favicon)
 - `src/components/` - Header.astro, Footer.astro
 - `src/pages/` - Route pages (index, about, tools, team, contact, request-access, events, resources, models, guides)
-- `src/pages/models.astro` - Model registry with filters and collapsible guide
+- `src/pages/models.astro` - Model registry with filters and collapsible guide. The MODEL LIST is fetched client-side from the live CAIL gateway catalog (`src/config.ts` `CATALOG_URL`) and left-joined to the editorial overlay by `catalog_id` (`src/lib/catalog-join.mjs`, tested via `npm test`). On fetch failure the page shows an error state — never a stale snapshot.
 - `src/pages/models/guide.astro` - Field guide explaining registry UI elements
-- `src/data/model-registry.json` - Model registry data. Update `updated_at` when modifying. New entries need both the `licensing` block and the mirrored top-level `license_id`/`license_family`/`requires_clickthrough`/`gated_weights_download` fields. Validate after editing: `node -e "require('./src/data/model-registry.json')"`. Source specs from the vendor model card + Hugging Face repo, don't guess.
+- `src/data/model-registry.json` - EDITORIAL OVERLAY only (the gateway catalog decides which models exist). Each entry has `catalog_id` (the live catalog model id, or `null`) and `status` (`live`/`retired`; retired entries keep their prose but are never rendered). Update `updated_at` when modifying. New entries need both the `licensing` block and the mirrored top-level `license_id`/`license_family`/`requires_clickthrough`/`gated_weights_download` fields. Validate after editing: `node -e "require('./src/data/model-registry.json')"` and `npm test`. Source specs from the vendor model card + Hugging Face repo, don't guess.
 - `tailwind.config.mjs` - Color palette and theme configuration
 
 **Tailwind Content Scanning:**
