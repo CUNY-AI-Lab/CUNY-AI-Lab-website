@@ -484,7 +484,7 @@ const base = import.meta.env.BASE_URL;
         // deploy: { border: 'border-amber-500', bg: 'bg-amber-50', text: 'text-amber-700' }
       };
 
-      function switchPanel(panelId) {
+      function switchPanel(panelId, writeHash) {
         // Hide all panels
         panels.forEach(function(p) {
           p.classList.add('hidden');
@@ -523,6 +523,11 @@ const base = import.meta.env.BASE_URL;
           }
         });
 
+        // Reflect the active tab in the URL so it can be linked and shared
+        if (writeHash && window.history && window.history.replaceState) {
+          window.history.replaceState(null, '', '#' + panelId);
+        }
+
         // Scroll to top of content on mobile
         if (window.innerWidth < 1024) {
           var contentArea = document.querySelector('.content-panel:not(.hidden)');
@@ -535,14 +540,14 @@ const base = import.meta.env.BASE_URL;
       // Sidebar click handlers
       sidebarCards.forEach(function(card) {
         card.addEventListener('click', function() {
-          switchPanel(this.dataset.panel);
+          switchPanel(this.dataset.panel, true);
         });
       });
 
       // Mobile tab click handlers
       mobileTabs.forEach(function(tab) {
         tab.addEventListener('click', function() {
-          switchPanel(this.dataset.panel);
+          switchPanel(this.dataset.panel, true);
         });
       });
 
@@ -568,10 +573,20 @@ const base = import.meta.env.BASE_URL;
       sidebarCards = document.querySelectorAll('.sidebar-card');
       mobileTabs = document.querySelectorAll('.mobile-tab');
 
-      // Pick a random panel to show first
+      // Choose the first panel: honor a #hash deep-link if present, otherwise random
       var panelIds = ['sandbox', 'media', 'assistants']; // add 'deploy' back when ready
-      var randomPanel = panelIds[Math.floor(Math.random() * panelIds.length)];
-      switchPanel(randomPanel);
+      function panelFromHash() {
+        var id = (window.location.hash || '').replace(/^#/, '');
+        return panelIds.indexOf(id) !== -1 ? id : null;
+      }
+      var initialPanel = panelFromHash() || panelIds[Math.floor(Math.random() * panelIds.length)];
+      switchPanel(initialPanel);
+
+      // Respond to hash changes (in-page anchor links, manual URL edits, back/forward)
+      window.addEventListener('hashchange', function() {
+        var id = panelFromHash();
+        if (id) switchPanel(id);
+      });
 
       // Initialize panel opacity
       panels.forEach(function(p) {
