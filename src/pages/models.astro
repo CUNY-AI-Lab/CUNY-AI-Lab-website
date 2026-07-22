@@ -5,30 +5,13 @@ import path from 'node:path';
 
 const base = import.meta.env.BASE_URL;
 
-// Load model registry at build time
+// The editorial overlay (site-owned prose) is read at build time only for the
+// footer timestamp. The MODEL LIST itself is fetched client-side from the
+// live gateway catalog (src/config.ts CATALOG_URL) and left-joined to the
+// editorial overlay by catalog_id — see the script at the bottom of this file.
 const jsonPath = path.join(process.cwd(), 'src/data/model-registry.json');
 const modelData = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
-const models = modelData.models;
-const updatedAt = modelData.updated_at;
-
-// Helper to get license family display info
-function getLicenseFamilyInfo(family: string) {
-  const families: Record<string, { label: string; color: string; bg: string; border: string }> = {
-    'permissive': { label: 'Permissive', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
-    'permissive_modified': { label: 'Permissive+', color: 'text-teal-700', bg: 'bg-teal-50', border: 'border-teal-200' },
-    'community': { label: 'Community', color: 'text-blue-700', bg: 'bg-blue-50', border: 'border-blue-200' },
-    'restricted_terms': { label: 'Restricted', color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200' },
-    'unknown': { label: 'Unknown', color: 'text-gray-600', bg: 'bg-gray-100', border: 'border-gray-200' }
-  };
-  return families[family] || families['unknown'];
-}
-
-// Helper for structured output display
-function getStructuredOutputInfo(value: any) {
-  if (value === true) return { label: 'Native', color: 'text-emerald-600', dot: 'bg-emerald-500' };
-  if (value === 'prompted') return { label: 'Prompted', color: 'text-blue-600', dot: 'bg-blue-500' };
-  return { label: 'Unknown', color: 'text-gray-400', dot: 'bg-gray-300' };
-}
+const editorialUpdatedAt = modelData.updated_at;
 ---
 
 <BaseLayout title="Model Registry - CUNY AI Lab">
@@ -41,7 +24,7 @@ function getStructuredOutputInfo(value: any) {
         <div>
           <h1 class="text-3xl md:text-4xl font-bold font-display text-white tracking-tight">Model Registry</h1>
           <p class="mt-3 text-vibrant-200/80 text-base max-w-2xl">
-            This registry documents the open-weight models available through the CAIL Sandbox. We selected these models for their capabilities, licensing terms, and suitability for academic use. All models support multilingual input/output and tool calling.
+            This registry lists the models currently available through the CAIL Sandbox — fetched live from the CAIL gateway, so it always reflects what is actually being served. We selected these models for their capabilities, licensing terms, and suitability for academic use.
           </p>
         </div>
         <a href={`${base}models/guide`} class="hidden sm:flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-vibrant-200 hover:text-white text-sm font-medium transition-all border border-white/10">
@@ -101,7 +84,7 @@ function getStructuredOutputInfo(value: any) {
           <span id="tip-permissive" class="filter-tooltip" role="tooltip">Minimal legal restrictions (MIT, Apache-2.0)</span>
         </button>
         <div class="h-4 w-px bg-gray-200 mx-1"></div>
-        <span id="results-count" class="text-xs text-gray-500">{models.length} models</span>
+        <span id="results-count" class="text-xs text-gray-500" aria-live="polite">Loading&hellip;</span>
       </div>
     </div>
   </section>
@@ -204,210 +187,38 @@ function getStructuredOutputInfo(value: any) {
     }
   </style>
 
-  <!-- Single Column Model List -->
+  <!-- Single Column Model List (rendered client-side from the live catalog) -->
   <section class="py-6 bg-gradient-to-b from-gray-50 to-neutral-cream min-h-[60vh]">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div id="models-list" class="space-y-3">
-        {models.map((model: any, index: number) => {
-          const licenseInfo = getLicenseFamilyInfo(model.license_family);
-          const structuredInfo = getStructuredOutputInfo(model.capabilities.structured_output);
-          const hasExtendedContext = model.context_window_tokens_extended || model.context_window_tokens_max;
 
-          return (
-            <article
-              class="model-card group bg-white rounded-xl border border-transparent hover:border-vibrant-300 hover:shadow-lg transition-all duration-200 overflow-hidden"
-              data-name={model.display_name.toLowerCase()}
-              data-vendor={model.vendor.toLowerCase()}
-              data-license={model.license_id?.toLowerCase() || ''}
-              data-tags={model.tags.join(',')}
-              data-open-weights={model.open_weights === true ? 'true' : 'false'}
-              data-vision={model.capabilities.vision === true ? 'true' : 'false'}
-              data-structured-output={model.capabilities.structured_output === true || model.capabilities.structured_output === 'prompted' ? 'true' : 'false'}
-              data-long-context={model.context_window_tokens >= 200000 ? 'true' : 'false'}
-              data-license-family={model.license_family || 'unknown'}
-              data-permissive={model.license_family === 'permissive' || model.license_family === 'permissive_modified' ? 'true' : 'false'}
-              data-no-clickthrough={model.requires_clickthrough === false ? 'true' : 'false'}
-              style={`animation-delay: ${index * 30}ms`}
-            >
-              <!-- Main Row -->
-              <div class="p-4 sm:p-5">
-                <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-
-                  <!-- Left: Identity -->
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-3">
-                      <h3 class="font-bold text-lg text-neutral-stone font-display group-hover:text-vibrant-600 transition-colors truncate">
-                        {model.display_name}
-                      </h3>
-                      {model.requires_clickthrough === false && model.open_weights === true && (
-                        <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-sm">
-                          Open
-                        </span>
-                      )}
-                      {model.requires_clickthrough === true && (
-                        <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-700 border border-amber-200">
-                          Gated
-                        </span>
-                      )}
-                    </div>
-                    <div class="flex items-center gap-2 mt-1">
-                      <span class="text-sm text-gray-500">{model.vendor}</span>
-                      <span class="text-gray-300">·</span>
-                      <span class={`text-xs ${licenseInfo.color}`}>{model.license_id}</span>
-                    </div>
-                  </div>
-
-                  <!-- Center: Key Specs (horizontal on desktop) -->
-                  <div class="flex items-center gap-6 text-sm">
-                    <!-- Parameters -->
-                    <div class="text-center">
-                      <div class="font-bold text-neutral-stone">{model.parameters.total_b}B</div>
-                      <div class="text-xs text-gray-400">
-                        {model.parameters.active_b ? `${model.parameters.active_b}B active` : model.parameters.architecture}
-                      </div>
-                    </div>
-
-                    <!-- Context -->
-                    <div class="text-center">
-                      <div class="font-bold text-neutral-stone">{(model.context_window_tokens / 1000).toFixed(0)}K</div>
-                      <div class="text-xs text-gray-400">
-                        {hasExtendedContext ? `→ ${((model.context_window_tokens_extended || model.context_window_tokens_max) / 1000).toFixed(0)}K` : 'context'}
-                      </div>
-                    </div>
-
-                    <!-- Capabilities Icons -->
-                    <div class="flex items-center gap-1.5">
-                      {model.capabilities.vision && (
-                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center cursor-help" role="img" aria-label="Vision: Can process images, charts, and documents">
-                          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                          </svg>
-                          <span class="capability-tooltip" role="tooltip">Vision</span>
-                        </span>
-                      )}
-                      {model.context_window_tokens >= 200000 && (
-                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center cursor-help" role="img" aria-label="Long Context: Handles 100K+ tokens at once">
-                          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                          </svg>
-                          <span class="capability-tooltip" role="tooltip">Long Context</span>
-                        </span>
-                      )}
-                      {model.capabilities.reasoning_mode && (
-                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center cursor-help" role="img" aria-label="Reasoning: Extended chain-of-thought reasoning">
-                          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                          </svg>
-                          <span class="capability-tooltip" role="tooltip">Reasoning</span>
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  <!-- Right: Expand -->
-                  <button class="expand-btn flex-shrink-0 w-10 h-10 rounded-xl bg-gray-50 hover:bg-vibrant-50 text-gray-400 hover:text-vibrant-600 flex items-center justify-center transition-all" aria-label="Show model details" aria-expanded="false">
-                    <svg class="expand-icon w-5 h-5 transition-transform" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Expandable Details -->
-              <div class="details-panel hidden">
-                <div class="border-t border-gray-100 bg-gradient-to-b from-gray-50/50 to-white">
-                  <div class="p-5 grid md:grid-cols-3 gap-6">
-                    <!-- Best For -->
-                    <div>
-                      <h4 class="text-xs font-semibold text-vibrant-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Best For
-                      </h4>
-                      <ul class="space-y-2">
-                        {model.best_for.map((item: string) => (
-                          <li class="text-sm text-gray-600 flex items-start gap-2">
-                            <span class="w-1.5 h-1.5 rounded-full bg-vibrant-400 flex-shrink-0 mt-1.5"></span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <!-- Strengths -->
-                    <div>
-                      <h4 class="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        Strengths
-                      </h4>
-                      <ul class="space-y-2">
-                        {model.strengths.map((item: string) => (
-                          <li class="text-sm text-gray-600 flex items-start gap-2">
-                            <span class="text-emerald-500 font-bold flex-shrink-0">+</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <!-- Limitations -->
-                    <div>
-                      <h4 class="text-xs font-semibold text-amber-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                        </svg>
-                        Limitations
-                      </h4>
-                      <ul class="space-y-2">
-                        {model.limitations.map((item: string) => (
-                          <li class="text-sm text-gray-600 flex items-start gap-2">
-                            <span class="text-amber-500 font-bold flex-shrink-0">–</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <!-- Footer with license info -->
-                  <div class="px-5 py-3 border-t border-gray-100 flex items-center justify-between text-xs bg-gray-50/50">
-                    <div class="flex items-center gap-3">
-                      <span class={`inline-flex items-center px-2.5 py-1 rounded-lg ${licenseInfo.bg} ${licenseInfo.color} ${licenseInfo.border} border font-medium`}>
-                        {licenseInfo.label}
-                      </span>
-                      <span class="text-gray-400">{model.parameters.architecture}</span>
-                      <span class="text-gray-400">·</span>
-                      <span class={`flex items-center gap-1 ${structuredInfo.color}`}>
-                        <span class={`w-1.5 h-1.5 rounded-full ${structuredInfo.dot}`}></span>
-                        Structured: {structuredInfo.label}
-                      </span>
-                    </div>
-                    {model.licensing?.weights?.license_url && (
-                      <a
-                        href={model.licensing.weights.license_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-vibrant-600 hover:text-vibrant-700 hover:underline flex items-center gap-1 font-medium"
-                      >
-                        View License
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </article>
-          );
-        })}
+      <!-- Loading State -->
+      <div id="models-loading" class="py-16 text-center" role="status">
+        <div class="w-10 h-10 mx-auto mb-4 rounded-full border-4 border-gray-200 border-t-vibrant-600 animate-spin" aria-hidden="true"></div>
+        <p class="text-gray-500">Loading the live model catalog&hellip;</p>
       </div>
 
-      <!-- Empty State -->
+      <!-- Error State: fail loud, never show a stale snapshot -->
+      <div id="models-error" class="hidden py-12" role="alert">
+        <div class="max-w-xl mx-auto bg-white rounded-2xl border border-red-200 p-8 text-center shadow-sm">
+          <div class="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h2 class="text-lg font-bold font-display text-neutral-stone mb-2">Couldn&rsquo;t load the live model catalog</h2>
+          <p class="text-sm text-gray-600 mb-1">
+            The model list is served directly by the CAIL gateway so this page always shows what is actually available. That request just failed, so we can&rsquo;t show you a model list right now &mdash; rather than show outdated information, we show nothing.
+          </p>
+          <p id="models-error-detail" class="text-xs text-gray-400 mb-5 font-mono break-all"></p>
+          <button id="retry-catalog" class="px-5 py-2.5 bg-vibrant-600 hover:bg-vibrant-700 text-white rounded-lg text-sm font-medium transition-colors">
+            Try again
+          </button>
+        </div>
+      </div>
+
+      <div id="models-list" class="space-y-3"></div>
+
+      <!-- Empty State (filters matched nothing) -->
       <div id="empty-state" class="hidden py-16 text-center">
         <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
           <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -431,108 +242,312 @@ function getStructuredOutputInfo(value: any) {
         </svg>
         Back to Tools
       </a>
-      <span class="text-xs text-gray-400">Updated: {updatedAt}</span>
+      <span class="text-xs text-gray-400">Model list: live from the CAIL gateway &middot; Editorial notes updated: {editorialUpdatedAt}</span>
     </div>
   </section>
 </BaseLayout>
 
-<script is:inline>
-  // Filter state
-  const activeFilters = new Set();
+<script>
+  import { CATALOG_URL } from '../config';
+  import { joinCatalog } from '../lib/catalog-join.mjs';
+  import registry from '../data/model-registry.json';
 
-  // DOM elements
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const modelCards = document.querySelectorAll('.model-card');
+  const modelsList = document.getElementById('models-list');
+  const loadingEl = document.getElementById('models-loading');
+  const errorEl = document.getElementById('models-error');
+  const errorDetailEl = document.getElementById('models-error-detail');
+  const retryBtn = document.getElementById('retry-catalog');
   const resultsCount = document.getElementById('results-count');
   const emptyState = document.getElementById('empty-state');
-  const modelsList = document.getElementById('models-list');
   const clearFiltersBtn = document.getElementById('clear-filters');
   const guideToggle = document.getElementById('guide-toggle');
   const guideContent = document.getElementById('guide-content');
   const guideChevron = document.getElementById('guide-chevron');
+  const filterBtns = document.querySelectorAll('.filter-btn');
 
-  // Guide toggle
-  if (guideToggle) {
-    guideToggle.addEventListener('click', function() {
-      guideContent.classList.toggle('hidden');
-      guideChevron.classList.toggle('rotate-90');
-      var isOpen = !guideContent.classList.contains('hidden');
-      guideToggle.setAttribute('aria-expanded', String(isOpen));
-    });
+  // ---------- rendering helpers ----------
+
+  function esc(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
-  // Expand/collapse functionality
-  document.querySelectorAll('.expand-btn').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const card = btn.closest('.model-card');
-      const panel = card ? card.querySelector('.details-panel') : null;
-      const icon = btn.querySelector('.expand-icon');
+  const PROVIDER_LABELS: Record<string, string> = {
+    'workers-ai': 'Workers AI',
+    'openrouter': 'OpenRouter',
+    'bedrock': 'AWS Bedrock',
+  };
 
-      if (panel && panel.classList.contains('hidden')) {
-        panel.classList.remove('hidden');
-        if (icon) icon.classList.add('rotate-180');
-        card.classList.add('ring-2', 'ring-vibrant-200');
-        btn.setAttribute('aria-expanded', 'true');
-        btn.setAttribute('aria-label', 'Hide model details');
-      } else if (panel) {
-        panel.classList.add('hidden');
-        if (icon) icon.classList.remove('rotate-180');
-        card.classList.remove('ring-2', 'ring-vibrant-200');
-        btn.setAttribute('aria-expanded', 'false');
-        btn.setAttribute('aria-label', 'Show model details');
-      }
-    });
-  });
+  function providerLabel(provider) {
+    return PROVIDER_LABELS[provider] || String(provider || 'unknown');
+  }
 
-  // Filter logic
+  function formatContext(tokens) {
+    if (typeof tokens !== 'number' || !(tokens > 0)) return null;
+    if (tokens >= 1_000_000) return (tokens / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+    return Math.round(tokens / 1000) + 'K';
+  }
+
+  const LICENSE_FAMILIES: Record<string, { label: string; color: string; bg: string; border: string }> = {
+    'permissive': { label: 'Permissive', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
+    'permissive_modified': { label: 'Permissive+', color: 'text-teal-700', bg: 'bg-teal-50', border: 'border-teal-200' },
+    'community': { label: 'Community', color: 'text-blue-700', bg: 'bg-blue-50', border: 'border-blue-200' },
+    'restricted_terms': { label: 'Restricted', color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200' },
+    'unknown': { label: 'Unknown', color: 'text-gray-600', bg: 'bg-gray-100', border: 'border-gray-200' },
+  };
+
+  function getLicenseFamilyInfo(family) {
+    return LICENSE_FAMILIES[family] || LICENSE_FAMILIES['unknown'];
+  }
+
+  function getStructuredOutputInfo(value) {
+    if (value === true) return { label: 'Native', color: 'text-emerald-600', dot: 'bg-emerald-500' };
+    if (value === 'prompted') return { label: 'Prompted', color: 'text-blue-600', dot: 'bg-blue-500' };
+    return { label: 'Unknown', color: 'text-gray-400', dot: 'bg-gray-300' };
+  }
+
+  const ICONS = {
+    vision: `<span class="capability-icon group relative w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center cursor-help" role="img" aria-label="Vision: Can process images, charts, and documents">
+      <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+      </svg>
+      <span class="capability-tooltip" role="tooltip">Vision</span>
+    </span>`,
+    longContext: `<span class="capability-icon group relative w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center cursor-help" role="img" aria-label="Long Context: Handles 100K+ tokens at once">
+      <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+      <span class="capability-tooltip" role="tooltip">Long Context</span>
+    </span>`,
+    reasoning: `<span class="capability-icon group relative w-7 h-7 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center cursor-help" role="img" aria-label="Reasoning: Extended chain-of-thought reasoning">
+      <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+      </svg>
+      <span class="capability-tooltip" role="tooltip">Reasoning</span>
+    </span>`,
+  };
+
+  function editorialList(items, marker) {
+    return (items || [])
+      .map((item) => `<li class="text-sm text-gray-600 flex items-start gap-2">${marker}<span>${esc(item)}</span></li>`)
+      .join('');
+  }
+
+  // Catalog-derived facts shown in every expanded panel footer.
+  function catalogFactsLine(cat) {
+    const facts = [
+      `Provider: ${esc(providerLabel(cat.provider))}`,
+      `Streaming: ${cat.streaming === true ? 'yes' : cat.streaming === false ? 'no' : 'unknown'}`,
+    ];
+    if (typeof cat.pricing_known === 'string' && cat.pricing_known) {
+      facts.push(`Pricing data: ${esc(cat.pricing_known.replace(/-/g, ' '))}`);
+    }
+    return facts.join(' &middot; ');
+  }
+
+  function renderCard(row, index) {
+    const cat = row.catalog;
+    const ed = row.editorial;
+
+    const caps = Array.isArray(cat.capabilities) ? cat.capabilities : [];
+    const hasVision = caps.includes('vision');
+    const contextTokens = typeof cat.context_length === 'number' ? cat.context_length : null;
+    const isLongContext = caps.includes('long-context') || (contextTokens !== null && contextTokens >= 200000);
+    const hasReasoning = !!(ed && ed.capabilities && ed.capabilities.reasoning_mode);
+    const contextLabel = formatContext(contextTokens);
+
+    const displayName = ed ? ed.display_name : (cat.name || cat.id);
+    const isOpenWeights = !!(ed && ed.open_weights === true);
+    const isPermissive = !!(ed && (ed.license_family === 'permissive' || ed.license_family === 'permissive_modified'));
+    const licenseInfo = ed ? getLicenseFamilyInfo(ed.license_family) : null;
+    const structuredInfo = ed ? getStructuredOutputInfo(ed.capabilities && ed.capabilities.structured_output) : null;
+
+    // Header badges
+    let badges = '';
+    if (ed && ed.requires_clickthrough === false && ed.open_weights === true) {
+      badges += `<span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-sm">Open</span>`;
+    }
+    if (ed && ed.requires_clickthrough === true) {
+      badges += `<span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-700 border border-amber-200">Gated</span>`;
+    }
+    if (cat.recommended === true) {
+      badges += `<span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-vibrant-50 text-vibrant-700 border border-vibrant-200">Recommended</span>`;
+    }
+    if (!ed) {
+      badges += `<span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-gray-100 text-gray-500 border border-dashed border-gray-300">Editorial coming soon</span>`;
+    }
+
+    // Subline: editorial vendor + license when known; always the catalog id.
+    const sublineParts = [];
+    if (ed) {
+      sublineParts.push(`<span class="text-sm text-gray-500">${esc(ed.vendor)}</span>`);
+      sublineParts.push(`<span class="text-xs ${licenseInfo.color}">${esc(ed.license_id)}</span>`);
+    } else {
+      sublineParts.push(`<span class="text-sm text-gray-500">${esc(providerLabel(cat.provider))}</span>`);
+    }
+    sublineParts.push(`<span class="text-xs text-gray-400 font-mono truncate">${esc(cat.id)}</span>`);
+    const subline = sublineParts.join('<span class="text-gray-300">&middot;</span>');
+
+    // Specs: parameters only when the editorial documents them; context always
+    // comes from the catalog (the authority for what is actually served).
+    let paramsBlock = '';
+    if (ed && ed.parameters && typeof ed.parameters.total_b === 'number') {
+      paramsBlock = `<div class="text-center">
+        <div class="font-bold text-neutral-stone">${esc(ed.parameters.total_b)}B</div>
+        <div class="text-xs text-gray-400">${ed.parameters.active_b ? esc(ed.parameters.active_b) + 'B active' : esc(ed.parameters.architecture)}</div>
+      </div>`;
+    }
+    const contextBlock = contextLabel
+      ? `<div class="text-center">
+          <div class="font-bold text-neutral-stone">${esc(contextLabel)}</div>
+          <div class="text-xs text-gray-400">context</div>
+        </div>`
+      : '';
+
+    const icons = [
+      hasVision ? ICONS.vision : '',
+      isLongContext ? ICONS.longContext : '',
+      hasReasoning ? ICONS.reasoning : '',
+    ].join('');
+
+    // Expanded panel
+    let panel = '';
+    if (ed) {
+      panel = `<div class="border-t border-gray-100 bg-gradient-to-b from-gray-50/50 to-white">
+        <div class="p-5 grid md:grid-cols-3 gap-6">
+          <div>
+            <h4 class="text-xs font-semibold text-vibrant-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              Best For
+            </h4>
+            <ul class="space-y-2">${editorialList(ed.best_for, '<span class="w-1.5 h-1.5 rounded-full bg-vibrant-400 flex-shrink-0 mt-1.5"></span>')}</ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+              Strengths
+            </h4>
+            <ul class="space-y-2">${editorialList(ed.strengths, '<span class="text-emerald-500 font-bold flex-shrink-0">+</span>')}</ul>
+          </div>
+          <div>
+            <h4 class="text-xs font-semibold text-amber-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+              Limitations
+            </h4>
+            <ul class="space-y-2">${editorialList(ed.limitations, '<span class="text-amber-500 font-bold flex-shrink-0">&ndash;</span>')}</ul>
+          </div>
+        </div>
+        <div class="px-5 py-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-xs bg-gray-50/50">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center px-2.5 py-1 rounded-lg ${licenseInfo.bg} ${licenseInfo.color} ${licenseInfo.border} border font-medium">${esc(licenseInfo.label)}</span>
+            <span class="text-gray-400">${esc(ed.parameters && ed.parameters.architecture)}</span>
+            <span class="text-gray-400">&middot;</span>
+            <span class="flex items-center gap-1 ${structuredInfo.color}"><span class="w-1.5 h-1.5 rounded-full ${structuredInfo.dot}"></span>Structured: ${esc(structuredInfo.label)}</span>
+            <span class="text-gray-400">&middot;</span>
+            <span class="text-gray-400">${catalogFactsLine(cat)}</span>
+          </div>
+          ${ed.licensing && ed.licensing.weights && ed.licensing.weights.license_url ? `<a href="${esc(ed.licensing.weights.license_url)}" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 hover:underline flex items-center gap-1 font-medium">
+            View License
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          </a>` : ''}
+        </div>
+      </div>`;
+    } else {
+      // No editorial entry: show ONLY what the catalog itself reports.
+      panel = `<div class="border-t border-gray-100 bg-gradient-to-b from-gray-50/50 to-white">
+        <div class="p-5 space-y-4">
+          ${cat.description ? `<p class="text-sm text-gray-600">${esc(cat.description)}</p>` : ''}
+          <dl class="grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
+            <div class="flex gap-2"><dt class="text-gray-400">Provider:</dt><dd class="text-gray-600">${esc(providerLabel(cat.provider))}</dd></div>
+            <div class="flex gap-2"><dt class="text-gray-400">Modality:</dt><dd class="text-gray-600">${esc(cat.modality || 'unknown')}</dd></div>
+            <div class="flex gap-2"><dt class="text-gray-400">Capabilities:</dt><dd class="text-gray-600">${esc(caps.length ? caps.join(', ') : 'not listed')}</dd></div>
+            <div class="flex gap-2"><dt class="text-gray-400">Context length:</dt><dd class="text-gray-600">${contextTokens !== null ? esc(contextTokens.toLocaleString()) + ' tokens' : 'not listed'}</dd></div>
+            <div class="flex gap-2"><dt class="text-gray-400">Streaming:</dt><dd class="text-gray-600">${cat.streaming === true ? 'yes' : cat.streaming === false ? 'no' : 'unknown'}</dd></div>
+            ${typeof cat.pricing_known === 'string' && cat.pricing_known ? `<div class="flex gap-2"><dt class="text-gray-400">Pricing data:</dt><dd class="text-gray-600">${esc(cat.pricing_known.replace(/-/g, ' '))}</dd></div>` : ''}
+          </dl>
+          <p class="text-xs text-gray-400 italic">Editorial notes (best-for guidance, strengths, limitations, licensing review) for this model are coming soon. The details above come directly from the live gateway catalog.</p>
+        </div>
+      </div>`;
+    }
+
+    return `<article
+      class="model-card group bg-white rounded-xl border border-transparent hover:border-vibrant-300 hover:shadow-lg transition-all duration-200 overflow-hidden"
+      data-open-weights="${isOpenWeights ? 'true' : 'false'}"
+      data-vision="${hasVision ? 'true' : 'false'}"
+      data-long-context="${isLongContext ? 'true' : 'false'}"
+      data-permissive="${isPermissive ? 'true' : 'false'}"
+      style="animation-delay: ${index * 30}ms"
+    >
+      <div class="p-4 sm:p-5">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-3">
+              <h3 class="font-bold text-lg text-neutral-stone font-display group-hover:text-vibrant-600 transition-colors truncate">${esc(displayName)}</h3>
+              ${badges}
+            </div>
+            <div class="flex items-center gap-2 mt-1 min-w-0">${subline}</div>
+          </div>
+          <div class="flex items-center gap-6 text-sm">
+            ${paramsBlock}
+            ${contextBlock}
+            <div class="flex items-center gap-1.5">${icons}</div>
+          </div>
+          <button class="expand-btn flex-shrink-0 w-10 h-10 rounded-xl bg-gray-50 hover:bg-vibrant-50 text-gray-400 hover:text-vibrant-600 flex items-center justify-center transition-all" aria-label="Show model details" aria-expanded="false">
+            <svg class="expand-icon w-5 h-5 transition-transform" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="details-panel hidden">${panel}</div>
+    </article>`;
+  }
+
+  // ---------- filters ----------
+
+  const activeFilters = new Set();
+
   function applyFilters() {
+    const modelCards = modelsList.querySelectorAll('.model-card');
     let visibleCount = 0;
 
-    modelCards.forEach(function(card) {
-      const isOpenWeights = card.getAttribute('data-open-weights') === 'true';
-      const hasVision = card.getAttribute('data-vision') === 'true';
-      const hasStructuredOutput = card.getAttribute('data-structured-output') === 'true';
-      const isLongContext = card.getAttribute('data-long-context') === 'true';
-      const isPermissive = card.getAttribute('data-permissive') === 'true';
-
-      // Check filters
+    modelCards.forEach(function (card) {
       let matchesFilters = true;
-      if (activeFilters.has('open_weights') && !isOpenWeights) matchesFilters = false;
-      if (activeFilters.has('vision') && !hasVision) matchesFilters = false;
-      if (activeFilters.has('structured_output') && !hasStructuredOutput) matchesFilters = false;
-      if (activeFilters.has('long_context') && !isLongContext) matchesFilters = false;
-      if (activeFilters.has('permissive') && !isPermissive) matchesFilters = false;
+      if (activeFilters.has('open_weights') && card.getAttribute('data-open-weights') !== 'true') matchesFilters = false;
+      if (activeFilters.has('vision') && card.getAttribute('data-vision') !== 'true') matchesFilters = false;
+      if (activeFilters.has('long_context') && card.getAttribute('data-long-context') !== 'true') matchesFilters = false;
+      if (activeFilters.has('permissive') && card.getAttribute('data-permissive') !== 'true') matchesFilters = false;
 
       if (matchesFilters) {
-        card.style.display = '';
+        (card as HTMLElement).style.display = '';
         visibleCount++;
       } else {
-        card.style.display = 'none';
+        (card as HTMLElement).style.display = 'none';
       }
     });
 
-    // Update count
     if (resultsCount) {
       resultsCount.textContent = visibleCount + ' model' + (visibleCount !== 1 ? 's' : '');
     }
 
-    // Show/hide empty state
-    if (visibleCount === 0) {
-      if (emptyState) emptyState.classList.remove('hidden');
-      if (modelsList) modelsList.classList.add('hidden');
+    if (visibleCount === 0 && modelCards.length > 0) {
+      emptyState.classList.remove('hidden');
+      modelsList.classList.add('hidden');
     } else {
-      if (emptyState) emptyState.classList.add('hidden');
-      if (modelsList) modelsList.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+      modelsList.classList.remove('hidden');
     }
   }
 
-  // Filter button handlers — aria-pressed drives the visual state via CSS.
-  filterBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
       const filter = btn.getAttribute('data-filter');
       if (!filter) return;
-
       if (activeFilters.has(filter)) {
         activeFilters.delete(filter);
         btn.setAttribute('aria-pressed', 'false');
@@ -540,49 +555,113 @@ function getStructuredOutputInfo(value: any) {
         activeFilters.add(filter);
         btn.setAttribute('aria-pressed', 'true');
       }
-
       applyFilters();
     });
   });
 
-  // Clear filters
   if (clearFiltersBtn) {
-    clearFiltersBtn.addEventListener('click', function() {
+    clearFiltersBtn.addEventListener('click', function () {
       activeFilters.clear();
-      filterBtns.forEach(function(btn) {
+      filterBtns.forEach(function (btn) {
         btn.setAttribute('aria-pressed', 'false');
       });
       applyFilters();
     });
   }
 
+  // Expand/collapse via delegation (cards are rendered dynamically).
+  modelsList.addEventListener('click', function (e) {
+    const btn = (e.target as HTMLElement).closest('.expand-btn');
+    if (!btn) return;
+    const card = btn.closest('.model-card');
+    const panel = card ? card.querySelector('.details-panel') : null;
+    const icon = btn.querySelector('.expand-icon');
+
+    if (panel && panel.classList.contains('hidden')) {
+      panel.classList.remove('hidden');
+      if (icon) icon.classList.add('rotate-180');
+      card.classList.add('ring-2', 'ring-vibrant-200');
+      btn.setAttribute('aria-expanded', 'true');
+      btn.setAttribute('aria-label', 'Hide model details');
+    } else if (panel) {
+      panel.classList.add('hidden');
+      if (icon) icon.classList.remove('rotate-180');
+      card.classList.remove('ring-2', 'ring-vibrant-200');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Show model details');
+    }
+  });
+
+  // ---------- catalog fetch (fail loud — no embedded fallback) ----------
+
+  async function loadCatalog() {
+    loadingEl.classList.remove('hidden');
+    errorEl.classList.add('hidden');
+    modelsList.innerHTML = '';
+    if (resultsCount) resultsCount.textContent = 'Loading…';
+
+    try {
+      const response = await fetch(CATALOG_URL, { headers: { Accept: 'application/json' } });
+      if (!response.ok) {
+        throw new Error('Catalog request failed with HTTP ' + response.status);
+      }
+      const payload = await response.json();
+      const rows = joinCatalog(payload, registry.models);
+
+      loadingEl.classList.add('hidden');
+      modelsList.innerHTML = rows.map(renderCard).join('');
+      applyFilters();
+    } catch (err) {
+      loadingEl.classList.add('hidden');
+      modelsList.innerHTML = '';
+      errorEl.classList.remove('hidden');
+      if (errorDetailEl) errorDetailEl.textContent = err instanceof Error ? err.message : String(err);
+      if (resultsCount) resultsCount.textContent = 'Unavailable';
+    }
+  }
+
+  if (retryBtn) retryBtn.addEventListener('click', loadCatalog);
+  loadCatalog();
+
+  // ---------- static UI (guide toggle + filter toggletips) ----------
+
+  if (guideToggle) {
+    guideToggle.addEventListener('click', function () {
+      guideContent.classList.toggle('hidden');
+      guideChevron.classList.toggle('rotate-90');
+      const isOpen = !guideContent.classList.contains('hidden');
+      guideToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
   // Accessible filter toggletips: show each pill's definition on hover,
   // keyboard focus, and tap. Fixed-positioned and clamped to the viewport so
   // they never push the page wider (the cause of the old mobile blank column).
-  (function() {
-    var pinnedBtn = null;   // pill whose tip was opened by tap/click
-    var openTip = null;
+  (function () {
+    let pinnedBtn = null; // pill whose tip was opened by tap/click
+    let openTip = null;
+    const tips = new Map();
 
     // The sticky filter bar uses backdrop-filter, which makes it the containing
     // block for position: fixed descendants. Portal each tip to <body> so its
     // fixed coordinates are genuinely viewport-relative.
-    filterBtns.forEach(function(btn) {
-      btn._tip = document.getElementById('tip-' + btn.getAttribute('data-filter'));
+    filterBtns.forEach(function (btn) {
+      tips.set(btn, document.getElementById('tip-' + btn.getAttribute('data-filter')));
     });
 
     function showTip(btn) {
-      var tip = btn._tip;
+      const tip = tips.get(btn);
       if (!tip) return;
       hideTip();
       if (tip.parentElement !== document.body) document.body.appendChild(tip);
       tip.classList.add('is-visible');
-      var btnRect = btn.getBoundingClientRect();
-      var tipRect = tip.getBoundingClientRect();
-      var vw = document.documentElement.clientWidth;
-      var margin = 8;
-      var left = btnRect.left + btnRect.width / 2 - tipRect.width / 2;
+      const btnRect = btn.getBoundingClientRect();
+      const tipRect = tip.getBoundingClientRect();
+      const vw = document.documentElement.clientWidth;
+      const margin = 8;
+      let left = btnRect.left + btnRect.width / 2 - tipRect.width / 2;
       left = Math.max(margin, Math.min(left, vw - tipRect.width - margin));
-      var top = btnRect.top - tipRect.height - 8;
+      let top = btnRect.top - tipRect.height - 8;
       if (top < margin) top = btnRect.bottom + 8; // flip below if no room above
       tip.style.left = left + 'px';
       tip.style.top = top + 'px';
@@ -598,14 +677,14 @@ function getStructuredOutputInfo(value: any) {
       }
     }
 
-    filterBtns.forEach(function(btn) {
-      btn.addEventListener('mouseenter', function() { if (!pinnedBtn) showTip(btn); });
-      btn.addEventListener('mouseleave', function() { if (!pinnedBtn) hideTip(); });
-      btn.addEventListener('focus', function() { showTip(btn); });
-      btn.addEventListener('blur', function() { if (!pinnedBtn) hideTip(); });
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener('mouseenter', function () { if (!pinnedBtn) showTip(btn); });
+      btn.addEventListener('mouseleave', function () { if (!pinnedBtn) hideTip(); });
+      btn.addEventListener('focus', function () { showTip(btn); });
+      btn.addEventListener('blur', function () { if (!pinnedBtn) hideTip(); });
       // Tap/click also toggles the filter (handled above); here we pin the
       // definition open so touch users can read it, dismissing on next tap.
-      btn.addEventListener('click', function() {
+      btn.addEventListener('click', function () {
         if (pinnedBtn === btn) {
           pinnedBtn = null;
           hideTip();
@@ -617,16 +696,16 @@ function getStructuredOutputInfo(value: any) {
     });
 
     // Dismiss a pinned tip on outside tap, scroll, or Escape.
-    document.addEventListener('click', function(e) {
-      if (pinnedBtn && !e.target.closest('.filter-btn')) {
+    document.addEventListener('click', function (e) {
+      if (pinnedBtn && !(e.target as HTMLElement).closest('.filter-btn')) {
         pinnedBtn = null;
         hideTip();
       }
     });
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
       if (openTip) { pinnedBtn = null; hideTip(); }
     }, { passive: true });
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') { pinnedBtn = null; hideTip(); }
     });
   })();
