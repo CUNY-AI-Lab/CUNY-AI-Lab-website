@@ -24,7 +24,7 @@ const editorialUpdatedAt = modelData.updated_at;
         <div>
           <h1 class="text-3xl md:text-4xl font-bold font-display text-white tracking-tight">Model Registry</h1>
           <p class="mt-3 text-vibrant-200/80 text-base max-w-2xl">
-            This registry lists the models currently available through the CAIL Sandbox — fetched live from the CAIL gateway, so it always reflects what is actually being served. We selected these models for their capabilities, licensing terms, and suitability for academic use.
+            This page lists models currently available through the Lab gateway. It adds editorial context only where the Lab has reviewed the model.
           </p>
         </div>
         <a href={`${base}models/guide`} class="hidden sm:flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-vibrant-200 hover:text-white text-sm font-medium transition-all border border-white/10">
@@ -192,10 +192,17 @@ const editorialUpdatedAt = modelData.updated_at;
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <!-- Loading State -->
-      <div id="models-loading" class="py-16 text-center" role="status">
+      <div id="models-loading" class="hidden py-16 text-center" role="status">
         <div class="w-10 h-10 mx-auto mb-4 rounded-full border-4 border-gray-200 border-t-vibrant-600 animate-spin" aria-hidden="true"></div>
         <p class="text-gray-500">Loading the live model catalog&hellip;</p>
       </div>
+
+      <noscript>
+        <div class="max-w-xl mx-auto py-12 text-center" role="alert">
+          <h2 class="text-lg font-bold font-display text-neutral-stone mb-2">The live model catalog needs JavaScript</h2>
+          <p class="text-sm text-gray-600">Enable JavaScript to load the current model list from the CAIL gateway.</p>
+        </div>
+      </noscript>
 
       <!-- Error State: fail loud, never show a stale snapshot -->
       <div id="models-error" class="hidden py-12" role="alert">
@@ -218,8 +225,19 @@ const editorialUpdatedAt = modelData.updated_at;
 
       <div id="models-list" class="space-y-3"></div>
 
+      <!-- Empty State: the valid live catalog returned no models -->
+      <div id="catalog-empty-state" class="hidden py-16 text-center" role="status" aria-live="polite">
+        <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01M4.93 19h14.14c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 00-3.46 0L3.2 16c-.77 1.33.19 3 1.73 3z" />
+          </svg>
+        </div>
+        <h2 class="text-lg font-semibold text-neutral-stone mb-2">No models are currently available</h2>
+        <p class="text-gray-500">The live catalog is reachable, but it returned no models. Please try again later.</p>
+      </div>
+
       <!-- Empty State (filters matched nothing) -->
-      <div id="empty-state" class="hidden py-16 text-center">
+      <div id="empty-state" class="hidden py-16 text-center" role="status" aria-live="polite">
         <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
           <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -258,12 +276,16 @@ const editorialUpdatedAt = modelData.updated_at;
   const errorDetailEl = document.getElementById('models-error-detail');
   const retryBtn = document.getElementById('retry-catalog');
   const resultsCount = document.getElementById('results-count');
+  const catalogEmptyEl = document.getElementById('catalog-empty-state');
   const emptyState = document.getElementById('empty-state');
   const clearFiltersBtn = document.getElementById('clear-filters');
   const guideToggle = document.getElementById('guide-toggle');
   const guideContent = document.getElementById('guide-content');
   const guideChevron = document.getElementById('guide-chevron');
   const filterBtns = document.querySelectorAll('.filter-btn');
+  const CATALOG_TIMEOUT_MS = 10_000;
+  let requestGeneration = 0;
+  let activeRequest = null;
 
   // ---------- rendering helpers ----------
 
@@ -594,29 +616,83 @@ const editorialUpdatedAt = modelData.updated_at;
 
   // ---------- catalog fetch (fail loud — no embedded fallback) ----------
 
+  function setRetryEnabled(enabled) {
+    if (!retryBtn) return;
+    retryBtn.disabled = !enabled;
+    retryBtn.setAttribute('aria-disabled', String(!enabled));
+    retryBtn.classList.toggle('opacity-60', !enabled);
+    retryBtn.classList.toggle('cursor-not-allowed', !enabled);
+  }
+
+  function isCurrentRequest(request) {
+    return activeRequest === request && request.generation === requestGeneration;
+  }
+
   async function loadCatalog() {
+    const generation = ++requestGeneration;
+    if (activeRequest) activeRequest.controller.abort();
+    const controller = new AbortController();
+    const request = { controller, generation, timedOut: false, timeoutId: null };
+    activeRequest = request;
+    request.timeoutId = setTimeout(() => {
+      request.timedOut = true;
+      controller.abort();
+    }, CATALOG_TIMEOUT_MS);
+
+    setRetryEnabled(false);
     loadingEl.classList.remove('hidden');
     errorEl.classList.add('hidden');
+    if (catalogEmptyEl) catalogEmptyEl.classList.add('hidden');
+    emptyState.classList.add('hidden');
     modelsList.innerHTML = '';
+    if (errorDetailEl) errorDetailEl.textContent = '';
     if (resultsCount) resultsCount.textContent = 'Loading…';
 
     try {
-      const response = await fetch(CATALOG_URL, { headers: { Accept: 'application/json' } });
+      const response = await fetch(CATALOG_URL, {
+        cache: 'no-store',
+        credentials: 'omit',
+        headers: { Accept: 'application/json' },
+        signal: controller.signal,
+      });
       if (!response.ok) {
         throw new Error('Catalog request failed with HTTP ' + response.status);
       }
       const payload = await response.json();
       const rows = joinCatalog(payload, registry.models);
+      if (!isCurrentRequest(request)) return;
 
       loadingEl.classList.add('hidden');
+      errorEl.classList.add('hidden');
+      if (errorDetailEl) errorDetailEl.textContent = '';
+      if (rows.length === 0) {
+        modelsList.classList.add('hidden');
+        if (catalogEmptyEl) catalogEmptyEl.classList.remove('hidden');
+        if (resultsCount) resultsCount.textContent = '0 models';
+        return;
+      }
+      if (catalogEmptyEl) catalogEmptyEl.classList.add('hidden');
+      modelsList.classList.remove('hidden');
       modelsList.innerHTML = rows.map(renderCard).join('');
       applyFilters();
     } catch (err) {
+      if (!isCurrentRequest(request)) return;
       loadingEl.classList.add('hidden');
       modelsList.innerHTML = '';
+      modelsList.classList.add('hidden');
+      if (catalogEmptyEl) catalogEmptyEl.classList.add('hidden');
       errorEl.classList.remove('hidden');
-      if (errorDetailEl) errorDetailEl.textContent = err instanceof Error ? err.message : String(err);
+      const detail = request.timedOut
+        ? 'The catalog request timed out. Please try again.'
+        : err instanceof Error ? err.message : String(err);
+      if (errorDetailEl) errorDetailEl.textContent = detail;
       if (resultsCount) resultsCount.textContent = 'Unavailable';
+    } finally {
+      clearTimeout(request.timeoutId);
+      if (isCurrentRequest(request)) {
+        activeRequest = null;
+        setRetryEnabled(true);
+      }
     }
   }
 
