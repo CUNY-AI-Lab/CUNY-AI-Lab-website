@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "check": "bun run test && bun run build",
     "preview": "astro preview",
     "test": "node --test test/*.test.mjs",
     "astro": "astro"
