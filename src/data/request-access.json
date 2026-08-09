@@ -1,11 +1,12 @@
 {
   "title": "Request Access",
-  "intro_heading": "Get Started with CAIL Sandbox",
-  "intro_description": "The CUNY AI Lab provides CUNY faculty, staff, and students with access to the CAIL Sandbox, our Open WebUI platform—a secure, zero-retention interface for working with AI models.",
+  "intro_heading": "Get Started with CUNY AI Lab Tools",
+  "intro_description": "The CUNY AI Lab offers AI tools for faculty, staff, and students at every CUNY campus. Use this form to request access to the CAIL Sandbox, our secure, zero-retention interface for working with AI models, or to tools portal apps such as Agent Studio, Site Studio, and PDF Accessibility.",
   "features_heading": "What You'll Get Access To:",
   "features": [
-    "CAIL Sandbox platform with multiple AI models",
-    "Domain-specific tools (AmigAI, Transcription Suite, and more)",
+    "CAIL Sandbox with multiple AI models, plus in-Sandbox tools like AmigAI and course-specific assistants",
+    "Agent Studio for research workflows and Site Studio for building academic websites",
+    "Media and accessibility tools: transcription, alt-text, OCR, and PDF accessibility",
     "Zero-retention API services for data privacy",
     "Support from the CUNY AI Lab team"
   ],
@@ -33,11 +34,13 @@
   "tools_of_interest": {
     "label": "Specific Tools of Interest (Optional)",
     "options": [
-      { "value": "amigai", "label": "AmigAI (Language Learning)" },
-      { "value": "transcription", "label": "Multilingual Transcription Suite" },
-      { "value": "library", "label": "Library Workflow Assistants" },
-      { "value": "course-assistant", "label": "Course-Specific Assistants" },
-      { "value": "general", "label": "General CAIL Sandbox Access" }
+      { "value": "sandbox", "label": "CAIL Sandbox (chat with AI models)" },
+      { "value": "agent-studio", "label": "Agent Studio (research support)" },
+      { "value": "site-studio", "label": "Site Studio (academic websites)" },
+      { "value": "pdf-accessibility", "label": "PDF Accessibility" },
+      { "value": "media-tools", "label": "Media tools (transcription, alt-text, OCR)" },
+      { "value": "amigai", "label": "AmigAI (language learning)" },
+      { "value": "course-assistant", "label": "Course-Specific Assistants" }
     ]
   },
   "submit_text": "Submit Access Request",
@@ -45,8 +48,8 @@
   "next_steps_heading": "What Happens Next?",
   "next_steps": [
     { "step": 1, "title": "Review", "description": "We review your request within 2-3 business days." },
-    { "step": 2, "title": "Approval", "description": "You'll receive an email with login credentials." },
-    { "step": 3, "title": "Access", "description_html": "Log in to <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:underline\">chat.ailab.gc.cuny.edu</a>" },
+    { "step": 2, "title": "Approval", "description": "You'll receive an email when your access is ready." },
+    { "step": 3, "title": "Access", "description_html": "Log in at <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:underline\">chat.ailab.gc.cuny.edu</a> or <a href=\"https://tools.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:underline\">tools.ailab.gc.cuny.edu</a>" },
     { "step": 4, "title": "Support", "description": "Contact us if you need help getting started." }
   ],
   "questions_text": "Have questions about access or the platform?",
