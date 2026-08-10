@@ -1,0 +1,208 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  entry: CollectionEntry<'docs'>;
+  entries: CollectionEntry<'docs'>[];
+}
+
+const { entry, entries } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const sortedEntries = entries.slice().sort((a, b) =>
+  a.data.sectionOrder - b.data.sectionOrder ||
+  a.data.order - b.data.order ||
+  a.data.title.localeCompare(b.data.title)
+);
+const sections = Array.from(sortedEntries.reduce((groups, doc) => {
+  const section = groups.get(doc.data.section) ?? [];
+  section.push(doc);
+  groups.set(doc.data.section, section);
+  return groups;
+}, new Map<string, CollectionEntry<'docs'>[]>()));
+const currentIndex = sortedEntries.findIndex((doc) => doc.slug === entry.slug);
+const previousEntry = currentIndex > 0 ? sortedEntries[currentIndex - 1] : undefined;
+const nextEntry = currentIndex >= 0 ? sortedEntries[currentIndex + 1] : undefined;
+const docsHref = (doc: CollectionEntry<'docs'>) =>
+  doc.slug === 'index' ? `${base}docs/` : `${base}docs/${doc.slug}/`;
+---
+
+<BaseLayout title={`${entry.data.title} - CUNY AI Lab`} description={entry.data.description}>
+  <section class="relative overflow-hidden pt-24 pb-8 lg:pt-28 lg:pb-10">
+    <div class="absolute inset-0 bg-gradient-to-br from-cuny-blue via-vibrant-900 to-cuny-indigo"></div>
+    <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="font-display text-sm font-semibold uppercase tracking-[0.18em] text-vibrant-300">CUNY AI Lab</p>
+      <h1 class="mt-2 max-w-4xl font-display text-4xl font-bold tracking-tight text-white md:text-5xl">{entry.data.title}</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-relaxed text-vibrant-100/90">{entry.data.description}</p>
+    </div>
+  </section>
+
+  <div class="border-b border-gray-200 bg-white">
+    <nav aria-label="Breadcrumb" class="mx-auto flex max-w-7xl flex-wrap items-center gap-2 px-4 py-3 text-sm text-gray-600 sm:px-6 lg:px-8">
+      {entry.slug === 'index' ? (
+        <span aria-current="page" class="font-medium text-neutral-stone">Documentation</span>
+      ) : (
+        <>
+          <a href={`${base}docs/`} class="font-medium text-vibrant-700 hover:underline">Documentation</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page" class="font-medium text-neutral-stone">{entry.data.title}</span>
+        </>
+      )}
+    </nav>
+  </div>
+
+  <div class="bg-neutral-cream">
+    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:grid lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-12 lg:px-8 lg:py-12">
+      <aside aria-label="Documentation navigation">
+        <details class="group mb-7 rounded-xl border border-gray-200 bg-white shadow-sm lg:hidden">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-display font-semibold text-cuny-blue marker:content-none">
+            Browse documentation
+            <span aria-hidden="true" class="transition-transform group-open:rotate-180">⌄</span>
+          </summary>
+          <nav aria-label="Mobile documentation" class="border-t border-gray-100 px-5 py-5">
+            {sections.map(([section, docs]) => (
+              <div class="mb-6 last:mb-0">
+                <h2 class="mb-2 font-display text-xs font-bold uppercase tracking-[0.14em] text-gray-500">{section}</h2>
+                <ul class="space-y-1">
+                  {docs.map((doc) => (
+                    <li>
+                      <a href={docsHref(doc)} aria-current={doc.slug === entry.slug ? 'page' : undefined} class:list={['block rounded-lg px-3 py-2 text-sm font-medium', doc.slug === entry.slug ? 'bg-vibrant-50 text-vibrant-800' : 'text-gray-600 hover:bg-gray-50 hover:text-vibrant-700']}>
+                        {doc.data.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
+        </details>
+
+        <nav aria-label="Documentation" class="sticky top-24 hidden lg:block">
+          {sections.map(([section, docs]) => (
+            <div class="mb-8 last:mb-0">
+              <h2 class="mb-2 border-b border-gray-200 pb-2 font-display text-xs font-bold uppercase tracking-[0.14em] text-gray-500">{section}</h2>
+              <ul class="space-y-1">
+                {docs.map((doc) => (
+                  <li>
+                    <a href={docsHref(doc)} aria-current={doc.slug === entry.slug ? 'page' : undefined} class:list={['block rounded-lg border-l-2 px-3 py-2 text-sm font-medium', doc.slug === entry.slug ? 'border-vibrant-500 bg-vibrant-50 text-vibrant-800' : 'border-transparent text-gray-600 hover:border-vibrant-200 hover:bg-white hover:text-vibrant-700']}>
+                      {doc.data.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </nav>
+      </aside>
+
+      <div class="min-w-0">
+        {entry.data.preview && (
+          <div role="status" class="mb-8 rounded-xl border border-amber-300 bg-amber-50 px-5 py-4 text-amber-950 shadow-sm">
+            <p class="font-display font-bold">Preview documentation</p>
+            <p class="mt-1 text-sm leading-relaxed">This service is not generally available. Interfaces and access details may change during the preview.</p>
+          </div>
+        )}
+
+        <article class="docs-content rounded-2xl border border-gray-200 bg-white px-5 py-8 shadow-sm sm:px-8 lg:px-12 lg:py-10">
+          <slot />
+        </article>
+
+        <nav aria-label="Previous and next documentation pages" class="mt-8 grid gap-4 sm:grid-cols-2">
+          {previousEntry ? (
+            <a href={docsHref(previousEntry)} class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:border-vibrant-300">
+              <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Previous</span>
+              <span class="mt-1 block font-display font-bold text-cuny-blue">← {previousEntry.data.title}</span>
+            </a>
+          ) : <span class="hidden sm:block"></span>}
+          {nextEntry && (
+            <a href={docsHref(nextEntry)} class="rounded-xl border border-gray-200 bg-white p-5 text-right shadow-sm hover:border-vibrant-300 sm:col-start-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-gray-500">Next</span>
+              <span class="mt-1 block font-display font-bold text-cuny-blue">{nextEntry.data.title} →</span>
+            </a>
+          )}
+        </nav>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .docs-content {
+    color: #333333;
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.75;
+  }
+  .docs-content > :first-child { margin-top: 0; }
+  .docs-content > :last-child { margin-bottom: 0; }
+  .docs-content h2,
+  .docs-content h3 {
+    color: #1d3a83;
+    font-family: 'Outfit', system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.25;
+    scroll-margin-top: 6rem;
+  }
+  .docs-content h2 {
+    margin: 2.5rem 0 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.55rem;
+    font-size: 1.75rem;
+  }
+  .docs-content h3 { margin: 2rem 0 0.75rem; font-size: 1.25rem; }
+  .docs-content p,
+  .docs-content ul,
+  .docs-content ol,
+  .docs-content pre,
+  .docs-content table { margin: 0 0 1.25rem; }
+  .docs-content ul,
+  .docs-content ol { padding-left: 1.5rem; }
+  .docs-content ul { list-style: disc; }
+  .docs-content ol { list-style: decimal; }
+  .docs-content li + li { margin-top: 0.4rem; }
+  .docs-content a {
+    color: #2a6fb8;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .docs-content :not(pre) > code {
+    border: 1px solid #d1e9f9;
+    border-radius: 0.3rem;
+    background: #e8f4fc;
+    padding: 0.12rem 0.35rem;
+    color: #162d66;
+    font-size: 0.9em;
+    overflow-wrap: anywhere;
+  }
+  .docs-content pre {
+    max-width: 100%;
+    overflow-x: auto;
+    border-radius: 0.75rem;
+    background: #0f172a;
+    padding: 1.25rem;
+    color: #f8fafc;
+    font-size: 0.875rem;
+    line-height: 1.65;
+  }
+  .docs-content pre code { font: inherit; }
+  .docs-content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 0.925rem;
+  }
+  .docs-content th,
+  .docs-content td {
+    min-width: 9rem;
+    border: 1px solid #d1d5db;
+    padding: 0.65rem 0.8rem;
+    text-align: left;
+  }
+  .docs-content th {
+    background: #e8f4fc;
+    color: #1d3a83;
+    font-family: 'Outfit', system-ui, sans-serif;
+  }
+</style>
