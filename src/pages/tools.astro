@@ -255,24 +255,24 @@ const base = import.meta.env.BASE_URL;
               <div class="px-8 lg:px-10 pb-8 lg:pb-10">
                 <h3 class="text-xl font-bold font-display text-neutral-stone mb-2">Media Processing</h3>
                 <p class="text-gray-500 text-sm mb-1.5">Powered by external transcription, OCR, and image-model providers</p>
-                <p class="text-xs text-gray-400 mb-6">These tools send files to the listed external providers. Need on-premises processing for sensitive data (FERPA, IRB, HIPAA)? <a href={`${base}contact`} class="text-vibrant-600 hover:underline">Contact us</a>.</p>
+                <p class="text-xs text-gray-400 mb-6">These tools may send files to external processors. Need on-premises processing for sensitive data (FERPA, IRB, HIPAA)? <a href={`${base}contact`} class="text-vibrant-600 hover:underline">Contact us</a>.</p>
 
                 <div class="grid md:grid-cols-3 gap-5 mb-8">
-                  <button type="button" class="media-tool-btn block w-full text-left bg-neutral-cream rounded-xl p-5 border-2 border-teal-300 transition-all hover:shadow-lg group" data-slide="0" aria-label="Show Multilingual Transcription Suite preview">
+                  <button type="button" class="media-tool-btn block w-full text-left bg-neutral-cream rounded-xl p-5 border-2 border-teal-300 transition-all hover:shadow-lg group" data-slide="0" aria-label="Show Multilingual Transcription Suite preview" aria-controls="media-slider" aria-pressed="true">
                     <div class="flex items-start justify-between gap-2">
                       <h4 class="font-bold text-neutral-stone text-sm mb-1">Multilingual Transcription Suite</h4>
                       <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                     </div>
                     <p class="text-gray-600 text-xs leading-relaxed">Generate transcripts from audio and video in dozens of languages, with optional translation and speaker identification.</p>
                   </button>
-                  <button type="button" class="media-tool-btn block w-full text-left bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="1" aria-label="Show Image Description preview">
+                  <button type="button" class="media-tool-btn block w-full text-left bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="1" aria-label="Show Image Description preview" aria-controls="media-slider" aria-pressed="false">
                     <div class="flex items-start justify-between gap-2">
                       <h4 class="font-bold text-neutral-stone text-sm mb-1">Image Description</h4>
                       <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                     </div>
                     <p class="text-gray-600 text-xs leading-relaxed">Create alt-text, captions, and detailed descriptions for images to improve accessibility and support digital publishing workflows.</p>
                   </button>
-                  <button type="button" class="media-tool-btn block w-full text-left bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="2" aria-label="Show Document OCR preview">
+                  <button type="button" class="media-tool-btn block w-full text-left bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="2" aria-label="Show Document OCR preview" aria-controls="media-slider" aria-pressed="false">
                     <div class="flex items-start justify-between gap-2">
                       <h4 class="font-bold text-neutral-stone text-sm mb-1">Document OCR</h4>
                       <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
@@ -317,11 +317,11 @@ const base = import.meta.env.BASE_URL;
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
                   <div>
                     <h2 class="text-3xl font-bold font-display text-neutral-stone">AI Assistants</h2>
-                    <p class="text-gray-500 mt-1">Research and website building tools powered through the CAIL Gateway</p>
+                    <p class="text-gray-500 mt-1">Research and website-building projects in development</p>
                   </div>
                   <a href={`${base}request-access`} class="inline-flex items-center gap-2 px-5 py-2.5 bg-vibrant-600 text-white rounded-full text-sm font-medium hover:bg-vibrant-700 transition-colors flex-shrink-0">Request access or support</a>
                 </div>
-                <p class="text-gray-600 mb-10 max-w-3xl">Agent Studio and Site Studio are in development and are not yet available through CAIL Doorway. Model requests go through the CAIL gateway, but each app has its own storage behavior. Do not submit sensitive or regulated data without institutional approval.</p>
+                <p class="text-gray-600 mb-10 max-w-3xl">Agent Studio and Site Studio are in development and are not yet available through CAIL Doorway. Model requests use CAIL-managed access, but each app has its own storage behavior. Do not submit sensitive or regulated data without institutional approval.</p>
 
                 <div class="grid md:grid-cols-2 gap-8">
                   <!-- Agent Studio -->
@@ -463,35 +463,13 @@ const base = import.meta.env.BASE_URL;
         });
       });
 
-      // Randomize order of sidebar cards and mobile tabs on each page load
-      function shuffleChildren(parent) {
-        var children = Array.from(parent.children);
-        for (var i = children.length - 1; i > 0; i--) {
-          var j = Math.floor(Math.random() * (i + 1));
-          var temp = children[i];
-          children[i] = children[j];
-          children[j] = temp;
-        }
-        children.forEach(function(child) { parent.appendChild(child); });
-      }
-
-      var sidebarContainer = document.querySelector('.tools-sidebar .sticky');
-      if (sidebarContainer) shuffleChildren(sidebarContainer);
-
-      var mobileContainer = document.querySelector('.mobile-tabs');
-      if (mobileContainer) shuffleChildren(mobileContainer);
-
-      // Re-query after shuffle so event listeners reference correct elements
-      sidebarCards = document.querySelectorAll('.sidebar-card');
-      mobileTabs = document.querySelectorAll('.mobile-tab');
-
-      // Choose the first panel: honor a #hash deep-link if present, otherwise random
+      // Honor a #hash deep-link if present; otherwise start with the Sandbox.
       var panelIds = ['sandbox', 'media', 'assistants'];
       function panelFromHash() {
         var id = (window.location.hash || '').replace(/^#/, '');
         return panelIds.indexOf(id) !== -1 ? id : null;
       }
-      var initialPanel = panelFromHash() || panelIds[Math.floor(Math.random() * panelIds.length)];
+      var initialPanel = panelFromHash() || 'sandbox';
       switchPanel(initialPanel);
 
       // Respond to hash changes (in-page anchor links, manual URL edits, back/forward)
@@ -530,7 +508,10 @@ const base = import.meta.env.BASE_URL;
           dots[current].className = 'slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors';
           dots[current].setAttribute('aria-selected', 'false');
         }
-        if (toolBtns[current]) toolBtns[current].className = 'media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group';
+        if (toolBtns[current]) {
+          toolBtns[current].className = 'media-tool-btn block w-full text-left bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group';
+          toolBtns[current].setAttribute('aria-pressed', 'false');
+        }
 
         current = (index + total) % total;
 
@@ -540,7 +521,10 @@ const base = import.meta.env.BASE_URL;
           dots[current].className = 'slider-dot w-2.5 h-2.5 rounded-full bg-teal-500 transition-colors';
           dots[current].setAttribute('aria-selected', 'true');
         }
-        if (toolBtns[current]) toolBtns[current].className = 'media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-teal-300 transition-all hover:shadow-lg group';
+        if (toolBtns[current]) {
+          toolBtns[current].className = 'media-tool-btn block w-full text-left bg-neutral-cream rounded-xl p-5 border-2 border-teal-300 transition-all hover:shadow-lg group';
+          toolBtns[current].setAttribute('aria-pressed', 'true');
+        }
       }
 
       var prevBtn = document.getElementById('slider-prev');
@@ -555,6 +539,8 @@ const base = import.meta.env.BASE_URL;
 
       document.querySelectorAll('.media-tool-btn').forEach(function(btn) {
         btn.addEventListener('mouseenter', function() { goTo(parseInt(this.dataset.slide)); });
+        btn.addEventListener('focus', function() { goTo(parseInt(this.dataset.slide)); });
+        btn.addEventListener('click', function() { goTo(parseInt(this.dataset.slide)); });
       });
     })();
   </script>

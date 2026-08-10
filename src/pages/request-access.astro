@@ -50,7 +50,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-vibrant-400 to-cuny-blue"></div>
         <h3 class="text-2xl font-bold font-display text-neutral-stone mb-8">{data.form_heading}</h3>
 
-        <form action={data.form_action} method="POST" aria-describedby="form-processing-note" class="space-y-6">
+        <form id="access-request-form" action={data.form_action} method="POST" aria-describedby="form-processing-note form-status" class="space-y-6">
           <!-- Name -->
           <div>
             <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -168,6 +168,8 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
             </button>
           </div>
 
+          <p id="form-status" class="hidden rounded-lg px-4 py-3 text-sm" role="status" aria-live="polite"></p>
+
           <!-- Privacy Note -->
           <p class="text-xs text-gray-500 mt-6 text-center">
             {data.privacy_note}
@@ -209,3 +211,36 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#access-request-form');
+  const status = document.querySelector<HTMLElement>('#form-status');
+  const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity() || !status || !submit) return;
+
+    status.className = 'rounded-lg bg-gray-50 px-4 py-3 text-sm text-gray-700';
+    status.textContent = 'Sending your request…';
+    submit.disabled = true;
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+      if (!response.ok) throw new Error('submission failed');
+
+      form.reset();
+      status.className = 'rounded-lg bg-green-50 px-4 py-3 text-sm text-green-800';
+      status.textContent = 'Your request was sent. We will reply by email. CAIL sign-in uses your CUNY account; we will never email you a password.';
+    } catch {
+      status.className = 'rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800';
+      status.innerHTML = 'We could not send the form. Try again, or email <a class="font-semibold underline" href="mailto:ailab@gc.cuny.edu">ailab@gc.cuny.edu</a>. Do not send a password or API key.';
+    } finally {
+      submit.disabled = false;
+    }
+  });
+</script>

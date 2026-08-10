@@ -2,14 +2,14 @@
   "title": "Tools",
   "sandbox": {
     "heading": "CAIL Sandbox",
-    "description_html": "<p>The <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">CAIL Sandbox</a> provides faculty, staff, and students with access to an AI chat interface through which they can access a curated set of open-weight models. CUNY faculty, students, and researchers can use the <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">CAIL Sandbox</a> to access models while evaluating how the tools fit their work. Configured model-provider routes use zero-data-retention settings for model requests and responses; this applies to those provider exchanges only, not app accounts, projects, prompts, outputs, files, or history. Do not submit sensitive data without institutional approval.</p><p>Access to the CAIL Sandbox may be limited by current capacity and account allowances. To learn more, <a href=\"/contact\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">contact us</a>.</p><p>For a full list of available models with capabilities, licensing, and recommended use cases, see our <a href=\"/models\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">Model Registry</a>.</p>",
+    "description_html": "<p>The <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">CAIL Sandbox</a> gives approved CUNY faculty, staff, and students an AI chat interface with a curated set of open-weight models. The CAIL Model API is stateless and sends requests only through zero-data-retention model-provider paths. It does not store chat history. The Sandbox itself normally saves conversations to your account. Do not submit sensitive or regulated data without institutional approval.</p><p>CAIL covers model usage; users are not billed. Each account has an assigned usage limit, and the displayed amount is a delayed estimate. Existing approved users sign in with CUNY Login. If you need access or cannot sign in, <a href=\"/request-access\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">request access or support</a>.</p><p>For a full list of available models with capabilities, licensing, and recommended use cases, see our <a href=\"/models\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">Model Registry</a>.</p>",
     "screenshot": "images/tools/tool-owu.png",
     "screenshot_alt": "CAIL Sandbox interface showing CUNY AI Lab chat platform",
     "launch_url": "https://chat.ailab.gc.cuny.edu/",
     "features": [
       { "label": "Open-weight models", "detail": "Publicly available weights for transparency and auditability" },
       { "label": "Open-source platform", "detail": "Built on Open WebUI, a community-driven chat interface for running AI models" },
-      { "label": "Model-provider retention", "detail": "Configured model-provider routes use zero-data-retention settings for model requests and responses; app storage and tool processing are separate" },
+      { "label": "Model-provider retention", "detail": "Model requests use zero-data-retention provider paths; the Sandbox still saves chat history" },
       { "label": "Citable configs", "detail": "Shareable, reproducible configurations for scholarly use" },
       { "label": "CO₂ estimates", "detail": "Visible energy and carbon cost per interaction" },
       { "label": "Accessibility", "detail": "Text-to-speech, speech-to-text, and more planned" }
@@ -44,9 +44,9 @@
     ]
   },
   "portal": {
-    "heading": "CUNY AI Lab Tools Portal",
-    "description": "Standalone web tools built and hosted by the Lab, separate from the CAIL Sandbox. Each documents its provider route and retention behavior; do not submit sensitive data without institutional approval.",
-    "url": "https://tools.ailab.gc.cuny.edu/"
+    "heading": "CAIL tools",
+    "description": "Standalone tools are in development and are not yet available through CAIL Doorway. Tool storage and external processing are separate from the Model API's provider-retention settings.",
+    "url": "/request-access"
   },
   "media_processing": {
     "heading": "Media Processing",
@@ -56,21 +56,21 @@
       {
         "title": "Multilingual Transcription Suite",
         "description": "Generate transcripts from audio and video in dozens of languages, with optional translation and speaker identification.",
-        "url": "https://tools.ailab.gc.cuny.edu/asr/",
+        "url": "/request-access",
         "screenshot": "images/tools/demo-asr.gif",
         "screenshot_alt": "Demo of Multilingual Transcription Suite - uploading audio and receiving transcript"
       },
       {
         "title": "Image Description",
         "description": "Create alt-text, captions, and detailed descriptions for images to improve accessibility and support digital publishing workflows.",
-        "url": "https://tools.ailab.gc.cuny.edu/alt-text/",
+        "url": "/request-access",
         "screenshot": "images/tools/tool-alt-text.png",
         "screenshot_alt": "Image Description tool interface showing alt-text generation"
       },
       {
         "title": "Document OCR",
         "description": "Extract searchable text from PDFs, scanned documents, and archival images — even with difficult layouts or imperfect scans.",
-        "url": "https://tools.ailab.gc.cuny.edu/ocr/",
+        "url": "/request-access",
         "screenshot": "images/tools/tool-ocr.png",
         "screenshot_alt": "Document OCR tool interface showing text extraction"
       }
@@ -78,20 +78,20 @@
   },
   "ai_assistants": {
     "heading": "AI Assistants",
-    "subtitle": "Research and website building tools powered through the CAIL Gateway",
+    "subtitle": "Research and website-building projects in development",
     "tools": [
       {
         "title": "Agent Studio",
-        "description": "Supports research workflows such as exploring datasets, searching academic sources, and producing draft visualizations and summaries.",
-        "url": "https://tools.ailab.gc.cuny.edu/agent-studio",
+        "description": "In development. Workspaces, chats, and files stay private unless the user publishes a workspace to the public gallery. Not yet available through CAIL Doorway.",
+        "url": "/request-access",
         "icon_bg": "bg-blue-100",
         "icon_color": "text-blue-600",
         "icon_svg": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z\" />"
       },
       {
         "title": "Site Studio",
-        "description": "Helps build academic websites — portfolios, CV pages, research sites, and project documentation — through a guided, conversational workflow.",
-        "url": "https://tools.ailab.gc.cuny.edu/site-studio/",
+        "description": "In development. Projects stay private until the user publishes; published sites are public. Not yet available through CAIL Doorway.",
+        "url": "/request-access",
         "icon_bg": "bg-pink-100",
         "icon_color": "text-pink-600",
         "icon_svg": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9\" />"
