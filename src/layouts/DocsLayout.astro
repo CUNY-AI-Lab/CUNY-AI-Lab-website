@@ -55,12 +55,12 @@ const docsHref = (doc: CollectionEntry<'docs'>) =>
   <div class="bg-neutral-cream">
     <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:grid lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-12 lg:px-8 lg:py-12">
       <aside aria-label="Documentation navigation">
-        <details class="group mb-7 rounded-xl border border-gray-200 bg-white shadow-sm lg:hidden">
-          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-display font-semibold text-cuny-blue marker:content-none">
+        <details data-docs-menu class="group mb-7 rounded-xl border border-gray-200 bg-white shadow-sm lg:hidden">
+          <summary id="docs-mobile-toggle" aria-controls="docs-mobile-nav" aria-expanded="false" class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-display font-semibold text-cuny-blue marker:content-none">
             Browse documentation
             <span aria-hidden="true" class="transition-transform group-open:rotate-180">⌄</span>
           </summary>
-          <nav aria-label="Mobile documentation" class="border-t border-gray-100 px-5 py-5">
+          <nav id="docs-mobile-nav" aria-label="Mobile documentation" class="border-t border-gray-100 px-5 py-5">
             {sections.map(([section, docs]) => (
               <div class="mb-6 last:mb-0">
                 <h2 class="mb-2 font-display text-xs font-bold uppercase tracking-[0.14em] text-gray-500">{section}</h2>
@@ -126,6 +126,15 @@ const docsHref = (doc: CollectionEntry<'docs'>) =>
     </div>
   </div>
 </BaseLayout>
+
+<script is:inline>
+  const docsMenu = document.querySelector('[data-docs-menu]');
+  const docsToggle = document.getElementById('docs-mobile-toggle');
+
+  docsMenu?.addEventListener('toggle', () => {
+    docsToggle?.setAttribute('aria-expanded', String(docsMenu.open));
+  });
+</script>
 
 <style is:global>
   .docs-content {

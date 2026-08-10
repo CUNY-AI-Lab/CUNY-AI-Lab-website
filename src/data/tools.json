@@ -2,14 +2,14 @@
   "title": "Tools",
   "sandbox": {
     "heading": "CAIL Sandbox",
-    "description_html": "<p>The <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">CAIL Sandbox</a> provides faculty, staff, and students with access to an AI chat interface through which they can access a curated set of open-weight models. CUNY faculty, students, and researchers can use the <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">CAIL Sandbox</a> to access the most robust open-weight AI models while ensuring that their chats and data remain secure. Our zero-retention providers (AWS Bedrock and OpenRouter) do not store any data from prompts or responses, and users can configure the models to their needs while also gaining insight into the environmental impacts of their tool use.</p><p>Access to the CAIL Sandbox is limited during the Spring 2026 semester. To learn more, <a href=\"/contact\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">contact us</a>.</p><p>For a full list of available models with capabilities, licensing, and recommended use cases, see our <a href=\"/models\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">Model Registry</a>.</p>",
+    "description_html": "<p>The <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">CAIL Sandbox</a> provides faculty, staff, and students with access to an AI chat interface through which they can access a curated set of open-weight models. CUNY faculty, students, and researchers can use the <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">CAIL Sandbox</a> to access models while evaluating how the tools fit their work. Configured model-provider routes use zero-data-retention settings for model requests and responses; this applies to those provider exchanges only, not app accounts, projects, prompts, outputs, files, or history. Do not submit sensitive data without institutional approval.</p><p>Access to the CAIL Sandbox may be limited by current capacity and account allowances. To learn more, <a href=\"/contact\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">contact us</a>.</p><p>For a full list of available models with capabilities, licensing, and recommended use cases, see our <a href=\"/models\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">Model Registry</a>.</p>",
     "screenshot": "images/tools/tool-owu.png",
     "screenshot_alt": "CAIL Sandbox interface showing CUNY AI Lab chat platform",
     "launch_url": "https://chat.ailab.gc.cuny.edu/",
     "features": [
       { "label": "Open-weight models", "detail": "Publicly available weights for transparency and auditability" },
       { "label": "Open-source platform", "detail": "Built on Open WebUI, a community-driven chat interface for running AI models" },
-      { "label": "Zero-retention", "detail": "Prompts and outputs are never stored or used for vendor training" },
+      { "label": "Model-provider retention", "detail": "Configured model-provider routes use zero-data-retention settings for model requests and responses; app storage and tool processing are separate" },
       { "label": "Citable configs", "detail": "Shareable, reproducible configurations for scholarly use" },
       { "label": "CO₂ estimates", "detail": "Visible energy and carbon cost per interaction" },
       { "label": "Accessibility", "detail": "Text-to-speech, speech-to-text, and more planned" }
@@ -45,12 +45,12 @@
   },
   "portal": {
     "heading": "CUNY AI Lab Tools Portal",
-    "description": "Standalone web tools built and hosted by the Lab, separate from the CAIL Sandbox. Each runs on its own zero-retention infrastructure.",
+    "description": "Standalone web tools built and hosted by the Lab, separate from the CAIL Sandbox. Each documents its provider route and retention behavior; do not submit sensitive data without institutional approval.",
     "url": "https://tools.ailab.gc.cuny.edu/"
   },
   "media_processing": {
     "heading": "Media Processing",
-    "subtitle": "Powered by Whisper via Fireworks AI, AssemblyAI, and Qwen 3 VL via AWS Bedrock",
+    "subtitle": "Powered by external transcription, OCR, and image-model providers",
     "sensitive_data_note": "Need on-premises processing for sensitive data (FERPA, IRB, HIPAA)?",
     "tools": [
       {
@@ -78,7 +78,7 @@
   },
   "ai_assistants": {
     "heading": "AI Assistants",
-    "subtitle": "Research and website building tools powered by the Anthropic API",
+    "subtitle": "Research and website building tools powered through the CAIL Gateway",
     "tools": [
       {
         "title": "Agent Studio",

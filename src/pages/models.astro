@@ -306,7 +306,7 @@ function getStructuredOutputInfo(value: any) {
                   </div>
 
                   <!-- Right: Expand -->
-                  <button class="expand-btn flex-shrink-0 w-10 h-10 rounded-xl bg-gray-50 hover:bg-vibrant-50 text-gray-400 hover:text-vibrant-600 flex items-center justify-center transition-all" aria-label="Show model details" aria-expanded="false">
+                  <button class="expand-btn flex-shrink-0 w-10 h-10 rounded-xl bg-gray-50 hover:bg-vibrant-50 text-gray-400 hover:text-vibrant-600 flex items-center justify-center transition-all" aria-label="Show model details" aria-expanded="false" aria-controls={`model-details-${index}`}>
                     <svg class="expand-icon w-5 h-5 transition-transform" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
@@ -315,7 +315,7 @@ function getStructuredOutputInfo(value: any) {
               </div>
 
               <!-- Expandable Details -->
-              <div class="details-panel hidden">
+              <div id={`model-details-${index}`} class="details-panel hidden">
                 <div class="border-t border-gray-100 bg-gradient-to-b from-gray-50/50 to-white">
                   <div class="p-5 grid md:grid-cols-3 gap-6">
                     <!-- Best For -->

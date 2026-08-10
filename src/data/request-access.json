@@ -1,7 +1,7 @@
 {
   "title": "Request Access",
   "intro_heading": "Ask for access or support",
-  "intro_description": "Use this form for CAIL Sandbox access, tools portal apps, course assistants, tool pilots, workshops, or consultations. Details about the specific course, project, or audience help us respond.",
+  "intro_description": "Use this form for CAIL Sandbox access, course assistants, tool pilots, workshops, or consultations. CAIL covers model usage, so users are not billed. Access depends on pilot capacity, provider availability, and assigned account limits. Details about the specific course, project, or audience help us respond.",
   "features_heading": "What you can ask about",
   "features": [
     "CAIL Sandbox access for teaching, research, or staff work",
@@ -43,13 +43,13 @@
     ]
   },
   "submit_text": "Submit Request",
-  "privacy_note": "We use your information only to process your request and provide support. The CUNY AI Lab follows CUNY's privacy policies.",
+  "privacy_note": "We use your information to process your request and provide support. Formspree is an external processor; see the processing note below. The CUNY AI Lab follows CUNY's privacy policies. Do not include confidential material, passwords, or API keys in this form.",
   "next_steps_heading": "What Happens Next?",
   "next_steps": [
-    { "step": 1, "title": "Review", "description": "We review your request within 2-3 business days." },
+    { "step": 1, "title": "Review", "description": "We review your request and reply when we can; timing depends on the request and current capacity." },
     { "step": 2, "title": "Response", "description": "We reply with the likely next step." },
-    { "step": 3, "title": "Access or meeting", "description_html": "That may be access to <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:underline\">the CAIL Sandbox</a> or <a href=\"https://tools.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:underline\">the tools portal</a>, a consultation, or a pilot conversation." },
-    { "step": 4, "title": "Support", "description": "We help match the request to the right tool or workflow." }
+    { "step": 3, "title": "Access or meeting", "description_html": "That may be approved access to <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:underline\">the CAIL Sandbox</a>, a consultation, or a pilot conversation." },
+    { "step": 4, "title": "Support and recovery", "description_html": "We help match the request to the right tool or workflow. If access stops working or you lose a key, email <a href=\"mailto:ailab@gc.cuny.edu\" class=\"text-vibrant-600 hover:underline\">ailab@gc.cuny.edu</a>; never send a password or key." }
   ],
   "questions_text": "Have questions before submitting the form?",
   "questions_link_text": "Contact the CUNY AI Lab Team →"

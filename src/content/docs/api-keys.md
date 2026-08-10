@@ -8,11 +8,11 @@ preview: true
 draft: false
 ---
 
-A personal CAIL API key is the credential an authorized user sends to the Model API. The `/v1/api-keys` endpoint supports key creation, listing, rotation, and revocation. An active key is sent as a Bearer token when calling `/v1/chat/completions`.
+A personal CAIL API key is the credential an authorized user sends to the Model API. Manage keys in the signed-in Model Access page supplied with your access; the Model API origin does not host key management. An active key is sent as a Bearer token when calling `/v1/chat/completions`.
 
 ## Manage your keys
 
-The public key-management flow is still being prepared. Authorized users will be able to create a personal key and view its secret once. Creating or rotating a key does not reset the account's usage allowance.
+In the signed-in Model Access page, authorized users can create a personal key, view its secret once, list active keys, rotate a key, or revoke it. Creating or rotating a key does not reset the account's usage allowance.
 
 ## Set up a request
 
@@ -24,6 +24,12 @@ Start with the API origin and active API key supplied with your access. Store bo
 | `CAIL_API_KEY` | Personal key sent as a Bearer token. |
 
 Keep the API key out of source code, shared shell history, screenshots, and public logs.
+
+## Cost and data handling
+
+The Model API preview is operated on the CUNY AI Lab's institutional budget. Authorized CUNY users are not billed per request. Access may be limited by the account allowance or available model-provider capacity, and the Lab may pause the preview.
+
+Send only material that your project is allowed to send. Configured model routes may use zero-data-retention settings for model requests and responses. The Sandbox and other apps have separate storage behavior. Their settings determine how they handle account data and saved work; provider and external-service terms can differ. Do not send confidential material without institutional approval.
 
 ## List available models
 
@@ -79,6 +85,10 @@ printf '%s\n' "$response" | jq -r '.choices[0].message.content'
 Model usage is subject to an account-level allowance shared across the account's API keys. Exact limits may change.
 
 An exhausted allowance returns HTTP `429` with the error code `quota_exceeded`. A separate `429 upstream_rate_limited` response means the model provider is temporarily rate limited.
+
+## Recover access
+
+If a key is lost or exposed, stop using it and revoke or rotate it in the signed-in Model Access page. For help recovering access or resolving an account allowance, email [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu). Never send the key itself in email or a support form.
 
 ## Preview status
 

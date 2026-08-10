@@ -1,6 +1,6 @@
 ---
 title: Model API Documentation
-description: Preview documentation for CAIL API key management and model access.
+description: Preview documentation for CAIL model access and model requests.
 section: Documentation
 sectionOrder: 0
 order: 0
@@ -12,6 +12,6 @@ CAIL API keys give authorized users access to the Model API. This preview explai
 
 ## API keys and model access
 
-Authorized users will manage personal keys through `/v1/api-keys`. An active key is sent as a Bearer token when calling `/v1/chat/completions`.
+Authorized users manage personal keys in the signed-in Model Access page supplied with their access. The Model API origin handles model requests; it does not host key management. An active key is sent as a Bearer token when calling `/v1/chat/completions`.
 
 - [Read the API key guide](/docs/api-keys/)

@@ -29,7 +29,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         </p>
         <div class="bg-vibrant-50 border border-vibrant-200 rounded-2xl p-8 text-left shadow-sm">
           <h3 class="text-lg font-bold text-vibrant-900 mb-4 flex items-center">
-            <svg class="w-6 h-6 mr-2 text-vibrant-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-6 h-6 mr-2 text-vibrant-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             {data.features_heading}
@@ -50,7 +50,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-vibrant-400 to-cuny-blue"></div>
         <h3 class="text-2xl font-bold font-display text-neutral-stone mb-8">{data.form_heading}</h3>
 
-        <form action={data.form_action} method="POST" class="space-y-6">
+        <form action={data.form_action} method="POST" aria-describedby="form-processing-note" class="space-y-6">
           <!-- Name -->
           <div>
             <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -144,19 +144,19 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
           </div>
 
           <!-- Specific Tools -->
-          <div>
-            <label for="tools-of-interest" class="block text-sm font-semibold text-gray-700 mb-3">
+          <fieldset>
+            <legend class="block text-sm font-semibold text-gray-700 mb-3">
               {data.tools_of_interest.label}
-            </label>
+            </legend>
             <div class="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
               {data.tools_of_interest.options.map((tool: any) => (
-                <label class="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors">
-                  <input type="checkbox" name="tools[]" value={tool.value} class="w-5 h-5 text-vibrant-600 rounded focus:ring-vibrant-500 border-gray-300 mr-3" />
+                <label for={`tool-${tool.value}`} class="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors">
+                  <input id={`tool-${tool.value}`} type="checkbox" name="tools[]" value={tool.value} class="w-5 h-5 text-vibrant-600 rounded focus:ring-vibrant-500 border-gray-300 mr-3" />
                   <span class="text-gray-700">{tool.label}</span>
                 </label>
               ))}
             </div>
-          </div>
+          </fieldset>
 
           <!-- Submit Button -->
           <div class="pt-6">
@@ -172,6 +172,10 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
           <p class="text-xs text-gray-500 mt-6 text-center">
             {data.privacy_note}
           </p>
+          <div class="text-xs text-gray-500 mt-4 space-y-2" id="form-processing-note">
+            <p><strong>Form processor:</strong> Formspree receives and delivers this submission as an external service. It may process and retain submitted information under its <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:underline">Privacy Policy</a>; do not include sensitive personal data.</p>
+            <p>This form sends these fields to Formspree: <code>name</code>, <code>email</code>, <code>affiliation</code>, <code>department</code>, <code>campus</code>, <code>intended-use</code>, and selected <code>tools[]</code> values. It does not ask for passwords, API keys, files, or other confidential material.</p>
+          </div>
         </form>
       </div>
 

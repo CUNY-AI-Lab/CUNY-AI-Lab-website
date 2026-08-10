@@ -21,38 +21,32 @@ const base = import.meta.env.BASE_URL;
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
       <!-- Mobile: Horizontal selector (visible < lg) -->
-      <div class="flex gap-2 mb-8 lg:hidden overflow-x-auto pb-2 -mx-1 px-1" role="tablist" aria-label="Tool categories">
-        <button class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-vibrant-500 bg-vibrant-50 text-vibrant-700" data-panel="sandbox" role="tab" aria-selected="true" aria-controls="panel-sandbox">
+      <div class="mobile-tabs flex gap-2 mb-8 lg:hidden overflow-x-auto pb-2 -mx-1 px-1" role="tablist" aria-label="Tool categories">
+        <button id="tab-mobile-sandbox" type="button" class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-vibrant-500 bg-vibrant-50 text-vibrant-700" data-panel="sandbox" role="tab" aria-selected="true" aria-controls="panel-sandbox">
           <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
           CAIL Sandbox
         </button>
-        <button class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-transparent bg-white text-gray-600 hover:border-gray-200" data-panel="media" role="tab" aria-selected="false" aria-controls="panel-media">
+        <button id="tab-mobile-media" type="button" class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-transparent bg-white text-gray-600 hover:border-gray-200" data-panel="media" role="tab" aria-selected="false" aria-controls="panel-media">
           <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
           Media Processing
         </button>
-        <button class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-transparent bg-white text-gray-600 hover:border-gray-200" data-panel="assistants" role="tab" aria-selected="false" aria-controls="panel-assistants">
+        <button id="tab-mobile-assistants" type="button" class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-transparent bg-white text-gray-600 hover:border-gray-200" data-panel="assistants" role="tab" aria-selected="false" aria-controls="panel-assistants">
           <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
           AI Assistants
         </button>
-        <!-- Kale Deploy tab – hidden until ready to launch
-        <button class="mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2 border-transparent bg-white text-gray-600 hover:border-gray-200" data-panel="deploy" role="tab" aria-selected="false" aria-controls="panel-deploy">
-          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
-          Deploy
-        </button>
-        -->
       </div>
 
       <div class="tools-layout">
 
         <!-- ── Sidebar (desktop: sticky, visible >= lg) ── -->
         <aside class="tools-sidebar hidden lg:block">
-          <div class="sticky top-24 space-y-3">
+          <div class="sticky top-24 space-y-3" role="tablist" aria-label="Tool categories">
 
             <!-- Sidebar: CAIL Sandbox -->
-            <button class="sidebar-card group w-full text-left rounded-xl p-5 transition-all duration-300 bg-white border-l-4 border-vibrant-500 shadow-md" data-panel="sandbox">
+            <button id="tab-sandbox" type="button" role="tab" aria-selected="true" aria-controls="panel-sandbox" class="sidebar-card group w-full text-left rounded-xl p-5 transition-all duration-300 bg-white border-l-4 border-vibrant-500 shadow-md" data-panel="sandbox">
               <div class="flex items-center gap-3 mb-2">
                 <div class="w-9 h-9 rounded-lg bg-vibrant-100 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-4.5 h-4.5 text-vibrant-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <svg class="w-4.5 h-4.5 text-vibrant-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                   </svg>
                 </div>
@@ -67,10 +61,10 @@ const base = import.meta.env.BASE_URL;
             </button>
 
             <!-- Sidebar: Media Processing -->
-            <button class="sidebar-card group w-full text-left rounded-xl p-5 transition-all duration-300 bg-white/60 border-l-4 border-transparent hover:bg-white hover:shadow-sm" data-panel="media">
+            <button id="tab-media" type="button" role="tab" aria-selected="false" aria-controls="panel-media" class="sidebar-card group w-full text-left rounded-xl p-5 transition-all duration-300 bg-white/60 border-l-4 border-transparent hover:bg-white hover:shadow-sm" data-panel="media">
               <div class="flex items-center gap-3 mb-2">
                 <div class="w-9 h-9 rounded-lg bg-teal-50 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-4.5 h-4.5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <svg class="w-4.5 h-4.5 text-teal-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                   </svg>
                 </div>
@@ -85,10 +79,10 @@ const base = import.meta.env.BASE_URL;
             </button>
 
             <!-- Sidebar: AI Assistants -->
-            <button class="sidebar-card group w-full text-left rounded-xl p-5 transition-all duration-300 bg-white/60 border-l-4 border-transparent hover:bg-white hover:shadow-sm" data-panel="assistants">
+            <button id="tab-assistants" type="button" role="tab" aria-selected="false" aria-controls="panel-assistants" class="sidebar-card group w-full text-left rounded-xl p-5 transition-all duration-300 bg-white/60 border-l-4 border-transparent hover:bg-white hover:shadow-sm" data-panel="assistants">
               <div class="flex items-center gap-3 mb-2">
                 <div class="w-9 h-9 rounded-lg bg-indigo-50 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-4.5 h-4.5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <svg class="w-4.5 h-4.5 text-indigo-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                 </div>
@@ -101,23 +95,6 @@ const base = import.meta.env.BASE_URL;
               </div>
             </button>
 
-            <!-- Sidebar: Deploy – hidden until ready to launch
-            <button class="sidebar-card group w-full text-left rounded-xl p-5 transition-all duration-300 bg-white/60 border-l-4 border-transparent hover:bg-white hover:shadow-sm" data-panel="deploy">
-              <div class="flex items-center gap-3 mb-2">
-                <div class="w-9 h-9 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-4.5 h-4.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                  </svg>
-                </div>
-                <h2 class="text-base font-bold font-display text-neutral-stone">Deploy</h2>
-              </div>
-              <p class="text-gray-500 text-xs leading-relaxed mb-3 pl-12">Publish web apps from a GitHub push</p>
-              <div class="flex flex-wrap gap-1 pl-12">
-                <span class="px-2 py-0.5 bg-amber-50 text-amber-700 text-[10px] font-medium rounded-full">Kale Deploy</span>
-              </div>
-            </button>
-            -->
-
           </div>
         </aside>
 
@@ -127,7 +104,7 @@ const base = import.meta.env.BASE_URL;
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
           <!-- Panel: CAIL Sandbox               -->
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
-          <div id="panel-sandbox" class="content-panel" role="tabpanel" aria-label="CAIL Sandbox">
+          <div id="panel-sandbox" class="content-panel" role="tabpanel" aria-label="CAIL Sandbox" aria-labelledby="tab-sandbox tab-mobile-sandbox" aria-hidden="false">
             <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
 
               <!-- Main content -->
@@ -159,8 +136,8 @@ const base = import.meta.env.BASE_URL;
                       <div class="flex items-start gap-3">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
-                          <span class="font-semibold text-neutral-stone text-sm">Zero-retention</span>
-                          <span class="text-gray-500 text-sm ml-1">— Prompts and outputs are never stored or used for vendor training</span>
+                          <span class="font-semibold text-neutral-stone text-sm">Model-provider retention</span>
+                          <span class="text-gray-500 text-sm ml-1">— Model requests use zero-data-retention provider paths; the Sandbox still saves chat history</span>
                         </div>
                       </div>
                       <div class="flex items-start gap-3">
@@ -192,10 +169,10 @@ const base = import.meta.env.BASE_URL;
                     <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">CAIL Sandbox</h2>
                     <div class="space-y-4 text-gray-600 leading-relaxed">
                       <p>
-                        The <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a> provides faculty, staff, and students with access to an AI chat interface through which they can access a curated set of open-weight models. CUNY faculty, students, and researchers can use the <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a> to access the most robust open-weight AI models while ensuring that their chats and data remain secure. Our zero-retention providers (AWS Bedrock and OpenRouter) do not store any data from prompts or responses, and users can configure the models to their needs while also gaining insight into the environmental impacts of their tool use.
+                        The <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a> gives approved CUNY faculty, staff, and students an AI chat interface with a curated set of open-weight models. The CAIL Model API is stateless and sends requests only through zero-data-retention model-provider paths. It does not store chat history. The Sandbox itself normally saves conversations to your account. Do not submit sensitive or regulated data without institutional approval.
                       </p>
                       <p>
-                        Access to the CAIL Sandbox is limited during the Spring 2026 semester. To learn more, <a href={`${base}contact`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">contact us</a>.
+                        CAIL covers model usage; users are not billed. Each account has an assigned usage limit. The displayed amount is a delayed estimate, so recent calls may not appear immediately. Existing approved users can sign in with CUNY Login. If you need access or cannot sign in, <a href={`${base}request-access`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">request access or support</a>.
                       </p>
                       <p>
                         For a full list of available models with capabilities, licensing, and recommended use cases, see our <a href={`${base}models`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">Model Registry</a>.
@@ -204,8 +181,8 @@ const base = import.meta.env.BASE_URL;
 
                     <div class="mt-8 flex flex-wrap gap-4">
                       <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-vibrant-600 text-white rounded-full font-medium hover:bg-vibrant-700 transition-colors shadow-md">
-                        Launch CAIL Sandbox
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                        Sandbox sign-in
+                        <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                       </a>
                       <a href={`${base}models`} class="inline-flex items-center gap-2 px-6 py-3 border border-gray-300 text-neutral-stone rounded-full font-medium hover:border-vibrant-300 hover:text-vibrant-600 transition-colors">
                         View Model Registry
@@ -260,70 +237,69 @@ const base = import.meta.env.BASE_URL;
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
           <!-- Panel: Media Processing           -->
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
-          <div id="panel-media" class="content-panel hidden" role="tabpanel" aria-label="Media Processing">
+          <div id="panel-media" class="content-panel hidden" role="tabpanel" aria-label="Media Processing" aria-labelledby="tab-media tab-mobile-media" aria-hidden="true">
             <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
 
               <!-- Portal header -->
               <div class="p-8 lg:p-10 pb-0 lg:pb-0">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
-                  <h2 class="text-3xl font-bold font-display text-neutral-stone">CUNY AI Lab Tools Portal</h2>
-                  <a href="https://tools.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 bg-vibrant-600 text-white rounded-full text-sm font-medium hover:bg-vibrant-700 transition-colors flex-shrink-0">
-                    Visit Portal
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                  <h2 class="text-3xl font-bold font-display text-neutral-stone">Media tools</h2>
+                  <a href={`${base}request-access`} class="inline-flex items-center gap-2 px-5 py-2.5 bg-vibrant-600 text-white rounded-full text-sm font-medium hover:bg-vibrant-700 transition-colors flex-shrink-0">
+                    Request access or support
                   </a>
                 </div>
-                <p class="text-gray-600 mb-8 max-w-3xl">Standalone web tools built and hosted by the Lab, separate from the CAIL Sandbox. Each runs on its own zero-retention infrastructure.</p>
+                <p class="text-gray-600 mb-8 max-w-3xl">CAIL is developing standalone tools for transcription, image description, and document OCR. These tools are not yet available through CAIL Doorway. Tool processing is separate from the Model API's zero-data-retention provider paths and may send files to an external processor. Do not submit sensitive or regulated data without institutional approval.</p>
               </div>
 
               <!-- Media Processing tools -->
               <div class="px-8 lg:px-10 pb-8 lg:pb-10">
                 <h3 class="text-xl font-bold font-display text-neutral-stone mb-2">Media Processing</h3>
-                <p class="text-gray-500 text-sm mb-1.5">Powered by Whisper via Fireworks AI, AssemblyAI, and Qwen 3 VL via AWS Bedrock</p>
-                <p class="text-xs text-gray-400 mb-6">Need on-premises processing for sensitive data (FERPA, IRB, HIPAA)? <a href={`${base}contact`} class="text-vibrant-600 hover:underline">Contact us</a>.</p>
+                <p class="text-gray-500 text-sm mb-1.5">Powered by external transcription, OCR, and image-model providers</p>
+                <p class="text-xs text-gray-400 mb-6">These tools send files to the listed external providers. Need on-premises processing for sensitive data (FERPA, IRB, HIPAA)? <a href={`${base}contact`} class="text-vibrant-600 hover:underline">Contact us</a>.</p>
 
                 <div class="grid md:grid-cols-3 gap-5 mb-8">
-                  <a href="https://tools.ailab.gc.cuny.edu/asr/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-teal-300 transition-all hover:shadow-lg group" data-slide="0">
+                  <button type="button" class="media-tool-btn block w-full text-left bg-neutral-cream rounded-xl p-5 border-2 border-teal-300 transition-all hover:shadow-lg group" data-slide="0" aria-label="Show Multilingual Transcription Suite preview">
                     <div class="flex items-start justify-between gap-2">
                       <h4 class="font-bold text-neutral-stone text-sm mb-1">Multilingual Transcription Suite</h4>
-                      <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                      <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                     </div>
                     <p class="text-gray-600 text-xs leading-relaxed">Generate transcripts from audio and video in dozens of languages, with optional translation and speaker identification.</p>
-                  </a>
-                  <a href="https://tools.ailab.gc.cuny.edu/alt-text/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="1">
+                  </button>
+                  <button type="button" class="media-tool-btn block w-full text-left bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="1" aria-label="Show Image Description preview">
                     <div class="flex items-start justify-between gap-2">
                       <h4 class="font-bold text-neutral-stone text-sm mb-1">Image Description</h4>
-                      <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                      <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                     </div>
                     <p class="text-gray-600 text-xs leading-relaxed">Create alt-text, captions, and detailed descriptions for images to improve accessibility and support digital publishing workflows.</p>
-                  </a>
-                  <a href="https://tools.ailab.gc.cuny.edu/ocr/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="2">
+                  </button>
+                  <button type="button" class="media-tool-btn block w-full text-left bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="2" aria-label="Show Document OCR preview">
                     <div class="flex items-start justify-between gap-2">
                       <h4 class="font-bold text-neutral-stone text-sm mb-1">Document OCR</h4>
-                      <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                      <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                     </div>
                     <p class="text-gray-600 text-xs leading-relaxed">Extract searchable text from PDFs, scanned documents, and archival images — even with difficult layouts or imperfect scans.</p>
-                  </a>
+                  </button>
                 </div>
 
                 <!-- Screenshot Slider -->
                 <div class="relative">
                   <div id="media-slider" class="relative rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-gray-50">
                     <div class="relative aspect-[16/10] sm:aspect-[16/9] md:aspect-[16/8]">
-                      <img id="slide-0" src={`${base}images/tools/demo-asr.gif`} alt="Demo of Multilingual Transcription Suite - uploading audio and receiving transcript" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-100" />
-                      <img id="slide-1" src={`${base}images/tools/tool-alt-text.png`} alt="Image Description tool interface showing alt-text generation" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
-                      <img id="slide-2" src={`${base}images/tools/tool-ocr.png`} alt="Document OCR tool interface showing text extraction" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
+                      <img id="slide-0" src={`${base}images/tools/demo-asr.gif`} alt="Demo of Multilingual Transcription Suite - uploading audio and receiving transcript" aria-hidden="false" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-100" />
+                      <img id="slide-1" src={`${base}images/tools/tool-alt-text.png`} alt="Image Description tool interface showing alt-text generation" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
+                      <img id="slide-2" src={`${base}images/tools/tool-ocr.png`} alt="Document OCR tool interface showing text extraction" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
                     </div>
                   </div>
-                  <button id="slider-prev" aria-label="Previous screenshot" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white transition-colors z-10">
+                  <button id="slider-prev" type="button" aria-label="Previous screenshot" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white transition-colors z-10">
                     <svg class="w-5 h-5 text-neutral-stone" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
                   </button>
-                  <button id="slider-next" aria-label="Next screenshot" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white transition-colors z-10">
+                  <button id="slider-next" type="button" aria-label="Next screenshot" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white transition-colors z-10">
                     <svg class="w-5 h-5 text-neutral-stone" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                   </button>
-                  <div class="flex justify-center gap-2 mt-4">
-                    <button class="slider-dot w-2.5 h-2.5 rounded-full bg-teal-500 transition-colors" data-slide="0"></button>
-                    <button class="slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors" data-slide="1"></button>
-                    <button class="slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors" data-slide="2"></button>
+                  <div class="flex justify-center gap-2 mt-4" role="tablist" aria-label="Tool screenshots">
+                    <button id="slide-tab-0" type="button" role="tab" aria-selected="true" aria-controls="slide-0" aria-label="Show Multilingual Transcription Suite screenshot" class="slider-dot w-2.5 h-2.5 rounded-full bg-teal-500 transition-colors" data-slide="0"></button>
+                    <button id="slide-tab-1" type="button" role="tab" aria-selected="false" aria-controls="slide-1" aria-label="Show Image Description screenshot" class="slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors" data-slide="1"></button>
+                    <button id="slide-tab-2" type="button" role="tab" aria-selected="false" aria-controls="slide-2" aria-label="Show Document OCR screenshot" class="slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors" data-slide="2"></button>
                   </div>
                 </div>
               </div>
@@ -334,41 +310,38 @@ const base = import.meta.env.BASE_URL;
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
           <!-- Panel: AI Assistants              -->
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
-          <div id="panel-assistants" class="content-panel hidden" role="tabpanel" aria-label="AI Assistants">
+          <div id="panel-assistants" class="content-panel hidden" role="tabpanel" aria-label="AI Assistants" aria-labelledby="tab-assistants tab-mobile-assistants" aria-hidden="true">
             <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
 
               <div class="p-8 lg:p-10">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
                   <div>
                     <h2 class="text-3xl font-bold font-display text-neutral-stone">AI Assistants</h2>
-                    <p class="text-gray-500 mt-1">Research and website building tools powered by the Anthropic API</p>
+                    <p class="text-gray-500 mt-1">Research and website building tools powered through the CAIL Gateway</p>
                   </div>
-                  <a href="https://tools.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 bg-vibrant-600 text-white rounded-full text-sm font-medium hover:bg-vibrant-700 transition-colors flex-shrink-0">
-                    Visit Tools Portal
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                  </a>
+                  <a href={`${base}request-access`} class="inline-flex items-center gap-2 px-5 py-2.5 bg-vibrant-600 text-white rounded-full text-sm font-medium hover:bg-vibrant-700 transition-colors flex-shrink-0">Request access or support</a>
                 </div>
-                <p class="text-gray-600 mb-10 max-w-3xl">Available on the CUNY AI Lab Tools Portal. Each runs on zero-retention infrastructure — no data from prompts or responses is stored.</p>
+                <p class="text-gray-600 mb-10 max-w-3xl">Agent Studio and Site Studio are in development and are not yet available through CAIL Doorway. Model requests go through the CAIL gateway, but each app has its own storage behavior. Do not submit sensitive or regulated data without institutional approval.</p>
 
                 <div class="grid md:grid-cols-2 gap-8">
                   <!-- Agent Studio -->
-                  <a href="https://tools.ailab.gc.cuny.edu/agent-studio" target="_blank" rel="noopener noreferrer" class="block bg-neutral-cream rounded-xl overflow-hidden border border-transparent hover:shadow-lg hover:border-indigo-200 transition-all group">
+                  <article class="block bg-neutral-cream rounded-xl overflow-hidden border border-indigo-100">
                     <div class="p-6">
                       <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mb-4">
-                        <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="w-5 h-5 text-blue-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                         </svg>
                       </div>
                       <div class="flex items-start justify-between gap-2">
                         <h4 class="text-lg font-bold text-neutral-stone mb-2">Agent Studio</h4>
-                        <svg class="w-4 h-4 text-gray-400 group-hover:text-indigo-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-indigo-600 transition-colors flex-shrink-0 mt-1" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                       </div>
-                      <p class="text-gray-600 text-sm leading-relaxed">Supports research workflows such as exploring datasets, searching academic sources, and producing draft visualizations and summaries.</p>
+                      <p class="text-gray-600 text-sm leading-relaxed">Supports research workflows such as exploring datasets, searching academic sources, and producing draft visualizations and summaries. Workspaces, chats, and files stay private unless the user publishes a workspace to the public gallery.</p>
                     </div>
-                  </a>
+                  </article>
 
                   <!-- Site Studio -->
-                  <a href="https://tools.ailab.gc.cuny.edu/site-studio/" target="_blank" rel="noopener noreferrer" class="block bg-neutral-cream rounded-xl overflow-hidden border border-transparent hover:shadow-lg hover:border-indigo-200 transition-all group">
+                  <article class="block bg-neutral-cream rounded-xl overflow-hidden border border-indigo-100">
                     <div class="p-6">
                       <div class="w-10 h-10 rounded-lg bg-pink-100 flex items-center justify-center mb-4">
                         <svg class="w-5 h-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -377,11 +350,11 @@ const base = import.meta.env.BASE_URL;
                       </div>
                       <div class="flex items-start justify-between gap-2">
                         <h4 class="text-lg font-bold text-neutral-stone mb-2">Site Studio</h4>
-                        <svg class="w-4 h-4 text-gray-400 group-hover:text-indigo-600 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-indigo-600 transition-colors flex-shrink-0 mt-1" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                       </div>
-                      <p class="text-gray-600 text-sm leading-relaxed">Helps build academic websites (portfolios, CV pages, research sites, and project documentation) through a guided, conversational workflow.</p>
+                      <p class="text-gray-600 text-sm leading-relaxed">Helps build academic websites (portfolios, CV pages, research sites, and project documentation) through a guided, conversational workflow. Projects stay private until the user publishes; published sites are public.</p>
                     </div>
-                  </a>
+                  </article>
                 </div>
               </div>
 
@@ -389,68 +362,6 @@ const base = import.meta.env.BASE_URL;
           </div>
 
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
-          <!-- Panel: Deploy – hidden until ready to launch
-          <div id="panel-deploy" class="content-panel hidden" role="tabpanel" aria-label="Deploy">
-            <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-
-              <div class="p-8 lg:p-10">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
-                  <div>
-                    <h2 class="text-3xl font-bold font-display text-neutral-stone">Kale Deploy</h2>
-                    <p class="text-gray-500 mt-1">Publish web apps from a GitHub push — no server setup required</p>
-                  </div>
-                  <a href={`${base}deploy`} class="inline-flex items-center gap-2 px-5 py-2.5 bg-vibrant-600 text-white rounded-full text-sm font-medium hover:bg-vibrant-700 transition-colors flex-shrink-0">
-                    Learn More
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                  </a>
-                </div>
-                <p class="text-gray-600 mb-10 max-w-3xl">AI coding agents can generate a working web application in minutes, but getting that code onto a public URL still usually means wrestling with hosting providers, build pipelines, and SSL certificates. Kale Deploy removes that step. Connect a GitHub repository, push your code, and the app is live — building, hosting, and HTTPS handled automatically. It works with Claude Code, Codex, Gemini CLI, or any agent that produces a standard web project.</p>
-
-                <div class="grid md:grid-cols-3 gap-5 mb-10">
-                  <div class="bg-neutral-cream rounded-xl p-5 border border-gray-100">
-                    <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center mb-3">
-                      <svg class="w-4.5 h-4.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <h4 class="font-bold text-neutral-stone text-sm mb-1">Push to Deploy</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed">Each push to GitHub triggers a build automatically. The app goes live at a public URL within seconds of the commit.</p>
-                  </div>
-                  <div class="bg-neutral-cream rounded-xl p-5 border border-gray-100">
-                    <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center mb-3">
-                      <svg class="w-4.5 h-4.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                    <h4 class="font-bold text-neutral-stone text-sm mb-1">Works With Any Agent</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed">Kale accepts standard web projects, so the same code an AI agent generates locally can go straight to production hosting.</p>
-                  </div>
-                  <div class="bg-neutral-cream rounded-xl p-5 border border-gray-100">
-                    <div class="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center mb-3">
-                      <svg class="w-4.5 h-4.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2" />
-                      </svg>
-                    </div>
-                    <h4 class="font-bold text-neutral-stone text-sm mb-1">Zero Configuration</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed">No YAML, no CI/CD pipelines, no provisioning. Kale runs on Cloudflare Workers and includes database and storage out of the box.</p>
-                  </div>
-                </div>
-
-                <div class="flex flex-wrap gap-4">
-                  <a href="https://cuny.qzz.io/kale" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-vibrant-600 text-white rounded-full font-medium hover:bg-vibrant-700 transition-colors shadow-md">
-                    Get Started
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                  </a>
-                  <a href={`${base}deploy`} class="inline-flex items-center gap-2 px-6 py-3 border border-gray-300 text-neutral-stone rounded-full font-medium hover:border-vibrant-300 hover:text-vibrant-600 transition-colors">
-                    Full Details
-                  </a>
-                </div>
-              </div>
-
-            </div>
-          </div>
-          -->
-
         </div>
       </div>
 
@@ -473,7 +384,6 @@ const base = import.meta.env.BASE_URL;
         sandbox: { border: 'border-vibrant-500', bg: 'bg-white', shadow: 'shadow-md' },
         media: { border: 'border-teal-500', bg: 'bg-white', shadow: 'shadow-md' },
         assistants: { border: 'border-indigo-500', bg: 'bg-white', shadow: 'shadow-md' }
-        // deploy: { border: 'border-amber-500', bg: 'bg-white', shadow: 'shadow-md' }
       };
 
       // Color configs for mobile tab active states
@@ -481,7 +391,6 @@ const base = import.meta.env.BASE_URL;
         sandbox: { border: 'border-vibrant-500', bg: 'bg-vibrant-50', text: 'text-vibrant-700' },
         media: { border: 'border-teal-500', bg: 'bg-teal-50', text: 'text-teal-700' },
         assistants: { border: 'border-indigo-500', bg: 'bg-indigo-50', text: 'text-indigo-700' }
-        // deploy: { border: 'border-amber-500', bg: 'bg-amber-50', text: 'text-amber-700' }
       };
 
       function switchPanel(panelId, writeHash) {
@@ -489,6 +398,7 @@ const base = import.meta.env.BASE_URL;
         panels.forEach(function(p) {
           p.classList.add('hidden');
           p.style.opacity = '0';
+          p.setAttribute('aria-hidden', 'true');
         });
 
         // Show selected panel with fade
@@ -498,12 +408,14 @@ const base = import.meta.env.BASE_URL;
           // Trigger reflow for animation
           target.offsetHeight;
           target.style.opacity = '1';
+          target.setAttribute('aria-hidden', 'false');
         }
 
         // Update sidebar cards
         sidebarCards.forEach(function(card) {
           var id = card.dataset.panel;
           var colors = cardColors[id];
+          card.setAttribute('aria-selected', id === panelId ? 'true' : 'false');
           if (id === panelId) {
             card.className = 'sidebar-card group w-full text-left rounded-xl p-5 transition-all duration-300 ' + colors.bg + ' border-l-4 ' + colors.border + ' ' + colors.shadow;
           } else {
@@ -566,7 +478,7 @@ const base = import.meta.env.BASE_URL;
       var sidebarContainer = document.querySelector('.tools-sidebar .sticky');
       if (sidebarContainer) shuffleChildren(sidebarContainer);
 
-      var mobileContainer = document.querySelector('[role="tablist"]');
+      var mobileContainer = document.querySelector('.mobile-tabs');
       if (mobileContainer) shuffleChildren(mobileContainer);
 
       // Re-query after shuffle so event listeners reference correct elements
@@ -574,7 +486,7 @@ const base = import.meta.env.BASE_URL;
       mobileTabs = document.querySelectorAll('.mobile-tab');
 
       // Choose the first panel: honor a #hash deep-link if present, otherwise random
-      var panelIds = ['sandbox', 'media', 'assistants']; // add 'deploy' back when ready
+      var panelIds = ['sandbox', 'media', 'assistants'];
       function panelFromHash() {
         var id = (window.location.hash || '').replace(/^#/, '');
         return panelIds.indexOf(id) !== -1 ? id : null;
@@ -613,13 +525,21 @@ const base = import.meta.env.BASE_URL;
         if (!slides[0]) return;
 
         slides[current].style.opacity = '0';
-        if (dots[current]) dots[current].className = 'slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors';
+        slides[current].setAttribute('aria-hidden', 'true');
+        if (dots[current]) {
+          dots[current].className = 'slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors';
+          dots[current].setAttribute('aria-selected', 'false');
+        }
         if (toolBtns[current]) toolBtns[current].className = 'media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group';
 
         current = (index + total) % total;
 
         slides[current].style.opacity = '1';
-        if (dots[current]) dots[current].className = 'slider-dot w-2.5 h-2.5 rounded-full bg-teal-500 transition-colors';
+        slides[current].setAttribute('aria-hidden', 'false');
+        if (dots[current]) {
+          dots[current].className = 'slider-dot w-2.5 h-2.5 rounded-full bg-teal-500 transition-colors';
+          dots[current].setAttribute('aria-selected', 'true');
+        }
         if (toolBtns[current]) toolBtns[current].className = 'media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-teal-300 transition-all hover:shadow-lg group';
       }
 
