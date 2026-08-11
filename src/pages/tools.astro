@@ -39,7 +39,7 @@ const base = import.meta.env.BASE_URL;
       <div class="tools-layout">
 
         <!-- ── Sidebar (desktop: sticky, visible >= lg) ── -->
-        <aside class="tools-sidebar hidden lg:block">
+        <div class="tools-sidebar hidden lg:block" role="navigation" aria-label="Tool category navigation">
           <div class="sticky top-24 space-y-3" role="tablist" aria-label="Tool categories">
 
             <!-- Sidebar: CAIL Sandbox -->
@@ -72,9 +72,9 @@ const base = import.meta.env.BASE_URL;
               </div>
               <p class="text-gray-500 text-xs leading-relaxed mb-3 pl-12">Transcription, alt-text, and OCR tools</p>
               <div class="flex flex-wrap gap-1 pl-12">
-                <span class="px-2 py-0.5 bg-teal-50 text-teal-700 text-[10px] font-medium rounded-full">Transcription</span>
-                <span class="px-2 py-0.5 bg-teal-50 text-teal-700 text-[10px] font-medium rounded-full">Alt-text</span>
-                <span class="px-2 py-0.5 bg-teal-50 text-teal-700 text-[10px] font-medium rounded-full">OCR</span>
+                <span class="px-2 py-0.5 bg-teal-50 text-teal-800 text-[10px] font-medium rounded-full">Transcription</span>
+                <span class="px-2 py-0.5 bg-teal-50 text-teal-800 text-[10px] font-medium rounded-full">Alt-text</span>
+                <span class="px-2 py-0.5 bg-teal-50 text-teal-800 text-[10px] font-medium rounded-full">OCR</span>
               </div>
             </button>
 
@@ -97,7 +97,7 @@ const base = import.meta.env.BASE_URL;
             </button>
 
           </div>
-        </aside>
+        </div>
 
         <!-- ── Content Panel ── -->
         <div class="min-w-0">
@@ -335,7 +335,7 @@ const base = import.meta.env.BASE_URL;
                         </svg>
                       </div>
                       <div class="flex items-start justify-between gap-2">
-                        <h4 class="text-lg font-bold text-neutral-stone mb-2">Agent Studio</h4>
+                        <h3 class="text-lg font-bold text-neutral-stone mb-2">Agent Studio</h3>
                         <span class="rounded-full bg-indigo-100 px-2 py-1 text-xs font-semibold text-indigo-800">Preview</span>
                       </div>
                       <p class="text-gray-600 text-sm leading-relaxed mb-5">Supports research workflows such as exploring datasets, searching academic sources, and producing draft visualizations and summaries. Workspaces, chats, and files stay private unless the user publishes a workspace to the public gallery.</p>
@@ -352,7 +352,7 @@ const base = import.meta.env.BASE_URL;
                         </svg>
                       </div>
                       <div class="flex items-start justify-between gap-2">
-                        <h4 class="text-lg font-bold text-neutral-stone mb-2">Site Studio</h4>
+                        <h3 class="text-lg font-bold text-neutral-stone mb-2">Site Studio</h3>
                         <span class="rounded-full bg-indigo-100 px-2 py-1 text-xs font-semibold text-indigo-800">Preview</span>
                       </div>
                       <p class="text-gray-600 text-sm leading-relaxed mb-5">Helps build academic websites through a guided, conversational workflow. Projects stay private until the user publishes; published sites are public.</p>
@@ -367,7 +367,7 @@ const base = import.meta.env.BASE_URL;
                         <svg class="w-5 h-5 text-emerald-700" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6.75A2.75 2.75 0 016.75 4h10.5A2.75 2.75 0 0120 6.75v10.5A2.75 2.75 0 0117.25 20H6.75A2.75 2.75 0 014 17.25V6.75zm4 2.25h8M8 12h5M8 15h7" /></svg>
                       </div>
                       <div class="flex items-start justify-between gap-2">
-                        <h4 class="text-lg font-bold text-neutral-stone mb-2">Workbench</h4>
+                        <h3 class="text-lg font-bold text-neutral-stone mb-2">Workbench</h3>
                         <span class="rounded-full bg-indigo-100 px-2 py-1 text-xs font-semibold text-indigo-800">Preview</span>
                       </div>
                       <p class="text-gray-600 text-sm leading-relaxed mb-5">Builds AI-assisted projects with user-owned workspace state, isolated previews, and a review step before handing an artifact to Kale Deploy.</p>
@@ -408,7 +408,7 @@ const base = import.meta.env.BASE_URL;
       // Color configs for mobile tab active states
       var tabColors = {
         sandbox: { border: 'border-vibrant-500', bg: 'bg-vibrant-50', text: 'text-vibrant-700' },
-        media: { border: 'border-teal-500', bg: 'bg-teal-50', text: 'text-teal-700' },
+        media: { border: 'border-teal-500', bg: 'bg-teal-50', text: 'text-teal-800' },
         assistants: { border: 'border-indigo-500', bg: 'bg-indigo-50', text: 'text-indigo-700' }
       };
 
