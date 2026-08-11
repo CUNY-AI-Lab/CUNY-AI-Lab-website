@@ -8,7 +8,7 @@
   "principles": [
     {
       "title": "Privacy by Design",
-      "description": "The CAIL Model API uses zero-data-retention provider paths, while the Sandbox and other apps may store content. Do not submit sensitive or regulated data without institutional approval.",
+      "description": "Model-provider paths are configured not to retain prompts or outputs, while the Sandbox and other apps may store content. Do not submit sensitive or regulated data without institutional approval.",
       "icon_bg": "bg-vibrant-100",
       "icon_color": "text-vibrant-600",
       "icon_svg": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z\" />"

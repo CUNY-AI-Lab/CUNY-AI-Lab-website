@@ -17,7 +17,7 @@ const projects = [
     name: 'Model Registry',
     label: 'Model documentation',
     status: 'Public resource',
-    body: 'The registry records the models available through the Sandbox, including capabilities, context window size, open-weight status, and license terms. It gives instructors a way to explain model selection as part of course design.',
+    body: 'The registry provides Lab-reviewed reference notes for a smaller set of models, including capabilities, context window size, open-weight status, and license terms. Availability changes, so users should check the Sandbox selector or Model API catalog before choosing a model.',
     href: `${base}models`,
     link: 'Browse models',
     icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />'
@@ -25,20 +25,32 @@ const projects = [
   {
     name: 'Site Studio',
     label: 'Agentic web publishing',
-    status: 'In development',
-    body: 'Site Studio is in development. Projects stay private until the user publishes; published sites are public. Model requests use CAIL-managed access. It is not yet available through CAIL Doorway.',
-    href: `${base}request-access`,
-    link: 'Ask about Site Studio',
+    status: 'Preview',
+    body: 'Site Studio is available as a preview through CAIL Doorway. Projects stay private until the user publishes; published sites are public. Model requests use CAIL-managed access.',
+    href: 'https://cail-doorway.ailab-452.workers.dev/site-studio/',
+    link: 'Open the Site Studio preview',
+    external: true,
     icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0 0c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9h18" />'
   },
   {
     name: 'Agent Studio',
     label: 'Research workspace',
-    status: 'In development',
-    body: 'Agent Studio is in development. Workspaces, chats, and files stay private unless the user publishes a workspace to the public gallery. Model requests use CAIL-managed access. It is not yet available through CAIL Doorway.',
-    href: `${base}request-access`,
-    link: 'Ask about Agent Studio',
+    status: 'Preview',
+    body: 'Agent Studio is available as a preview through CAIL Doorway. Workspaces, chats, and files stay private unless the user publishes a workspace to the public gallery. Model requests use CAIL-managed access.',
+    href: 'https://cail-doorway.ailab-452.workers.dev/agent-studio/',
+    link: 'Open the Agent Studio preview',
+    external: true,
     icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />'
+  },
+  {
+    name: 'Workbench',
+    label: 'AI-assisted project building',
+    status: 'Preview',
+    body: 'Workbench is available as a preview through CAIL Doorway. It keeps user-owned project and conversation state, provides isolated previews, and requires review before handing an artifact to Kale Deploy.',
+    href: 'https://cail-doorway.ailab-452.workers.dev/workbench',
+    link: 'Open the Workbench preview',
+    external: true,
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" d="M4 6.75A2.75 2.75 0 016.75 4h10.5A2.75 2.75 0 0120 6.75v10.5A2.75 2.75 0 0117.25 20H6.75A2.75 2.75 0 014 17.25V6.75zm4 2.25h8M8 12h5M8 15h7" />'
   },
   {
     name: 'Accessibility and Media Tools',
@@ -83,7 +95,7 @@ const workEvidence = [
         <p class="text-vibrant-200/80 font-medium tracking-wide uppercase text-sm mb-4">Current work</p>
         <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Current work</h1>
         <p class="mt-5 text-lg text-vibrant-50/90 leading-relaxed">
-          CAIL builds shared AI infrastructure for teaching and research at CUNY. The Sandbox provides access to models, while the registry explains those choices. Site Studio, Agent Studio, and the media tools are current development projects.
+          CAIL builds shared AI infrastructure for teaching and research at CUNY. The Sandbox provides access to models, while the registry supplies reference notes for evaluating them. Site Studio, Agent Studio, and Workbench are current previews; the media tools remain in development.
         </p>
       </div>
     </div>

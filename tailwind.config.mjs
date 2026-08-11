@@ -38,8 +38,8 @@ export default {
 					'300': '#5ab8e8',
 					'400': '#2FB8D6',       // Logo teal - accents
 					'500': '#3B73E6',       // Logo bright blue
-					'600': '#3B73E6',       // Primary CTA color
-					'700': '#2A6FB8',       // Logo medium blue - hover
+					'600': '#2A6FB8',       // Accessible primary CTA color
+					'700': '#1D3A83',       // Accessible hover color
 					'800': '#1D3A83',       // Logo navy
 					'900': '#162d66',
 					'950': '#0f1d40',

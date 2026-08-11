@@ -2,14 +2,14 @@
   "title": "Tools",
   "sandbox": {
     "heading": "CAIL Sandbox",
-    "description_html": "<p>The <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">CAIL Sandbox</a> gives approved CUNY faculty, staff, and students an AI chat interface with a curated set of open-weight models. The CAIL Model API is stateless and sends requests only through zero-data-retention model-provider paths. It does not store chat history. The Sandbox itself normally saves conversations to your account. Do not submit sensitive or regulated data without institutional approval.</p><p>CAIL covers model usage; users are not billed. Each account has an assigned usage limit, and the displayed amount is a delayed estimate. Existing approved users sign in with CUNY Login. If you need access or cannot sign in, <a href=\"/request-access\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">request access or support</a>.</p><p>For a full list of available models with capabilities, licensing, and recommended use cases, see our <a href=\"/models\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">Model Registry</a>.</p>",
+    "description_html": "<p>The <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">CAIL Sandbox</a> gives approved CUNY faculty, staff, and students an AI chat interface with open-weight models. Model-provider routes are configured not to retain prompts or outputs. That setting does not cover the surrounding app: the Sandbox normally saves conversations to your account. Do not submit sensitive or regulated data without institutional approval.</p><p>CAIL covers model usage; users are not billed. Each account has an assigned usage limit, and the displayed amount is a delayed estimate. Existing approved users sign in with CUNY Login. If you need access or cannot sign in, <a href=\"/request-access\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">request access or support</a>.</p><p>Check the Sandbox model selector for current availability. The <a href=\"/models\" class=\"text-vibrant-600 hover:text-vibrant-700 underline font-semibold\">Model Registry</a> provides Lab-reviewed context for a smaller set of models.</p>",
     "screenshot": "images/tools/tool-owu.png",
     "screenshot_alt": "CAIL Sandbox interface showing CUNY AI Lab chat platform",
     "launch_url": "https://chat.ailab.gc.cuny.edu/",
     "features": [
       { "label": "Open-weight models", "detail": "Publicly available weights for transparency and auditability" },
       { "label": "Open-source platform", "detail": "Built on Open WebUI, a community-driven chat interface for running AI models" },
-      { "label": "Model-provider retention", "detail": "Model requests use zero-data-retention provider paths; the Sandbox still saves chat history" },
+      { "label": "Model-provider retention", "detail": "Providers are configured not to retain prompts or outputs; the Sandbox still saves chat history" },
       { "label": "Citable configs", "detail": "Shareable, reproducible configurations for scholarly use" },
       { "label": "CO₂ estimates", "detail": "Visible energy and carbon cost per interaction" },
       { "label": "Accessibility", "detail": "Text-to-speech, speech-to-text, and more planned" }
@@ -45,7 +45,7 @@
   },
   "portal": {
     "heading": "CAIL tools",
-    "description": "Standalone tools are in development and are not yet available through CAIL Doorway. Tool storage and external processing are separate from the Model API's provider-retention settings.",
+    "description": "Standalone media tools are in development. Tool storage and external processing are separate from model-provider retention settings.",
     "url": "/request-access"
   },
   "media_processing": {
@@ -77,24 +77,32 @@
     ]
   },
   "ai_assistants": {
-    "heading": "AI Assistants",
-    "subtitle": "Research and website-building projects in development",
+    "heading": "Project Tools",
+    "subtitle": "Research, publishing, and project-building previews",
     "tools": [
       {
         "title": "Agent Studio",
-        "description": "In development. Workspaces, chats, and files stay private unless the user publishes a workspace to the public gallery. Not yet available through CAIL Doorway.",
-        "url": "/request-access",
+        "description": "Preview. Workspaces, chats, and files stay private unless the user publishes a workspace to the public gallery.",
+        "url": "https://cail-doorway.ailab-452.workers.dev/agent-studio/",
         "icon_bg": "bg-blue-100",
         "icon_color": "text-blue-600",
         "icon_svg": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z\" />"
       },
       {
         "title": "Site Studio",
-        "description": "In development. Projects stay private until the user publishes; published sites are public. Not yet available through CAIL Doorway.",
-        "url": "/request-access",
+        "description": "Preview. Projects stay private until the user publishes; published sites are public.",
+        "url": "https://cail-doorway.ailab-452.workers.dev/site-studio/",
         "icon_bg": "bg-pink-100",
         "icon_color": "text-pink-600",
         "icon_svg": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9\" />"
+      },
+      {
+        "title": "Workbench",
+        "description": "Preview. User-owned project and conversation state stays in the workspace; reviewed artifacts can be handed to Kale Deploy.",
+        "url": "https://cail-doorway.ailab-452.workers.dev/workbench",
+        "icon_bg": "bg-emerald-100",
+        "icon_color": "text-emerald-700",
+        "icon_svg": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M4 6.75A2.75 2.75 0 016.75 4h10.5A2.75 2.75 0 0120 6.75v10.5A2.75 2.75 0 0117.25 20H6.75A2.75 2.75 0 014 17.25V6.75zm4 2.25h8M8 12h5M8 15h7\" />"
       }
     ]
   }

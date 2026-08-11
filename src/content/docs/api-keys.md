@@ -29,7 +29,7 @@ Keep the API key out of source code, shared shell history, screenshots, and publ
 
 The Model API preview is operated on the CUNY AI Lab's institutional budget. Authorized CUNY users are not billed per request. Access may be limited by the account allowance or available model-provider capacity, and the Lab may pause the preview.
 
-Send only material that your project is allowed to send. Configured model routes may use zero-data-retention settings for model requests and responses. The Sandbox and other apps have separate storage behavior. Their settings determine how they handle account data and saved work; provider and external-service terms can differ. Do not send confidential material without institutional approval.
+Send only material that your project is allowed to send. Model-provider routes are configured not to retain prompts or outputs. The Sandbox and other apps have separate storage behavior. Their settings determine how they handle account data and saved work; provider and external-service terms can differ. Do not send confidential material without institutional approval.
 
 ## List available models
 
@@ -42,7 +42,7 @@ curl --silent --show-error --fail-with-body \
   | jq -r '.data[].id'
 ```
 
-Choose one of the returned identifiers and store it in `CAIL_MODEL`. The [Model Registry](../../models/) provides Lab-reviewed context for a smaller set of models.
+Current transports use Cloudflare Workers AI identifiers beginning with `@cf/` and OpenRouter identifiers in `author/model` form. Availability can change with the provider catalog. Choose one of the identifiers returned by your request and store it in `CAIL_MODEL`. The [Model Registry](../../models/) provides Lab-reviewed context for a smaller set of models; it is not the live catalog.
 
 ## Send a chat completion
 

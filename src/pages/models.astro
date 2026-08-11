@@ -15,7 +15,7 @@ const updatedAt = modelData.updated_at;
 function getLicenseFamilyInfo(family: string) {
   const families: Record<string, { label: string; color: string; bg: string; border: string }> = {
     'permissive': { label: 'Permissive', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
-    'permissive_modified': { label: 'Permissive+', color: 'text-teal-700', bg: 'bg-teal-50', border: 'border-teal-200' },
+    'permissive_modified': { label: 'Permissive+', color: 'text-teal-900', bg: 'bg-teal-50', border: 'border-teal-200' },
     'community': { label: 'Community', color: 'text-blue-700', bg: 'bg-blue-50', border: 'border-blue-200' },
     'restricted_terms': { label: 'Restricted', color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200' },
     'unknown': { label: 'Unknown', color: 'text-gray-600', bg: 'bg-gray-100', border: 'border-gray-200' }
@@ -27,7 +27,7 @@ function getLicenseFamilyInfo(family: string) {
 function getStructuredOutputInfo(value: any) {
   if (value === true) return { label: 'Native', color: 'text-emerald-600', dot: 'bg-emerald-500' };
   if (value === 'prompted') return { label: 'Prompted', color: 'text-blue-600', dot: 'bg-blue-500' };
-  return { label: 'Unknown', color: 'text-gray-400', dot: 'bg-gray-300' };
+  return { label: 'Unknown', color: 'text-gray-600', dot: 'bg-gray-400' };
 }
 ---
 
@@ -41,7 +41,7 @@ function getStructuredOutputInfo(value: any) {
         <div>
           <h1 class="text-3xl md:text-4xl font-bold font-display text-white tracking-tight">Model Registry</h1>
           <p class="mt-3 text-vibrant-200/80 text-base max-w-2xl">
-            This registry documents the open-weight models available through the CAIL Sandbox. We selected these models for their capabilities, licensing terms, and suitability for academic use. All models support multilingual input/output and tool calling.
+            Lab-reviewed reference notes for a smaller set of open-weight models. This is not a live availability catalog: check the Sandbox model selector or the Model API's <code class="text-white">/v1/models</code> response before choosing a model. Notes last reviewed {updatedAt}.
           </p>
         </div>
         <a href={`${base}models/guide`} class="hidden sm:flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-vibrant-200 hover:text-white text-sm font-medium transition-all border border-white/10">
@@ -262,7 +262,7 @@ function getStructuredOutputInfo(value: any) {
                     <!-- Parameters -->
                     <div class="text-center">
                       <div class="font-bold text-neutral-stone">{model.parameters.total_b}B</div>
-                      <div class="text-xs text-gray-400">
+                      <div class="text-xs text-gray-600">
                         {model.parameters.active_b ? `${model.parameters.active_b}B active` : model.parameters.architecture}
                       </div>
                     </div>
@@ -270,7 +270,7 @@ function getStructuredOutputInfo(value: any) {
                     <!-- Context -->
                     <div class="text-center">
                       <div class="font-bold text-neutral-stone">{(model.context_window_tokens / 1000).toFixed(0)}K</div>
-                      <div class="text-xs text-gray-400">
+                      <div class="text-xs text-gray-600">
                         {hasExtendedContext ? `→ ${((model.context_window_tokens_extended || model.context_window_tokens_max) / 1000).toFixed(0)}K` : 'context'}
                       </div>
                     </div>
@@ -410,7 +410,7 @@ function getStructuredOutputInfo(value: any) {
       <!-- Empty State -->
       <div id="empty-state" class="hidden py-16 text-center">
         <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-8 h-8 text-gray-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
@@ -431,7 +431,7 @@ function getStructuredOutputInfo(value: any) {
         </svg>
         Back to Tools
       </a>
-      <span class="text-xs text-gray-400">Updated: {updatedAt}</span>
+      <span class="text-xs text-gray-600">Notes reviewed: {updatedAt}</span>
     </div>
   </section>
 </BaseLayout>

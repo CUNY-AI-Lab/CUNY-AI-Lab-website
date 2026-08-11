@@ -48,8 +48,8 @@
   "next_steps": [
     { "step": 1, "title": "Review", "description": "We review your request and reply when we can; timing depends on the request and current capacity." },
     { "step": 2, "title": "Response", "description": "We reply with the likely next step." },
-    { "step": 3, "title": "Access or meeting", "description_html": "That may be approved access to <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:underline\">the CAIL Sandbox</a>, a consultation, or a pilot conversation." },
-    { "step": 4, "title": "Support and recovery", "description_html": "We help match the request to the right tool or workflow. If access stops working or you lose a key, email <a href=\"mailto:ailab@gc.cuny.edu\" class=\"text-vibrant-600 hover:underline\">ailab@gc.cuny.edu</a>; never send a password or key." }
+    { "step": 3, "title": "Access or meeting", "description_html": "That may be approved access to <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 underline hover:text-vibrant-700\">the CAIL Sandbox</a>, a consultation, or a pilot conversation." },
+    { "step": 4, "title": "Support and recovery", "description_html": "We help match the request to the right tool or workflow. If access stops working or you lose a key, email <a href=\"mailto:ailab@gc.cuny.edu\" class=\"text-vibrant-600 underline hover:text-vibrant-700\">ailab@gc.cuny.edu</a>; never send a password or key." }
   ],
   "questions_text": "Have questions before submitting the form?",
   "questions_link_text": "Contact the CUNY AI Lab Team →"

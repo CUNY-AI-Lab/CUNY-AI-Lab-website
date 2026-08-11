@@ -32,11 +32,11 @@ const { Content } = await entry.render();
         <!-- Principles sidebar -->
         <div class="lg:col-span-1">
           <div class="bg-neutral-cream rounded-2xl p-6 border border-gray-100">
-            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-5">Guiding Principles</h3>
+            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-5">Guiding Principles</h2>
             <ul class="space-y-4">
               {data.principles.map((principle: any) => (
                 <li>
-                  <h4 class="font-semibold text-neutral-stone">{principle.title}</h4>
+                  <h3 class="font-semibold text-neutral-stone">{principle.title}</h3>
                   <p class="text-sm text-gray-500 mt-1">{principle.description}</p>
                 </li>
               ))}
@@ -79,10 +79,10 @@ const { Content } = await entry.render();
     margin-bottom: 0;
   }
   .about-content a {
-    color: #3B73E6;
+    color: #2A6FB8;
     text-decoration: underline;
   }
   .about-content a:hover {
-    color: #2A6FB8;
+    color: #1D3A83;
   }
 </style>

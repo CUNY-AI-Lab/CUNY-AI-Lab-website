@@ -1,13 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const base = import.meta.env.BASE_URL;
-
 const steps = [
   {
     number: '1',
-    title: 'Connect an authorized agent',
-    description: 'Open the Kale Deploy connection page and complete the sign-in and consent step for the agent you want to use. The agent can then call the Deploy API on your behalf.'
+    title: 'Start from an authorized CAIL application',
+    description: 'An authorized CAIL application, currently Workbench, calls the Deploy API on the user’s behalf. Direct access is not generally available.'
   },
   {
     number: '2',
@@ -21,8 +19,8 @@ const steps = [
   },
   {
     number: '4',
-    title: 'Start a release',
-    description: 'Choose a preview or production target where your authorized environment permits it. Deploy validates and prepares the selected immutable revision before publishing.'
+    title: 'Start a preview release',
+    description: 'The current environment accepts preview releases. Deploy validates and prepares the selected immutable revision before publication.'
   },
   {
     number: '5',
@@ -35,35 +33,30 @@ const supported = [
   'Worker-native TypeScript or JavaScript',
   'HTTP APIs, web pages, and small edge applications',
   'Projects whose complete artifact fits within 2 MiB',
-  'Releases that need an explicit preview or production decision'
+  'Preview releases that need an explicit review decision'
 ];
 
 const notSupported = [
   'Python backends, traditional Node servers, containers, or native binaries',
   'Long-running jobs or writes to a local filesystem',
   'Project-owned D1, R2, KV, secrets, or service bindings',
+  'Production publication in the current preview environment',
   'Artifacts larger than 2 MiB'
 ];
 ---
 
 <BaseLayout
-  title="Kale Deploy - CUNY AI Lab"
-  description="Create and release isolated Cloudflare Worker artifacts through an authorized AI agent."
+  title="Kale Deploy Preview - CUNY AI Lab"
+  description="Internal preview infrastructure for reviewed Cloudflare Worker releases from authorized CAIL applications."
 >
   <section class="relative pt-24 pb-14 lg:pt-28 lg:pb-16">
     <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
     <div class="absolute inset-0 opacity-[0.03]" aria-hidden="true" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="max-w-3xl">
-        <p class="text-vibrant-200/80 font-medium tracking-wide uppercase text-sm mb-4">Current release workflow</p>
-        <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Kale Deploy</h1>
-        <p class="mt-4 text-vibrant-50/90 text-lg leading-relaxed">Create an isolated Cloudflare Worker project, upload an exact artifact, and release it through an authorized AI agent.</p>
-        <div class="mt-8 flex flex-col sm:flex-row gap-4">
-          <a href="https://cuny.qzz.io/kale" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-white text-cuny-blue px-7 py-3 rounded-full text-base font-semibold hover:bg-vibrant-50 transition-all shadow-lg hover:shadow-xl">
-            Open Kale Deploy
-            <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-          </a>
-        </div>
+        <p class="text-vibrant-200/80 font-medium tracking-wide uppercase text-sm mb-4">Internal preview infrastructure</p>
+        <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Kale Deploy preview</h1>
+        <p class="mt-4 text-vibrant-50/90 text-lg leading-relaxed">Kale Deploy records immutable Worker artifacts and runs reviewed preview releases for authorized CAIL applications. It is not a generally available deployment service.</p>
       </div>
     </div>
   </section>
@@ -74,7 +67,7 @@ const notSupported = [
         <div class="lg:col-span-3">
           <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">What Kale Deploy does</h2>
           <div class="space-y-4 text-lg text-gray-600 leading-relaxed">
-            <p>Kale Deploy accepts a Worker artifact from an authorized agent, records an immutable revision, and runs a durable release workflow. The same revision can be reviewed and released to the target your environment allows.</p>
+            <p>Kale Deploy accepts a Worker artifact from an authorized CAIL application, records an immutable revision, and runs a durable release workflow. The current environment permits preview releases only.</p>
             <p>Deploy keeps the artifact and release history isolated to its project. It does not connect a project to GitHub, a repository, a webhook, or an AWS runner.</p>
           </div>
         </div>
@@ -93,7 +86,7 @@ const notSupported = [
   <section class="py-16 bg-neutral-cream">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-3xl font-bold font-display text-neutral-stone mb-4">How it works</h2>
-      <p class="text-gray-600 mb-12 max-w-2xl">Five steps from an authorized connection to a release status you can inspect.</p>
+      <p class="text-gray-600 mb-12 max-w-2xl">Five steps from an authorized CAIL application to a preview release status the user can inspect.</p>
       <div class="space-y-0">
         {steps.map((step, index) => (
           <div class="flex gap-6 relative">
@@ -154,10 +147,10 @@ const notSupported = [
         <div class="lg:col-span-2 rounded-2xl bg-white p-6 border border-gray-200 shadow-sm">
           <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-5">Current contract</h3>
           <dl class="space-y-3">
-            <div class="flex items-baseline justify-between gap-4 py-1.5 border-b border-gray-100"><dt class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Runtime</dt><dd class="text-sm font-medium text-neutral-stone text-right">Cloudflare Worker</dd></div>
-            <div class="flex items-baseline justify-between gap-4 py-1.5 border-b border-gray-100"><dt class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Artifact</dt><dd class="text-sm font-medium text-neutral-stone text-right">kale.artifact.v1</dd></div>
-            <div class="flex items-baseline justify-between gap-4 py-1.5 border-b border-gray-100"><dt class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Upload limit</dt><dd class="text-sm font-medium text-neutral-stone text-right">2 MiB</dd></div>
-            <div class="flex items-baseline justify-between gap-4 py-1.5"><dt class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Bindings</dt><dd class="text-sm font-medium text-neutral-stone text-right">None</dd></div>
+            <div class="flex items-baseline justify-between gap-4 py-1.5 border-b border-gray-100"><dt class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Runtime</dt><dd class="text-sm font-medium text-neutral-stone text-right">Cloudflare Worker</dd></div>
+            <div class="flex items-baseline justify-between gap-4 py-1.5 border-b border-gray-100"><dt class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Artifact</dt><dd class="text-sm font-medium text-neutral-stone text-right">kale.artifact.v1</dd></div>
+            <div class="flex items-baseline justify-between gap-4 py-1.5 border-b border-gray-100"><dt class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Upload limit</dt><dd class="text-sm font-medium text-neutral-stone text-right">2 MiB</dd></div>
+            <div class="flex items-baseline justify-between gap-4 py-1.5"><dt class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Bindings</dt><dd class="text-sm font-medium text-neutral-stone text-right">None</dd></div>
           </dl>
         </div>
       </div>
@@ -166,18 +159,8 @@ const notSupported = [
 
   <section class="py-20 bg-white">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-4">Ready to release a Worker?</h2>
-      <p class="text-lg text-gray-600 mb-10 max-w-2xl mx-auto">Connect an authorized agent, create a project, upload the artifact, and inspect the release before approving it when required.</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="https://cuny.qzz.io/kale" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-vibrant-600 text-white px-8 py-3.5 rounded-full text-base font-semibold hover:bg-vibrant-700 transition-all shadow-md hover:shadow-lg">
-          Open Kale Deploy
-          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-        </a>
-        <a href={`${base}tools`} class="inline-flex items-center justify-center gap-2 bg-white text-vibrant-600 px-8 py-3.5 rounded-full text-base font-semibold border-2 border-vibrant-200 hover:border-vibrant-400 transition-all">
-          Explore Other Tools
-          <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-        </a>
-      </div>
+      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-4">Preview access</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">Kale Deploy has no general user entry point. People participating in a Workbench preview use its reviewed release flow. For access or recovery help, email <a href="mailto:ailab@gc.cuny.edu" class="font-semibold text-vibrant-600 underline hover:text-vibrant-700">ailab@gc.cuny.edu</a>; never send a password or API key.</p>
     </div>
   </section>
 </BaseLayout>
