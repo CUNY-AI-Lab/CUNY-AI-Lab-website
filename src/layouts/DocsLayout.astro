@@ -21,11 +21,11 @@ const sections = Array.from(sortedEntries.reduce((groups, doc) => {
   groups.set(doc.data.section, section);
   return groups;
 }, new Map<string, CollectionEntry<'docs'>[]>()));
-const currentIndex = sortedEntries.findIndex((doc) => doc.slug === entry.slug);
+const currentIndex = sortedEntries.findIndex((doc) => doc.id === entry.id);
 const previousEntry = currentIndex > 0 ? sortedEntries[currentIndex - 1] : undefined;
 const nextEntry = currentIndex >= 0 ? sortedEntries[currentIndex + 1] : undefined;
 const docsHref = (doc: CollectionEntry<'docs'>) =>
-  doc.slug === 'index' ? `${base}docs/` : `${base}docs/${doc.slug}/`;
+  doc.id === 'index' ? `${base}docs/` : `${base}docs/${doc.id}/`;
 ---
 
 <BaseLayout title={`${entry.data.title} - CUNY AI Lab`} description={entry.data.description}>
@@ -40,7 +40,7 @@ const docsHref = (doc: CollectionEntry<'docs'>) =>
 
   <div class="border-b border-gray-200 bg-white">
     <nav aria-label="Breadcrumb" class="mx-auto flex max-w-7xl flex-wrap items-center gap-2 px-4 py-3 text-sm text-gray-600 sm:px-6 lg:px-8">
-      {entry.slug === 'index' ? (
+      {entry.id === 'index' ? (
         <span aria-current="page" class="font-medium text-neutral-stone">Documentation</span>
       ) : (
         <>
@@ -67,7 +67,7 @@ const docsHref = (doc: CollectionEntry<'docs'>) =>
                 <ul class="space-y-1">
                   {docs.map((doc) => (
                     <li>
-                      <a href={docsHref(doc)} aria-current={doc.slug === entry.slug ? 'page' : undefined} class:list={['block rounded-lg px-3 py-2 text-sm font-medium', doc.slug === entry.slug ? 'bg-vibrant-50 text-vibrant-800' : 'text-gray-600 hover:bg-gray-50 hover:text-vibrant-700']}>
+                      <a href={docsHref(doc)} aria-current={doc.id === entry.id ? 'page' : undefined} class:list={['block rounded-lg px-3 py-2 text-sm font-medium', doc.id === entry.id ? 'bg-vibrant-50 text-vibrant-800' : 'text-gray-600 hover:bg-gray-50 hover:text-vibrant-700']}>
                         {doc.data.title}
                       </a>
                     </li>
@@ -85,7 +85,7 @@ const docsHref = (doc: CollectionEntry<'docs'>) =>
               <ul class="space-y-1">
                 {docs.map((doc) => (
                   <li>
-                    <a href={docsHref(doc)} aria-current={doc.slug === entry.slug ? 'page' : undefined} class:list={['block rounded-lg border-l-2 px-3 py-2 text-sm font-medium', doc.slug === entry.slug ? 'border-vibrant-500 bg-vibrant-50 text-vibrant-800' : 'border-transparent text-gray-600 hover:border-vibrant-200 hover:bg-white hover:text-vibrant-700']}>
+                    <a href={docsHref(doc)} aria-current={doc.id === entry.id ? 'page' : undefined} class:list={['block rounded-lg border-l-2 px-3 py-2 text-sm font-medium', doc.id === entry.id ? 'border-vibrant-500 bg-vibrant-50 text-vibrant-800' : 'border-transparent text-gray-600 hover:border-vibrant-200 hover:bg-white hover:text-vibrant-700']}>
                       {doc.data.title}
                     </a>
                   </li>

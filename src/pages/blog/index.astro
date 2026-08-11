@@ -19,7 +19,7 @@ const formatAuthors = (authors: string[]) => {
 <BaseLayout title="Blog - CUNY AI Lab">
   <section class="relative pt-24 pb-10 lg:pt-28 lg:pb-12">
     <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"1\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23ffffff%22 fill-opacity=%221%22%3E%3Cpath d=%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Blog</h1>
       <p class="mt-4 text-lg text-white/80 max-w-2xl">Notes from fellows, staff, and contributors on the practical and critical work of using AI at a public university.</p>
@@ -47,10 +47,10 @@ const formatAuthors = (authors: string[]) => {
                   <span>{formatAuthors(post.data.authors)}</span>
                 </p>
                 <h2 class="text-2xl md:text-3xl font-bold font-display text-neutral-stone leading-tight mb-3">
-                  <a href={`${base}blog/${post.slug}`} class="hover:text-vibrant-600 transition-colors">{post.data.title}</a>
+                  <a href={`${base}blog/${post.id}`} class="hover:text-vibrant-600 transition-colors">{post.data.title}</a>
                 </h2>
                 <p class="text-gray-600 leading-relaxed mb-4">{post.data.description}</p>
-                <a href={`${base}blog/${post.slug}`} class="inline-flex items-center text-sm font-semibold text-vibrant-600 hover:text-vibrant-700 transition-colors">
+                <a href={`${base}blog/${post.id}`} class="inline-flex items-center text-sm font-semibold text-vibrant-600 hover:text-vibrant-700 transition-colors">
                   Read post <span aria-hidden="true" class="ml-1">→</span>
                 </a>
               </article>
