@@ -134,6 +134,12 @@ const docsHref = (doc: CollectionEntry<'docs'>) =>
   docsMenu?.addEventListener('toggle', () => {
     docsToggle?.setAttribute('aria-expanded', String(docsMenu.open));
   });
+
+  // Markdown tables can overflow on narrow screens. Make those scrollable
+  // regions keyboard-accessible so users can reach the off-screen columns.
+  document.querySelectorAll('.docs-content table').forEach((table) => {
+    table.setAttribute('tabindex', '0');
+  });
 </script>
 
 <style is:global>
@@ -201,6 +207,10 @@ const docsHref = (doc: CollectionEntry<'docs'>) =>
     overflow-x: auto;
     border-collapse: collapse;
     font-size: 0.925rem;
+  }
+  .docs-content table:focus-visible {
+    outline: 2px solid #2a6fb8;
+    outline-offset: 2px;
   }
   .docs-content th,
   .docs-content td {
