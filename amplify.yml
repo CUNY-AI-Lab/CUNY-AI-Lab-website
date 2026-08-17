@@ -12,12 +12,12 @@ frontend:
   phases:
     preBuild:
       commands:
-        - which bun || curl -fsSL https://bun.sh/install | bash
-        - export PATH="$HOME/.bun/bin:$PATH"
+        # Pinned install via the npm registry (integrity-checked) — do not
+        # replace with `curl | bash`, which runs an unpinned remote script.
+        - npm install -g bun@1.3.14
         - bun install --frozen-lockfile
     build:
       commands:
-        - export PATH="$HOME/.bun/bin:$PATH"
         - bun run build
   artifacts:
     baseDirectory: dist
