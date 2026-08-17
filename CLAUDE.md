@@ -12,7 +12,13 @@ npm run preview  # Preview production build locally
 
 ## Architecture
 
-Astro static site with Tailwind CSS. Auto-deploys to AWS Amplify on push to main (requires PR with 1 approval). Production URL: ailab.gc.cuny.edu (note: `astro.config.mjs` `site` field is set to `cunyailab.org` for legacy reasons but the canonical domain is `ailab.gc.cuny.edu`)
+Astro static site with Tailwind CSS. Auto-deploys to AWS Amplify on push to main (requires PR with 1 approval and a passing "Website CI" check). Production URL: ailab.gc.cuny.edu (note: `astro.config.mjs` `site` field is set to `cunyailab.org` for legacy reasons but the canonical domain is `ailab.gc.cuny.edu`)
+
+**Deployment — read before touching the build toolchain:**
+- AWS Amplify (app id `d1j8mvw9hg41u1`) builds and deploys `main` using `amplify.yml` at the repo root. That file overrides the Amplify console buildSpec — the console settings are not the source of truth.
+- `amplify.yml` and `.github/workflows/ci.yml` MUST stay in sync: both install with `bun install --frozen-lockfile` and build with `bun run build` against `bun.lock`. Any change to the package manager, lockfile, or build command must update BOTH files in the same PR.
+- Why this rule exists: in Aug 2026 an npm→Bun migration deleted `package-lock.json` and updated CI to Bun, but the Amplify build still ran `npm ci`. CI stayed green while every production deploy failed silently for 10 days.
+- CI passing does NOT prove the site deployed. After merging any toolchain change, verify the deploy succeeded: `aws amplify list-jobs --app-id d1j8mvw9hg41u1 --branch-name main --max-items 1` must show `SUCCEED` (or check the Amplify console).
 
 **Data Layer:**
 Pages pull content from two sources:
