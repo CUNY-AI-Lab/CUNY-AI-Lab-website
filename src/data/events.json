@@ -1,52 +1,98 @@
 {
   "title": "Events",
   "subtitle": "Workshops and training sessions from the CUNY AI Lab.",
-  "series_title": "Spring 2026 Workshop Series",
-  "series_description": "A three-part series on building digital projects with AI, from command-line basics to independent prototyping.",
-  "prerequisites": [
-    "Because the series is scaffolded, participants who are new to the command line and/or Git should plan to attend <strong>both</strong> the March 3 and March 10 workshops.",
-    "Each session is limited to <strong>20 students</strong> and will be held in the <strong><a href=\"https://newmedialab.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:underline\">New Media Lab</a> (Room 7388.01)</strong>.",
-    "Participants are encouraged to bring a laptop so they can set up a workflow on their own machine. Workstations in the New Media Lab are available upon request."
-  ],
-  "workshops": [
+  "semester_title": "Fall 2026 Workshop Series",
+  "series": [
     {
-      "date": "March 3, 4:00–5:30 pm",
-      "title": "Foundations: AI, Command Line, and Version Control",
-      "description": "This workshop covers the fundamentals of using AI tools to develop a digital project, including core AI concepts, setting up your environment, running commands in Terminal or PowerShell, and using Git to track project changes. We'll walk through a basic workflow and use AI to troubleshoot errors as we go.",
-      "prerequisite": null
+      "id": "vibe-coding",
+      "title": "Vibe Coding Series",
+      "description": "A three-part series on building digital projects with AI-assisted coding, from command-line foundations to a bring-your-own-project clinic.",
+      "workshops": [
+        {
+          "date": "September 22, 2:30–4:00 pm",
+          "title": "Vibe Coding I: Foundations",
+          "description": "This workshop introduces the fundamentals of using AI tools to develop a digital project, including core concepts behind LLM-assisted coding, setting up a development environment, working in Terminal or PowerShell, and using Git and GitHub to track changes.",
+          "prerequisite": "No prior coding experience is required."
+        },
+        {
+          "date": "September 29, 2:30–4:00 pm",
+          "title": "Vibe Coding II: Building a Prototype",
+          "description": "This workshop moves from the fundamentals of AI-assisted coding to building a small digital project. We'll work through prompting, project planning, iterative development, and troubleshooting as we collectively build a sample project.",
+          "prerequisite": "Prerequisite: Participation in Vibe Coding I, or prior familiarity with the command line and Git/GitHub."
+        },
+        {
+          "date": "October 13, 2:30–4:00 pm",
+          "title": "Vibe Coding III: Bring Your Own Project Clinic",
+          "description": "Bring a digital project you're building (or an idea you want to get off the ground!) and spend the session working on it with support from facilitators. We'll begin by helping participants clarify goals and identify next steps, then shift into structured working time for building, debugging, and experimenting with AI-assisted development. Projects can be at any stage.",
+          "prerequisite": "Prerequisite: Participation in Vibe Coding I and II, or comparable experience working with AI coding tools, the command line, and Git/GitHub."
+        }
+      ]
     },
     {
-      "date": "March 10, 4:00–5:30 pm",
-      "title": "Vibe-Coding Prototypes",
-      "description": "This workshop focuses on using AI via the command line to build a small prototype. We'll model prompting, project design, and troubleshooting. After building the same starter project, participants will choose one feature to customize.",
-      "prerequisite": "Prerequisite: Participation in the Foundations workshop, or prior familiarity with the command line and Git/GitHub."
-    },
-    {
-      "date": "March 24, 4:00–5:30 pm",
-      "title": "BYOP (Bring Your Own Project) Build Clinic",
-      "description": "This session offers structured time to build your own digital scholarly project, with facilitators available to support you. Ahead of the workshop, we'll collect a short description of what you're building and group participants by project type. During the session, each group will work with a facilitator to clarify goals, break work into small steps, and troubleshoot as issues come up.",
-      "prerequisite": null
+      "id": "sandbox",
+      "title": "CUNY AI Lab Sandbox Series",
+      "description": "This three-part series introduces the CUNY AI Lab Sandbox and explores how instructors and researchers can move beyond general-purpose AI chat toward custom models grounded in their own goals, materials, and workflows. Across the series, participants will build and test a custom AI configuration using system prompts, knowledge collections, skills, and tools.",
+      "workshops": [
+        {
+          "date": "September 17, 2:30–4:00 pm",
+          "title": "Getting Started with the CUNY AI Lab Sandbox",
+          "description": "This workshop introduces the CUNY AI Lab Sandbox and the possibilities it offers for experimenting with generative AI in teaching and research. We'll explore the models available in the Sandbox, compare their affordances, and introduce system prompts to shape how a model behaves throughout a conversation. Participants will then design and test a system prompt for a specific teaching, research, or scholarly workflow, considering the model's role, procedure, constraints, tone, and expected output.",
+          "prerequisite": "No prior experience with the Sandbox is required."
+        },
+        {
+          "date": "October 1, 2:30–4:00 pm",
+          "title": "Building Custom Models with Knowledge Collections",
+          "description": "This workshop focuses on moving from a system prompt to a custom model grounded in your own materials. Participants will create a model card in the Sandbox, select and configure a base model, and learn how knowledge collections allow AI models to retrieve information from uploaded syllabi, readings, assignments, research materials, datasets, and other documents. We'll consider both the technical and intellectual work of curating a useful collection: what to include, how to organize documents, and how to test whether the model is retrieving relevant material rather than producing generic responses.",
+          "prerequisite": "Prerequisite: Participation in the introductory Sandbox workshop."
+        },
+        {
+          "date": "October 15, 2:30–4:00 pm",
+          "title": "Extending Custom Models with Skills & Tools",
+          "description": "In the final workshop of this series, we'll extend custom models beyond prompts and documents by introducing skills and tools. Participants will learn how skills can encode repeatable procedures—for example, guiding a student through a close reading or walking a researcher through a particular analytical workflow—and how tools give models additional capabilities such as web search, querying files, running code, or generating images. Participants will design a skill for a specific teaching or research task, add it to a custom model, and test how system prompts, knowledge collections, skills, and tools can work together as different layers of an AI-assisted workflow.",
+          "prerequisite": "Prerequisite: Participation in the earlier Sandbox workshops."
+        }
+      ]
     }
   ],
   "coworking_title": "Co-Working Sessions",
-  "coworking_description": "Drop-in sessions for structured working time on your AI-assisted projects. Bring what you're building and work alongside others. Facilitators are available for troubleshooting and feedback.",
+  "coworking_description": "Drop-in sessions for structured working time on your AI projects. Bring what you're building and work alongside others. Facilitators are available for troubleshooting, feedback, and help with figuring out next steps. Participation in the Vibe Coding or Sandbox workshop series is not required.",
   "coworking_sessions": [
     {
-      "date": "April 15, 12:00–2:00 pm",
-      "format": "Online",
-      "location": null,
-      "registration_url": "https://gc-cuny-edu.zoom.us/meeting/register/8HQhhsqySnCTvvWaPNPtIg"
+      "date": "October 29, 2:00–4:00 pm"
     },
     {
-      "date": "May 7, 12:00–2:00 pm",
-      "format": "In-Person",
-      "location": "New Media Lab (Room 7388.01)"
+      "date": "November 17, 2:00–4:00 pm"
+    },
+    {
+      "date": "December 3, 2:00–4:00 pm"
     }
   ],
-  "registration": {
-    "heading": "Register for the Workshop Series",
-    "description": "Space is limited to 20 participants per session. Sign up early to secure your spot.",
-    "url": "https://docs.google.com/forms/d/e/1FAIpQLSenSkDfoz3ftYiz6t5KJUEdYDGrbkUKmR6SGVC4j-fF6qNbdA/viewform?usp=publish-editor",
-    "button_text": "Register Now"
-  }
+  "past_events": [
+    {
+      "title": "Spring 2026 Workshop Series",
+      "description": "A three-part series on building digital projects with AI, from command-line basics to independent prototyping, plus drop-in co-working sessions.",
+      "items": [
+        {
+          "date": "March 3, 2026",
+          "title": "Foundations: AI, Command Line, and Version Control"
+        },
+        {
+          "date": "March 10, 2026",
+          "title": "Vibe-Coding Prototypes"
+        },
+        {
+          "date": "March 24, 2026",
+          "title": "BYOP (Bring Your Own Project) Build Clinic"
+        },
+        {
+          "date": "April 15, 2026",
+          "title": "Co-Working Session (Online)"
+        },
+        {
+          "date": "May 7, 2026",
+          "title": "Co-Working Session (New Media Lab)"
+        }
+      ]
+    }
+  ]
 }
