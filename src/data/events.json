@@ -55,6 +55,12 @@
       ]
     }
   ],
+  "registration": {
+    "heading": "Register for Fall 2026 Workshops",
+    "description": "Space is limited. Sign up early to secure your spot.",
+    "url": "https://cail-workshop-registration.ailab-452.workers.dev/",
+    "button_text": "Register Now"
+  },
   "coworking_title": "Co-Working Sessions",
   "coworking_description": "Drop-in sessions for structured working time on your AI projects. Bring what you're building and work alongside others. Facilitators are available for troubleshooting, feedback, and help with figuring out next steps. Participation in the Vibe Coding or Sandbox workshop series is not required.",
   "coworking_sessions": [
