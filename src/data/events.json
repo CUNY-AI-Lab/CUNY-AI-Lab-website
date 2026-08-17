@@ -2,6 +2,7 @@
   "title": "Events",
   "subtitle": "Workshops and training sessions from the CUNY AI Lab.",
   "semester_title": "Fall 2026 Workshop Series",
+  "location_note": "All events, unless otherwise noted, are held in the <a href=\"https://newmedialab.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:underline\">New Media Lab</a> (Room 7388.01) at the CUNY Graduate Center.",
   "series": [
     {
       "id": "vibe-coding",
