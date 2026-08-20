@@ -1,16 +1,17 @@
 {
   "title": "Request Access",
-  "intro_heading": "Get Started with CAIL Sandbox",
-  "intro_description": "The CUNY AI Lab provides CUNY faculty, staff, and students with access to the CAIL Sandbox, our Open WebUI platform—a secure, zero-retention interface for working with AI models.",
-  "features_heading": "What You'll Get Access To:",
+  "intro_heading": "Request CAIL Access or Support",
+  "intro_description": "CUNY faculty, staff, and students can use this form to request access to CAIL services or ask for help with an existing account.",
+  "features_heading": "Available services",
   "features": [
-    "CAIL Sandbox platform with multiple AI models",
-    "Domain-specific tools (AmigAI, Transcription Suite, and more)",
-    "Zero-retention API services for data privacy",
+    "CAIL Sandbox with a curated set of AI models",
+    "Agent Studio and Site Studio for research and publishing workflows",
+    "Personal API keys and usage information through Model Access",
     "Support from the CUNY AI Lab team"
   ],
   "form_heading": "Access Request Form",
-  "form_action": "https://formspree.io/f/mkgqdggp",
+  "intake_url": "https://tools.ailab.gc.cuny.edu/request-access/api",
+  "turnstile_site_key": "0x4AAAAAAEOj271NcseuTrir",
   "form_fields": {
     "name": { "label": "Full Name", "placeholder": "Jane Doe", "required": true },
     "email": { "label": "Email Address", "placeholder": "jane.doe@cuny.edu", "required": true },
@@ -28,25 +29,25 @@
     },
     "department": { "label": "Department/Program", "placeholder": "e.g., English, Digital Humanities, Library", "required": true },
     "campus": { "label": "CUNY College/Campus", "placeholder": "e.g., Graduate Center, Hunter College, Baruch", "required": true },
-    "intended_use": { "label": "Intended Use", "placeholder": "Please describe how you plan to use the CAIL Sandbox and the CUNY AI Lab tools (e.g., course integration, research project, language learning, etc.)", "required": true }
+    "intended_use": { "label": "Intended Use or Support Request", "placeholder": "Describe how you plan to use CAIL services, or tell us what help you need.", "required": true }
   },
   "tools_of_interest": {
     "label": "Specific Tools of Interest (Optional)",
     "options": [
-      { "value": "amigai", "label": "AmigAI (Language Learning)" },
-      { "value": "transcription", "label": "Multilingual Transcription Suite" },
-      { "value": "library", "label": "Library Workflow Assistants" },
-      { "value": "course-assistant", "label": "Course-Specific Assistants" },
-      { "value": "general", "label": "General CAIL Sandbox Access" }
+      { "value": "sandbox", "label": "CAIL Sandbox" },
+      { "value": "agent-studio", "label": "Agent Studio" },
+      { "value": "site-studio", "label": "Site Studio" },
+      { "value": "model-access", "label": "Model Access and API keys" },
+      { "value": "support", "label": "Account or technical support" }
     ]
   },
   "submit_text": "Submit Access Request",
-  "privacy_note": "Your information will only be used to process your access request and provide support. The CUNY AI Lab follows CUNY's privacy policies and uses zero-retention practices.",
+  "privacy_note": "The Lab stores this information to review your request, manage access, and contact you about CAIL services.",
   "next_steps_heading": "What Happens Next?",
   "next_steps": [
-    { "step": 1, "title": "Review", "description": "We review your request within 2-3 business days." },
-    { "step": 2, "title": "Approval", "description": "You'll receive an email with login credentials." },
-    { "step": 3, "title": "Access", "description_html": "Log in to <a href=\"https://chat.ailab.gc.cuny.edu/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-vibrant-600 hover:underline\">chat.ailab.gc.cuny.edu</a>" },
+    { "step": 1, "title": "Review", "description": "The Lab reviews the request and checks the information you provide." },
+    { "step": 2, "title": "Decision", "description": "You'll receive an email when the request has been reviewed." },
+    { "step": 3, "title": "Access", "description_html": "Use your CUNY Login to open approved services from the <a href=\"/tools/\" class=\"font-semibold text-vibrant-800 underline underline-offset-2 hover:text-vibrant-950\">Tools page</a>." },
     { "step": 4, "title": "Support", "description": "Contact us if you need help getting started." }
   ],
   "questions_text": "Have questions about access or the platform?",

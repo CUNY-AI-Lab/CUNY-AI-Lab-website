@@ -12,7 +12,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
   <!-- Hero Section -->
   <section class="relative pt-24 pb-10 lg:pt-28 lg:pb-12">
     <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"1\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">{data.title}</h1>
     </div>
@@ -50,7 +50,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-vibrant-400 to-cuny-blue"></div>
         <h3 class="text-2xl font-bold font-display text-neutral-stone mb-8">{data.form_heading}</h3>
 
-        <form action={data.form_action} method="POST" class="space-y-6">
+        <form id="access-request-form" method="post" action={data.intake_url} data-intake-url={data.intake_url} class="space-y-6" aria-describedby="form-status">
           <!-- Name -->
           <div>
             <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -61,6 +61,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
               id="name"
               name="name"
               required
+              maxlength="160"
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
               placeholder={data.form_fields.name.placeholder}
             />
@@ -76,6 +77,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
               id="email"
               name="email"
               required
+              maxlength="320"
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
               placeholder={data.form_fields.email.placeholder}
             />
@@ -108,6 +110,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
               id="department"
               name="department"
               required
+              maxlength="240"
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
               placeholder={data.form_fields.department.placeholder}
             />
@@ -123,6 +126,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
               id="campus"
               name="campus"
               required
+              maxlength="120"
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
               placeholder={data.form_fields.campus.placeholder}
             />
@@ -138,16 +142,17 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
               name="intended-use"
               required
               rows="4"
+              maxlength="4000"
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
               placeholder={data.form_fields.intended_use.placeholder}
             ></textarea>
           </div>
 
           <!-- Specific Tools -->
-          <div>
-            <label for="tools-of-interest" class="block text-sm font-semibold text-gray-700 mb-3">
+          <fieldset>
+            <legend class="block text-sm font-semibold text-gray-700 mb-3">
               {data.tools_of_interest.label}
-            </label>
+            </legend>
             <div class="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
               {data.tools_of_interest.options.map((tool: any) => (
                 <label class="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors">
@@ -156,17 +161,30 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
                 </label>
               ))}
             </div>
+          </fieldset>
+
+          <div>
+            <div
+              class="cf-turnstile"
+              data-sitekey={data.turnstile_site_key}
+              data-theme="auto"
+              data-size="flexible"
+            ></div>
+            <p class="text-xs text-gray-500 mt-2">Complete the verification before sending your request.</p>
           </div>
 
           <!-- Submit Button -->
           <div class="pt-6">
             <button
               type="submit"
-              class="w-full bg-vibrant-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-vibrant-700 transition-all shadow-lg hover:shadow-vibrant-500/30 transform hover:-translate-y-1"
+              id="access-request-submit"
+              class="w-full bg-vibrant-700 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-vibrant-800 transition-all shadow-lg hover:shadow-vibrant-500/30 transform hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
             >
               {data.submit_text}
             </button>
           </div>
+
+          <div id="form-status" class="rounded-xl px-4 py-3 text-sm font-medium" role="status" aria-live="polite" tabindex="-1" hidden></div>
 
           <!-- Privacy Note -->
           <p class="text-xs text-gray-500 mt-6 text-center">
@@ -198,10 +216,92 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         <p class="text-gray-600 mb-4">
           {data.questions_text}
         </p>
-        <a href={`${base}contact`} class="inline-block text-vibrant-600 hover:text-vibrant-800 font-semibold transition-colors">
+        <a href={`${base}contact`} class="inline-block text-vibrant-700 hover:text-vibrant-900 font-semibold transition-colors">
           {data.questions_link_text}
         </a>
       </div>
     </div>
   </section>
+
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script>
+    const form = document.querySelector<HTMLFormElement>('#access-request-form');
+    const submit = document.querySelector<HTMLButtonElement>('#access-request-submit');
+    const status = document.querySelector<HTMLElement>('#form-status');
+
+    type TurnstileWindow = Window & {
+      turnstile?: { reset: () => void };
+    };
+
+    function showStatus(message: string, outcome: 'success' | 'error') {
+      if (!status) return;
+      status.hidden = false;
+      status.textContent = message;
+      status.className =
+        outcome === 'success'
+          ? 'rounded-xl px-4 py-3 text-sm font-medium bg-green-50 text-green-800 border border-green-200'
+          : 'rounded-xl px-4 py-3 text-sm font-medium bg-red-50 text-red-800 border border-red-200';
+      status.focus();
+    }
+
+    function resetTurnstile() {
+      (window as TurnstileWindow).turnstile?.reset();
+    }
+
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!submit || !form.reportValidity()) return;
+
+      const fields = new FormData(form);
+      const turnstileToken = fields.get('cf-turnstile-response');
+      if (typeof turnstileToken !== 'string' || turnstileToken.length === 0) {
+        showStatus('Complete the verification before sending your request.', 'error');
+        return;
+      }
+
+      submit.disabled = true;
+      submit.textContent = 'Sending request…';
+      if (status) status.hidden = true;
+
+      try {
+        const response = await fetch(form.dataset.intakeUrl ?? '', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            clientRequestId: crypto.randomUUID(),
+            turnstileToken,
+            name: fields.get('name'),
+            email: fields.get('email'),
+            affiliation: fields.get('affiliation'),
+            department: fields.get('department'),
+            campus: fields.get('campus'),
+            intendedUse: fields.get('intended-use'),
+            tools: fields.getAll('tools[]'),
+          }),
+        });
+        const result: { requestId?: string; error?: { code?: string } } = await response.json().catch(() => ({}));
+        if (response.status === 201 && typeof result.requestId === 'string') {
+          form.reset();
+          resetTurnstile();
+          showStatus(`Request received. Reference: ${result.requestId}`, 'success');
+          return;
+        }
+
+        resetTurnstile();
+        if (response.status === 403 && result.error?.code === 'turnstile_failed') {
+          showStatus('The verification expired or could not be confirmed. Complete it again and resend the request.', 'error');
+        } else if (response.status === 400) {
+          showStatus('Check the form fields and resend the request.', 'error');
+        } else {
+          showStatus('The access service is temporarily unavailable. Try again shortly.', 'error');
+        }
+      } catch {
+        resetTurnstile();
+        showStatus('The access service could not be reached. Check your connection and try again.', 'error');
+      } finally {
+        submit.disabled = false;
+        submit.textContent = 'Submit Access Request';
+      }
+    });
+  </script>
 </BaseLayout>

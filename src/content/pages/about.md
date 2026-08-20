@@ -2,7 +2,7 @@
 title: About the Lab
 principles:
   - title: Privacy
-    description: Zero-retention policies that protect user data
+    description: Data-handling policies that protect user data
   - title: Sustainability
     description: Awareness of AI's environmental footprint
   - title: Transparency
@@ -20,13 +20,13 @@ cta:
     url: /tools
 ---
 
-The CUNY AI Lab (CAIL) is a faculty- and staff-led initiative at the CUNY Graduate Center that builds and maintains AI infrastructure for teaching, research, and academic work across CUNY. Its work involves hosting and maintaining the [CAIL Sandbox](https://chat.ailab.gc.cuny.edu/), a zero-retention chat environment where faculty, staff, and students can engage with curated open-weight models, configure tools for research and classroom use, and consult a public [Model Registry](/models) that explains model capabilities, licensing, and recommended use cases. CAIL's aim is not simply to provide access to AI, but to make these systems legible enough for users to evaluate, adapt, and question the tools they use.
+The CUNY AI Lab (CAIL) is a faculty- and staff-led initiative at the CUNY Graduate Center that builds and maintains AI infrastructure for teaching, research, and academic work across CUNY. Its work includes the [CAIL Sandbox](https://chat.ailab.gc.cuny.edu/), where CUNY users can work with a curated set of models and consult a public [Model Registry](/models) that explains model capabilities, licensing, and recommended uses. Model-provider calls are configured for zero retention; conversations may still be saved in a user's Sandbox account. CAIL's aim is not simply to provide access to AI, but to make these systems legible enough for users to evaluate, adapt, and question the tools they use.
 
-Alongside the Sandbox, CAIL runs a [Tools Portal](https://tools.ailab.gc.cuny.edu/) with standalone zero-retention applications for media processing and research workflows. Current offerings include tools for transcription, image description, and OCR, research support, and website development. Inside the Sandbox, the Lab also develops classroom chatbots, course-specific assistants built from syllabi and readings, and reusable project templates that instructors can adapt across sections and semesters.
+Alongside the Sandbox, CAIL runs a [Tools Portal](https://tools.ailab.gc.cuny.edu/) for research workflows, academic publishing, and direct model access. Agent Studio supports research work involving sources, data, files, drafts, and visualizations. Site Studio supports portfolios, project sites, and other academic web publishing. Model Access lets approved users manage personal API keys and review model usage.
 
 CAIL also supports teaching and experimentation through documentation, training, events, and reusable technical infrastructure. The Lab publishes [Sandbox documentation](https://cuny-ai-lab.github.io/sandbox-docs/), [guides and tutorials](/guides); hosts [events](/events); and shares its open-source projects on [GitHub](https://github.com/CUNY-AI-Lab) for reuse and adaptation.
 
-Our work is guided by privacy, sustainability, transparency, and critical AI literacy. In practice, this means zero-retention policies that protect user data, attention to environmental cost, open-weight models that can be audited, and an approach to AI that emphasizes literacy and judgment rather than dependency.
+Our work is guided by privacy, sustainability, transparency, and critical AI literacy. In practice, this means clear data-handling policies, attention to environmental cost, open-weight models that can be audited, and an approach to AI that emphasizes literacy and judgment rather than dependency.
 
 The Lab draws on recent work such as the [Google.org-sponsored Critical AI Literacy Institute (CALI)](https://criticalai.commons.gc.cuny.edu/), as well as initiatives like the [CUNY Academic Commons](https://commons.gc.cuny.edu/) and [Manifold Scholarship](https://cuny.manifoldapp.org/), which reflect the Graduate Center's longstanding commitment to creating accessible, scalable digital infrastructure for and with CUNY faculty, students, and staff.
 
