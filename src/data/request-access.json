@@ -5,6 +5,7 @@
   "features_heading": "Available services",
   "features": [
     "CAIL Sandbox with a curated set of AI models",
+    "Transcription and accessible image descriptions, plus document OCR",
     "Agent Studio and Site Studio for research and publishing workflows",
     "Personal API keys and usage information through Model Access",
     "Support from the CUNY AI Lab team"
@@ -35,6 +36,9 @@
     "label": "Specific Tools of Interest (Optional)",
     "options": [
       { "value": "sandbox", "label": "CAIL Sandbox" },
+      { "value": "transcription", "label": "Multilingual Transcription Suite" },
+      { "value": "image-description", "label": "Image Description" },
+      { "value": "ocr", "label": "Document OCR" },
       { "value": "agent-studio", "label": "Agent Studio" },
       { "value": "site-studio", "label": "Site Studio" },
       { "value": "model-access", "label": "Model Access and API keys" },
