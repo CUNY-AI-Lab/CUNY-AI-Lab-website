@@ -50,7 +50,7 @@
   "next_steps_heading": "What Happens Next?",
   "next_steps": [
     { "step": 1, "title": "Review", "description": "The Lab reviews the request and checks the information you provide." },
-    { "step": 2, "title": "Decision", "description": "You'll receive an email when the request has been reviewed." },
+    { "step": 2, "title": "Decision", "description": "The Lab updates access for approved requests." },
     { "step": 3, "title": "Access", "description_html": "Use your CUNY Login to open approved services from the <a href=\"/tools/\" class=\"font-semibold text-vibrant-800 underline underline-offset-2 hover:text-vibrant-950\">Tools page</a>." },
     { "step": 4, "title": "Support", "description": "Contact us if you need help getting started." }
   ],
