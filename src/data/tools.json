@@ -57,8 +57,6 @@
     "title": "Need access?",
     "description": "CUNY faculty, staff, and students can request access or support through the Lab's application form.",
     "url": "/request-access/",
-    "action": "Request access or support",
-    "admin_url": "https://tools.ailab.gc.cuny.edu/admin/admission",
-    "admin_action": "Review requests"
+    "action": "Request access or support"
   }
 }
