@@ -45,12 +45,53 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         </div>
       </div>
 
-      <!-- Access Request Form -->
+      <!-- Lab Application -->
       <div class="bg-white border border-gray-200 rounded-2xl p-8 md:p-10 shadow-lg relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-vibrant-400 to-cuny-blue"></div>
         <h3 class="text-2xl font-bold font-display text-neutral-stone mb-8">{data.form_heading}</h3>
 
-        <form id="access-request-form" method="post" action={data.intake_url} data-intake-url={data.intake_url} class="space-y-6" aria-describedby="form-status">
+        <form
+          id="access-request-form"
+          method="post"
+          action={data.intake_url}
+          data-intake-url={data.intake_url}
+          data-class-intake-url={data.class_intake_url}
+          class="space-y-6"
+          aria-describedby="form-status"
+        >
+          <fieldset>
+            <legend class="block text-sm font-semibold text-gray-700 mb-3">
+              {data.application_kind.legend} <span class="text-red-500">*</span>
+            </legend>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <label class="flex cursor-pointer items-start gap-3 rounded-xl border-2 border-gray-200 p-4 transition-colors has-[:checked]:border-vibrant-500 has-[:checked]:bg-vibrant-50">
+                <input
+                  type="radio"
+                  name="application-kind"
+                  value="individual"
+                  checked
+                  class="mt-1 h-5 w-5 border-gray-300 text-vibrant-600 focus:ring-vibrant-500"
+                />
+                <span>
+                  <span class="block font-bold text-neutral-stone">{data.application_kind.individual.label}</span>
+                  <span class="mt-1 block text-sm leading-relaxed text-gray-600">{data.application_kind.individual.description}</span>
+                </span>
+              </label>
+              <label class="flex cursor-pointer items-start gap-3 rounded-xl border-2 border-gray-200 p-4 transition-colors has-[:checked]:border-vibrant-500 has-[:checked]:bg-vibrant-50">
+                <input
+                  type="radio"
+                  name="application-kind"
+                  value="class"
+                  class="mt-1 h-5 w-5 border-gray-300 text-vibrant-600 focus:ring-vibrant-500"
+                />
+                <span>
+                  <span class="block font-bold text-neutral-stone">{data.application_kind.class.label}</span>
+                  <span class="mt-1 block text-sm leading-relaxed text-gray-600">{data.application_kind.class.description}</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
           <!-- Name -->
           <div>
             <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -148,8 +189,8 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
             ></textarea>
           </div>
 
-          <!-- Specific Tools -->
-          <fieldset>
+          <!-- Individual application fields -->
+          <fieldset id="individual-fields" data-application-fields="individual">
             <legend class="block text-sm font-semibold text-gray-700 mb-3">
               {data.tools_of_interest.label}
             </legend>
@@ -160,6 +201,100 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
                   <span class="text-gray-700">{tool.label}</span>
                 </label>
               ))}
+            </div>
+          </fieldset>
+
+          <!-- Class application fields -->
+          <fieldset id="class-fields" data-application-fields="class" disabled hidden aria-hidden="true">
+            <legend class="block text-sm font-semibold text-gray-700 mb-3">Class details</legend>
+            <p class="mb-5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm leading-relaxed text-blue-900">
+              {data.application_kind.class_note}
+            </p>
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div class="sm:col-span-2">
+                <label for="class-name" class="block text-sm font-semibold text-gray-700 mb-2">
+                  {data.class_fields.class_name.label} <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="class-name"
+                  name="className"
+                  data-required
+                  maxlength="240"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                  placeholder={data.class_fields.class_name.placeholder}
+                />
+              </div>
+              <div>
+                <label for="term" class="block text-sm font-semibold text-gray-700 mb-2">
+                  {data.class_fields.term.label} <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="term"
+                  name="term"
+                  data-required
+                  maxlength="120"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                  placeholder={data.class_fields.term.placeholder}
+                />
+              </div>
+              <div>
+                <label for="section" class="block text-sm font-semibold text-gray-700 mb-2">
+                  {data.class_fields.section.label} <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="section"
+                  name="section"
+                  data-required
+                  maxlength="120"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                  placeholder={data.class_fields.section.placeholder}
+                />
+              </div>
+              <div>
+                <label for="starts-on" class="block text-sm font-semibold text-gray-700 mb-2">
+                  {data.class_fields.starts_on.label} <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="date"
+                  id="starts-on"
+                  name="startsOn"
+                  data-required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                />
+              </div>
+              <div>
+                <label for="ends-on" class="block text-sm font-semibold text-gray-700 mb-2">
+                  {data.class_fields.ends_on.label} <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="date"
+                  id="ends-on"
+                  name="endsOn"
+                  data-required
+                  aria-describedby="ends-on-help"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                />
+                <p id="ends-on-help" class="mt-2 text-xs text-gray-500">{data.class_fields.ends_on.help}</p>
+              </div>
+              <div>
+                <label for="estimated-seats" class="block text-sm font-semibold text-gray-700 mb-2">
+                  {data.class_fields.estimated_seats.label} <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="number"
+                  id="estimated-seats"
+                  name="estimatedSeats"
+                  data-required
+                  min="1"
+                  step="1"
+                  inputmode="numeric"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                  placeholder={data.class_fields.estimated_seats.placeholder}
+                />
+              </div>
             </div>
           </fieldset>
 
@@ -228,6 +363,9 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     const form = document.querySelector<HTMLFormElement>('#access-request-form');
     const submit = document.querySelector<HTMLButtonElement>('#access-request-submit');
     const status = document.querySelector<HTMLElement>('#form-status');
+    const kindInputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="application-kind"]'));
+    const modeSections = Array.from(document.querySelectorAll<HTMLFieldSetElement>('[data-application-fields]'));
+    const submitLabel = submit?.textContent?.trim() ?? 'Submit Application';
 
     type TurnstileWindow = Window & {
       turnstile?: { reset: () => void };
@@ -248,11 +386,46 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
       (window as TurnstileWindow).turnstile?.reset();
     }
 
+    function setApplicationKind(kind: 'individual' | 'class', updateUrl: boolean) {
+      for (const input of kindInputs) input.checked = input.value === kind;
+      for (const section of modeSections) {
+        const active = section.dataset.applicationFields === kind;
+        section.hidden = !active;
+        section.disabled = !active;
+        section.setAttribute('aria-hidden', String(!active));
+        for (const field of section.querySelectorAll<HTMLInputElement>('[data-required]')) {
+          field.required = active;
+        }
+      }
+
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('kind', kind);
+        window.history.replaceState(null, '', url);
+      }
+    }
+
+    function isIsoDate(value: FormDataEntryValue | null): value is string {
+      if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+      const date = new Date(`${value}T00:00:00.000Z`);
+      return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
+    }
+
+    for (const input of kindInputs) {
+      input.addEventListener('change', () => {
+        if (input.checked) setApplicationKind(input.value === 'class' ? 'class' : 'individual', true);
+      });
+    }
+
+    const initialKind = new URLSearchParams(window.location.search).get('kind') === 'class' ? 'class' : 'individual';
+    setApplicationKind(initialKind, false);
+
     form?.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!submit || !form.reportValidity()) return;
 
       const fields = new FormData(form);
+      const kind = fields.get('application-kind') === 'class' ? 'class' : 'individual';
       const turnstileToken = fields.get('cf-turnstile-response');
       if (typeof turnstileToken !== 'string' || turnstileToken.length === 0) {
         showStatus('Complete the verification before sending your request.', 'error');
@@ -264,26 +437,67 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
       if (status) status.hidden = true;
 
       try {
-        const response = await fetch(form.dataset.intakeUrl ?? '', {
+        const clientRequestId = crypto.randomUUID();
+        const common = {
+          clientRequestId,
+          turnstileToken,
+          name: fields.get('name'),
+          email: fields.get('email'),
+          affiliation: fields.get('affiliation'),
+          department: fields.get('department'),
+          campus: fields.get('campus'),
+          intendedUse: fields.get('intended-use'),
+        };
+        let payload;
+        if (kind === 'class') {
+          const startsOn = fields.get('startsOn');
+          const endsOn = fields.get('endsOn');
+          if (!isIsoDate(startsOn) || !isIsoDate(endsOn)) {
+            showStatus('Enter valid class start and end dates.', 'error');
+            document.querySelector<HTMLInputElement>(isIsoDate(startsOn) ? '#ends-on' : '#starts-on')?.focus();
+            return;
+          }
+          if (endsOn < startsOn) {
+            showStatus('The class end date must be on or after the start date.', 'error');
+            document.querySelector<HTMLInputElement>('#ends-on')?.focus();
+            return;
+          }
+
+          const estimatedSeats = Number(fields.get('estimatedSeats'));
+          if (!Number.isSafeInteger(estimatedSeats) || estimatedSeats < 1) {
+            showStatus('Enter a whole number of at least 1 for estimated enrollment.', 'error');
+            document.querySelector<HTMLInputElement>('#estimated-seats')?.focus();
+            return;
+          }
+
+          payload = {
+            ...common,
+            className: fields.get('className'),
+            term: fields.get('term'),
+            section: fields.get('section'),
+            startsOn,
+            endsOn,
+            estimatedSeats,
+          };
+        } else {
+          payload = {
+            ...common,
+            tools: fields.getAll('tools[]'),
+          };
+        }
+
+        const intakeUrl = kind === 'class' ? form.dataset.classIntakeUrl : form.dataset.intakeUrl;
+        const response = await fetch(intakeUrl ?? '', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            clientRequestId: crypto.randomUUID(),
-            turnstileToken,
-            name: fields.get('name'),
-            email: fields.get('email'),
-            affiliation: fields.get('affiliation'),
-            department: fields.get('department'),
-            campus: fields.get('campus'),
-            intendedUse: fields.get('intended-use'),
-            tools: fields.getAll('tools[]'),
-          }),
+          body: JSON.stringify(payload),
         });
         const result: { requestId?: string; error?: { code?: string } } = await response.json().catch(() => ({}));
         if (response.status === 201 && typeof result.requestId === 'string') {
           form.reset();
+          setApplicationKind('individual', true);
           resetTurnstile();
-          showStatus(`Request received. Reference: ${result.requestId}`, 'success');
+          showStatus(`Application received. Reference: ${result.requestId}`, 'success');
           return;
         }
 
@@ -300,7 +514,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         showStatus('The access service could not be reached. Check your connection and try again.', 'error');
       } finally {
         submit.disabled = false;
-        submit.textContent = 'Submit Access Request';
+        submit.textContent = submitLabel;
       }
     });
   </script>

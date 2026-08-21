@@ -10,9 +10,22 @@
     "Personal API keys and usage information through Model Access",
     "Support from the CUNY AI Lab team"
   ],
-  "form_heading": "Access Request Form",
+  "form_heading": "Lab Application",
   "intake_url": "https://tools.ailab.gc.cuny.edu/request-access/api",
+  "class_intake_url": "https://tools.ailab.gc.cuny.edu/request-access/class-api",
   "turnstile_site_key": "0x4AAAAAAEOj271NcseuTrir",
+  "application_kind": {
+    "legend": "What are you applying for?",
+    "individual": {
+      "label": "Individual",
+      "description": "Access or support for your own Lab account."
+    },
+    "class": {
+      "label": "Class",
+      "description": "Access for the faculty applicant and students in an approved class."
+    },
+    "class_note": "Faculty can apply whether or not they already have Lab access."
+  },
   "form_fields": {
     "name": { "label": "Full Name", "placeholder": "Jane Doe", "required": true },
     "email": { "label": "Email Address", "placeholder": "jane.doe@cuny.edu", "required": true },
@@ -32,6 +45,14 @@
     "campus": { "label": "CUNY College/Campus", "placeholder": "e.g., Graduate Center, Hunter College, Baruch", "required": true },
     "intended_use": { "label": "Intended Use or Support Request", "placeholder": "Describe how you plan to use CAIL services, or tell us what help you need.", "required": true }
   },
+  "class_fields": {
+    "class_name": { "label": "Class Name", "placeholder": "e.g., Introduction to Digital Humanities" },
+    "term": { "label": "Term", "placeholder": "e.g., Fall 2026" },
+    "section": { "label": "Section", "placeholder": "e.g., 01 or A" },
+    "starts_on": { "label": "Start Date" },
+    "ends_on": { "label": "End Date", "help": "The last day students need access." },
+    "estimated_seats": { "label": "Estimated Enrollment", "placeholder": "e.g., 30" }
+  },
   "tools_of_interest": {
     "label": "Specific Tools of Interest (Optional)",
     "options": [
@@ -45,13 +66,13 @@
       { "value": "support", "label": "Account or technical support" }
     ]
   },
-  "submit_text": "Submit Access Request",
+  "submit_text": "Submit Application",
   "privacy_note": "The Lab stores this information to review your request, manage access, and contact you about CAIL services.",
   "next_steps_heading": "What Happens Next?",
   "next_steps": [
-    { "step": 1, "title": "Review", "description": "The Lab reviews the request and checks the information you provide." },
-    { "step": 2, "title": "Decision", "description": "The Lab updates access for approved requests." },
-    { "step": 3, "title": "Access", "description_html": "Use your CUNY Login to open approved services from the <a href=\"/tools/\" class=\"font-semibold text-vibrant-800 underline underline-offset-2 hover:text-vibrant-950\">Tools page</a>." },
+    { "step": 1, "title": "Review", "description": "The Lab reviews the application and checks the information provided." },
+    { "step": 2, "title": "Decision", "description": "The Lab grants individual access or prepares an approved class." },
+    { "step": 3, "title": "Access", "description_html": "Individual applicants use the <a href=\"/tools/\" class=\"font-semibold text-vibrant-800 underline underline-offset-2 hover:text-vibrant-950\">Tools page</a> and CUNY Login. Approved instructors use CUNY Login; students use the class invitation." },
     { "step": 4, "title": "Support", "description": "Contact us if you need help getting started." }
   ],
   "questions_text": "Have questions about access or the platform?",
