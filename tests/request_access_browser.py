@@ -285,7 +285,7 @@ def test_keyboard_copy_and_safe_error(page: Page) -> None:
     assert "email notification" not in body
     assert "faculty manage" not in body
     assert_equal(page.locator('a[href*="/admin/admission"]').count(), 0)
-    assert page.get_by_text("The Lab reviews the application and decides whether to approve the class.").is_visible()
+    assert page.get_by_text("The Lab updates access for approved requests or follows up about next steps.").is_visible()
     assert page.get_by_text("After class approval, coordinators use CUNY Login; students use the class invitation.").is_visible()
     assert "faculty automatically" not in body
     assert "automatically granted" not in body
