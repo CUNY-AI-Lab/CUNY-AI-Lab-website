@@ -12,7 +12,7 @@ npm run preview  # Preview production build locally
 
 ## Architecture
 
-Astro static site with Tailwind CSS. Auto-deploys to AWS Amplify on push to main (requires PR with 1 approval and a passing "Website CI" check). Production URL: ailab.gc.cuny.edu (note: `astro.config.mjs` `site` field is set to `cunyailab.org` for legacy reasons but the canonical domain is `ailab.gc.cuny.edu`)
+Astro static site with Tailwind CSS. Auto-deploys to AWS Amplify on push to main (requires a PR with a passing "Website CI" check; no approval is required). Production URL: ailab.gc.cuny.edu (note: `astro.config.mjs` `site` field is set to `cunyailab.org` for legacy reasons but the canonical domain is `ailab.gc.cuny.edu`)
 
 **Deployment — read before touching the build toolchain:**
 - AWS Amplify (app id `d1j8mvw9hg41u1`) builds and deploys `main` using `amplify.yml` at the repo root. That file overrides the Amplify console buildSpec — the console settings are not the source of truth.
