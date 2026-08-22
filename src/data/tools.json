@@ -32,6 +32,13 @@
       "tone": "indigo"
     },
     {
+      "title": "PDF Accessibility",
+      "description": "Check and improve PDF files for people who use screen readers and other assistive technology.",
+      "url": "https://tools.ailab.gc.cuny.edu/pdf-accessibility/",
+      "action": "Open PDF Accessibility",
+      "tone": "indigo"
+    },
+    {
       "title": "Agent Studio",
       "description": "Build research workflows that can search sources, inspect data, manage files, and produce drafts and visualizations.",
       "url": "https://tools.ailab.gc.cuny.edu/agent-studio/",
@@ -55,10 +62,8 @@
   ],
   "access": {
     "title": "Need access?",
-    "description": "CUNY faculty, staff, and students can request access or support through the Lab's application form.",
+    "description": "Apply for individual access or request access for a class. Class coordinators do not need existing Lab access to apply.",
     "url": "/request-access/",
-    "action": "Request access or support",
-    "admin_url": "https://tools.ailab.gc.cuny.edu/admin/admission",
-    "admin_action": "Review requests"
+    "action": "Request access or support"
   }
 }
