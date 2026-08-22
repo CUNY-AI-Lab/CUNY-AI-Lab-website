@@ -423,7 +423,9 @@ def test_mobile_layout_and_deep_link(page: Page) -> None:
     page.set_viewport_size({"width": 390, "height": 844})
     page.goto(f"{BASE_URL}/request-access/?kind=class")
     assert class_choice(page).is_checked()
-    assert page.get_by_text("Request access for a course you teach or coordinate; the Lab reviews the class before anyone is invited.").is_visible()
+    assert page.get_by_text(
+        "Request access for a course or cohort. The Lab reviews the application before anyone is invited."
+    ).is_visible()
     assert page.get_by_text("A class application is separate from an individual Lab application. You do not need existing Lab access to apply for a class. Approved participants receive regular Lab access for the class dates.").is_visible()
     dimensions = page.evaluate(
         "({ scrollWidth: document.documentElement.scrollWidth, innerWidth: window.innerWidth })"
