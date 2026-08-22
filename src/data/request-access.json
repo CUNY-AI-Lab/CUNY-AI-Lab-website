@@ -60,6 +60,7 @@
       { "value": "transcription", "label": "Multilingual Transcription Suite" },
       { "value": "image-description", "label": "Image Description" },
       { "value": "ocr", "label": "Document OCR" },
+      { "value": "pdf-accessibility", "label": "PDF Accessibility" },
       { "value": "agent-studio", "label": "Agent Studio" },
       { "value": "site-studio", "label": "Site Studio" },
       { "value": "model-access", "label": "Model Access and API keys" },

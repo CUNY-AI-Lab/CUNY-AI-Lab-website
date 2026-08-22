@@ -32,6 +32,13 @@
       "tone": "indigo"
     },
     {
+      "title": "PDF Accessibility",
+      "description": "Check and improve PDF files for people who use screen readers and other assistive technology.",
+      "url": "https://tools.ailab.gc.cuny.edu/pdf-accessibility/",
+      "action": "Open PDF Accessibility",
+      "tone": "indigo"
+    },
+    {
       "title": "Agent Studio",
       "description": "Build research workflows that can search sources, inspect data, manage files, and produce drafts and visualizations.",
       "url": "https://tools.ailab.gc.cuny.edu/agent-studio/",
