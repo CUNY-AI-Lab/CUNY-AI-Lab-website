@@ -45,11 +45,11 @@ def add_turnstile_token(page: Page, value: str = "test-turnstile-token") -> None
     )
 
 
-def fill_common(page: Page) -> dict[str, str]:
+def fill_common(page: Page, affiliation: str = "faculty") -> dict[str, str]:
     values = {
         "name": "Professor Ada Lovelace",
         "email": "ada.lovelace@cuny.edu",
-        "affiliation": "faculty",
+        "affiliation": affiliation,
         "department": "Digital Humanities",
         "campus": "Graduate Center",
         "intendedUse": "Coursework using Lab tools.",
@@ -188,7 +188,7 @@ def test_class_mode(page: Page) -> None:
     assert_equal(page.locator("#access-request-form").get_attribute("action"), CLASS_INTAKE_URL)
     assert page.get_by_label("CAIL Sandbox").is_disabled()
 
-    common = fill_common(page)
+    common = fill_common(page, affiliation="staff")
     add_turnstile_token(page)
     payloads, unexpected_urls = capture_success(page, "req-class", CLASS_INTAKE_URL)
 
@@ -286,7 +286,7 @@ def test_keyboard_copy_and_safe_error(page: Page) -> None:
     assert "faculty manage" not in body
     assert_equal(page.locator('a[href*="/admin/admission"]').count(), 0)
     assert page.get_by_text("The Lab reviews the application and decides whether to approve the class.").is_visible()
-    assert page.get_by_text("After class approval, instructors use CUNY Login; students use the class invitation.").is_visible()
+    assert page.get_by_text("After class approval, coordinators use CUNY Login; students use the class invitation.").is_visible()
     assert "faculty automatically" not in body
     assert "automatically granted" not in body
 
@@ -346,12 +346,83 @@ def test_backend_error_and_retry(page: Page) -> None:
     assert_equal(attempts, 2)
 
 
+def test_ambiguous_retry_reuses_client_request_id(page: Page) -> None:
+    page.goto(f"{BASE_URL}/request-access/")
+    fill_common(page)
+    add_turnstile_token(page)
+    payloads: list[dict[str, Any]] = []
+    attempts = 0
+
+    def lose_first_response(route: Route) -> None:
+        nonlocal attempts
+        attempts += 1
+        payloads.append(json.loads(route.request.post_data or "{}"))
+        if attempts == 1:
+            route.abort("failed")
+            return
+        route.fulfill(
+            status=201,
+            content_type="application/json",
+            headers={"access-control-allow-origin": "*"},
+            body=json.dumps({"requestId": "req-ambiguous"}),
+        )
+
+    page.route(INDIVIDUAL_INTAKE_URL, lose_first_response)
+    submit = page.get_by_role("button", name="Submit Application")
+    submit.click()
+    page.get_by_text("The access service could not be reached. Check your connection and try again.").wait_for()
+    assert not submit.is_disabled()
+
+    submit.click()
+    page.get_by_text("Application received. Reference: req-ambiguous").wait_for()
+    assert_equal(attempts, 2)
+    assert_equal(payloads[0]["clientRequestId"], payloads[1]["clientRequestId"])
+
+
+def test_changed_payload_gets_new_client_request_id(page: Page) -> None:
+    page.goto(f"{BASE_URL}/request-access/")
+    fill_common(page)
+    add_turnstile_token(page)
+    payloads: list[dict[str, Any]] = []
+    attempts = 0
+
+    def fail_then_succeed(route: Route) -> None:
+        nonlocal attempts
+        attempts += 1
+        payloads.append(json.loads(route.request.post_data or "{}"))
+        if attempts == 1:
+            route.fulfill(
+                status=503,
+                content_type="application/json",
+                headers={"access-control-allow-origin": "*"},
+                body=json.dumps({"error": {"code": "admission_unavailable"}}),
+            )
+            return
+        route.fulfill(
+            status=201,
+            content_type="application/json",
+            headers={"access-control-allow-origin": "*"},
+            body=json.dumps({"requestId": "req-changed"}),
+        )
+
+    page.route(INDIVIDUAL_INTAKE_URL, fail_then_succeed)
+    submit = page.get_by_role("button", name="Submit Application")
+    submit.click()
+    page.get_by_text("The access service is temporarily unavailable. Try again shortly.").wait_for()
+    page.get_by_label("Department/Program").fill("English")
+    submit.click()
+    page.get_by_text("Application received. Reference: req-changed").wait_for()
+    assert_equal(attempts, 2)
+    assert payloads[0]["clientRequestId"] != payloads[1]["clientRequestId"]
+    assert_equal(payloads[1]["department"], "English")
+
+
 def test_mobile_layout_and_deep_link(page: Page) -> None:
     page.set_viewport_size({"width": 390, "height": 844})
     page.goto(f"{BASE_URL}/request-access/?kind=class")
     assert class_choice(page).is_checked()
-    assert page.get_by_text("Request class access for a faculty-led course; the Lab reviews the application before students are invited.").is_visible()
-    assert page.get_by_text("Submitting this form does not grant Lab membership. Faculty can apply whether or not they already have Lab access.").is_visible()
+    assert page.get_by_text("Request class access for a course; the course coordinator submits details for Lab review before students are invited.").is_visible()
+    assert page.get_by_text("Submitting this form does not grant Lab membership. Course coordinators can apply whether or not they already have Lab access.").is_visible()
     dimensions = page.evaluate(
         "({ scrollWidth: document.documentElement.scrollWidth, innerWidth: window.innerWidth })"
     )
@@ -374,6 +445,8 @@ def main() -> None:
                 test_class_mode,
                 test_keyboard_copy_and_safe_error,
                 test_backend_error_and_retry,
+                test_ambiguous_retry_reuses_client_request_id,
+                test_changed_payload_gets_new_client_request_id,
                 test_mobile_layout_and_deep_link,
             ):
                 context = browser.new_context(viewport={"width": 1440, "height": 1000})

@@ -367,6 +367,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     const kindInputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="application-kind"]'));
     const modeSections = Array.from(document.querySelectorAll<HTMLFieldSetElement>('[data-application-fields]'));
     const submitLabel = submit?.textContent?.trim() ?? 'Submit Application';
+    let pendingApplication: { clientRequestId: string; fingerprint: string } | null = null;
 
     type TurnstileWindow = Window & {
       turnstile?: { reset: () => void };
@@ -385,6 +386,13 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
     function resetTurnstile() {
       (window as TurnstileWindow).turnstile?.reset();
+    }
+
+    function clientRequestIdFor(fingerprint: string) {
+      if (pendingApplication?.fingerprint === fingerprint) return pendingApplication.clientRequestId;
+      const clientRequestId = crypto.randomUUID();
+      pendingApplication = { clientRequestId, fingerprint };
+      return clientRequestId;
     }
 
     function setApplicationKind(kind: 'individual' | 'class', updateUrl: boolean) {
@@ -443,10 +451,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
       if (status) status.hidden = true;
 
       try {
-        const clientRequestId = crypto.randomUUID();
         const common = {
-          clientRequestId,
-          turnstileToken,
           name: fields.get('name'),
           email: fields.get('email'),
           affiliation: fields.get('affiliation'),
@@ -454,7 +459,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
           campus: fields.get('campus'),
           intendedUse: fields.get('intended-use'),
         };
-        let payload;
+        let applicationFields: Record<string, unknown>;
         if (kind === 'class') {
           const startsOn = fields.get('startsOn');
           const endsOn = fields.get('endsOn');
@@ -476,7 +481,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
             return;
           }
 
-          payload = {
+          applicationFields = {
             ...common,
             className: fields.get('className'),
             term: fields.get('term'),
@@ -486,11 +491,19 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
             estimatedSeats,
           };
         } else {
-          payload = {
+          applicationFields = {
             ...common,
             tools: fields.getAll('tools[]'),
           };
         }
+
+        // A refreshed Turnstile token does not change the application being retried.
+        const fingerprint = JSON.stringify({ kind, ...applicationFields });
+        const payload = {
+          clientRequestId: clientRequestIdFor(fingerprint),
+          turnstileToken,
+          ...applicationFields,
+        };
 
         const intakeUrl = kind === 'class' ? form.dataset.classIntakeUrl : form.dataset.intakeUrl;
         const response = await fetch(intakeUrl ?? '', {
@@ -500,6 +513,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         });
         const result: { requestId?: string; error?: { code?: string } } = await response.json().catch(() => ({}));
         if (response.status === 201 && typeof result.requestId === 'string') {
+          pendingApplication = null;
           form.reset();
           setApplicationKind('individual', true);
           resetTurnstile();
