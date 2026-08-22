@@ -71,7 +71,7 @@
   "next_steps_heading": "What Happens Next?",
   "next_steps": [
     { "step": 1, "title": "Review", "description": "The Lab reviews the application and checks the information provided." },
-    { "step": 2, "title": "Decision", "description": "The Lab reviews the application and decides whether to approve the class." },
+    { "step": 2, "title": "Decision", "description": "The Lab updates access for approved requests or follows up about next steps." },
     { "step": 3, "title": "Access", "description_html": "Individual applicants use the <a href=\"/tools/\" class=\"font-semibold text-vibrant-800 underline underline-offset-2 hover:text-vibrant-950\">Tools page</a> and CUNY Login. After class approval, coordinators use CUNY Login; students use the class invitation." },
     { "step": 4, "title": "Support", "description": "Contact us if you need help getting started." }
   ],
