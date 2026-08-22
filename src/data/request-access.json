@@ -22,7 +22,7 @@
     },
     "class": {
       "label": "Class",
-      "description": "Request access for a course you teach or coordinate; the Lab reviews the class before anyone is invited."
+      "description": "Request access for a course or cohort. The Lab reviews the application before anyone is invited."
     },
     "class_note": "A class application is separate from an individual Lab application. You do not need existing Lab access to apply for a class. Approved participants receive regular Lab access for the class dates."
   },
