@@ -53,6 +53,19 @@ def assert_selected_panel(page: Page, panel_id: str) -> None:
     assert_equal(selected.count(), 2)
 
 
+def ax_image_names(page: Page) -> list[str]:
+    cdp = page.context.new_cdp_session(page)
+    try:
+        tree = cdp.send("Accessibility.getFullAXTree")
+    finally:
+        cdp.detach()
+    return [
+        node.get("name", {}).get("value", "")
+        for node in tree["nodes"]
+        if node.get("role", {}).get("value") == "image"
+    ]
+
+
 def test_navigation_is_deterministic(page: Page) -> None:
     for _ in range(3):
         load_tools(page)
@@ -118,6 +131,55 @@ def test_tabs_links_and_accessibility_contract(page: Page) -> None:
     assert "Math.random" not in page.locator("body").evaluate("body => body.innerHTML")
 
 
+def test_media_slider_accessibility(page: Page) -> None:
+    load_tools(page, "#media")
+    slide_alts = [
+        "Demo of Multilingual Transcription Suite - uploading audio and receiving transcript",
+        "Image Description tool interface showing alt-text generation",
+        "Document OCR tool interface showing text extraction",
+    ]
+
+    def assert_active_slide(active_index: int) -> None:
+        for index, alt in enumerate(slide_alts):
+            slide = page.locator(f"#slide-{index}")
+            is_active = index == active_index
+            assert_equal(slide.get_attribute("aria-hidden"), "false" if is_active else "true")
+            opacity = slide.evaluate(
+                "element => element.style.opacity || getComputedStyle(element).opacity"
+            )
+            assert_equal(opacity, "1" if is_active else "0")
+
+            image_is_exposed = alt in ax_image_names(page)
+            assert_equal(image_is_exposed, is_active)
+
+    assert_active_slide(0)
+    page.locator('.slider-dot[data-slide="1"]').click()
+    assert_active_slide(1)
+
+
+def test_mobile_initial_load_does_not_scroll(page: Page) -> None:
+    page.set_viewport_size({"width": 390, "height": 844})
+    page.add_init_script(
+        """
+        window.__scrollIntoViewCalls = 0;
+        Element.prototype.scrollIntoView = function() {
+          window.__scrollIntoViewCalls += 1;
+        };
+        """
+    )
+    load_tools(page)
+    assert_equal(page.evaluate("window.scrollY"), 0)
+    assert_equal(page.evaluate("window.__scrollIntoViewCalls"), 0)
+
+    page.goto("about:blank")
+    load_tools(page, "#media")
+    assert_equal(page.evaluate("window.scrollY"), 0)
+    assert_equal(page.evaluate("window.__scrollIntoViewCalls"), 0)
+
+    page.locator('.mobile-tab[data-panel="assistants"]').click()
+    assert_equal(page.evaluate("window.__scrollIntoViewCalls"), 1)
+
+
 def test_keyboard_tab_navigation(page: Page) -> None:
     load_tools(page)
     sidebar_tabs = page.locator('.tools-sidebar [role="tab"]')
@@ -138,6 +200,8 @@ def main() -> None:
             tests = (
                 test_navigation_is_deterministic,
                 test_tabs_links_and_accessibility_contract,
+                test_media_slider_accessibility,
+                test_mobile_initial_load_does_not_scroll,
                 test_keyboard_tab_navigation,
             )
             for test in tests:

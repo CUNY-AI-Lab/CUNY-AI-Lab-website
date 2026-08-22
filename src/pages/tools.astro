@@ -307,9 +307,9 @@ const base = import.meta.env.BASE_URL;
                 <div class="relative">
                   <div id="media-slider" class="relative rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-gray-50">
                     <div class="relative aspect-[16/10] sm:aspect-[16/9] md:aspect-[16/8]">
-                      <img id="slide-0" src={`${base}images/tools/demo-asr.gif`} alt="Demo of Multilingual Transcription Suite - uploading audio and receiving transcript" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-100" />
-                      <img id="slide-1" src={`${base}images/tools/tool-alt-text.png`} alt="Image Description tool interface showing alt-text generation" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
-                      <img id="slide-2" src={`${base}images/tools/tool-ocr.png`} alt="Document OCR tool interface showing text extraction" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
+                      <img id="slide-0" src={`${base}images/tools/demo-asr.gif`} alt="Demo of Multilingual Transcription Suite - uploading audio and receiving transcript" aria-hidden="false" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-100" />
+                      <img id="slide-1" src={`${base}images/tools/tool-alt-text.png`} alt="Image Description tool interface showing alt-text generation" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
+                      <img id="slide-2" src={`${base}images/tools/tool-ocr.png`} alt="Document OCR tool interface showing text extraction" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
                     </div>
                   </div>
                   <button id="slider-prev" aria-label="Previous screenshot" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white transition-colors z-10">
@@ -450,7 +450,7 @@ const base = import.meta.env.BASE_URL;
         'model-access': { border: 'border-blue-500', bg: 'bg-blue-50', text: 'text-blue-700' }
       };
 
-      function switchPanel(panelId, writeHash) {
+      function switchPanel(panelId, writeHash, shouldScroll) {
         // Hide all panels
         panels.forEach(function(p) {
           p.classList.add('hidden');
@@ -498,7 +498,7 @@ const base = import.meta.env.BASE_URL;
         }
 
         // Scroll to top of content on mobile
-        if (window.innerWidth < 1024) {
+        if (shouldScroll && window.innerWidth < 1024) {
           var contentArea = document.querySelector('.content-panel:not(.hidden)');
           if (contentArea) {
             contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -509,14 +509,14 @@ const base = import.meta.env.BASE_URL;
       // Sidebar click handlers
       sidebarCards.forEach(function(card) {
         card.addEventListener('click', function() {
-          switchPanel(this.dataset.panel, true);
+          switchPanel(this.dataset.panel, true, true);
         });
       });
 
       // Mobile tab click handlers
       mobileTabs.forEach(function(tab) {
         tab.addEventListener('click', function() {
-          switchPanel(this.dataset.panel, true);
+          switchPanel(this.dataset.panel, true, true);
         });
       });
 
@@ -553,12 +553,12 @@ const base = import.meta.env.BASE_URL;
         return panelIds.indexOf(id) !== -1 ? id : null;
       }
       var initialPanel = panelFromHash() || 'sandbox';
-      switchPanel(initialPanel);
+      switchPanel(initialPanel, false, false);
 
       // Respond to hash changes (in-page anchor links, manual URL edits, back/forward)
       window.addEventListener('hashchange', function() {
         var id = panelFromHash();
-        if (id) switchPanel(id);
+        if (id) switchPanel(id, false, true);
       });
 
       // Initialize panel opacity
@@ -586,6 +586,7 @@ const base = import.meta.env.BASE_URL;
         if (!slides[0]) return;
 
         slides[current].style.opacity = '0';
+        slides[current].setAttribute('aria-hidden', 'true');
         if (dots[current]) {
           dots[current].className = 'slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors';
           dots[current].setAttribute('aria-pressed', 'false');
@@ -595,6 +596,7 @@ const base = import.meta.env.BASE_URL;
         current = (index + total) % total;
 
         slides[current].style.opacity = '1';
+        slides[current].setAttribute('aria-hidden', 'false');
         if (dots[current]) {
           dots[current].className = 'slider-dot w-2.5 h-2.5 rounded-full bg-teal-500 transition-colors';
           dots[current].setAttribute('aria-pressed', 'true');
