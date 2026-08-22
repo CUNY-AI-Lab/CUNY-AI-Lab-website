@@ -10,7 +10,7 @@ This guide covers how to make content changes and submit them for review.
 | About page text | `src/content/pages/about.md` |
 | Contact page text | `src/content/pages/contact.md` |
 | Team members | `src/data/team.json` |
-| Tools descriptions | `src/data/tools.json` |
+| Tools descriptions | `src/pages/tools.astro` (content is inline in the page) |
 | Resources list | `src/data/resources.json` |
 | Events | `src/data/events.json` |
 | Request Access form | `src/data/request-access.json` |
