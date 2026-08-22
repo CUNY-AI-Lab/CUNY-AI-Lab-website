@@ -220,7 +220,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
                   id="class-name"
                   name="className"
                   data-required
-                  maxlength="240"
+                  maxlength="200"
                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
                   placeholder={data.class_fields.class_name.placeholder}
                 />
@@ -289,6 +289,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
                   name="estimatedSeats"
                   data-required
                   min="1"
+                  max="100000"
                   step="1"
                   inputmode="numeric"
                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
@@ -388,6 +389,11 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
     function setApplicationKind(kind: 'individual' | 'class', updateUrl: boolean) {
       for (const input of kindInputs) input.checked = input.value === kind;
+      if (form) {
+        form.action = kind === 'class'
+          ? (form.dataset.classIntakeUrl ?? form.action)
+          : (form.dataset.intakeUrl ?? form.action);
+      }
       for (const section of modeSections) {
         const active = section.dataset.applicationFields === kind;
         section.hidden = !active;
@@ -464,8 +470,8 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
           }
 
           const estimatedSeats = Number(fields.get('estimatedSeats'));
-          if (!Number.isSafeInteger(estimatedSeats) || estimatedSeats < 1) {
-            showStatus('Enter a whole number of at least 1 for estimated enrollment.', 'error');
+          if (!Number.isSafeInteger(estimatedSeats) || estimatedSeats < 1 || estimatedSeats > 100000) {
+            showStatus('Enter a whole number from 1 to 100,000 for estimated enrollment.', 'error');
             document.querySelector<HTMLInputElement>('#estimated-seats')?.focus();
             return;
           }

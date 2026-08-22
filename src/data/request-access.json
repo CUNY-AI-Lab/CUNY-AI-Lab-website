@@ -22,9 +22,9 @@
     },
     "class": {
       "label": "Class",
-      "description": "Access for the faculty applicant and students in an approved class."
+      "description": "Request class access for a faculty-led course; the Lab reviews the application before students are invited."
     },
-    "class_note": "Faculty can apply whether or not they already have Lab access."
+    "class_note": "Submitting this form does not grant Lab membership. Faculty can apply whether or not they already have Lab access."
   },
   "form_fields": {
     "name": { "label": "Full Name", "placeholder": "Jane Doe", "required": true },
@@ -71,8 +71,8 @@
   "next_steps_heading": "What Happens Next?",
   "next_steps": [
     { "step": 1, "title": "Review", "description": "The Lab reviews the application and checks the information provided." },
-    { "step": 2, "title": "Decision", "description": "The Lab grants individual access or prepares an approved class." },
-    { "step": 3, "title": "Access", "description_html": "Individual applicants use the <a href=\"/tools/\" class=\"font-semibold text-vibrant-800 underline underline-offset-2 hover:text-vibrant-950\">Tools page</a> and CUNY Login. Approved instructors use CUNY Login; students use the class invitation." },
+    { "step": 2, "title": "Decision", "description": "The Lab reviews the application and decides whether to approve the class." },
+    { "step": 3, "title": "Access", "description_html": "Individual applicants use the <a href=\"/tools/\" class=\"font-semibold text-vibrant-800 underline underline-offset-2 hover:text-vibrant-950\">Tools page</a> and CUNY Login. After class approval, instructors use CUNY Login; students use the class invitation." },
     { "step": 4, "title": "Support", "description": "Contact us if you need help getting started." }
   ],
   "questions_text": "Have questions about access or the platform?",
