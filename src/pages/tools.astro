@@ -417,9 +417,12 @@ const base = import.meta.env.BASE_URL;
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-12 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-7">
       <div class="max-w-2xl">
         <h2 id="access-heading" class="text-2xl font-bold font-display text-neutral-stone">Need access?</h2>
-        <p class="mt-2 text-gray-600 leading-relaxed">CUNY faculty, staff, and students can request access or support through the Lab's application form.</p>
+        <p class="mt-2 text-gray-600 leading-relaxed">Apply for individual access or request access for a class. Class coordinators do not need existing Lab access to apply.</p>
       </div>
-      <a href={`${base}request-access/`} class="inline-flex justify-center items-center px-6 py-3 bg-vibrant-700 text-white rounded-full font-semibold hover:bg-vibrant-800 transition-colors shadow-md">Request access or support</a>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href={`${base}request-access/`} class="inline-flex justify-center items-center px-6 py-3 bg-vibrant-700 text-white rounded-full font-semibold hover:bg-vibrant-800 transition-colors shadow-md">Individual access</a>
+        <a href={`${base}request-access/?kind=class`} class="inline-flex justify-center items-center px-6 py-3 bg-white text-vibrant-800 border-2 border-vibrant-700 rounded-full font-semibold hover:bg-vibrant-50 transition-colors">Class access</a>
+      </div>
     </div>
   </section>
 

@@ -22,9 +22,9 @@
     },
     "class": {
       "label": "Class",
-      "description": "Request class access for a course; the course coordinator submits details for Lab review before students are invited."
+      "description": "Request access for a course you teach or coordinate; the Lab reviews the class before anyone is invited."
     },
-    "class_note": "Submitting this form does not grant Lab membership. Course coordinators can apply whether or not they already have Lab access."
+    "class_note": "A class application is separate from an individual Lab application. You do not need existing Lab access to apply for a class. Approved participants receive regular Lab access for the class dates."
   },
   "form_fields": {
     "name": { "label": "Full Name", "placeholder": "Jane Doe", "required": true },
@@ -50,7 +50,7 @@
     "term": { "label": "Term", "placeholder": "e.g., Fall 2026" },
     "section": { "label": "Section", "placeholder": "e.g., 01 or A" },
     "starts_on": { "label": "Start Date" },
-    "ends_on": { "label": "End Date", "help": "The last day students need access." },
+    "ends_on": { "label": "End Date", "help": "The last day participants need access." },
     "estimated_seats": { "label": "Estimated Enrollment", "placeholder": "e.g., 30" }
   },
   "tools_of_interest": {
@@ -71,9 +71,9 @@
   "next_steps_heading": "What Happens Next?",
   "next_steps": [
     { "step": 1, "title": "Review", "description": "The Lab reviews the application and checks the information provided." },
-    { "step": 2, "title": "Decision", "description": "The Lab updates access for approved requests or follows up about next steps." },
-    { "step": 3, "title": "Access", "description_html": "Individual applicants use the <a href=\"/tools/\" class=\"font-semibold text-vibrant-800 underline underline-offset-2 hover:text-vibrant-950\">Tools page</a> and CUNY Login. After class approval, coordinators use CUNY Login; students use the class invitation." },
-    { "step": 4, "title": "Support", "description": "Contact us if you need help getting started." }
+    { "step": 2, "title": "Decision", "description": "The Lab approves the request, declines it, or follows up for more information." },
+    { "step": 3, "title": "Invitation", "description": "After class approval, coordinators sign in with CUNY Login. Participants use the invitation to sign in and claim a spot." },
+    { "step": 4, "title": "Access", "description_html": "Individual applicants and approved class participants use the same regular Lab access through the <a href=\"/tools/\" class=\"font-semibold text-vibrant-800 underline underline-offset-2 hover:text-vibrant-950\">Tools page</a>. Class access follows the approved dates." }
   ],
   "questions_text": "Have questions about access or the platform?",
   "questions_link_text": "Contact the CUNY AI Lab Team →"

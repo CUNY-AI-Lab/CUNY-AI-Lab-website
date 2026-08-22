@@ -47,8 +47,8 @@ def add_turnstile_token(page: Page, value: str = "test-turnstile-token") -> None
 
 def fill_common(page: Page, affiliation: str = "faculty") -> dict[str, str]:
     values = {
-        "name": "Professor Ada Lovelace",
-        "email": "ada.lovelace@cuny.edu",
+        "name": "Alex Rivera",
+        "email": "alex.rivera@cuny.edu",
         "affiliation": affiliation,
         "department": "Digital Humanities",
         "campus": "Graduate Center",
@@ -188,7 +188,8 @@ def test_class_mode(page: Page) -> None:
     assert_equal(page.locator("#access-request-form").get_attribute("action"), CLASS_INTAKE_URL)
     assert page.get_by_label("CAIL Sandbox").is_disabled()
 
-    common = fill_common(page, affiliation="staff")
+    # Class intake is not restricted to faculty or to existing Lab members.
+    common = fill_common(page, affiliation="other")
     add_turnstile_token(page)
     payloads, unexpected_urls = capture_success(page, "req-class", CLASS_INTAKE_URL)
 
@@ -285,8 +286,9 @@ def test_keyboard_copy_and_safe_error(page: Page) -> None:
     assert "email notification" not in body
     assert "faculty manage" not in body
     assert_equal(page.locator('a[href*="/admin/admission"]').count(), 0)
-    assert page.get_by_text("The Lab updates access for approved requests or follows up about next steps.").is_visible()
-    assert page.get_by_text("After class approval, coordinators use CUNY Login; students use the class invitation.").is_visible()
+    assert page.get_by_text("The Lab approves the request, declines it, or follows up for more information.").is_visible()
+    assert page.get_by_text("After class approval, coordinators sign in with CUNY Login. Participants use the invitation to sign in and claim a spot.").is_visible()
+    assert page.get_by_text("Individual applicants and approved class participants use the same regular Lab access").is_visible()
     assert "faculty automatically" not in body
     assert "automatically granted" not in body
 
@@ -421,8 +423,8 @@ def test_mobile_layout_and_deep_link(page: Page) -> None:
     page.set_viewport_size({"width": 390, "height": 844})
     page.goto(f"{BASE_URL}/request-access/?kind=class")
     assert class_choice(page).is_checked()
-    assert page.get_by_text("Request class access for a course; the course coordinator submits details for Lab review before students are invited.").is_visible()
-    assert page.get_by_text("Submitting this form does not grant Lab membership. Course coordinators can apply whether or not they already have Lab access.").is_visible()
+    assert page.get_by_text("Request access for a course you teach or coordinate; the Lab reviews the class before anyone is invited.").is_visible()
+    assert page.get_by_text("A class application is separate from an individual Lab application. You do not need existing Lab access to apply for a class. Approved participants receive regular Lab access for the class dates.").is_visible()
     dimensions = page.evaluate(
         "({ scrollWidth: document.documentElement.scrollWidth, innerWidth: window.innerWidth })"
     )

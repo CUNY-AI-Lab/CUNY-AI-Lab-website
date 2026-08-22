@@ -25,6 +25,7 @@ EXPECTED_LINKS = {
     "https://tools.ailab.gc.cuny.edu/model-access",
     "/models",
     "/request-access/",
+    "/request-access/?kind=class",
 }
 
 
@@ -129,6 +130,9 @@ def test_tabs_links_and_accessibility_contract(page: Page) -> None:
     assert "Prompts and outputs are never stored" not in body
     assert "no data from prompts or responses is stored" not in body
     assert "Math.random" not in page.locator("body").evaluate("body => body.innerHTML")
+    assert "Class coordinators do not need existing Lab access to apply." in body
+    assert page.get_by_role("link", name="Individual access").is_visible()
+    assert page.get_by_role("link", name="Class access").is_visible()
 
 
 def test_media_slider_accessibility(page: Page) -> None:
