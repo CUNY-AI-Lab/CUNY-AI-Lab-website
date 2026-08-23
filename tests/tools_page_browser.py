@@ -126,6 +126,11 @@ def test_tabs_links_and_accessibility_contract(page: Page) -> None:
         "conversations may still be saved in your Sandbox account."
     )
     assert privacy_copy in body
+    assert (
+        "Speech-to-text is available through Media Processing; "
+        "more accessibility tools are in development"
+    ) in body
+    assert "Text-to-speech, speech-to-text, and more planned" not in body
     assert "Spring 2026" not in body
     assert "Prompts and outputs are never stored" not in body
     assert "no data from prompts or responses is stored" not in body
