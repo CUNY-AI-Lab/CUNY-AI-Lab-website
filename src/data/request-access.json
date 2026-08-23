@@ -7,7 +7,7 @@
     "CAIL Sandbox with a curated set of AI models",
     "Transcription and accessible image descriptions, plus document OCR",
     "Agent Studio and Site Studio for research and publishing workflows",
-    "Personal API keys and usage information through Model Access",
+    "Personal API keys for direct CAIL Model API access",
     "Support from the CUNY AI Lab team"
   ],
   "form_heading": "Lab Application",

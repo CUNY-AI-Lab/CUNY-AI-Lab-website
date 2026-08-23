@@ -3,7 +3,7 @@
   "cards": [
     {
       "title": "Model Registry",
-      "description": "A documented catalog of the open-weight models available through the CAIL Sandbox, with capabilities, licensing, and recommended use cases for each.",
+      "description": "Lab-reviewed reference notes for a smaller set of open-weight models, with capabilities, licensing, and recommended use cases.",
       "url": "/models",
       "external": false,
       "link_text": "Browse models",
