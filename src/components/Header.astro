@@ -5,8 +5,8 @@ const currentPath = Astro.url.pathname;
 // Helper function to check if link is active
 const isActive = (path: string) => {
   if (path === base && currentPath === base) return true;
-  // "Resources" nav item also highlights on /models and /models/guide
-  if (path === `${base}resources` && (currentPath.startsWith(`${base}models`) || currentPath.startsWith(`${base}resources`))) return true;
+  // "Resources" nav item also highlights on model and documentation pages
+  if (path === `${base}resources` && (currentPath.startsWith(`${base}models`) || currentPath.startsWith(`${base}resources`) || currentPath.startsWith(`${base}docs`))) return true;
   if (path !== base && currentPath.startsWith(path.replace(base, base))) return true;
   return false;
 };
