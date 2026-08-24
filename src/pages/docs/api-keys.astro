@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="API Keys and Model Access - CUNY AI Lab"
+  description="How to create a personal CAIL API key and call the CAIL Model API."
+>
+  <section class="relative pt-24 pb-10 lg:pt-28 lg:pb-12">
+    <div class="absolute inset-0 bg-gradient-to-br from-cuny-blue via-cuny-blue to-vibrant-800"></div>
+    <div class="absolute inset-0 opacity-[0.04]" aria-hidden="true" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;40&quot; height=&quot;40&quot; viewBox=&quot;0 0 40 40&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cpath d=&quot;M20 20.5V18H0v-2h20v-2.5L25 18l-5 2.5z&quot; fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;/%3E%3C/svg%3E');"></div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <a href={`${base}resources/`} class="inline-flex items-center gap-2 text-vibrant-300 hover:text-white text-sm font-medium mb-4 transition-colors">
+        <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Resources
+      </a>
+      <h1 class="text-3xl md:text-4xl font-bold font-display text-white tracking-tight">Use the CAIL Model API</h1>
+      <p class="mt-3 text-vibrant-200 text-lg max-w-2xl">Use a personal key to call current models through the CAIL Model API.</p>
+    </div>
+  </section>
+
+  <section class="bg-neutral-cream">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_15rem] gap-8 items-start">
+        <article class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <div class="p-6 md:p-9 space-y-10">
+            <section aria-labelledby="create-key-heading">
+              <p class="text-sm font-semibold uppercase tracking-wider text-vibrant-600 mb-2">Start here</p>
+              <h2 id="create-key-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Create a personal API key</h2>
+              <p class="text-gray-600 leading-relaxed">
+                Sign in to <a href="https://tools.ailab.gc.cuny.edu/model-access" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">Model Access</a> and create a personal key. The complete key appears when you create it; save it immediately. Later normal listings show metadata only.
+              </p>
+            </section>
+
+            <section aria-labelledby="setup-heading">
+              <h2 id="setup-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Set the API URL and key</h2>
+              <p class="text-gray-600 leading-relaxed mb-4">Use the displayed CAIL Model API base URL, which currently includes the <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/v1</code> path. Type the key only at the hidden prompt. Keep the value private and ephemeral.</p>
+              <pre class="overflow-x-auto rounded-xl bg-neutral-stone text-gray-100 p-4 text-sm leading-relaxed"><code>export CAIL_API_BASE_URL="https://tools.ailab.gc.cuny.edu/v1"
+read -rs "CAIL_API_KEY?CAIL API key: "
+printf '\n'
+export CAIL_API_KEY</code></pre>
+            </section>
+
+            <section aria-labelledby="models-heading">
+              <h2 id="models-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Find a model ID</h2>
+              <p class="text-gray-600 leading-relaxed mb-4">Call <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">GET /v1/models</code> with your key. Use a model ID returned by this request; availability can change with the live provider catalog.</p>
+              <pre class="overflow-x-auto rounded-xl bg-neutral-stone text-gray-100 p-4 text-sm leading-relaxed"><code>curl --fail-with-body --silent --show-error \
+  "$CAIL_API_BASE_URL/models" \
+  --header "Authorization: Bearer $CAIL_API_KEY"</code></pre>
+            </section>
+
+            <section aria-labelledby="request-heading">
+              <h2 id="request-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Send a chat request</h2>
+              <p class="text-gray-600 leading-relaxed mb-4">Use one of the model IDs returned by <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/v1/models</code> in a request to <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">POST /v1/chat/completions</code>.</p>
+              <pre class="overflow-x-auto rounded-xl bg-neutral-stone text-gray-100 p-4 text-sm leading-relaxed"><code>curl --fail-with-body --silent --show-error \
+  --request POST \
+  "$CAIL_API_BASE_URL/chat/completions" \
+  --header "Authorization: Bearer $CAIL_API_KEY" \
+  --header "Content-Type: application/json" \
+  --data '&#123;
+    "model": "YOUR_RETURNED_MODEL_ID",
+    "messages": [
+      &#123;"role": "user", "content": "Explain this topic in two concise sentences."&#125;
+    ],
+    "stream": false
+  &#125;'</code></pre>
+              <p class="text-gray-600 leading-relaxed mt-4">The generated text is in <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">choices[0].message.content</code> in the JSON response.</p>
+            </section>
+
+            <section aria-labelledby="limits-heading">
+              <h2 id="limits-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Understand quota and provider limits</h2>
+              <p class="text-gray-600 leading-relaxed mb-4">Your allowance is shared across your personal API keys. Creating another key does not create another allowance.</p>
+              <dl class="space-y-4">
+                <div class="rounded-xl bg-vibrant-50 border border-vibrant-100 p-4">
+                  <dt class="font-semibold text-vibrant-900"><code>quota_exceeded</code></dt>
+                  <dd class="text-vibrant-800 text-sm leading-relaxed mt-1">A quota boundary has been reached, either for your account or for the shared service allowance. Creating another key will not add capacity; check the quota shown in Model Access.</dd>
+                </div>
+                <div class="rounded-xl bg-gray-50 border border-gray-200 p-4">
+                  <dt class="font-semibold text-neutral-stone"><code>upstream_rate_limited</code></dt>
+                  <dd class="text-gray-600 text-sm leading-relaxed mt-1">This normalized code is specific to the <code>/v1/run</code> endpoint when the model service is temporarily busy. Chat Completions may instead return the provider's HTTP 429 response with <code>Retry-After</code> guidance.</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section aria-labelledby="data-heading">
+              <h2 id="data-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Data handling</h2>
+              <p class="text-gray-600 leading-relaxed">CAIL model-provider routes are configured not to retain prompts or outputs. This setting does not govern account or project data stored by surrounding CAIL applications or external tools. Review the guidance for the product you are using before sending confidential material, and obtain institutional approval when required.</p>
+            </section>
+
+            <section aria-labelledby="recovery-heading">
+              <h2 id="recovery-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Recover or replace a key</h2>
+              <p class="text-gray-600 leading-relaxed">If a key is lost or exposed, revoke it in Model Access and create a replacement. For help with access or quota, contact <a href="mailto:ailab@gc.cuny.edu" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">ailab@gc.cuny.edu</a>. Never send the key itself by email.</p>
+            </section>
+          </div>
+        </article>
+
+        <aside class="lg:sticky lg:top-24 bg-white rounded-2xl border border-gray-100 shadow-sm p-5" aria-label="Guide sections">
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-neutral-stone mb-4">On this page</h2>
+          <nav>
+            <ul class="space-y-2 text-sm">
+              <li><a href="#create-key-heading" class="text-gray-600 hover:text-vibrant-700">Create a key</a></li>
+              <li><a href="#setup-heading" class="text-gray-600 hover:text-vibrant-700">Set up a request</a></li>
+              <li><a href="#models-heading" class="text-gray-600 hover:text-vibrant-700">Find a model ID</a></li>
+              <li><a href="#request-heading" class="text-gray-600 hover:text-vibrant-700">Send a chat request</a></li>
+              <li><a href="#limits-heading" class="text-gray-600 hover:text-vibrant-700">Quota and provider limits</a></li>
+              <li><a href="#data-heading" class="text-gray-600 hover:text-vibrant-700">Data handling</a></li>
+              <li><a href="#recovery-heading" class="text-gray-600 hover:text-vibrant-700">Recover a key</a></li>
+            </ul>
+          </nav>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

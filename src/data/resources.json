@@ -12,6 +12,16 @@
       "icon_svg": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z\" />"
     },
     {
+      "title": "CAIL Model API",
+      "description": "How to create a personal API key, find current model IDs, and send a chat request.",
+      "url": "/docs/api-keys",
+      "external": false,
+      "link_text": "Read the API key guide",
+      "icon_bg": "bg-blue-100",
+      "icon_color": "text-blue-600",
+      "icon_svg": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 5.25a3 3 0 00-4.243 0L5.25 11.507a3 3 0 004.243 4.243l1.06-1.06m4.394-9.44l1.06-1.06a3 3 0 114.243 4.243l-6.257 6.257a3 3 0 01-4.243 0m1.06-1.06l6.257-6.257\" />"
+    },
+    {
       "title": "Sandbox Documentation",
       "description": "Technical documentation for the CAIL Sandbox.",
       "url": "https://cuny-ai-lab.github.io/sandbox-docs",
