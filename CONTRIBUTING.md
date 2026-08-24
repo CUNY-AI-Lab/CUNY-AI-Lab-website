@@ -28,7 +28,7 @@ This guide covers how to make content changes and submit them for review.
 8. **Click "Propose changes"**, then **"Create pull request"**
 9. **Add a brief description** of what you changed and why, then submit
 
-An admin will review and merge your PR. You'll get a GitHub notification when it's approved.
+Maintainers review and merge pull requests after the required `Website CI` check passes. For substantive changes, ask one independent reviewer to look at the PR before merge.
 
 ## Editing Tips
 
@@ -80,13 +80,13 @@ git clone https://github.com/CUNY-AI-Lab/CUNY-AI-Lab-website.git
 cd CUNY-AI-Lab-website
 
 # Install dependencies
-npm install
+bun install --frozen-lockfile
 
 # Create a branch for your changes
 git checkout -b your-branch-name
 
 # Start the dev server to preview changes
-npm run dev
+bun run dev
 # Opens at http://localhost:4321
 
 # After making changes, commit and push

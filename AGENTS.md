@@ -1,18 +1,26 @@
 # AGENTS.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+These are the canonical instructions for working in this repository.
 
 ## Commands
 
 ```bash
-npm run dev      # Start dev server at localhost:4321
-npm run build    # Build production site to ./dist/
-npm run preview  # Preview production build locally
+bun install --frozen-lockfile
+bun run dev      # Start dev server at localhost:4321
+bun run build    # Build production site to ./dist/
+bun run preview  # Preview production build locally
+bun run check    # Audit dependencies and build the site
 ```
 
 ## Architecture
 
-Astro static site with Tailwind CSS. Auto-deploys to AWS Amplify on push to main (requires PR with 1 approval). Production URL: ailab.gc.cuny.edu (note: `astro.config.mjs` `site` field is set to `cunyailab.org` for legacy reasons but the canonical domain is `ailab.gc.cuny.edu`)
+Astro static site with Tailwind CSS. Production deploys to AWS Amplify from `main` at `ailab.gc.cuny.edu` (the `site` field in `astro.config.mjs` still contains the legacy `cunyailab.org` value). Submit changes through a pull request; the current branch rule requires the `Website CI` check and does not require a formal approval. Ask one independent reviewer to review substantive changes before merge.
+
+## Deployment
+
+- AWS Amplify app `d1j8mvw9hg41u1` builds `main` from the versioned `amplify.yml`; the repository file overrides the Amplify console build specification.
+- Keep `amplify.yml` and `.github/workflows/ci.yml` aligned: both install from `bun.lock` with `bun install --frozen-lockfile` and build with `bun run build`.
+- After merging a build-toolchain change, verify the latest Amplify job for `main` succeeds. A passing GitHub check alone does not prove that Amplify deployed the site.
 
 **Data Layer:**
 Pages pull content from two sources:
@@ -47,6 +55,7 @@ The Tailwind content glob includes `.json` files: `'./src/**/*.{astro,html,js,js
 **Blog:**
 - Staging/publish workflow: commit new posts with `draft: true` and a future `pubDate`; on publish day, flip `draft: false` and push.
 - Both `index.astro` and `[slug].astro` filter `!data.draft`, and `rss.xml` excludes drafts — so a `draft: true` post is hidden from the index, its own URL, and the feed. To preview locally, temporarily set `draft: false`.
+- Tags are clickable: `src/pages/blog/tags/[tag].astro` builds one archive per unique tag from non-draft posts. Keep tags URL-safe kebab-case because the tag value is used as the route parameter.
 - `[slug].astro` gives post images (`.post-content figure img`) a click-to-enlarge lightbox via a native `<dialog>` (Esc/backdrop/button to close). Images are already clickable — don't reinvent it. Top-of-post media uses `<figure>`/`<figcaption>`.
 
 **Color System (tailwind.config.mjs):**

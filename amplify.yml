@@ -6,7 +6,7 @@
 # manager, lockfile, or build command, update BOTH files in the same PR —
 # otherwise CI stays green while production deploys fail. This exact failure
 # happened in Aug 2026 (npm→Bun switch deleted package-lock.json while the
-# Amplify console buildSpec still ran `npm ci`). See "Deployment" in CLAUDE.md.
+# Amplify console buildSpec still ran `npm ci`). See "Deployment" in AGENTS.md.
 version: 1
 frontend:
   phases:
