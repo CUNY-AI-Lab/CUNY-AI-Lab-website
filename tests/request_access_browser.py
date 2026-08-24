@@ -184,8 +184,9 @@ def test_unauthenticated_individual_has_cuny_sign_in_path(page: Page) -> None:
     sign_in = page.get_by_role("link", name="Sign in with CUNY Login")
     assert_equal(sign_in.get_attribute("href"), SIGN_IN_URL)
     assert page.get_by_role("button", name="Submit Application").is_disabled()
-    assert page.get_by_label("Verified CUNY Email").input_value() == ""
-    assert page.get_by_label("Verified CUNY Email").get_attribute("readonly") == ""
+    assert page.locator("#verified-email").text_content() == (
+        "Sign in with CUNY Login to load your verified email."
+    )
     class_choice(page).check()
     assert page.get_by_role("link", name="Sign in with CUNY Login").is_visible()
     assert page.get_by_role("button", name="Submit Application").is_disabled()
@@ -203,8 +204,7 @@ def test_individual_mode(page: Page) -> None:
     assert page.locator("#individual-fields").is_visible()
     assert page.locator("#class-fields").is_hidden()
     assert page.locator("#class-fields").evaluate("fieldset => fieldset.disabled")
-    assert_equal(page.get_by_label("Verified CUNY Email").input_value(), "alex.rivera@cuny.edu")
-    assert page.get_by_label("Verified CUNY Email").get_attribute("readonly") == ""
+    assert_equal(page.locator("#verified-email").text_content(), "alex.rivera@cuny.edu")
     assert identity_requests and "cail_test_session=present" in identity_requests[0].get("cookie", "")
 
     common = fill_common(page)
@@ -233,11 +233,10 @@ def test_individual_mode(page: Page) -> None:
         INDIVIDUAL_INTAKE_URL,
         request_headers,
     )
-    page.locator("#email").evaluate(
-        "input => { input.value = 'attacker@example.com'; input.name = 'email'; }"
-    )
     page.get_by_role("button", name="Submit Application").click()
-    page.get_by_text("Application received. Reference: req-individual").wait_for()
+    page.get_by_role("heading", name="Thank you").wait_for()
+    assert page.locator("#access-request-form").is_hidden()
+    assert_equal(page.locator("#submission-confirmation").get_attribute("role"), "region")
     assert_equal(len(payloads), 1)
     assert_equal(unexpected_urls, [])
     assert request_headers and "cail_test_session=present" in request_headers[0].get("cookie", "")
@@ -267,8 +266,9 @@ def test_individual_mode(page: Page) -> None:
             "tools": ["sandbox", "model-access"],
         },
     )
-    assert individual_choice(page).is_checked()
-    assert_equal(page.get_by_role("button", name="Submit Application").text_content(), "Submit Application")
+    assert page.get_by_text(
+        "Your application has been submitted. The CUNY AI Lab will review it and contact you by email."
+    ).is_visible()
 
 
 def test_post_session_expiry_requires_reauth_and_keeps_retry_id(page: Page) -> None:
@@ -351,13 +351,15 @@ def test_post_session_expiry_requires_reauth_and_keeps_retry_id(page: Page) -> N
         page.get_by_text("Your CUNY sign-in expired. Sign in again before resending this request.").wait_for()
         assert page.get_by_role("link", name="Sign in with CUNY Login").get_attribute("href") == SIGN_IN_URL
         assert page.get_by_role("button", name="Submit Application").is_disabled()
-        assert page.get_by_label("Verified CUNY Email").input_value() == ""
+        assert page.locator("#verified-email").text_content() == (
+            "Sign in with CUNY Login to load your verified email."
+        )
         assert page.get_by_role("button", name="Check again").is_visible()
 
         page.get_by_role("button", name="Check again").click()
         wait_for_identity(page)
         page.get_by_role("button", name="Submit Application").click()
-        page.get_by_text(f"Application received. Reference: req-reauth-{kind}").wait_for()
+        page.get_by_role("heading", name="Thank you").wait_for()
 
         payloads = state["payloads"]
         assert_equal(len(payloads), 2)
@@ -415,9 +417,9 @@ def test_reauth_as_different_identity_gets_new_retry_id(page: Page) -> None:
     page.get_by_text("Your CUNY sign-in expired. Sign in again before resending this request.").wait_for()
     page.get_by_role("button", name="Check again").click()
     wait_for_identity(page)
-    assert page.get_by_label("Verified CUNY Email").input_value() == "different.user@cuny.edu"
+    assert page.locator("#verified-email").text_content() == "different.user@cuny.edu"
     page.get_by_role("button", name="Submit Application").click()
-    page.get_by_text("Application received. Reference: req-different-identity").wait_for()
+    page.get_by_role("heading", name="Thank you").wait_for()
 
     payloads = state["payloads"]
     assert_equal(len(payloads), 2)
@@ -492,7 +494,11 @@ def test_class_mode(page: Page) -> None:
     # The public end date is inclusive, so a same-day class is valid.
     page.get_by_label("End Date").fill("2026-08-25")
     page.get_by_role("button", name="Submit Application").click()
-    page.get_by_text("Application received. Reference: req-class").wait_for()
+    page.get_by_role("heading", name="Thank you").wait_for()
+    assert page.locator("#access-request-form").is_hidden()
+    assert page.get_by_text(
+        "Your class application has been submitted. The CUNY AI Lab will review it and contact you by email."
+    ).is_visible()
     assert_equal(len(payloads), 1)
     assert_equal(unexpected_urls, [])
     assert request_headers and "cail_test_session=present" in request_headers[0].get("cookie", "")
@@ -619,7 +625,7 @@ def test_backend_error_and_retry(page: Page) -> None:
     assert "private detail" not in status.inner_text()
 
     submit.click()
-    page.get_by_text("Application received. Reference: req-retry").wait_for()
+    page.get_by_role("heading", name="Thank you").wait_for()
     assert_equal(attempts, 2)
 
 
@@ -656,7 +662,7 @@ def test_ambiguous_retry_reuses_client_request_id(page: Page) -> None:
     assert not submit.is_disabled()
 
     submit.click()
-    page.get_by_text("Application received. Reference: req-ambiguous").wait_for()
+    page.get_by_role("heading", name="Thank you").wait_for()
     assert_equal(attempts, 2)
     assert_equal(payloads[0]["clientRequestId"], payloads[1]["clientRequestId"])
 
@@ -698,7 +704,7 @@ def test_changed_payload_gets_new_client_request_id(page: Page) -> None:
     page.get_by_text("The access service is temporarily unavailable. Try again shortly.").wait_for()
     page.get_by_label("Department/Program").fill("English")
     submit.click()
-    page.get_by_text("Application received. Reference: req-changed").wait_for()
+    page.get_by_role("heading", name="Thank you").wait_for()
     assert_equal(attempts, 2)
     assert payloads[0]["clientRequestId"] != payloads[1]["clientRequestId"]
     assert_equal(payloads[1]["department"], "English")
