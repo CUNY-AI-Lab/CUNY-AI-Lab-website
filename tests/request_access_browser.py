@@ -1,7 +1,7 @@
-"""Browser contract tests for the two request-access intake routes.
+"""Browser contract tests for the signed request-access intake routes.
 
-Individual applications retain the legacy body at `/request-access/api`.
-Class applications use their class-only body at `/request-access/class-api`.
+Both modes use the verified CUNY session identity. Class applications retain
+their class-specific fields at `/request-access/class-api`.
 """
 
 from __future__ import annotations
@@ -16,9 +16,22 @@ from playwright.sync_api import Page, Route, sync_playwright
 
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
+IDENTITY_URL = "https://tools.ailab.gc.cuny.edu/request-access/identity"
+SIGN_IN_URL = "https://tools.ailab.gc.cuny.edu/request-access/sign-in"
 INDIVIDUAL_INTAKE_URL = "https://tools.ailab.gc.cuny.edu/request-access/api"
 CLASS_INTAKE_URL = "https://tools.ailab.gc.cuny.edu/request-access/class-api"
 ARTIFACTS = Path(os.environ.get("CAIL_TEST_ARTIFACTS", "/tmp/cail-request-access-browser"))
+
+
+def cors_headers() -> dict[str, str]:
+    return {
+        "access-control-allow-origin": BASE_URL,
+        "access-control-allow-credentials": "true",
+        "access-control-allow-methods": "GET,POST,OPTIONS",
+        "access-control-allow-headers": "content-type",
+        "cache-control": "no-store",
+        "vary": "Origin",
+    }
 
 
 def assert_equal(actual: Any, expected: Any) -> None:
@@ -45,17 +58,61 @@ def add_turnstile_token(page: Page, value: str = "test-turnstile-token") -> None
     )
 
 
+def add_test_cookie(page: Page) -> None:
+    page.context.add_cookies(
+        [
+            {
+                "name": "cail_test_session",
+                "value": "present",
+                "domain": "tools.ailab.gc.cuny.edu",
+                "path": "/",
+                "secure": True,
+                "sameSite": "None",
+            }
+        ]
+    )
+
+
+def mock_identity(page: Page, email: str | None = "alex.rivera@cuny.edu") -> list[dict[str, str]]:
+    requests: list[dict[str, str]] = []
+
+    def respond(route: Route) -> None:
+        requests.append(dict(route.request.headers))
+        headers = cors_headers()
+        if email is None:
+            route.fulfill(
+                status=401,
+                content_type="application/json",
+                headers=headers,
+                body=json.dumps({"error": {"code": "authentication_required"}}),
+            )
+            return
+        route.fulfill(
+            status=200,
+            content_type="application/json",
+            headers=headers,
+            body=json.dumps({"email": email}),
+        )
+
+    page.route(IDENTITY_URL, respond)
+    return requests
+
+
+def wait_for_identity(page: Page) -> None:
+    page.get_by_text(
+        "Signed in with CUNY Login. We will use this verified email for your request."
+    ).wait_for()
+
+
 def fill_common(page: Page, affiliation: str = "faculty") -> dict[str, str]:
     values = {
         "name": "Alex Rivera",
-        "email": "alex.rivera@cuny.edu",
         "affiliation": affiliation,
         "department": "Digital Humanities",
         "campus": "Graduate Center",
         "intendedUse": "Coursework using Lab tools.",
     }
     page.get_by_label("Full Name").fill(values["name"])
-    page.get_by_label("Email Address").fill(values["email"])
     page.get_by_label("CUNY Affiliation").select_option(values["affiliation"])
     page.get_by_label("Department/Program").fill(values["department"])
     page.get_by_label("CUNY College/Campus").fill(values["campus"])
@@ -63,25 +120,38 @@ def fill_common(page: Page, affiliation: str = "faculty") -> dict[str, str]:
     return values
 
 
-def capture_success(page: Page, request_id: str, intake_url: str) -> tuple[list[dict[str, Any]], list[str]]:
+def capture_success(
+    page: Page,
+    request_id: str,
+    intake_url: str,
+    request_headers: list[dict[str, str]] | None = None,
+) -> tuple[list[dict[str, Any]], list[str]]:
     payloads: list[dict[str, Any]] = []
     unexpected_urls: list[str] = []
 
     def respond(route: Route) -> None:
+        if route.request.method == "OPTIONS":
+            route.fulfill(status=204, headers=cors_headers())
+            return
+        if request_headers is not None:
+            request_headers.append(dict(route.request.headers))
         payloads.append(json.loads(route.request.post_data or "{}"))
         route.fulfill(
             status=201,
             content_type="application/json",
-            headers={"access-control-allow-origin": "*"},
+            headers=cors_headers(),
             body=json.dumps({"requestId": request_id}),
         )
 
     def reject_unexpected(route: Route) -> None:
+        if route.request.method == "OPTIONS":
+            route.fulfill(status=204, headers=cors_headers())
+            return
         unexpected_urls.append(route.request.url)
         route.fulfill(
             status=500,
             content_type="application/json",
-            headers={"access-control-allow-origin": "*"},
+            headers=cors_headers(),
             body=json.dumps({"error": {"code": "wrong_intake_endpoint"}}),
         )
 
@@ -107,8 +177,24 @@ def assert_request_id(value: Any) -> None:
     )
 
 
-def test_individual_mode(page: Page) -> None:
+def test_unauthenticated_individual_has_cuny_sign_in_path(page: Page) -> None:
+    mock_identity(page, email=None)
     page.goto(f"{BASE_URL}/request-access/")
+    page.get_by_text("Sign in with CUNY Login before submitting an access request.").wait_for()
+    sign_in = page.get_by_role("link", name="Sign in with CUNY Login")
+    assert_equal(sign_in.get_attribute("href"), SIGN_IN_URL)
+    assert page.get_by_role("button", name="Submit Application").is_disabled()
+    assert page.get_by_label("Verified CUNY Email").input_value() == ""
+    assert page.get_by_label("Verified CUNY Email").get_attribute("readonly") == ""
+    class_choice(page).check()
+    assert page.get_by_role("link", name="Sign in with CUNY Login").is_visible()
+    assert page.get_by_role("button", name="Submit Application").is_disabled()
+
+
+def test_individual_mode(page: Page) -> None:
+    identity_requests = mock_identity(page)
+    page.goto(f"{BASE_URL}/request-access/")
+    wait_for_identity(page)
     form = page.locator("#access-request-form")
     assert_equal(form.get_attribute("action"), INDIVIDUAL_INTAKE_URL)
     assert_equal(form.get_attribute("data-intake-url"), INDIVIDUAL_INTAKE_URL)
@@ -117,6 +203,9 @@ def test_individual_mode(page: Page) -> None:
     assert page.locator("#individual-fields").is_visible()
     assert page.locator("#class-fields").is_hidden()
     assert page.locator("#class-fields").evaluate("fieldset => fieldset.disabled")
+    assert_equal(page.get_by_label("Verified CUNY Email").input_value(), "alex.rivera@cuny.edu")
+    assert page.get_by_label("Verified CUNY Email").get_attribute("readonly") == ""
+    assert identity_requests and "cail_test_session=present" in identity_requests[0].get("cookie", "")
 
     common = fill_common(page)
     page.get_by_label("CAIL Sandbox").check()
@@ -137,11 +226,23 @@ def test_individual_mode(page: Page) -> None:
     assert_equal(page.locator("#class-name").get_attribute("required"), None)
 
     add_turnstile_token(page)
-    payloads, unexpected_urls = capture_success(page, "req-individual", INDIVIDUAL_INTAKE_URL)
+    request_headers: list[dict[str, str]] = []
+    payloads, unexpected_urls = capture_success(
+        page,
+        "req-individual",
+        INDIVIDUAL_INTAKE_URL,
+        request_headers,
+    )
+    page.locator("#email").evaluate(
+        "input => { input.value = 'attacker@example.com'; input.name = 'email'; }"
+    )
     page.get_by_role("button", name="Submit Application").click()
     page.get_by_text("Application received. Reference: req-individual").wait_for()
     assert_equal(len(payloads), 1)
     assert_equal(unexpected_urls, [])
+    assert request_headers and "cail_test_session=present" in request_headers[0].get("cookie", "")
+    assert "email" not in payloads[0]
+    assert "subject" not in payloads[0]
 
     payload = payloads[0]
     assert_equal(
@@ -150,7 +251,6 @@ def test_individual_mode(page: Page) -> None:
             "clientRequestId",
             "turnstileToken",
             "name",
-            "email",
             "affiliation",
             "department",
             "campus",
@@ -171,8 +271,165 @@ def test_individual_mode(page: Page) -> None:
     assert_equal(page.get_by_role("button", name="Submit Application").text_content(), "Submit Application")
 
 
+def test_post_session_expiry_requires_reauth_and_keeps_retry_id(page: Page) -> None:
+    state: dict[str, Any] = {
+        "kind": "individual",
+        "intake_url": INDIVIDUAL_INTAKE_URL,
+        "posts": 0,
+        "payloads": [],
+    }
+
+    def respond_identity(route: Route) -> None:
+        route.fulfill(
+            status=200,
+            content_type="application/json",
+            headers=cors_headers(),
+            body=json.dumps({"email": "alex.rivera@cuny.edu"}),
+        )
+
+    def respond_intake(route: Route) -> None:
+        if route.request.method == "OPTIONS":
+            route.fulfill(status=204, headers=cors_headers())
+            return
+        if route.request.method != "POST":
+            route.continue_()
+            return
+        payload = json.loads(route.request.post_data or "{}")
+        state["payloads"].append(payload)
+        state["posts"] += 1
+        if state["posts"] == 1:
+            route.fulfill(
+                status=401,
+                content_type="application/json",
+                headers=cors_headers(),
+                body=json.dumps(
+                    {
+                        "error": {
+                            "code": "session_invalid"
+                            if state["kind"] == "class"
+                            else "authentication_required"
+                        }
+                    }
+                ),
+            )
+            return
+        route.fulfill(
+            status=201,
+            content_type="application/json",
+            headers=cors_headers(),
+            body=json.dumps({"requestId": f"req-reauth-{state['kind']}"}),
+        )
+
+    page.route(IDENTITY_URL, respond_identity)
+    page.route(INDIVIDUAL_INTAKE_URL, respond_intake)
+    page.route(CLASS_INTAKE_URL, respond_intake)
+
+    for kind in ("individual", "class"):
+        state["kind"] = kind
+        state["intake_url"] = CLASS_INTAKE_URL if kind == "class" else INDIVIDUAL_INTAKE_URL
+        state["posts"] = 0
+        state["payloads"] = []
+        page.goto(f"{BASE_URL}/request-access/" + ("?kind=class" if kind == "class" else ""))
+        wait_for_identity(page)
+        if kind == "class":
+            fill_common(page, affiliation="other")
+            class_fields = {
+                "Class Name": "Introduction to Digital Humanities",
+                "Term": "Fall 2026",
+                "Section": "01",
+                "Start Date": "2026-08-25",
+                "End Date": "2026-08-25",
+                "Estimated Enrollment": "30",
+            }
+            for label, value in class_fields.items():
+                page.get_by_label(label).fill(value)
+        else:
+            fill_common(page)
+        add_turnstile_token(page)
+
+        page.get_by_role("button", name="Submit Application").click()
+        page.get_by_text("Your CUNY sign-in expired. Sign in again before resending this request.").wait_for()
+        assert page.get_by_role("link", name="Sign in with CUNY Login").get_attribute("href") == SIGN_IN_URL
+        assert page.get_by_role("button", name="Submit Application").is_disabled()
+        assert page.get_by_label("Verified CUNY Email").input_value() == ""
+        assert page.get_by_role("button", name="Check again").is_visible()
+
+        page.get_by_role("button", name="Check again").click()
+        wait_for_identity(page)
+        page.get_by_role("button", name="Submit Application").click()
+        page.get_by_text(f"Application received. Reference: req-reauth-{kind}").wait_for()
+
+        payloads = state["payloads"]
+        assert_equal(len(payloads), 2)
+        assert_equal(payloads[0]["clientRequestId"], payloads[1]["clientRequestId"])
+        assert "email" not in payloads[0] and "subject" not in payloads[0]
+        assert "email" not in payloads[1] and "subject" not in payloads[1]
+
+
+def test_reauth_as_different_identity_gets_new_retry_id(page: Page) -> None:
+    state: dict[str, Any] = {
+        "identity_email": "alex.rivera@cuny.edu",
+        "posts": 0,
+        "payloads": [],
+    }
+
+    def respond_identity(route: Route) -> None:
+        route.fulfill(
+            status=200,
+            content_type="application/json",
+            headers=cors_headers(),
+            body=json.dumps({"email": state["identity_email"]}),
+        )
+
+    def respond_intake(route: Route) -> None:
+        if route.request.method == "OPTIONS":
+            route.fulfill(status=204, headers=cors_headers())
+            return
+        payload = json.loads(route.request.post_data or "{}")
+        state["payloads"].append(payload)
+        state["posts"] += 1
+        if state["posts"] == 1:
+            state["identity_email"] = "different.user@cuny.edu"
+            route.fulfill(
+                status=401,
+                content_type="application/json",
+                headers=cors_headers(),
+                body=json.dumps({"error": {"code": "authentication_required"}}),
+            )
+            return
+        route.fulfill(
+            status=201,
+            content_type="application/json",
+            headers=cors_headers(),
+            body=json.dumps({"requestId": "req-different-identity"}),
+        )
+
+    page.route(IDENTITY_URL, respond_identity)
+    page.route(INDIVIDUAL_INTAKE_URL, respond_intake)
+    page.goto(f"{BASE_URL}/request-access/")
+    wait_for_identity(page)
+    fill_common(page)
+    add_turnstile_token(page)
+
+    page.get_by_role("button", name="Submit Application").click()
+    page.get_by_text("Your CUNY sign-in expired. Sign in again before resending this request.").wait_for()
+    page.get_by_role("button", name="Check again").click()
+    wait_for_identity(page)
+    assert page.get_by_label("Verified CUNY Email").input_value() == "different.user@cuny.edu"
+    page.get_by_role("button", name="Submit Application").click()
+    page.get_by_text("Application received. Reference: req-different-identity").wait_for()
+
+    payloads = state["payloads"]
+    assert_equal(len(payloads), 2)
+    assert payloads[0]["clientRequestId"] != payloads[1]["clientRequestId"]
+    assert "email" not in payloads[0] and "subject" not in payloads[0]
+    assert "email" not in payloads[1] and "subject" not in payloads[1]
+
+
 def test_class_mode(page: Page) -> None:
+    mock_identity(page)
     page.goto(f"{BASE_URL}/request-access/?kind=class")
+    wait_for_identity(page)
     assert class_choice(page).is_checked()
     assert_equal(page.locator("#access-request-form").get_attribute("action"), CLASS_INTAKE_URL)
     assert page.locator("#class-fields").is_visible()
@@ -191,7 +448,13 @@ def test_class_mode(page: Page) -> None:
     # Class intake is not restricted to faculty or to existing Lab members.
     common = fill_common(page, affiliation="other")
     add_turnstile_token(page)
-    payloads, unexpected_urls = capture_success(page, "req-class", CLASS_INTAKE_URL)
+    request_headers: list[dict[str, str]] = []
+    payloads, unexpected_urls = capture_success(
+        page,
+        "req-class",
+        CLASS_INTAKE_URL,
+        request_headers,
+    )
 
     # Native required validation blocks submission before any request is sent.
     page.get_by_role("button", name="Submit Application").click()
@@ -232,6 +495,9 @@ def test_class_mode(page: Page) -> None:
     page.get_by_text("Application received. Reference: req-class").wait_for()
     assert_equal(len(payloads), 1)
     assert_equal(unexpected_urls, [])
+    assert request_headers and "cail_test_session=present" in request_headers[0].get("cookie", "")
+    assert "email" not in payloads[0]
+    assert "subject" not in payloads[0]
 
     payload = payloads[0]
     assert_equal(
@@ -240,7 +506,6 @@ def test_class_mode(page: Page) -> None:
             "clientRequestId",
             "turnstileToken",
             "name",
-            "email",
             "affiliation",
             "department",
             "campus",
@@ -270,7 +535,9 @@ def test_class_mode(page: Page) -> None:
 
 
 def test_keyboard_copy_and_safe_error(page: Page) -> None:
+    mock_identity(page)
     page.goto(f"{BASE_URL}/request-access/")
+    wait_for_identity(page)
     individual = individual_choice(page)
     individual.focus()
     individual.press("ArrowRight")
@@ -296,10 +563,13 @@ def test_keyboard_copy_and_safe_error(page: Page) -> None:
     add_turnstile_token(page)
 
     def fail(route: Route) -> None:
+        if route.request.method == "OPTIONS":
+            route.fulfill(status=204, headers=cors_headers())
+            return
         route.fulfill(
             status=500,
             content_type="application/json",
-            headers={"access-control-allow-origin": "*"},
+            headers=cors_headers(),
             body=json.dumps({"error": {"code": "private_stack_trace", "message": "secret detail"}}),
         )
 
@@ -312,26 +582,31 @@ def test_keyboard_copy_and_safe_error(page: Page) -> None:
 
 
 def test_backend_error_and_retry(page: Page) -> None:
+    mock_identity(page)
     page.goto(f"{BASE_URL}/request-access/")
+    wait_for_identity(page)
     fill_common(page)
     add_turnstile_token(page)
     attempts = 0
 
     def fail_once_then_succeed(route: Route) -> None:
         nonlocal attempts
+        if route.request.method == "OPTIONS":
+            route.fulfill(status=204, headers=cors_headers())
+            return
         attempts += 1
         if attempts == 1:
             route.fulfill(
                 status=503,
                 content_type="application/json",
-                headers={"access-control-allow-origin": "*"},
+                headers=cors_headers(),
                 body=json.dumps({"error": {"code": "admission_unavailable", "message": "private detail"}}),
             )
             return
         route.fulfill(
             status=201,
             content_type="application/json",
-            headers={"access-control-allow-origin": "*"},
+            headers=cors_headers(),
             body=json.dumps({"requestId": "req-retry"}),
         )
 
@@ -349,7 +624,9 @@ def test_backend_error_and_retry(page: Page) -> None:
 
 
 def test_ambiguous_retry_reuses_client_request_id(page: Page) -> None:
+    mock_identity(page)
     page.goto(f"{BASE_URL}/request-access/")
+    wait_for_identity(page)
     fill_common(page)
     add_turnstile_token(page)
     payloads: list[dict[str, Any]] = []
@@ -357,6 +634,9 @@ def test_ambiguous_retry_reuses_client_request_id(page: Page) -> None:
 
     def lose_first_response(route: Route) -> None:
         nonlocal attempts
+        if route.request.method == "OPTIONS":
+            route.fulfill(status=204, headers=cors_headers())
+            return
         attempts += 1
         payloads.append(json.loads(route.request.post_data or "{}"))
         if attempts == 1:
@@ -365,7 +645,7 @@ def test_ambiguous_retry_reuses_client_request_id(page: Page) -> None:
         route.fulfill(
             status=201,
             content_type="application/json",
-            headers={"access-control-allow-origin": "*"},
+            headers=cors_headers(),
             body=json.dumps({"requestId": "req-ambiguous"}),
         )
 
@@ -382,7 +662,9 @@ def test_ambiguous_retry_reuses_client_request_id(page: Page) -> None:
 
 
 def test_changed_payload_gets_new_client_request_id(page: Page) -> None:
+    mock_identity(page)
     page.goto(f"{BASE_URL}/request-access/")
+    wait_for_identity(page)
     fill_common(page)
     add_turnstile_token(page)
     payloads: list[dict[str, Any]] = []
@@ -390,20 +672,23 @@ def test_changed_payload_gets_new_client_request_id(page: Page) -> None:
 
     def fail_then_succeed(route: Route) -> None:
         nonlocal attempts
+        if route.request.method == "OPTIONS":
+            route.fulfill(status=204, headers=cors_headers())
+            return
         attempts += 1
         payloads.append(json.loads(route.request.post_data or "{}"))
         if attempts == 1:
             route.fulfill(
                 status=503,
                 content_type="application/json",
-                headers={"access-control-allow-origin": "*"},
+                headers=cors_headers(),
                 body=json.dumps({"error": {"code": "admission_unavailable"}}),
             )
             return
         route.fulfill(
             status=201,
             content_type="application/json",
-            headers={"access-control-allow-origin": "*"},
+            headers=cors_headers(),
             body=json.dumps({"requestId": "req-changed"}),
         )
 
@@ -420,8 +705,10 @@ def test_changed_payload_gets_new_client_request_id(page: Page) -> None:
 
 
 def test_mobile_layout_and_deep_link(page: Page) -> None:
+    mock_identity(page)
     page.set_viewport_size({"width": 390, "height": 844})
     page.goto(f"{BASE_URL}/request-access/?kind=class")
+    wait_for_identity(page)
     assert class_choice(page).is_checked()
     assert page.get_by_text(
         "Request access for a course or cohort. The Lab reviews the application before anyone is invited."
@@ -445,7 +732,10 @@ def main() -> None:
         browser = playwright.chromium.launch()
         try:
             for test in (
+                test_unauthenticated_individual_has_cuny_sign_in_path,
                 test_individual_mode,
+                test_post_session_expiry_requires_reauth_and_keeps_retry_id,
+                test_reauth_as_different_identity_gets_new_retry_id,
                 test_class_mode,
                 test_keyboard_copy_and_safe_error,
                 test_backend_error_and_retry,
@@ -455,6 +745,7 @@ def main() -> None:
             ):
                 context = browser.new_context(viewport={"width": 1440, "height": 1000})
                 page = context.new_page()
+                add_test_cookie(page)
                 block_turnstile(page)
                 errors: list[str] = []
                 page.on("pageerror", lambda error: errors.append(str(error)))
