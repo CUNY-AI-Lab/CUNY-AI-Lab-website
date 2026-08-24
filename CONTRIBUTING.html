@@ -80,7 +80,7 @@
   </ol>
 
   <div class="callout-blue callout">
-    An admin will review and merge your PR. You'll get a GitHub notification when it's approved. Once merged, changes auto-deploy to the live site.
+    Maintainers review and merge pull requests after the required <code>Website CI</code> check passes. For substantive changes, ask one independent reviewer to look at the PR before merge. Once merged, changes auto-deploy to the live site.
   </div>
 
   <h2>Editing Tips</h2>
@@ -125,13 +125,13 @@ git clone https://github.com/CUNY-AI-Lab/CUNY-AI-Lab-website.git
 cd CUNY-AI-Lab-website
 
 # Install dependencies
-npm install
+bun install --frozen-lockfile
 
 # Create a branch for your changes
 git checkout -b your-branch-name
 
 # Start the dev server to preview changes
-npm run dev
+bun run dev
 # Opens at http://localhost:4321
 
 # After making changes, commit and push
