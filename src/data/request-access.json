@@ -11,6 +11,8 @@
     "Support from the CUNY AI Lab team"
   ],
   "form_heading": "Lab Application",
+  "identity_url": "https://tools.ailab.gc.cuny.edu/request-access/identity",
+  "sign_in_url": "https://tools.ailab.gc.cuny.edu/request-access/sign-in",
   "intake_url": "https://tools.ailab.gc.cuny.edu/request-access/api",
   "class_intake_url": "https://tools.ailab.gc.cuny.edu/request-access/class-api",
   "turnstile_site_key": "0x4AAAAAAEOj271NcseuTrir",
@@ -28,7 +30,7 @@
   },
   "form_fields": {
     "name": { "label": "Full Name", "placeholder": "Jane Doe", "required": true },
-    "email": { "label": "Email Address", "placeholder": "jane.doe@cuny.edu", "required": true },
+    "email": { "label": "Verified CUNY Email", "placeholder": "Sign in with CUNY Login to load your verified email", "required": true },
     "affiliation": {
       "label": "CUNY Affiliation",
       "required": true,

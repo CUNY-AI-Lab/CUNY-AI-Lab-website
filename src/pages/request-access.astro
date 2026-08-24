@@ -54,6 +54,8 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
           id="access-request-form"
           method="post"
           action={data.intake_url}
+          data-identity-url={data.identity_url}
+          data-sign-in-url={data.sign_in_url}
           data-intake-url={data.intake_url}
           data-class-intake-url={data.class_intake_url}
           class="space-y-6"
@@ -92,6 +94,32 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
             </div>
           </fieldset>
 
+          <div
+            id="identity-status"
+            class="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-900"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <p id="identity-message">Checking your CUNY sign-in…</p>
+            <a
+              id="identity-sign-in"
+              href={data.sign_in_url}
+              class="mt-3 inline-flex items-center rounded-full bg-vibrant-700 px-4 py-2 font-semibold text-white hover:bg-vibrant-800 focus:outline-none focus:ring-2 focus:ring-vibrant-500 focus:ring-offset-2"
+              hidden
+            >
+              Sign in with CUNY Login
+            </a>
+            <button
+              type="button"
+              id="identity-retry"
+              class="mt-3 rounded-full border border-vibrant-700 px-4 py-2 font-semibold text-vibrant-800 hover:bg-vibrant-100 focus:outline-none focus:ring-2 focus:ring-vibrant-500 focus:ring-offset-2"
+              hidden
+            >
+              Check again
+            </button>
+          </div>
+
           <!-- Name -->
           <div>
             <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -116,12 +144,17 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
             <input
               type="email"
               id="email"
-              name="email"
               required
+              readonly
+              aria-readonly="true"
+              aria-describedby="email-help"
               maxlength="320"
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
               placeholder={data.form_fields.email.placeholder}
             />
+            <p id="email-help" class="mt-2 text-xs text-gray-500">
+              This is supplied by CUNY Login and cannot be changed here.
+            </p>
           </div>
 
           <!-- CUNY Affiliation -->
@@ -314,6 +347,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
             <button
               type="submit"
               id="access-request-submit"
+              disabled
               class="w-full bg-vibrant-700 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-vibrant-800 transition-all shadow-lg hover:shadow-vibrant-500/30 transform hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
             >
               {data.submit_text}
@@ -364,10 +398,19 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     const form = document.querySelector<HTMLFormElement>('#access-request-form');
     const submit = document.querySelector<HTMLButtonElement>('#access-request-submit');
     const status = document.querySelector<HTMLElement>('#form-status');
+    const identityStatus = document.querySelector<HTMLElement>('#identity-status');
+    const identityMessage = document.querySelector<HTMLElement>('#identity-message');
+    const identitySignIn = document.querySelector<HTMLAnchorElement>('#identity-sign-in');
+    const identityRetry = document.querySelector<HTMLButtonElement>('#identity-retry');
+    const emailInput = document.querySelector<HTMLInputElement>('#email');
     const kindInputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="application-kind"]'));
     const modeSections = Array.from(document.querySelectorAll<HTMLFieldSetElement>('[data-application-fields]'));
     const submitLabel = submit?.textContent?.trim() ?? 'Submit Application';
+    const identityUrl = form?.dataset.identityUrl ?? '';
+    const signInUrl = form?.dataset.signInUrl ?? '';
     let pendingApplication: { clientRequestId: string; fingerprint: string } | null = null;
+    let verifiedEmail: string | null = null;
+    let identityReady = false;
 
     type TurnstileWindow = Window & {
       turnstile?: { reset: () => void };
@@ -386,6 +429,82 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
     function resetTurnstile() {
       (window as TurnstileWindow).turnstile?.reset();
+    }
+
+    function setIdentityStatus(
+      message: string,
+      outcome: 'loading' | 'signed-out' | 'ready' | 'error',
+    ) {
+      if (!identityMessage || !identityStatus) return;
+      identityMessage.textContent = message;
+      if (identitySignIn) {
+        identitySignIn.hidden = outcome === 'ready' || outcome === 'loading';
+        identitySignIn.href = signInUrl;
+      }
+      if (identityRetry) identityRetry.hidden = outcome !== 'error' && outcome !== 'signed-out';
+      identityStatus.className =
+        outcome === 'ready'
+          ? 'rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-900'
+          : outcome === 'error'
+            ? 'rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900'
+            : outcome === 'signed-out'
+              ? 'rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950'
+              : 'rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-900';
+    }
+
+    function requireSignIn(message: string) {
+      identityReady = false;
+      verifiedEmail = null;
+      if (emailInput) emailInput.value = '';
+      if (submit) submit.disabled = true;
+      setIdentityStatus(message, 'signed-out');
+    }
+
+    async function loadIdentity() {
+      identityReady = false;
+      verifiedEmail = null;
+      if (emailInput) emailInput.value = '';
+      if (submit) submit.disabled = true;
+      setIdentityStatus('Checking your CUNY sign-in…', 'loading');
+
+      try {
+        const response = await fetch(identityUrl, {
+          method: 'GET',
+          headers: { accept: 'application/json' },
+          credentials: 'include',
+          cache: 'no-store',
+        });
+        if (response.status === 401) {
+          requireSignIn('Sign in with CUNY Login before submitting an access request.');
+          return;
+        }
+        if (!response.ok) {
+          setIdentityStatus('We could not verify your CUNY sign-in. Try again shortly.', 'error');
+          return;
+        }
+
+        const result: unknown = await response.json().catch(() => null);
+        const email =
+          result !== null && typeof result === 'object' && 'email' in result && typeof result.email === 'string'
+            ? result.email.trim()
+            : '';
+        if (!email) {
+          setIdentityStatus('We could not verify your CUNY sign-in. Try again shortly.', 'error');
+          return;
+        }
+
+        verifiedEmail = email;
+        identityReady = true;
+        if (emailInput) {
+          emailInput.value = email;
+          emailInput.readOnly = true;
+          emailInput.setAttribute('aria-readonly', 'true');
+        }
+        setIdentityStatus('Signed in with CUNY Login. We will use this verified email for your request.', 'ready');
+        if (submit) submit.disabled = false;
+      } catch {
+        setIdentityStatus('We could not verify your CUNY sign-in. Try again shortly.', 'error');
+      }
     }
 
     function clientRequestIdFor(fingerprint: string) {
@@ -433,10 +552,18 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
     const initialKind = new URLSearchParams(window.location.search).get('kind') === 'class' ? 'class' : 'individual';
     setApplicationKind(initialKind, false);
+    identityRetry?.addEventListener('click', () => void loadIdentity());
+    void loadIdentity();
 
     form?.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!submit || !form.reportValidity()) return;
+
+      if (!identityReady || verifiedEmail === null) {
+        requireSignIn('Sign in with CUNY Login before submitting an access request.');
+        identitySignIn?.focus();
+        return;
+      }
 
       const fields = new FormData(form);
       const kind = fields.get('application-kind') === 'class' ? 'class' : 'individual';
@@ -453,7 +580,6 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
       try {
         const common = {
           name: fields.get('name'),
-          email: fields.get('email'),
           affiliation: fields.get('affiliation'),
           department: fields.get('department'),
           campus: fields.get('campus'),
@@ -498,7 +624,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         }
 
         // A refreshed Turnstile token does not change the application being retried.
-        const fingerprint = JSON.stringify({ kind, ...applicationFields });
+        const fingerprint = JSON.stringify({ kind, verifiedEmail, ...applicationFields });
         const payload = {
           clientRequestId: clientRequestIdFor(fingerprint),
           turnstileToken,
@@ -509,12 +635,14 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         const response = await fetch(intakeUrl ?? '', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
+          credentials: 'include',
           body: JSON.stringify(payload),
         });
         const result: { requestId?: string; error?: { code?: string } } = await response.json().catch(() => ({}));
         if (response.status === 201 && typeof result.requestId === 'string') {
           pendingApplication = null;
           form.reset();
+          if (emailInput && verifiedEmail !== null) emailInput.value = verifiedEmail;
           setApplicationKind('individual', true);
           resetTurnstile();
           showStatus(`Application received. Reference: ${result.requestId}`, 'success');
@@ -522,7 +650,10 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         }
 
         resetTurnstile();
-        if (response.status === 403 && result.error?.code === 'turnstile_failed') {
+        if (response.status === 401) {
+          requireSignIn('Your CUNY sign-in expired. Sign in again before resending this request.');
+          identitySignIn?.focus();
+        } else if (response.status === 403 && result.error?.code === 'turnstile_failed') {
           showStatus('The verification expired or could not be confirmed. Complete it again and resend the request.', 'error');
         } else if (response.status === 400) {
           showStatus('Check the form fields and resend the request.', 'error');
@@ -533,7 +664,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         resetTurnstile();
         showStatus('The access service could not be reached. Check your connection and try again.', 'error');
       } finally {
-        submit.disabled = false;
+        submit.disabled = !identityReady;
         submit.textContent = submitLabel;
       }
     });
