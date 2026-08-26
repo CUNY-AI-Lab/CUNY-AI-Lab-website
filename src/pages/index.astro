@@ -77,7 +77,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
           <div class="rounded-2xl border border-gray-100 bg-neutral-cream/40 p-8 flex flex-col">
             <h3 class="text-xl font-bold font-display text-neutral-stone mb-3">{item.title}</h3>
             <p class="text-gray-600 leading-relaxed mb-6 flex-1">{item.text}</p>
-            <a href={item.href.startsWith('http') ? item.href : `${base}${item.href.replace(/^\//, '')}`} class="text-vibrant-600 font-medium hover:text-vibrant-700 transition-colors">
+            <a href={item.href.startsWith('http') ? item.href : `${base}${item.href.replace(/^\//, '')}`} class="text-vibrant-700 font-medium underline underline-offset-2 hover:text-vibrant-800 transition-colors">
               {item.link} &rarr;
             </a>
           </div>
@@ -85,7 +85,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
       </div>
       <p class="mt-10 text-gray-600">
         {data.access.classes_note}
-        <a href={`${base}${data.access.classes_link.url.replace(/^\//, '')}`} class="ml-2 text-vibrant-600 font-medium hover:text-vibrant-700 transition-colors">{data.access.classes_link.text} &rarr;</a>
+        <a href={`${base}${data.access.classes_link.url.replace(/^\//, '')}`} class="ml-2 text-vibrant-700 font-medium underline underline-offset-2 hover:text-vibrant-800 transition-colors">{data.access.classes_link.text} &rarr;</a>
       </p>
     </div>
   </section>
