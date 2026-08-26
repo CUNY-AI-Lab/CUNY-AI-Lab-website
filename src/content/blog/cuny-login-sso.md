@@ -42,6 +42,6 @@ Instructions for specific browsers are available here:
 
 Users who do not already have an approved CUNY AI Lab Sandbox account will continue to be subject to approval until we have the capacity to support broader access.
 
-If you are interested in using the CUNY AI Lab and do not yet have an account, please complete [this interest form](https://docs.google.com/forms/d/e/1FAIpQLScf2_xvqB-BG9L1hFjwm8-MJfoZ9zCw7cj3cYAUiYodaedu2A/viewform) before registering.
+If you are interested in using the CUNY AI Lab and do not yet have an account, submit the [CAIL access application](/request-access/). The application uses CUNY Login to bind the request to your verified CUNY identity.
 
 We're grateful to everyone who continues to help us test and improve the CUNY AI Lab Sandbox, and we're excited to make access easier for members of the CUNY community.

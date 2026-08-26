@@ -20,6 +20,7 @@ IDENTITY_URL = "https://tools.ailab.gc.cuny.edu/request-access/identity"
 SIGN_IN_URL = "https://tools.ailab.gc.cuny.edu/request-access/sign-in"
 INDIVIDUAL_INTAKE_URL = "https://tools.ailab.gc.cuny.edu/request-access/api"
 CLASS_INTAKE_URL = "https://tools.ailab.gc.cuny.edu/request-access/class-api"
+RETIRED_ACCESS_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScf2_xvqB-BG9L1hFjwm8-MJfoZ9zCw7cj3cYAUiYodaedu2A/viewform"
 ARTIFACTS = Path(os.environ.get("CAIL_TEST_ARTIFACTS", "/tmp/cail-request-access-browser"))
 
 
@@ -732,6 +733,23 @@ def test_mobile_layout_and_deep_link(page: Page) -> None:
     page.screenshot(path=str(ARTIFACTS / "class-mobile.png"), full_page=True)
 
 
+def test_public_access_links_use_the_canonical_application(page: Page) -> None:
+    for path in ("/contact/", "/blog/cuny-login-sso/"):
+        page.goto(f"{BASE_URL}{path}", wait_until="domcontentloaded")
+        assert_equal(page.locator(f'a[href="{RETIRED_ACCESS_FORM_URL}"]').count(), 0)
+
+    page.goto(f"{BASE_URL}/contact/", wait_until="domcontentloaded")
+    access_link = page.get_by_role("link", name="CAIL Access")
+    assert_equal(access_link.get_attribute("href"), "/request-access/")
+    assert access_link.get_attribute("target") is None
+
+    page.goto(f"{BASE_URL}/blog/cuny-login-sso/", wait_until="domcontentloaded")
+    assert_equal(
+        page.get_by_role("link", name="CAIL access application").get_attribute("href"),
+        "/request-access/",
+    )
+
+
 def main() -> None:
     ARTIFACTS.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as playwright:
@@ -748,6 +766,7 @@ def main() -> None:
                 test_ambiguous_retry_reuses_client_request_id,
                 test_changed_payload_gets_new_client_request_id,
                 test_mobile_layout_and_deep_link,
+                test_public_access_links_use_the_canonical_application,
             ):
                 context = browser.new_context(viewport={"width": 1440, "height": 1000})
                 page = context.new_page()
