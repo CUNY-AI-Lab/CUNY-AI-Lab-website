@@ -323,6 +323,16 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
                 />
               </div>
             </div>
+            <label for="class-leader" class="mt-5 flex items-center gap-3 text-sm font-semibold text-gray-700">
+              <input
+                type="checkbox"
+                id="class-leader"
+                name="classLeader"
+                data-required
+                class="h-5 w-5 rounded border-gray-300 text-vibrant-600 focus:ring-vibrant-500"
+              />
+              <span>I teach or lead this class</span>
+            </label>
           </fieldset>
 
           <div>
@@ -619,6 +629,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
             startsOn,
             endsOn,
             estimatedSeats,
+            classLeader: true,
           };
         } else {
           applicationFields = {
