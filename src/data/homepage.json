@@ -2,8 +2,14 @@
   "tagline": "A Graduate Center Initiative",
   "title": "AI Infrastructure for CUNY, by CUNY",
   "description": "The CUNY AI Lab is a faculty- and staff-led initiative that develops and maintains AI tools for teaching, learning, and research. We prioritize privacy, transparency, and thoughtful integration of AI into academic work.",
-  "cta_primary": { "text": "About the Lab", "url": "/about" },
-  "cta_secondary": { "text": "Explore Tools", "url": "/tools" },
+  "cta_primary": {
+    "text": "Request access",
+    "url": "/request-access"
+  },
+  "cta_secondary": {
+    "text": "Explore tools",
+    "url": "/tools"
+  },
   "principles_heading": "Guiding Principles",
   "principles": [
     {
@@ -34,5 +40,34 @@
       "icon_color": "text-amber-600",
       "icon_svg": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z\" />"
     }
-  ]
+  ],
+  "access": {
+    "heading": "What access includes",
+    "lede": "One application covers everything the Lab runs. Approved members sign in with their CUNY Login.",
+    "items": [
+      {
+        "title": "Chat sandbox",
+        "text": "Talk with AI models in a shared workspace. Your conversations and documents stay in your account, and you can switch models whenever you like.",
+        "href": "https://chat.ailab.gc.cuny.edu",
+        "link": "Open the chat sandbox"
+      },
+      {
+        "title": "API keys",
+        "text": "Make your own keys for the Lab's model endpoint and use them from your own code or any OpenAI-compatible tool. You manage your keys yourself, and every membership includes a monthly spending limit you can check at any time.",
+        "href": "/docs/api-keys/",
+        "link": "Read the API key guide"
+      },
+      {
+        "title": "Studios",
+        "text": "Build an academic website in Site Studio or run research tasks in Agent Studio. Both work in the browser and save your projects to your Lab account.",
+        "href": "/tools",
+        "link": "See the tools"
+      }
+    ],
+    "classes_note": "Teaching with AI? Apply for a class and your students join through an invitation link during the course dates, with no individual applications.",
+    "classes_link": {
+      "text": "Apply for a class",
+      "url": "/request-access"
+    }
+  }
 }
