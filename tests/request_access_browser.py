@@ -163,11 +163,11 @@ def capture_success(
 
 
 def individual_choice(page: Page):
-    return page.get_by_role("radio", name=re.compile(r"^Individual\b"))
+    return page.locator('input[name="application-kind"][value="individual"]')
 
 
 def class_choice(page: Page):
-    return page.get_by_role("radio", name=re.compile(r"^Class\b"))
+    return page.locator('input[name="application-kind"][value="class"]')
 
 
 def assert_request_id(value: Any) -> None:
@@ -571,8 +571,8 @@ def test_keyboard_copy_and_safe_error(page: Page) -> None:
     assert "faculty manage" not in body
     assert_equal(page.locator('a[href*="/admin/admission"]').count(), 0)
     assert page.get_by_text("The Lab approves the request, declines it, or follows up for more information.").is_visible()
-    assert page.get_by_text("After class approval, coordinators sign in with CUNY Login. Participants use the invitation to sign in and claim a spot.").is_visible()
-    assert page.get_by_text("Individual applicants and approved class participants use the same regular Lab access").is_visible()
+    assert page.get_by_text("After a class is approved, its organizers sign in with CUNY Login and share an invitation link. Students use the link to claim a spot.").is_visible()
+    assert page.get_by_text("Individual members and class participants use the same tools").is_visible()
     assert "faculty automatically" not in body
     assert "automatically granted" not in body
 
@@ -728,9 +728,10 @@ def test_mobile_layout_and_deep_link(page: Page) -> None:
     wait_for_identity(page)
     assert class_choice(page).is_checked()
     assert page.get_by_text(
-        "Request access for a course or cohort. The Lab reviews the application before anyone is invited."
+        "Access for everyone in your course. You apply once; after approval you share an invitation link and students use it to join."
     ).is_visible()
-    assert page.get_by_text("A class application is separate from an individual Lab application. You do not need existing Lab access to apply for a class. Approved participants receive regular Lab access for the class dates.").is_visible()
+    assert page.get_by_text("One application covers the whole class. You do not need existing Lab access to apply, and your students join through the invitation link you share after approval.").is_visible()
+    assert page.get_by_text("Taking a class that uses the Lab?").is_visible()
     dimensions = page.evaluate(
         "({ scrollWidth: document.documentElement.scrollWidth, innerWidth: window.innerWidth })"
     )
