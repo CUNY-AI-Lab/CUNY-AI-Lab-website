@@ -19,14 +19,14 @@
   "application_kind": {
     "legend": "What are you applying for?",
     "individual": {
-      "label": "Individual",
-      "description": "Access or support for your own Lab account."
+      "label": "My own access",
+      "description": "A Lab account of your own, for coursework, research, or teaching."
     },
     "class": {
-      "label": "Class",
-      "description": "Request access for a course or cohort. After approval, students join through an invitation link during the course dates, with no individual applications."
+      "label": "A class I'm teaching or organizing",
+      "description": "Access for everyone in your course. You apply once; after approval you share an invitation link and students use it to join."
     },
-    "class_note": "A class application is separate from an individual Lab application. You do not need existing Lab access to apply for a class. Approved participants receive regular Lab access for the class dates."
+    "class_note": "One application covers the whole class. You do not need existing Lab access to apply, and your students join through the invitation link you share after approval."
   },
   "form_fields": {
     "name": {
@@ -177,5 +177,9 @@
     }
   ],
   "questions_text": "Have questions about access or the platform?",
-  "questions_link_text": "Contact the CUNY AI Lab Team →"
+  "questions_link_text": "Contact the CUNY AI Lab Team →",
+  "student_note": {
+    "heading": "Taking a class that uses the Lab?",
+    "text": "Your instructor shares an invitation link with the class. Open that link, sign in with CUNY Login, and claim your place. If you need the link, ask your instructor."
+  }
 }
