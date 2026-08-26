@@ -92,6 +92,10 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
                 </span>
               </label>
             </div>
+            <p class="mt-3 rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-sm text-gray-700">
+              <span class="font-semibold text-neutral-stone">{data.student_note.heading}</span>
+              {' '}{data.student_note.text}
+            </p>
           </fieldset>
 
           <div

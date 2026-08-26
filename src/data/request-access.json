@@ -1,14 +1,14 @@
 {
   "title": "Request Access",
-  "intro_heading": "Request CAIL Access or Support",
-  "intro_description": "CUNY faculty, staff, and students can use this form to request access to CAIL services or ask for help with an existing account.",
+  "intro_heading": "Apply for Lab access",
+  "intro_description": "CUNY faculty, staff, and students can apply here for access to the Lab's tools, or ask for help with an existing account. One application covers the chat sandbox, API keys, and the studios.",
   "features_heading": "Available services",
   "features": [
-    "CAIL Sandbox with a curated set of AI models",
-    "Transcription and accessible image descriptions, plus document OCR",
-    "Agent Studio and Site Studio for research and publishing workflows",
-    "Personal API keys for direct CAIL Model API access",
-    "Support from the CUNY AI Lab team"
+    "The chat sandbox for conversations with AI models",
+    "API keys you create and manage for the Lab's model endpoint",
+    "Agent Studio and Site Studio for research and publishing work",
+    "Transcription, image description, and document OCR tools",
+    "A monthly spending limit on model use, shown on your Model Access page"
   ],
   "form_heading": "Lab Application",
   "identity_url": "https://tools.ailab.gc.cuny.edu/request-access/identity",
@@ -19,65 +19,167 @@
   "application_kind": {
     "legend": "What are you applying for?",
     "individual": {
-      "label": "Individual",
-      "description": "Access or support for your own Lab account."
+      "label": "My own access",
+      "description": "A Lab account of your own, for coursework, research, or teaching."
     },
     "class": {
-      "label": "Class",
-      "description": "Request access for a course or cohort. The Lab reviews the application before anyone is invited."
+      "label": "A class I'm teaching or organizing",
+      "description": "Access for everyone in your course. You apply once; after approval you share an invitation link and students use it to join."
     },
-    "class_note": "A class application is separate from an individual Lab application. You do not need existing Lab access to apply for a class. Approved participants receive regular Lab access for the class dates."
+    "class_note": "One application covers the whole class. You do not need existing Lab access to apply, and your students join through the invitation link you share after approval."
   },
   "form_fields": {
-    "name": { "label": "Full Name", "placeholder": "Jane Doe", "required": true },
-    "email": { "label": "Verified CUNY Email", "placeholder": "Sign in with CUNY Login to load your verified email", "required": true },
+    "name": {
+      "label": "Full Name",
+      "placeholder": "Jane Doe",
+      "required": true
+    },
+    "email": {
+      "label": "Verified CUNY Email",
+      "placeholder": "Sign in with CUNY Login to load your verified email",
+      "required": true
+    },
     "affiliation": {
       "label": "CUNY Affiliation",
       "required": true,
       "options": [
-        { "value": "", "label": "Select your affiliation..." },
-        { "value": "faculty", "label": "Faculty" },
-        { "value": "staff", "label": "Staff" },
-        { "value": "graduate-student", "label": "Graduate Student" },
-        { "value": "undergraduate-student", "label": "Undergraduate Student" },
-        { "value": "other", "label": "Other" }
+        {
+          "value": "",
+          "label": "Select your affiliation..."
+        },
+        {
+          "value": "faculty",
+          "label": "Faculty"
+        },
+        {
+          "value": "staff",
+          "label": "Staff"
+        },
+        {
+          "value": "graduate-student",
+          "label": "Graduate Student"
+        },
+        {
+          "value": "undergraduate-student",
+          "label": "Undergraduate Student"
+        },
+        {
+          "value": "other",
+          "label": "Other"
+        }
       ]
     },
-    "department": { "label": "Department/Program", "placeholder": "e.g., English, Digital Humanities, Library", "required": true },
-    "campus": { "label": "CUNY College/Campus", "placeholder": "e.g., Graduate Center, Hunter College, Baruch", "required": true },
-    "intended_use": { "label": "Intended Use or Support Request", "placeholder": "Describe how you plan to use CAIL services, or tell us what help you need.", "required": true }
+    "department": {
+      "label": "Department/Program",
+      "placeholder": "e.g., English, Digital Humanities, Library",
+      "required": true
+    },
+    "campus": {
+      "label": "CUNY College/Campus",
+      "placeholder": "e.g., Graduate Center, Hunter College, Baruch",
+      "required": true
+    },
+    "intended_use": {
+      "label": "Intended Use or Support Request",
+      "placeholder": "Describe how you plan to use CAIL services, or tell us what help you need.",
+      "required": true
+    }
   },
   "class_fields": {
-    "class_name": { "label": "Class Name", "placeholder": "e.g., Introduction to Digital Humanities" },
-    "term": { "label": "Term", "placeholder": "e.g., Fall 2026" },
-    "section": { "label": "Section", "placeholder": "e.g., 01 or A" },
-    "starts_on": { "label": "Start Date" },
-    "ends_on": { "label": "End Date", "help": "The last day participants need access." },
-    "estimated_seats": { "label": "Estimated Enrollment", "placeholder": "e.g., 30" }
+    "class_name": {
+      "label": "Class Name",
+      "placeholder": "e.g., Introduction to Digital Humanities"
+    },
+    "term": {
+      "label": "Term",
+      "placeholder": "e.g., Fall 2026"
+    },
+    "section": {
+      "label": "Section",
+      "placeholder": "e.g., 01 or A"
+    },
+    "starts_on": {
+      "label": "Start Date"
+    },
+    "ends_on": {
+      "label": "End Date",
+      "help": "The last day participants need access."
+    },
+    "estimated_seats": {
+      "label": "Estimated Enrollment",
+      "placeholder": "e.g., 30"
+    }
   },
   "tools_of_interest": {
     "label": "Specific Tools of Interest (Optional)",
     "options": [
-      { "value": "sandbox", "label": "CAIL Sandbox" },
-      { "value": "transcription", "label": "Multilingual Transcription Suite" },
-      { "value": "image-description", "label": "Image Description" },
-      { "value": "ocr", "label": "Document OCR" },
-      { "value": "pdf-accessibility", "label": "PDF Accessibility" },
-      { "value": "agent-studio", "label": "Agent Studio" },
-      { "value": "site-studio", "label": "Site Studio" },
-      { "value": "model-access", "label": "Model Access and API keys" },
-      { "value": "support", "label": "Account or technical support" }
+      {
+        "value": "sandbox",
+        "label": "CAIL Sandbox"
+      },
+      {
+        "value": "transcription",
+        "label": "Multilingual Transcription Suite"
+      },
+      {
+        "value": "image-description",
+        "label": "Image Description"
+      },
+      {
+        "value": "ocr",
+        "label": "Document OCR"
+      },
+      {
+        "value": "pdf-accessibility",
+        "label": "PDF Accessibility"
+      },
+      {
+        "value": "agent-studio",
+        "label": "Agent Studio"
+      },
+      {
+        "value": "site-studio",
+        "label": "Site Studio"
+      },
+      {
+        "value": "model-access",
+        "label": "Model Access and API keys"
+      },
+      {
+        "value": "support",
+        "label": "Account or technical support"
+      }
     ]
   },
   "submit_text": "Submit Application",
   "privacy_note": "The Lab stores this information to review your request, manage access, and contact you about CAIL services.",
   "next_steps_heading": "What Happens Next?",
   "next_steps": [
-    { "step": 1, "title": "Review", "description": "The Lab reviews the application and checks the information provided." },
-    { "step": 2, "title": "Decision", "description": "The Lab approves the request, declines it, or follows up for more information." },
-    { "step": 3, "title": "Invitation", "description": "After class approval, coordinators sign in with CUNY Login. Participants use the invitation to sign in and claim a spot." },
-    { "step": 4, "title": "Access", "description_html": "Individual applicants and approved class participants use the same regular Lab access through the <a href=\"/tools/\" class=\"font-semibold text-vibrant-800 underline underline-offset-2 hover:text-vibrant-950\">Tools page</a>. Class access follows the approved dates." }
+    {
+      "step": 1,
+      "title": "Review",
+      "description": "The Lab reviews the application and checks the information provided."
+    },
+    {
+      "step": 2,
+      "title": "Decision",
+      "description": "The Lab approves the request, declines it, or follows up for more information."
+    },
+    {
+      "step": 3,
+      "title": "Invitation",
+      "description": "After a class is approved, its organizers sign in with CUNY Login and share an invitation link. Students use the link to claim a spot."
+    },
+    {
+      "step": 4,
+      "title": "Access",
+      "description_html": "Individual members and class participants use the same tools through the <a href=\"/tools/\" class=\"font-semibold text-vibrant-800 underline underline-offset-2 hover:text-vibrant-950\">Tools page</a>. Class access runs for the approved course dates."
+    }
   ],
   "questions_text": "Have questions about access or the platform?",
-  "questions_link_text": "Contact the CUNY AI Lab Team →"
+  "questions_link_text": "Contact the CUNY AI Lab Team →",
+  "student_note": {
+    "heading": "Taking a class that uses the Lab?",
+    "text": "Your instructor shares an invitation link with the class. Open that link, sign in with CUNY Login, and claim your place. If you need the link, ask your instructor."
+  }
 }
