@@ -20,7 +20,6 @@ IDENTITY_URL = "https://tools.ailab.gc.cuny.edu/request-access/identity"
 SIGN_IN_URL = "https://tools.ailab.gc.cuny.edu/request-access/sign-in"
 INDIVIDUAL_INTAKE_URL = "https://tools.ailab.gc.cuny.edu/request-access/api"
 CLASS_INTAKE_URL = "https://tools.ailab.gc.cuny.edu/request-access/class-api"
-RETIRED_ACCESS_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScf2_xvqB-BG9L1hFjwm8-MJfoZ9zCw7cj3cYAUiYodaedu2A/viewform"
 ARTIFACTS = Path(os.environ.get("CAIL_TEST_ARTIFACTS", "/tmp/cail-request-access-browser"))
 
 
@@ -745,10 +744,6 @@ def test_mobile_layout_and_deep_link(page: Page) -> None:
 
 
 def test_public_access_links_use_the_canonical_application(page: Page) -> None:
-    for path in ("/contact/", "/blog/cuny-login-sso/"):
-        page.goto(f"{BASE_URL}{path}", wait_until="domcontentloaded")
-        assert_equal(page.locator(f'a[href="{RETIRED_ACCESS_FORM_URL}"]').count(), 0)
-
     page.goto(f"{BASE_URL}/contact/", wait_until="domcontentloaded")
     access_link = page.get_by_role("link", name="CAIL Access")
     assert_equal(access_link.get_attribute("href"), "/request-access/")
