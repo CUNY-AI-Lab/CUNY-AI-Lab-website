@@ -225,6 +225,7 @@ def test_individual_mode(page: Page) -> None:
     assert_equal(form.get_attribute("action"), INDIVIDUAL_INTAKE_URL)
     assert page.locator("#class-fields").evaluate("fieldset => fieldset.disabled")
     assert_equal(page.locator("#class-name").get_attribute("required"), None)
+    assert page.get_by_label("I teach or lead this class").is_disabled()
 
     add_turnstile_token(page)
     request_headers: list[dict[str, str]] = []
@@ -344,6 +345,7 @@ def test_post_session_expiry_requires_reauth_and_keeps_retry_id(page: Page) -> N
             }
             for label, value in class_fields.items():
                 page.get_by_label(label).fill(value)
+            page.get_by_label("I teach or lead this class").check()
         else:
             fill_common(page)
         add_turnstile_token(page)
@@ -470,6 +472,12 @@ def test_class_mode(page: Page) -> None:
     page.get_by_label("Start Date").fill("2026-08-25")
     page.get_by_label("End Date").fill("2026-12-20")
     page.get_by_label("Estimated Enrollment").fill("30")
+
+    # The class-leader declaration is required before a class request can be sent.
+    page.get_by_role("button", name="Submit Application").click()
+    assert_equal(len(payloads), 0)
+    assert_equal(page.evaluate("document.activeElement?.id"), "class-leader")
+    page.get_by_label("I teach or lead this class").check()
     page.locator("main").screenshot(path=str(ARTIFACTS / "class-desktop.png"))
 
     # Fallback browsers that treat date inputs as text still cannot send non-ISO dates.
@@ -523,6 +531,7 @@ def test_class_mode(page: Page) -> None:
             "startsOn",
             "endsOn",
             "estimatedSeats",
+            "classLeader",
         },
     )
     assert_request_id(payload.pop("clientRequestId"))
@@ -537,6 +546,7 @@ def test_class_mode(page: Page) -> None:
             "startsOn": "2026-08-25",
             "endsOn": "2026-08-25",
             "estimatedSeats": 30,
+            "classLeader": True,
         },
     )
 
