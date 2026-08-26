@@ -31,10 +31,10 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
           </p>
 
           <div class="flex flex-wrap gap-4 items-center">
-            <a href={`${base}about`} class="px-7 py-3 bg-vibrant-600 text-white rounded-full font-medium hover:bg-vibrant-700 transition-colors">
+            <a href={`${base}${data.cta_primary.url.replace(/^\//, '')}`} class="px-7 py-3 bg-vibrant-600 text-white rounded-full font-medium hover:bg-vibrant-700 transition-colors">
               {data.cta_primary.text}
             </a>
-            <a href={`${base}tools`} class="text-vibrant-600 font-medium hover:text-vibrant-700 transition-colors">
+            <a href={`${base}${data.cta_secondary.url.replace(/^\//, '')}`} class="text-vibrant-600 font-medium hover:text-vibrant-700 transition-colors">
               {data.cta_secondary.text} &rarr;
             </a>
           </div>
