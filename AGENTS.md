@@ -14,7 +14,7 @@ bun run check    # Audit dependencies and build the site
 
 ## Architecture
 
-Astro static site with Tailwind CSS. Production deploys to AWS Amplify from `main` at `ailab.gc.cuny.edu` (the `site` field in `astro.config.mjs` still contains the legacy `cunyailab.org` value). Submit changes through a pull request; the current branch rule requires the `Website CI` check and does not require a formal approval. Ask one independent reviewer to review substantive changes before merge.
+Astro static site with Tailwind CSS. Production deploys to AWS Amplify from `main` at `ailab.gc.cuny.edu`. Submit changes through a pull request; the current branch rule requires the `Website CI` check and does not require a formal approval. Ask one independent reviewer to review substantive changes before merge.
 
 ## Deployment
 

@@ -1,33 +1,33 @@
-# CUNY-AI-Lab
+# CUNY AI Lab website
 
-This is an Astro static site for the CUNY AI Lab.
+This repository contains the CUNY AI Lab's Astro static website, including its
+content collections, tools portal, model registry, and request-access flow.
 
-## 🚀 Project Structure
+## Project structure
 
 ```
 /
-├── public/
-│   └── favicon.svg
+├── public/              # Static assets and robots.txt
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── components/      # Shared header and footer
+│   ├── content/         # Markdown pages and blog posts
+│   ├── data/            # Structured page data
+│   ├── layouts/         # Shared Astro layouts
+│   └── pages/           # Site routes
 ├── astro.config.mjs
+├── amplify.yml
 ├── package.json
 └── tsconfig.json
 ```
 
-## 🧞 Commands
+## Commands
 
-All commands are run from the root of the project, from a terminal:
+Run these commands from the repository root:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun run dev`             | Starts local dev server at `localhost:4321`      |
-| `bun run build`           | Build your production site to `./dist/`          |
-| `bun run preview`         | Preview your build locally, before deploying     |
-| `bun run astro ...`       | Run CLI commands like `astro add`, `astro --help` |
-
-## 👀 Want to learn more about Astro?
-
-Feel free to check [Astro's documentation](https://docs.astro.build).
+| Command | Action |
+| :-- | :-- |
+| `bun install --frozen-lockfile` | Install the locked dependencies |
+| `bun run dev` | Start the local development server at `localhost:4321` |
+| `bun run check` | Audit dependencies and build the site |
+| `bun run build` | Build the production site to `./dist/` |
+| `bun run preview` | Preview the production build locally |
