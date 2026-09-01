@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "check": "bun audit && bun run build",
+    "check": "bun audit && bun run astro check && bun run build",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -19,5 +19,9 @@
   },
   "overrides": {
     "mdast-util-to-hast": "13.2.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.0"
   }
 }

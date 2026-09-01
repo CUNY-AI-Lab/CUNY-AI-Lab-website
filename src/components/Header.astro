@@ -166,11 +166,11 @@ const subItemClass = (path: string) =>
   // Desktop "About" dropdown: hover and focus open it via CSS; the toggle button
   // and these handlers add click-to-open, click-outside/Escape-to-close, and keep
   // aria-expanded in sync for screen readers.
-  document.querySelectorAll('[data-dropdown]').forEach((dropdown) => {
-    const toggle = dropdown.querySelector('[data-dropdown-toggle]');
+  document.querySelectorAll<HTMLElement>('[data-dropdown]').forEach((dropdown) => {
+    const toggle = dropdown.querySelector<HTMLButtonElement>('[data-dropdown-toggle]');
     if (!toggle) return;
 
-    const setOpen = (open) => {
+    const setOpen = (open: boolean) => {
       dropdown.setAttribute('data-open', open ? 'true' : 'false');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     };
@@ -183,7 +183,7 @@ const subItemClass = (path: string) =>
     // Tabbing into any control reflects the open state in aria-expanded
     dropdown.addEventListener('focusin', () => toggle.setAttribute('aria-expanded', 'true'));
     dropdown.addEventListener('focusout', (event) => {
-      if (!dropdown.contains(event.relatedTarget)) setOpen(false);
+      if (!(event.relatedTarget instanceof Node) || !dropdown.contains(event.relatedTarget)) setOpen(false);
     });
 
     dropdown.addEventListener('keydown', (event) => {
@@ -194,7 +194,7 @@ const subItemClass = (path: string) =>
     });
 
     document.addEventListener('click', (event) => {
-      if (!dropdown.contains(event.target)) setOpen(false);
+      if (!(event.target instanceof Node) || !dropdown.contains(event.target)) setOpen(false);
     });
   });
 
