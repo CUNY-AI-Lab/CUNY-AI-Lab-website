@@ -409,7 +409,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     </div>
   </section>
 
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
     const form = document.querySelector<HTMLFormElement>('#access-request-form');
     const submit = document.querySelector<HTMLButtonElement>('#access-request-submit');

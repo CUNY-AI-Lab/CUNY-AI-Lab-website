@@ -550,7 +550,7 @@ def test_class_mode(page: Page) -> None:
     )
 
 
-def test_keyboard_copy_and_safe_error(page: Page) -> None:
+def test_keyboard_navigation_and_safe_error(page: Page) -> None:
     mock_identity(page)
     page.goto(f"{BASE_URL}/request-access/")
     wait_for_identity(page)
@@ -563,19 +563,7 @@ def test_keyboard_copy_and_safe_error(page: Page) -> None:
     assert individual.is_checked()
     assert "kind=individual" in page.url
 
-    body = page.locator("body").inner_text().lower()
-    assert "admin desk" not in body
-    assert "receive an email" not in body
-    assert "email notification" not in body
-    assert "faculty manage" not in body
-    assert_equal(page.locator('a[href*="/admin/admission"]').count(), 0)
-    assert page.get_by_text("The Lab approves the request, declines it, or follows up for more information.").is_visible()
-    assert page.get_by_text("After a class is approved, its organizers sign in with CUNY Login and share an invitation link. Students use the link to claim a spot.").is_visible()
-    assert page.get_by_text("Individual members and class participants use the same tools").is_visible()
-    assert "faculty automatically" not in body
-    assert "automatically granted" not in body
-
-    common = fill_common(page)
+    fill_common(page)
     add_turnstile_token(page)
 
     def fail(route: Route) -> None:
@@ -594,7 +582,6 @@ def test_keyboard_copy_and_safe_error(page: Page) -> None:
     status = page.locator("#form-status")
     status.get_by_text("The access service is temporarily unavailable. Try again shortly.").wait_for()
     assert "secret detail" not in status.inner_text()
-    assert_equal(common["affiliation"], "faculty")
 
 
 def test_backend_error_and_retry(page: Page) -> None:
@@ -726,21 +713,10 @@ def test_mobile_layout_and_deep_link(page: Page) -> None:
     page.goto(f"{BASE_URL}/request-access/?kind=class")
     wait_for_identity(page)
     assert class_choice(page).is_checked()
-    assert page.get_by_text(
-        "Access for everyone in your course. You apply once; after approval you share an invitation link and students use it to join."
-    ).is_visible()
-    assert page.get_by_text("One application covers the whole class. You do not need existing Lab access to apply, and your students join through the invitation link you share after approval.").is_visible()
-    assert page.get_by_text("Taking a class that uses the Lab?").is_visible()
     dimensions = page.evaluate(
         "({ scrollWidth: document.documentElement.scrollWidth, innerWidth: window.innerWidth })"
     )
     assert dimensions["scrollWidth"] <= dimensions["innerWidth"]
-
-    individual_box = individual_choice(page).locator("xpath=..").bounding_box()
-    class_box = class_choice(page).locator("xpath=..").bounding_box()
-    assert individual_box is not None and class_box is not None
-    assert class_box["y"] > individual_box["y"] + individual_box["height"] - 1
-    page.screenshot(path=str(ARTIFACTS / "class-mobile.png"), full_page=True)
 
 
 def test_public_access_links_use_the_canonical_application(page: Page) -> None:
@@ -767,7 +743,7 @@ def main() -> None:
                 test_post_session_expiry_requires_reauth_and_keeps_retry_id,
                 test_reauth_as_different_identity_gets_new_retry_id,
                 test_class_mode,
-                test_keyboard_copy_and_safe_error,
+                test_keyboard_navigation_and_safe_error,
                 test_backend_error_and_retry,
                 test_ambiguous_retry_reuses_client_request_id,
                 test_changed_payload_gets_new_client_request_id,

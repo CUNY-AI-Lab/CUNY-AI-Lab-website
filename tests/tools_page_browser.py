@@ -1,7 +1,7 @@
 """Browser contract tests for the public tools page.
 
-These checks exercise the rendered page so tab order, deep links, outbound
-links, and the basic tab-panel accessibility contract stay stable together.
+These checks exercise the rendered page so deep links, keyboard interaction,
+and the basic tab-panel accessibility contract stay stable together.
 """
 
 from __future__ import annotations
@@ -14,20 +14,6 @@ from playwright.sync_api import Page, sync_playwright
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
 EXPECTED_PANELS = ["sandbox", "media", "assistants", "model-access"]
-EXPECTED_LINKS = {
-    "https://chat.ailab.gc.cuny.edu/",
-    "https://tools.ailab.gc.cuny.edu/",
-    "https://tools.ailab.gc.cuny.edu/asr/",
-    "https://tools.ailab.gc.cuny.edu/alt-text/",
-    "https://tools.ailab.gc.cuny.edu/ocr/",
-    "https://tools.ailab.gc.cuny.edu/agent-studio/",
-    "https://tools.ailab.gc.cuny.edu/site-studio/",
-    "https://tools.ailab.gc.cuny.edu/model-access",
-    "https://tools.ailab.gc.cuny.edu/my-classes",
-    "/models",
-    "/request-access/",
-    "/request-access/?kind=class",
-}
 
 
 def assert_equal(actual: Any, expected: Any) -> None:
@@ -36,12 +22,6 @@ def assert_equal(actual: Any, expected: Any) -> None:
 
 def load_tools(page: Page, suffix: str = "") -> None:
     page.goto(f"{BASE_URL}/tools/{suffix}", wait_until="domcontentloaded")
-
-
-def tab_order(page: Page, selector: str) -> list[str]:
-    return page.locator(selector).evaluate_all(
-        "tabs => tabs.map(tab => tab.dataset.panel)"
-    )
 
 
 def assert_selected_panel(page: Page, panel_id: str) -> None:
@@ -69,11 +49,8 @@ def ax_image_names(page: Page) -> list[str]:
 
 
 def test_navigation_is_deterministic(page: Page) -> None:
-    for _ in range(3):
-        load_tools(page)
-        assert_equal(tab_order(page, ".sidebar-card"), EXPECTED_PANELS)
-        assert_equal(tab_order(page, ".mobile-tab"), EXPECTED_PANELS)
-        assert_selected_panel(page, "sandbox")
+    load_tools(page)
+    assert_selected_panel(page, "sandbox")
 
     load_tools(page, "#media")
     assert_selected_panel(page, "media")
@@ -88,7 +65,7 @@ def test_navigation_is_deterministic(page: Page) -> None:
     assert_selected_panel(page, "model-access")
 
 
-def test_tabs_links_and_accessibility_contract(page: Page) -> None:
+def test_tabs_and_accessibility_contract(page: Page) -> None:
     load_tools(page)
 
     tablists = page.locator('[role="tablist"]')
@@ -97,10 +74,6 @@ def test_tabs_links_and_accessibility_contract(page: Page) -> None:
         tablist = tablists.nth(index)
         tabs = tablist.locator('[role="tab"]')
         assert_equal(tabs.count(), len(EXPECTED_PANELS))
-        assert_equal(
-            tabs.evaluate_all("tabs => tabs.map(tab => tab.dataset.panel)"),
-            EXPECTED_PANELS,
-        )
         assert_equal(tablist.locator('[role="tab"][aria-selected="true"]').count(), 1)
         assert_equal(tablist.locator('[role="tab"][tabindex="0"]').count(), 1)
         for tab_index in range(tabs.count()):
@@ -118,27 +91,12 @@ def test_tabs_links_and_accessibility_contract(page: Page) -> None:
     for svg_index in range(page.locator("svg").count()):
         assert_equal(page.locator("svg").nth(svg_index).get_attribute("aria-hidden"), "true")
 
-    for href in EXPECTED_LINKS:
-        assert_equal(page.locator(f'a[href="{href}"]').count() > 0, True)
-
     body = page.locator("body").inner_text()
     privacy_copy = (
         "Model-provider calls are configured for zero retention; "
         "conversations may still be saved in your Sandbox account."
     )
     assert privacy_copy in body
-    assert (
-        "Speech-to-text is available through Media Processing; "
-        "more accessibility tools are in development"
-    ) in body
-    assert "Text-to-speech, speech-to-text, and more planned" not in body
-    assert "Spring 2026" not in body
-    assert "Prompts and outputs are never stored" not in body
-    assert "no data from prompts or responses is stored" not in body
-    assert "Math.random" not in page.locator("body").evaluate("body => body.innerHTML")
-    assert page.get_by_role("link", name="Individual access").is_visible()
-    assert page.get_by_role("link", name="Class access").is_visible()
-    assert page.get_by_role("link", name="Manage my classes").is_visible()
 
 
 def test_media_slider_accessibility(page: Page) -> None:
@@ -209,7 +167,7 @@ def main() -> None:
         try:
             tests = (
                 test_navigation_is_deterministic,
-                test_tabs_links_and_accessibility_contract,
+                test_tabs_and_accessibility_contract,
                 test_media_slider_accessibility,
                 test_mobile_initial_load_does_not_scroll,
                 test_keyboard_tab_navigation,

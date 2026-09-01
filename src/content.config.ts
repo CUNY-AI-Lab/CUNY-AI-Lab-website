@@ -1,11 +1,31 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const pages = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
-  schema: z.object({
+  schema: z.looseObject({
     title: z.string(),
-  }).passthrough(),
+    principles: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+    })).optional(),
+    cta: z.object({
+      heading: z.string(),
+      description: z.string(),
+      primary: z.object({
+        text: z.string(),
+        url: z.string(),
+      }),
+      secondary: z.object({
+        text: z.string(),
+        url: z.string(),
+      }),
+    }).optional(),
+    email_label: z.string().optional(),
+    email: z.string().optional(),
+    card_detail: z.string().optional(),
+  }),
 });
 
 const blog = defineCollection({

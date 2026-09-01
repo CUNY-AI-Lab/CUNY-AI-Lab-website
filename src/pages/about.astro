@@ -4,7 +4,11 @@ import { getEntry, render } from 'astro:content';
 
 const base = import.meta.env.BASE_URL;
 const entry = await getEntry('pages', 'about');
-const data = entry.data;
+if (!entry) throw new Error('About page content is missing');
+const page = entry.data;
+const { principles, cta } = page;
+if (!principles || !cta) throw new Error('About page content is incomplete');
+const data = { title: page.title, principles, cta };
 const { Content } = await render(entry);
 ---
 
@@ -34,7 +38,7 @@ const { Content } = await render(entry);
           <div class="bg-neutral-cream rounded-2xl p-6 border border-gray-100">
             <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-5">Guiding Principles</h3>
             <ul class="space-y-4">
-              {data.principles.map((principle: any) => (
+              {data.principles.map((principle) => (
                 <li>
                   <h4 class="font-semibold text-neutral-stone">{principle.title}</h4>
                   <p class="text-sm text-gray-500 mt-1">{principle.description}</p>

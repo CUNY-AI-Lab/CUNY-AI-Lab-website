@@ -28,6 +28,6 @@ Run these commands from the repository root:
 | :-- | :-- |
 | `bun install --frozen-lockfile` | Install the locked dependencies |
 | `bun run dev` | Start the local development server at `localhost:4321` |
-| `bun run check` | Audit dependencies and build the site |
+| `bun run check` | Audit dependencies, run Astro's static check, and build the site |
 | `bun run build` | Build the production site to `./dist/` |
 | `bun run preview` | Preview the production build locally |

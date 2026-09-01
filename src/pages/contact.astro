@@ -5,7 +5,11 @@ import socials from '../data/socials.json';
 
 const base = import.meta.env.BASE_URL;
 const entry = await getEntry('pages', 'contact');
-const data = entry.data;
+if (!entry) throw new Error('Contact page content is missing');
+const page = entry.data;
+const { email_label, email, card_detail } = page;
+if (!email_label || !email || !card_detail) throw new Error('Contact page content is incomplete');
+const data = { title: page.title, email_label, email, card_detail };
 const { Content } = await render(entry);
 ---
 
