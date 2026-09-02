@@ -52,6 +52,15 @@ const subItemClass = (path: string) =>
           <a href={base} class={linkClass(base)}>
             Home
           </a>
+          <a href={`${base}tools`} class={linkClass(`${base}tools`)}>
+            Tools
+          </a>
+          <a href={`${base}resources`} class={linkClass(`${base}resources`)}>
+            Resources
+          </a>
+          <a href={`${base}blog`} class={linkClass(`${base}blog`)}>
+            Blog
+          </a>
           <div class="relative nav-dropdown" data-dropdown data-open="false">
             <div class={`flex items-center rounded-full text-sm font-medium transition-all duration-200 ${aboutTriggerClass}`}>
               <a href={`${base}about`} class="pl-4 pr-1.5 py-2 rounded-l-full focus:outline-none focus-visible:ring-2 focus-visible:ring-vibrant-400">
@@ -77,15 +86,6 @@ const subItemClass = (path: string) =>
               </div>
             </div>
           </div>
-          <a href={`${base}tools`} class={linkClass(`${base}tools`)}>
-            Tools
-          </a>
-          <a href={`${base}resources`} class={linkClass(`${base}resources`)}>
-            Resources
-          </a>
-          <a href={`${base}blog`} class={linkClass(`${base}blog`)}>
-            Blog
-          </a>
           </div>
         </div>
       </div>
@@ -113,6 +113,15 @@ const subItemClass = (path: string) =>
       <a href={base} class={mobileLinkClass(base)}>
         Home
       </a>
+      <a href={`${base}tools`} class={mobileLinkClass(`${base}tools`)}>
+        Tools
+      </a>
+      <a href={`${base}resources`} class={mobileLinkClass(`${base}resources`)}>
+        Resources
+      </a>
+      <a href={`${base}blog`} class={mobileLinkClass(`${base}blog`)}>
+        Blog
+      </a>
       <div class="flex items-center gap-1">
         <a href={`${base}about`} class={`${mobileLinkClass(`${base}about`)} flex-1`}>
           About
@@ -138,15 +147,6 @@ const subItemClass = (path: string) =>
           Contact
         </a>
       </div>
-      <a href={`${base}tools`} class={mobileLinkClass(`${base}tools`)}>
-        Tools
-      </a>
-      <a href={`${base}resources`} class={mobileLinkClass(`${base}resources`)}>
-        Resources
-      </a>
-      <a href={`${base}blog`} class={mobileLinkClass(`${base}blog`)}>
-        Blog
-      </a>
       <div class="pt-4 mt-4 border-t border-gray-100 space-y-2">
         <a href="https://tools.ailab.gc.cuny.edu/welcome" class="block w-full text-center px-4 py-3 rounded-lg text-base font-medium text-neutral-stone hover:text-vibrant-600 hover:bg-gray-50 transition-colors">
           Sign in
