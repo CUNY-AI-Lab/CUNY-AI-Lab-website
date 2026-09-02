@@ -97,7 +97,7 @@ const toolCategories = [
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
       <!-- Mobile: Horizontal selector (visible < lg) -->
-      <div class="mobile-tablist flex gap-2 mb-8 lg:hidden overflow-x-auto pb-2 -mx-1 px-1" role="tablist" aria-label="Tool categories">
+      <div class="mobile-tablist flex gap-2 mb-8 lg:hidden overflow-x-auto -mx-1 px-1" role="tablist" aria-label="Tool categories">
         {toolCategories.map((category) => {
           const selected = category.id === 'sandbox';
           const activeClass = `${mobileTabBase} ${category.mobile.activeClass}`;
@@ -612,6 +612,12 @@ const toolCategories = [
 <style is:global>
   .content-panel {
     transition: opacity 0.25s ease-in-out;
+  }
+  .mobile-tablist {
+    scrollbar-width: none;
+  }
+  .mobile-tablist::-webkit-scrollbar {
+    display: none;
   }
   @media (min-width: 1024px) {
     .tools-layout {
