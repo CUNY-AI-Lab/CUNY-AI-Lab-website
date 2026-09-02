@@ -18,8 +18,9 @@ Astro static site with Tailwind CSS. Production is served at `ailab.gc.cuny.edu`
 
 ## Deployment
 
-- Target: Cloudflare Worker `cail-website` (static assets from `dist/`, config in `wrangler.jsonc`) in the CUNY AI Lab Cloudflare account, routed at `ailab.gc.cuny.edu/*` on the Lab's CNAME-setup zone. The `deploy` job in `.github/workflows/ci.yml` deploys `main` with the repository secret `CLOUDFLARE_API_TOKEN`.
-- Until CUNY IT repoints the `ailab.gc.cuny.edu` CNAME from CloudFront to Cloudflare, the live site is still served by AWS Amplify app `d1j8mvw9hg41u1`, which builds `main` from `amplify.yml`. Keep `amplify.yml` aligned with CI (`bun install --frozen-lockfile`, `bun run build`) until that cutover, then delete it.
+- Cloudflare Worker `cail-website` serves the same static `dist/` build at `https://cail-website.ailab-452.workers.dev`. `wrangler.jsonc` has no production routes or application bindings. The serialized `deploy` job publishes current `main` using the repository secret `CLOUDFLARE_API_TOKEN`, then checks the exact serving version and public routes. PR jobs have no deployment credentials and run the existing browser checks against local Wrangler.
+- Production remains on AWS Amplify app `d1j8mvw9hg41u1`, which builds `main` from `amplify.yml`. Keep its build aligned with CI. A later, separately authorized domain cutover requires CUNY DNS and Cloudflare zone/route readiness; then remove the obsolete Amplify path. This preview setup does not authorize DNS, plan, or email changes.
+- Request-access authentication and intake remain restricted to the canonical website origin. Do not broaden Doorway CORS or identity origins for this preview. Test those interactions locally with the existing explicit fixtures and verify the real flow on the canonical site.
 - After a build-toolchain change, verify the deployment that currently serves production succeeded. A passing GitHub check alone does not prove the site deployed.
 
 **Data Layer:**

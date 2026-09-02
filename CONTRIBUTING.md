@@ -100,5 +100,5 @@ Then go to GitHub and create a pull request from your branch.
 ## Important
 
 - **Never push directly to `main`** — always use a pull request
-- Changes to `main` deploy automatically to the live site at https://ailab.gc.cuny.edu (see `AGENTS.md` for which host currently serves it)
+- Changes to `main` deploy automatically to the live Amplify site at https://ailab.gc.cuny.edu and to the Cloudflare preview at https://cail-website.ailab-452.workers.dev. The preview does not change production DNS; see `README.md` for its form-authentication limits.
 - If you're unsure about a change, open the PR anyway and ask for feedback in the description
