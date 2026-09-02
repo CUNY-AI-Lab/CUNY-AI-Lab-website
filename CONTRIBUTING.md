@@ -100,5 +100,5 @@ Then go to GitHub and create a pull request from your branch.
 ## Important
 
 - **Never push directly to `main`** — always use a pull request
-- Changes to `main` auto-deploy to the live site at https://ailab.gc.cuny.edu
+- Changes to `main` deploy automatically to the live site at https://ailab.gc.cuny.edu (see `AGENTS.md` for which host currently serves it)
 - If you're unsure about a change, open the PR anyway and ask for feedback in the description

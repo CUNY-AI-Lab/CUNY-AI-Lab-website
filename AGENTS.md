@@ -14,13 +14,13 @@ bun run check    # Audit dependencies and build the site
 
 ## Architecture
 
-Astro static site with Tailwind CSS. Production deploys to AWS Amplify from `main` at `ailab.gc.cuny.edu`. Submit changes through a pull request; the current branch rule requires the `Website CI` check and does not require a formal approval. Ask one independent reviewer to review substantive changes before merge.
+Astro static site with Tailwind CSS. Production is served at `ailab.gc.cuny.edu`; see Deployment for which host currently serves it. Submit changes through a pull request; the current branch rule requires the `Website CI` check and does not require a formal approval. Ask one independent reviewer to review substantive changes before merge.
 
 ## Deployment
 
-- AWS Amplify app `d1j8mvw9hg41u1` builds `main` from the versioned `amplify.yml`; the repository file overrides the Amplify console build specification.
-- Keep `amplify.yml` and `.github/workflows/ci.yml` aligned: both install from `bun.lock` with `bun install --frozen-lockfile` and build with `bun run build`.
-- After merging a build-toolchain change, verify the latest Amplify job for `main` succeeds. A passing GitHub check alone does not prove that Amplify deployed the site.
+- Target: Cloudflare Worker `cail-website` (static assets from `dist/`, config in `wrangler.jsonc`) in the CUNY AI Lab Cloudflare account, routed at `ailab.gc.cuny.edu/*` on the Lab's CNAME-setup zone. The `deploy` job in `.github/workflows/ci.yml` deploys `main` with the repository secret `CLOUDFLARE_API_TOKEN`.
+- Until CUNY IT repoints the `ailab.gc.cuny.edu` CNAME from CloudFront to Cloudflare, the live site is still served by AWS Amplify app `d1j8mvw9hg41u1`, which builds `main` from `amplify.yml`. Keep `amplify.yml` aligned with CI (`bun install --frozen-lockfile`, `bun run build`) until that cutover, then delete it.
+- After a build-toolchain change, verify the deployment that currently serves production succeeded. A passing GitHub check alone does not prove the site deployed.
 
 **Data Layer:**
 Pages pull content from two sources:
