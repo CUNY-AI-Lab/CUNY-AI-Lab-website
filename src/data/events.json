@@ -44,13 +44,13 @@
           "date": "October 1, 2:30–4:00 pm",
           "title": "Building Custom Models with Knowledge Collections",
           "description": "This workshop focuses on moving from a system prompt to a custom model grounded in your own materials. Participants will create a model card in the Sandbox, select and configure a base model, and learn how knowledge collections allow AI models to retrieve information from uploaded syllabi, readings, assignments, research materials, datasets, and other documents. We'll consider both the technical and intellectual work of curating a useful collection: what to include, how to organize documents, and how to test whether the model is retrieving relevant material rather than producing generic responses.",
-          "prerequisite": "Prerequisite: Participation in the introductory Sandbox workshop."
+          "prerequisite": "Participation in the introductory Sandbox workshop is encouraged but not required."
         },
         {
           "date": "October 15, 2:30–4:00 pm",
           "title": "Extending Custom Models with Skills & Tools",
           "description": "In the final workshop of this series, we'll extend custom models beyond prompts and documents by introducing skills and tools. Participants will learn how skills can encode repeatable procedures—for example, guiding a student through a close reading or walking a researcher through a particular analytical workflow—and how tools give models additional capabilities such as web search, querying files, running code, or generating images. Participants will design a skill for a specific teaching or research task, add it to a custom model, and test how system prompts, knowledge collections, skills, and tools can work together as different layers of an AI-assisted workflow.",
-          "prerequisite": "Prerequisite: Participation in the earlier Sandbox workshops."
+          "prerequisite": "Prerequisite: Participation in Building Custom Models with Knowledge Collections."
         }
       ]
     }
