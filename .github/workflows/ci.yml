@@ -11,7 +11,7 @@ permissions:
 
 concurrency:
   group: website-ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   website:
@@ -33,18 +33,89 @@ jobs:
       - name: Check site
         run: bun run check
 
+      - name: Check Cloudflare deployment
+        run: bun run deploy:cloudflare --dry-run
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+
       - name: Install browser test dependencies
-        run: |
-          python3 -m pip install --user playwright
-          python3 -m playwright install --with-deps chromium
+        run: uv run --with playwright python -m playwright install --with-deps chromium
 
       - name: Run browser tests
         run: |
-          bun run preview -- --host 127.0.0.1 --port 4321 &
+          bun run preview:cloudflare &
           for i in $(seq 1 30); do
             if curl -sf http://127.0.0.1:4321/ > /dev/null; then break; fi
             sleep 1
           done
           curl -sf http://127.0.0.1:4321/ > /dev/null
-          python3 tests/tools_page_browser.py
-          python3 tests/request_access_browser.py
+          uv run --with playwright python tests/tools_page_browser.py
+          uv run --with playwright python tests/request_access_browser.py
+
+  deploy:
+    name: Deploy Cloudflare preview
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: website
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: cail-website-preview
+      cancel-in-progress: false
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build site
+        run: bun run build
+
+      - name: Require current main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          main_sha="$(gh api "repos/$GITHUB_REPOSITORY/commits/main" --jq '.sha')"
+          test "$main_sha" = "$GITHUB_SHA" || {
+            echo 'Refusing to deploy an older queued commit.' >&2
+            exit 1
+          }
+
+      - name: Deploy Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: bun run deploy:cloudflare --tag "$GITHUB_SHA" --message "commit $GITHUB_SHA"
+
+      - name: Verify Cloudflare preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          api='https://api.cloudflare.com/client/v4/accounts/452c33847cf5cb1e46f391fca32fd1b5/workers/scripts/cail-website'
+          deployment="$(curl --fail --silent --show-error \
+            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$api/deployments")"
+          version="$(jq -er '
+            select(.success == true) | .result.deployments[0].versions |
+            select(length == 1 and .[0].percentage == 100) | .[0].version_id
+          ' <<<"$deployment")"
+          curl --fail --silent --show-error \
+            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$api/versions/$version" |
+            jq -e --arg sha "$GITHUB_SHA" '
+              .success == true and
+              .result.annotations["workers/tag"] == $sha and
+              .result.annotations["workers/message"] == ("commit " + $sha)
+            ' >/dev/null
+          echo "Cloudflare preview serves version $version for $GITHUB_SHA"
+          origin='https://cail-website.ailab-452.workers.dev'
+          for path in / /tools/ /request-access/ /blog/cuny-login-sso/ /rss.xml; do
+            status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' "$origin$path")"
+            test "$status" = 200 || { echo "Preview $path returned $status" >&2; exit 1; }
+          done
+          status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' "$origin/not-a-real-cail-page")"
+          test "$status" = 404

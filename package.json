@@ -8,6 +8,8 @@
     "check": "bun audit && bun run astro check && bun run build",
     "build": "astro build",
     "preview": "astro preview",
+    "preview:cloudflare": "wrangler dev --ip 127.0.0.1 --port 4321",
+    "deploy:cloudflare": "wrangler deploy",
     "astro": "astro"
   },
   "dependencies": {
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "typescript": "^6.0.0"
+    "typescript": "^6.0.0",
+    "wrangler": "4.128.0"
   }
 }
