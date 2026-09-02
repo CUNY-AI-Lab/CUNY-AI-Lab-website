@@ -94,7 +94,8 @@ def test_tabs_and_accessibility_contract(page: Page) -> None:
     body = page.locator("body").inner_text()
     privacy_copy = (
         "While conversations are privately stored in your Sandbox account, "
-        "all requests to model providers are configured for zero retention."
+        "all requests to providers prohibit model training and are configured "
+        "for zero data retention."
     )
     assert privacy_copy in body
 
