@@ -157,7 +157,7 @@ const toolCategories = [
                 <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">CAIL Sandbox</h2>
                 <div class="space-y-4 text-gray-600 leading-relaxed max-w-3xl">
                   <p>
-                    The <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a> provides CUNY faculty, staff, and students with an AI chat interface and a curated set of open-weight models. Model-provider calls are configured for zero retention; conversations may still be saved in your Sandbox account. Users can configure the models to their needs while also gaining insight into the environmental impacts of their tool use.
+                    The <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a> provides CUNY students, faculty, and staff with an AI chat interface and a curated set of open-weight models. While conversations are stored in your personal Sandbox account, all requests to model providers are configured for zero retention. Users can configure models to their needs while also gaining insight into the environmental impacts of their tool use.
                   </p>
                   <p>
                     Existing approved users can sign in with CUNY Login. If you need access or cannot sign in, <a href={`${base}request-access`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">request access or support</a>.
@@ -234,18 +234,6 @@ const toolCategories = [
 
                 <div class="space-y-4">
                   <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
-                    <div class="w-9 h-9 rounded-lg bg-vibrant-100 flex items-center justify-center flex-shrink-0">
-                      <svg class="w-4.5 h-4.5 text-vibrant-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 class="font-bold text-neutral-stone text-sm mb-1">AmigAI</h4>
-                      <p class="text-gray-600 text-sm leading-relaxed">A Spanish-language chatbot that helps CUNY students practice conversational Spanish through culturally responsive pedagogy.</p>
-                    </div>
-                  </div>
-
-                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
                     <div class="w-9 h-9 rounded-lg bg-indigo-100 flex items-center justify-center flex-shrink-0">
                       <svg class="w-4.5 h-4.5 text-indigo-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -253,7 +241,7 @@ const toolCategories = [
                     </div>
                     <div>
                       <h4 class="font-bold text-neutral-stone text-sm mb-1">Course-Specific Assistants</h4>
-                      <p class="text-gray-600 text-sm leading-relaxed">Built for individual courses using your syllabus, readings, and materials. Support students through complex texts with guiding questions.</p>
+                      <p class="text-gray-600 text-sm leading-relaxed">Built for a single course from its syllabus, readings, and materials. Guiding questions carry students through difficult texts.</p>
                       <div class="mt-2.5 flex flex-wrap items-center gap-1.5">
                         <span class="text-xs text-gray-500">Examples:</span>
                         <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[11px] font-medium rounded-full">Writing Process Assistant</span>
@@ -264,14 +252,26 @@ const toolCategories = [
                   </div>
 
                   <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
-                    <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
-                      <svg class="w-4.5 h-4.5 text-green-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                    <div class="w-9 h-9 rounded-lg bg-vibrant-100 flex items-center justify-center flex-shrink-0">
+                      <svg class="w-4.5 h-4.5 text-vibrant-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                       </svg>
                     </div>
                     <div>
-                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Project Templates</h4>
-                      <p class="text-gray-600 text-sm leading-relaxed">Reusable configurations designed for common classroom workflows that instructors can adapt across sections or semesters.</p>
+                      <h4 class="font-bold text-neutral-stone text-sm mb-1">AmigAI</h4>
+                      <p class="text-gray-600 text-sm leading-relaxed">A chatbot that helps CUNY students practice conversational Spanish through culturally responsive pedagogy.</p>
+                    </div>
+                  </div>
+
+                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
+                    <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
+                      <svg class="w-4.5 h-4.5 text-green-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Sandbox Workspace</h4>
+                      <p class="text-gray-600 text-sm leading-relaxed">Where custom assistants get made. Prototype custom models, draft system prompts, curate knowledge collections, and learn agentic skills and tools.</p>
                     </div>
                   </div>
                 </div>
