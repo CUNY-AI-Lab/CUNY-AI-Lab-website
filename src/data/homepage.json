@@ -42,8 +42,8 @@
     }
   ],
   "access": {
-    "heading": "What access includes",
-    "lede": "One application covers everything the Lab runs. Approved members sign in with their CUNY Login.",
+    "heading": "Access at a glance",
+    "lede": "One application covers everything the Lab runs. Approved members sign in with CUNY Login.",
     "items": [
       {
         "title": "Chat sandbox",
@@ -52,19 +52,19 @@
         "link": "Open the chat sandbox"
       },
       {
-        "title": "API keys",
-        "text": "Make your own keys for the Lab's model endpoint and use them from your own code or any OpenAI-compatible tool. You manage your keys yourself, and every membership includes a monthly spending limit you can check at any time.",
-        "href": "/docs/api-keys/",
-        "link": "Read the API key guide"
-      },
-      {
-        "title": "Studios",
-        "text": "Build an academic website in Site Studio or run research tasks in Agent Studio. Both work in the browser and save your projects to your Lab account.",
+        "title": "Lab tools",
+        "text": "Build an academic website in Site Studio, run research tasks in Agent Studio, or use the media tools for transcription, image description, and OCR.",
         "href": "/tools",
         "link": "See the tools"
+      },
+      {
+        "title": "API keys",
+        "text": "Create keys for the Lab's model endpoint and call models from your own code or any OpenAI-compatible tool. Every membership includes a monthly spending limit.",
+        "href": "/docs/api-keys/",
+        "link": "Read the API key guide"
       }
     ],
-    "classes_note": "Teaching with AI? Apply for a class and your students join through an invitation link during the course dates, with no individual applications.",
+    "classes_note": "Teaching with AI? Apply for a class, then share an invitation link your students use to sign up. No individual applications needed.",
     "classes_link": {
       "text": "Apply for a class",
       "url": "/request-access"

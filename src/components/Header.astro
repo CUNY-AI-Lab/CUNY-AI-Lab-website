@@ -52,6 +52,15 @@ const subItemClass = (path: string) =>
           <a href={base} class={linkClass(base)}>
             Home
           </a>
+          <a href={`${base}tools`} class={linkClass(`${base}tools`)}>
+            Tools
+          </a>
+          <a href={`${base}resources`} class={linkClass(`${base}resources`)}>
+            Resources
+          </a>
+          <a href={`${base}blog`} class={linkClass(`${base}blog`)}>
+            Blog
+          </a>
           <div class="relative nav-dropdown" data-dropdown data-open="false">
             <div class={`flex items-center rounded-full text-sm font-medium transition-all duration-200 ${aboutTriggerClass}`}>
               <a href={`${base}about`} class="pl-4 pr-1.5 py-2 rounded-l-full focus:outline-none focus-visible:ring-2 focus-visible:ring-vibrant-400">
@@ -77,20 +86,11 @@ const subItemClass = (path: string) =>
               </div>
             </div>
           </div>
-          <a href={`${base}tools`} class={linkClass(`${base}tools`)}>
-            Tools
-          </a>
-          <a href={`${base}resources`} class={linkClass(`${base}resources`)}>
-            Resources
-          </a>
-          <a href={`${base}blog`} class={linkClass(`${base}blog`)}>
-            Blog
-          </a>
           </div>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <a href="https://tools.ailab.gc.cuny.edu/welcome" class="hidden lg:inline-block whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-neutral-stone hover:text-vibrant-600 hover:bg-white/50 transition-all duration-200">
+        <a href="https://tools.ailab.gc.cuny.edu/welcome" data-signin-link class="hidden lg:inline-block whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-neutral-stone hover:text-vibrant-600 hover:bg-white/50 transition-all duration-200">
           Sign in
         </a>
         <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="hidden lg:inline-block whitespace-nowrap bg-vibrant-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-vibrant-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
@@ -112,6 +112,15 @@ const subItemClass = (path: string) =>
     <div class="px-4 pt-4 pb-6 space-y-2">
       <a href={base} class={mobileLinkClass(base)}>
         Home
+      </a>
+      <a href={`${base}tools`} class={mobileLinkClass(`${base}tools`)}>
+        Tools
+      </a>
+      <a href={`${base}resources`} class={mobileLinkClass(`${base}resources`)}>
+        Resources
+      </a>
+      <a href={`${base}blog`} class={mobileLinkClass(`${base}blog`)}>
+        Blog
       </a>
       <div class="flex items-center gap-1">
         <a href={`${base}about`} class={`${mobileLinkClass(`${base}about`)} flex-1`}>
@@ -138,17 +147,8 @@ const subItemClass = (path: string) =>
           Contact
         </a>
       </div>
-      <a href={`${base}tools`} class={mobileLinkClass(`${base}tools`)}>
-        Tools
-      </a>
-      <a href={`${base}resources`} class={mobileLinkClass(`${base}resources`)}>
-        Resources
-      </a>
-      <a href={`${base}blog`} class={mobileLinkClass(`${base}blog`)}>
-        Blog
-      </a>
       <div class="pt-4 mt-4 border-t border-gray-100 space-y-2">
-        <a href="https://tools.ailab.gc.cuny.edu/welcome" class="block w-full text-center px-4 py-3 rounded-lg text-base font-medium text-neutral-stone hover:text-vibrant-600 hover:bg-gray-50 transition-colors">
+        <a href="https://tools.ailab.gc.cuny.edu/welcome" data-signin-link class="block w-full text-center px-4 py-3 rounded-lg text-base font-medium text-neutral-stone hover:text-vibrant-600 hover:bg-gray-50 transition-colors">
           Sign in
         </a>
         <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="block w-full text-center px-4 py-3 rounded-lg text-base font-semibold bg-vibrant-600 text-white hover:bg-vibrant-700 shadow-md">
@@ -215,6 +215,17 @@ const subItemClass = (path: string) =>
     aboutMobileToggle.setAttribute('aria-expanded', String(isOpen));
     aboutMobileChevron?.classList.toggle('rotate-180', isOpen);
   });
+
+  // Reflect an active doorway session: the identity endpoint is CORS-restricted
+  // to this origin and returns 200 only with a valid signed-in session.
+  fetch('https://tools.ailab.gc.cuny.edu/request-access/identity', { credentials: 'include' })
+    .then((res) => {
+      if (!res.ok) return;
+      document.querySelectorAll('[data-signin-link]').forEach((link) => {
+        link.textContent = 'Account';
+      });
+    })
+    .catch(() => {});
 </script>
 
 <style>
