@@ -232,36 +232,47 @@ const toolCategories = [
                 <h3 class="text-xl font-bold font-display text-neutral-stone mb-2">Classroom Chatbots</h3>
                 <p class="text-gray-500 text-sm mb-6">Custom assistants built inside the CAIL Sandbox</p>
 
-                <div class="grid md:grid-cols-3 gap-5">
-                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all">
-                    <div class="w-9 h-9 rounded-lg bg-vibrant-100 flex items-center justify-center mb-3">
+                <div class="space-y-4">
+                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
+                    <div class="w-9 h-9 rounded-lg bg-vibrant-100 flex items-center justify-center flex-shrink-0">
                       <svg class="w-4.5 h-4.5 text-vibrant-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                       </svg>
                     </div>
-                    <h4 class="font-bold text-neutral-stone text-sm mb-1.5">AmigAI</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed">A Spanish-language chatbot that helps CUNY students practice conversational Spanish through culturally responsive pedagogy.</p>
+                    <div>
+                      <h4 class="font-bold text-neutral-stone text-sm mb-1">AmigAI</h4>
+                      <p class="text-gray-600 text-sm leading-relaxed">A Spanish-language chatbot that helps CUNY students practice conversational Spanish through culturally responsive pedagogy.</p>
+                    </div>
                   </div>
 
-                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all">
-                    <div class="w-9 h-9 rounded-lg bg-indigo-100 flex items-center justify-center mb-3">
+                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
+                    <div class="w-9 h-9 rounded-lg bg-indigo-100 flex items-center justify-center flex-shrink-0">
                       <svg class="w-4.5 h-4.5 text-indigo-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                       </svg>
                     </div>
-                    <h4 class="font-bold text-neutral-stone text-sm mb-1.5">Course-Specific Assistants</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed mb-2">Built for individual courses using your syllabus, readings, and materials. Support students through complex texts with guiding questions.</p>
-                    <p class="text-[11px] text-gray-600">Examples: Writing Process Assistant, Paratext Analysis Tool, Active Reading Companion</p>
+                    <div>
+                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Course-Specific Assistants</h4>
+                      <p class="text-gray-600 text-sm leading-relaxed">Built for individual courses using your syllabus, readings, and materials. Support students through complex texts with guiding questions.</p>
+                      <div class="mt-2.5 flex flex-wrap items-center gap-1.5">
+                        <span class="text-xs text-gray-500">Examples:</span>
+                        <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[11px] font-medium rounded-full">Writing Process Assistant</span>
+                        <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[11px] font-medium rounded-full">Paratext Analysis Tool</span>
+                        <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[11px] font-medium rounded-full">Active Reading Companion</span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all">
-                    <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center mb-3">
+                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
+                    <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
                       <svg class="w-4.5 h-4.5 text-green-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
                       </svg>
                     </div>
-                    <h4 class="font-bold text-neutral-stone text-sm mb-1.5">Project Templates</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed">Reusable configurations designed for common classroom workflows that instructors can adapt across sections or semesters.</p>
+                    <div>
+                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Project Templates</h4>
+                      <p class="text-gray-600 text-sm leading-relaxed">Reusable configurations designed for common classroom workflows that instructors can adapt across sections or semesters.</p>
+                    </div>
                   </div>
                 </div>
               </div>
