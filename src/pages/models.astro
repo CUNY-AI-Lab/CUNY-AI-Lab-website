@@ -10,6 +10,7 @@ const jsonPath = path.join(process.cwd(), 'src/data/model-registry.json');
 const modelData = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 const models = modelData.models;
 const updatedAt = modelData.updated_at;
+const longContextThreshold = 100_000;
 
 // Helper to get license family display info
 function getLicenseFamilyInfo(family: string) {
@@ -67,7 +68,7 @@ function getStructuredOutputInfo(value: any) {
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
               <p class="font-medium text-neutral-stone mb-1">Capability badges</p>
-              <p>Colored pills show what a model can do: <span class="text-purple-600">Vision</span> (images), <span class="text-amber-600">Long context</span> (100K+ tokens), <span class="text-green-600">Open weights</span> (downloadable).</p>
+              <p>Colored pills show what a model can do: <span class="text-purple-600">Vision</span> (images), <span class="text-amber-600">Long context</span> (native/default context window of 100K+ tokens), <span class="text-green-600">Open weights</span> (downloadable).</p>
             </div>
             <div>
               <p class="font-medium text-neutral-stone mb-1">License families</p>
@@ -94,7 +95,7 @@ function getStructuredOutputInfo(value: any) {
         </button>
         <button data-filter="long_context" data-accent="amber" aria-label="Filter by long context window" aria-describedby="tip-long_context" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border transition-all">
           Long Context
-          <span id="tip-long_context" class="filter-tooltip" role="tooltip">Handles 100K+ tokens at once</span>
+          <span id="tip-long_context" class="filter-tooltip" role="tooltip">Native/default context window of 100K+ tokens</span>
         </button>
         <button data-filter="permissive" data-accent="emerald" aria-label="Filter by permissive license" aria-describedby="tip-permissive" aria-pressed="false" class="filter-btn group relative px-3 py-2 rounded-lg text-xs font-medium border transition-all">
           Permissive
@@ -212,6 +213,7 @@ function getStructuredOutputInfo(value: any) {
           const licenseInfo = getLicenseFamilyInfo(model.license_family);
           const structuredInfo = getStructuredOutputInfo(model.capabilities.structured_output);
           const hasExtendedContext = model.context_window_tokens_extended || model.context_window_tokens_max;
+          const hasLongContext = model.context_window_tokens >= longContextThreshold;
 
           return (
             <article
@@ -223,7 +225,7 @@ function getStructuredOutputInfo(value: any) {
               data-open-weights={model.open_weights === true ? 'true' : 'false'}
               data-vision={model.capabilities.vision === true ? 'true' : 'false'}
               data-structured-output={model.capabilities.structured_output === true || model.capabilities.structured_output === 'prompted' ? 'true' : 'false'}
-              data-long-context={model.context_window_tokens >= 200000 ? 'true' : 'false'}
+              data-long-context={hasLongContext ? 'true' : 'false'}
               data-license-family={model.license_family || 'unknown'}
               data-permissive={model.license_family === 'permissive' || model.license_family === 'permissive_modified' ? 'true' : 'false'}
               data-no-clickthrough={model.requires_clickthrough === false ? 'true' : 'false'}
@@ -286,8 +288,8 @@ function getStructuredOutputInfo(value: any) {
                           <span class="capability-tooltip" role="tooltip">Vision</span>
                         </span>
                       )}
-                      {model.context_window_tokens >= 200000 && (
-                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center cursor-help" role="img" aria-label="Long Context: Handles 100K+ tokens at once">
+                      {hasLongContext && (
+                        <span class="capability-icon group relative w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center cursor-help" role="img" aria-label="Long Context: Native/default context window of 100K+ tokens">
                           <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                           </svg>
