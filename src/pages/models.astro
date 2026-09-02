@@ -209,24 +209,18 @@ function getStructuredOutputInfo(value: any) {
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div id="models-list" class="space-y-3">
         {models.map((model: any, index: number) => {
-          const licenseInfo = getLicenseFamilyInfo(model.license_family);
+          const licenseInfo = getLicenseFamilyInfo(model.licensing.weights.license_family);
           const structuredInfo = getStructuredOutputInfo(model.capabilities.structured_output);
           const hasExtendedContext = model.context_window_tokens_extended || model.context_window_tokens_max;
 
           return (
             <article
               class="model-card group bg-white rounded-xl border border-transparent hover:border-vibrant-300 hover:shadow-lg transition-all duration-200 overflow-hidden"
-              data-name={model.display_name.toLowerCase()}
-              data-vendor={model.vendor.toLowerCase()}
-              data-license={model.license_id?.toLowerCase() || ''}
-              data-tags={model.tags.join(',')}
               data-open-weights={model.open_weights === true ? 'true' : 'false'}
               data-vision={model.capabilities.vision === true ? 'true' : 'false'}
               data-structured-output={model.capabilities.structured_output === true || model.capabilities.structured_output === 'prompted' ? 'true' : 'false'}
               data-long-context={model.context_window_tokens >= 200000 ? 'true' : 'false'}
-              data-license-family={model.license_family || 'unknown'}
-              data-permissive={model.license_family === 'permissive' || model.license_family === 'permissive_modified' ? 'true' : 'false'}
-              data-no-clickthrough={model.requires_clickthrough === false ? 'true' : 'false'}
+              data-permissive={model.licensing.weights.license_family === 'permissive' || model.licensing.weights.license_family === 'permissive_modified' ? 'true' : 'false'}
               style={`animation-delay: ${index * 30}ms`}
             >
               <!-- Main Row -->
@@ -239,12 +233,12 @@ function getStructuredOutputInfo(value: any) {
                       <h3 class="font-bold text-lg text-neutral-stone font-display group-hover:text-vibrant-600 transition-colors truncate">
                         {model.display_name}
                       </h3>
-                      {model.requires_clickthrough === false && model.open_weights === true && (
+                      {model.licensing.weights.requires_clickthrough === false && model.open_weights === true && (
                         <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-sm">
                           Open
                         </span>
                       )}
-                      {model.requires_clickthrough === true && (
+                      {model.licensing.weights.requires_clickthrough === true && (
                         <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-700 border border-amber-200">
                           Gated
                         </span>
@@ -253,7 +247,7 @@ function getStructuredOutputInfo(value: any) {
                     <div class="flex items-center gap-2 mt-1">
                       <span class="text-sm text-gray-500">{model.vendor}</span>
                       <span class="text-gray-300">·</span>
-                      <span class={`text-xs ${licenseInfo.color}`}>{model.license_id}</span>
+                      <span class={`text-xs ${licenseInfo.color}`}>{model.licensing.weights.license_id}</span>
                     </div>
                   </div>
 

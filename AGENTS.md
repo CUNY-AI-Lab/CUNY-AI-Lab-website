@@ -43,7 +43,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 - `src/pages/` - Route pages (index, about, tools, team, contact, request-access, events, resources, models, guides)
 - `src/pages/models.astro` - Model registry with filters and collapsible guide
 - `src/pages/models/guide.astro` - Field guide explaining registry UI elements
-- `src/data/model-registry.json` - Model registry data. Update `updated_at` when modifying. New entries need both the `licensing` block and the mirrored top-level `license_id`/`license_family`/`requires_clickthrough`/`gated_weights_download` fields. Validate after editing: `node -e "require('./src/data/model-registry.json')"`. Source specs from the vendor model card + Hugging Face repo, don't guess.
+- `src/data/model-registry.json` - Model registry data. Update `updated_at` when modifying. Validate after editing: `node -e "require('./src/data/model-registry.json')"`. Source specs from the vendor model card + Hugging Face repo, don't guess.
 - `tailwind.config.mjs` - Color palette and theme configuration
 
 **Tailwind Content Scanning:**

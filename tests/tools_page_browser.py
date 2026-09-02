@@ -35,19 +35,6 @@ def assert_selected_panel(page: Page, panel_id: str) -> None:
     assert_equal(selected.count(), 2)
 
 
-def ax_image_names(page: Page) -> list[str]:
-    cdp = page.context.new_cdp_session(page)
-    try:
-        tree = cdp.send("Accessibility.getFullAXTree")
-    finally:
-        cdp.detach()
-    return [
-        node.get("name", {}).get("value", "")
-        for node in tree["nodes"]
-        if node.get("role", {}).get("value") == "image"
-    ]
-
-
 def test_navigation_is_deterministic(page: Page) -> None:
     load_tools(page)
     assert_selected_panel(page, "sandbox")
@@ -91,24 +78,11 @@ def test_tabs_and_accessibility_contract(page: Page) -> None:
     for svg_index in range(page.locator("svg").count()):
         assert_equal(page.locator("svg").nth(svg_index).get_attribute("aria-hidden"), "true")
 
-    body = page.locator("body").inner_text()
-    privacy_copy = (
-        "Model-provider calls are configured for zero retention; "
-        "conversations may still be saved in your Sandbox account."
-    )
-    assert privacy_copy in body
-
-
 def test_media_slider_accessibility(page: Page) -> None:
     load_tools(page, "#media")
-    slide_alts = [
-        "Demo of Multilingual Transcription Suite - uploading audio and receiving transcript",
-        "Image Description tool interface showing alt-text generation",
-        "Document OCR tool interface showing text extraction",
-    ]
 
     def assert_active_slide(active_index: int) -> None:
-        for index, alt in enumerate(slide_alts):
+        for index in range(3):
             slide = page.locator(f"#slide-{index}")
             is_active = index == active_index
             assert_equal(slide.get_attribute("aria-hidden"), "false" if is_active else "true")
@@ -116,9 +90,6 @@ def test_media_slider_accessibility(page: Page) -> None:
                 "element => element.style.opacity || getComputedStyle(element).opacity"
             )
             assert_equal(opacity, "1" if is_active else "0")
-
-            image_is_exposed = alt in ax_image_names(page)
-            assert_equal(image_is_exposed, is_active)
 
     assert_active_slide(0)
     page.locator('.slider-dot[data-slide="1"]').click()

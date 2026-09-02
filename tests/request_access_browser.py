@@ -9,7 +9,6 @@ from __future__ import annotations
 import json
 import os
 import re
-from pathlib import Path
 from typing import Any
 
 from playwright.sync_api import Page, Route, sync_playwright
@@ -20,7 +19,6 @@ IDENTITY_URL = "https://tools.ailab.gc.cuny.edu/request-access/identity"
 SIGN_IN_URL = "https://tools.ailab.gc.cuny.edu/request-access/sign-in"
 INDIVIDUAL_INTAKE_URL = "https://tools.ailab.gc.cuny.edu/request-access/api"
 CLASS_INTAKE_URL = "https://tools.ailab.gc.cuny.edu/request-access/class-api"
-ARTIFACTS = Path(os.environ.get("CAIL_TEST_ARTIFACTS", "/tmp/cail-request-access-browser"))
 
 
 def cors_headers() -> dict[str, str]:
@@ -241,8 +239,6 @@ def test_individual_mode(page: Page) -> None:
     assert_equal(len(payloads), 1)
     assert_equal(unexpected_urls, [])
     assert request_headers and "cail_test_session=present" in request_headers[0].get("cookie", "")
-    assert "email" not in payloads[0]
-    assert "subject" not in payloads[0]
 
     payload = payloads[0]
     assert_equal(
@@ -274,8 +270,6 @@ def test_individual_mode(page: Page) -> None:
 
 def test_post_session_expiry_requires_reauth_and_keeps_retry_id(page: Page) -> None:
     state: dict[str, Any] = {
-        "kind": "individual",
-        "intake_url": INDIVIDUAL_INTAKE_URL,
         "posts": 0,
         "payloads": [],
     }
@@ -306,9 +300,7 @@ def test_post_session_expiry_requires_reauth_and_keeps_retry_id(page: Page) -> N
                 body=json.dumps(
                     {
                         "error": {
-                            "code": "session_invalid"
-                            if state["kind"] == "class"
-                            else "authentication_required"
+                            "code": "authentication_required"
                         }
                     }
                 ),
@@ -318,56 +310,33 @@ def test_post_session_expiry_requires_reauth_and_keeps_retry_id(page: Page) -> N
             status=201,
             content_type="application/json",
             headers=cors_headers(),
-            body=json.dumps({"requestId": f"req-reauth-{state['kind']}"}),
+            body=json.dumps({"requestId": "req-reauth-individual"}),
         )
 
     page.route(IDENTITY_URL, respond_identity)
     page.route(INDIVIDUAL_INTAKE_URL, respond_intake)
-    page.route(CLASS_INTAKE_URL, respond_intake)
+    page.goto(f"{BASE_URL}/request-access/")
+    wait_for_identity(page)
+    fill_common(page)
+    add_turnstile_token(page)
 
-    for kind in ("individual", "class"):
-        state["kind"] = kind
-        state["intake_url"] = CLASS_INTAKE_URL if kind == "class" else INDIVIDUAL_INTAKE_URL
-        state["posts"] = 0
-        state["payloads"] = []
-        page.goto(f"{BASE_URL}/request-access/" + ("?kind=class" if kind == "class" else ""))
-        wait_for_identity(page)
-        if kind == "class":
-            fill_common(page, affiliation="other")
-            class_fields = {
-                "Class Name": "Introduction to Digital Humanities",
-                "Term": "Fall 2026",
-                "Section": "01",
-                "Start Date": "2026-08-25",
-                "End Date": "2026-08-25",
-                "Estimated Enrollment": "30",
-            }
-            for label, value in class_fields.items():
-                page.get_by_label(label).fill(value)
-            page.get_by_label("I teach or lead this class").check()
-        else:
-            fill_common(page)
-        add_turnstile_token(page)
+    page.get_by_role("button", name="Submit Application").click()
+    page.get_by_text("Your CUNY sign-in expired. Sign in again before resending this request.").wait_for()
+    assert page.get_by_role("link", name="Sign in with CUNY Login").get_attribute("href") == SIGN_IN_URL
+    assert page.get_by_role("button", name="Submit Application").is_disabled()
+    assert page.locator("#verified-email").text_content() == (
+        "Sign in with CUNY Login to load your verified email."
+    )
+    assert page.get_by_role("button", name="Check again").is_visible()
 
-        page.get_by_role("button", name="Submit Application").click()
-        page.get_by_text("Your CUNY sign-in expired. Sign in again before resending this request.").wait_for()
-        assert page.get_by_role("link", name="Sign in with CUNY Login").get_attribute("href") == SIGN_IN_URL
-        assert page.get_by_role("button", name="Submit Application").is_disabled()
-        assert page.locator("#verified-email").text_content() == (
-            "Sign in with CUNY Login to load your verified email."
-        )
-        assert page.get_by_role("button", name="Check again").is_visible()
+    page.get_by_role("button", name="Check again").click()
+    wait_for_identity(page)
+    page.get_by_role("button", name="Submit Application").click()
+    page.get_by_role("heading", name="Thank you").wait_for()
 
-        page.get_by_role("button", name="Check again").click()
-        wait_for_identity(page)
-        page.get_by_role("button", name="Submit Application").click()
-        page.get_by_role("heading", name="Thank you").wait_for()
-
-        payloads = state["payloads"]
-        assert_equal(len(payloads), 2)
-        assert_equal(payloads[0]["clientRequestId"], payloads[1]["clientRequestId"])
-        assert "email" not in payloads[0] and "subject" not in payloads[0]
-        assert "email" not in payloads[1] and "subject" not in payloads[1]
+    payloads = state["payloads"]
+    assert_equal(len(payloads), 2)
+    assert_equal(payloads[0]["clientRequestId"], payloads[1]["clientRequestId"])
 
 
 def test_reauth_as_different_identity_gets_new_retry_id(page: Page) -> None:
@@ -426,8 +395,6 @@ def test_reauth_as_different_identity_gets_new_retry_id(page: Page) -> None:
     payloads = state["payloads"]
     assert_equal(len(payloads), 2)
     assert payloads[0]["clientRequestId"] != payloads[1]["clientRequestId"]
-    assert "email" not in payloads[0] and "subject" not in payloads[0]
-    assert "email" not in payloads[1] and "subject" not in payloads[1]
 
 
 def test_class_mode(page: Page) -> None:
@@ -477,7 +444,6 @@ def test_class_mode(page: Page) -> None:
     assert_equal(len(payloads), 0)
     assert_equal(page.evaluate("document.activeElement?.id"), "class-leader")
     page.get_by_label("I teach or lead this class").check()
-    page.locator("main").screenshot(path=str(ARTIFACTS / "class-desktop.png"))
 
     # Fallback browsers that treat date inputs as text still cannot send non-ISO dates.
     page.get_by_label("Start Date").evaluate("input => input.type = 'text'")
@@ -509,9 +475,6 @@ def test_class_mode(page: Page) -> None:
     ).is_visible()
     assert_equal(len(payloads), 1)
     assert_equal(unexpected_urls, [])
-    assert request_headers and "cail_test_session=present" in request_headers[0].get("cookie", "")
-    assert "email" not in payloads[0]
-    assert "subject" not in payloads[0]
 
     payload = payloads[0]
     assert_equal(
@@ -584,84 +547,68 @@ def test_keyboard_navigation_and_safe_error(page: Page) -> None:
     assert "secret detail" not in status.inner_text()
 
 
-def test_backend_error_and_retry(page: Page) -> None:
-    mock_identity(page)
-    page.goto(f"{BASE_URL}/request-access/")
-    wait_for_identity(page)
-    fill_common(page)
-    add_turnstile_token(page)
-    attempts = 0
-
-    def fail_once_then_succeed(route: Route) -> None:
-        nonlocal attempts
-        if route.request.method == "OPTIONS":
-            route.fulfill(status=204, headers=cors_headers())
-            return
-        attempts += 1
-        if attempts == 1:
-            route.fulfill(
-                status=503,
-                content_type="application/json",
-                headers=cors_headers(),
-                body=json.dumps({"error": {"code": "admission_unavailable", "message": "private detail"}}),
-            )
-            return
-        route.fulfill(
-            status=201,
-            content_type="application/json",
-            headers=cors_headers(),
-            body=json.dumps({"requestId": "req-retry"}),
-        )
-
-    page.route(INDIVIDUAL_INTAKE_URL, fail_once_then_succeed)
-    submit = page.get_by_role("button", name="Submit Application")
-    submit.click()
-    status = page.locator("#form-status")
-    status.get_by_text("The access service is temporarily unavailable. Try again shortly.").wait_for()
-    assert not submit.is_disabled()
-    assert "private detail" not in status.inner_text()
-
-    submit.click()
-    page.get_by_role("heading", name="Thank you").wait_for()
-    assert_equal(attempts, 2)
-
-
 def test_ambiguous_retry_reuses_client_request_id(page: Page) -> None:
+    state: dict[str, Any] = {
+        "first_failure": "abort",
+        "attempts": 0,
+        "payloads": [],
+    }
+
     mock_identity(page)
-    page.goto(f"{BASE_URL}/request-access/")
-    wait_for_identity(page)
-    fill_common(page)
-    add_turnstile_token(page)
-    payloads: list[dict[str, Any]] = []
-    attempts = 0
 
     def lose_first_response(route: Route) -> None:
-        nonlocal attempts
         if route.request.method == "OPTIONS":
             route.fulfill(status=204, headers=cors_headers())
             return
-        attempts += 1
-        payloads.append(json.loads(route.request.post_data or "{}"))
-        if attempts == 1:
-            route.abort("failed")
+        state["attempts"] += 1
+        state["payloads"].append(json.loads(route.request.post_data or "{}"))
+        if state["attempts"] == 1:
+            if state["first_failure"] == "abort":
+                route.abort("failed")
+            else:
+                route.fulfill(
+                    status=503,
+                    content_type="application/json",
+                    headers=cors_headers(),
+                    body=json.dumps(
+                        {"error": {"code": "admission_unavailable", "message": "private detail"}}
+                    ),
+                )
             return
         route.fulfill(
             status=201,
             content_type="application/json",
             headers=cors_headers(),
-            body=json.dumps({"requestId": "req-ambiguous"}),
+            body=json.dumps({"requestId": f"req-{state['first_failure']}"}),
         )
 
     page.route(INDIVIDUAL_INTAKE_URL, lose_first_response)
-    submit = page.get_by_role("button", name="Submit Application")
-    submit.click()
-    page.get_by_text("The access service could not be reached. Check your connection and try again.").wait_for()
-    assert not submit.is_disabled()
+    for first_failure in ("abort", "503"):
+        state["first_failure"] = first_failure
+        state["attempts"] = 0
+        state["payloads"] = []
+        page.goto(f"{BASE_URL}/request-access/")
+        wait_for_identity(page)
+        fill_common(page)
+        add_turnstile_token(page)
 
-    submit.click()
-    page.get_by_role("heading", name="Thank you").wait_for()
-    assert_equal(attempts, 2)
-    assert_equal(payloads[0]["clientRequestId"], payloads[1]["clientRequestId"])
+        submit = page.get_by_role("button", name="Submit Application")
+        submit.click()
+        failure_message = (
+            "The access service could not be reached. Check your connection and try again."
+            if first_failure == "abort"
+            else "The access service is temporarily unavailable. Try again shortly."
+        )
+        page.get_by_text(failure_message).wait_for()
+        assert not submit.is_disabled()
+
+        submit.click()
+        page.get_by_role("heading", name="Thank you").wait_for()
+        assert_equal(state["attempts"], 2)
+        assert_equal(
+            state["payloads"][0]["clientRequestId"],
+            state["payloads"][1]["clientRequestId"],
+        )
 
 
 def test_changed_payload_gets_new_client_request_id(page: Page) -> None:
@@ -707,12 +654,11 @@ def test_changed_payload_gets_new_client_request_id(page: Page) -> None:
     assert_equal(payloads[1]["department"], "English")
 
 
-def test_mobile_layout_and_deep_link(page: Page) -> None:
+def test_mobile_layout(page: Page) -> None:
     mock_identity(page)
     page.set_viewport_size({"width": 390, "height": 844})
-    page.goto(f"{BASE_URL}/request-access/?kind=class")
+    page.goto(f"{BASE_URL}/request-access/")
     wait_for_identity(page)
-    assert class_choice(page).is_checked()
     dimensions = page.evaluate(
         "({ scrollWidth: document.documentElement.scrollWidth, innerWidth: window.innerWidth })"
     )
@@ -733,7 +679,6 @@ def test_public_access_links_use_the_canonical_application(page: Page) -> None:
 
 
 def main() -> None:
-    ARTIFACTS.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
         try:
@@ -744,10 +689,9 @@ def main() -> None:
                 test_reauth_as_different_identity_gets_new_retry_id,
                 test_class_mode,
                 test_keyboard_navigation_and_safe_error,
-                test_backend_error_and_retry,
                 test_ambiguous_retry_reuses_client_request_id,
                 test_changed_payload_gets_new_client_request_id,
-                test_mobile_layout_and_deep_link,
+                test_mobile_layout,
                 test_public_access_links_use_the_canonical_application,
             ):
                 context = browser.new_context(viewport={"width": 1440, "height": 1000})

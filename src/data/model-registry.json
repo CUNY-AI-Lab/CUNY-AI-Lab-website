@@ -1,16 +1,6 @@
 {
   "registry_version": "1.0",
   "updated_at": "2026-05-31",
-  "license_taxonomy": {
-    "license_family_enum": [
-      "permissive",
-      "permissive_modified",
-      "community",
-      "restricted_terms",
-      "unknown"
-    ],
-    "notes": "license_family describes how permissive the model-weights terms are; it is not a claim about training-data openness."
-  },
   "models": [
     {
       "key": "deepseek-v3.2",
@@ -34,7 +24,6 @@
         "structured_output": true
       },
       "open_weights": true,
-      "license": "MIT",
       "best_for": [
         "general academic writing and revision",
         "coding assistance and debugging",
@@ -57,13 +46,11 @@
         "long_context",
         "tool_use"
       ],
-      "ui_badges": [],
       "licensing": {
         "weights": {
           "license_id": "MIT",
           "license_family": "permissive",
           "requires_clickthrough": false,
-          "gated_weights_download": false,
           "license_url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2/blob/main/LICENSE",
           "notes": "Weights are distributed with an MIT License file in the official Hugging Face repository. If accessed via a hosted provider, separate provider terms may apply."
         },
@@ -72,10 +59,6 @@
           "license_url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2/blob/main/LICENSE"
         }
       },
-      "license_id": "MIT",
-      "license_family": "permissive",
-      "requires_clickthrough": false,
-      "gated_weights_download": false,
       "context_window_tokens_max": 163840,
       "context_window_notes": "DeepSeek API advertises 128K context for V3.2; the checkpoint config indicates max_position_embeddings=163840, and some providers may expose a higher limit."
     },
@@ -103,7 +86,6 @@
         "reasoning_mode": true
       },
       "open_weights": true,
-      "license": "Modified MIT",
       "best_for": [
         "visual reasoning and image understanding",
         "very long-document reading and synthesis",
@@ -127,16 +109,11 @@
         "agentic",
         "tool_use"
       ],
-      "ui_badges": [
-        "Vision",
-        "Very long context"
-      ],
       "licensing": {
         "weights": {
           "license_id": "modified-mit",
           "license_family": "permissive_modified",
           "requires_clickthrough": false,
-          "gated_weights_download": false,
           "license_url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/main/LICENSE",
           "notes": "MIT-like terms with additional branding/trademark notice requirements for very large commercial products (see LICENSE). Hosted services may impose additional API/service terms."
         },
@@ -144,11 +121,7 @@
           "license_id": "modified-mit",
           "license_url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/main/LICENSE"
         }
-      },
-      "license_id": "modified-mit",
-      "license_family": "permissive_modified",
-      "requires_clickthrough": false,
-      "gated_weights_download": false
+      }
     },
     {
       "key": "glm-5",
@@ -175,7 +148,6 @@
         "reasoning_mode": true
       },
       "open_weights": true,
-      "license": "MIT",
       "best_for": [
         "complex reasoning and multi-step problem solving",
         "coding assistance and software engineering tasks",
@@ -200,16 +172,11 @@
         "long_context",
         "multilingual"
       ],
-      "ui_badges": [
-        "Reasoning mode",
-        "Long context"
-      ],
       "licensing": {
         "weights": {
           "license_id": "MIT",
           "license_family": "permissive",
           "requires_clickthrough": false,
-          "gated_weights_download": false,
           "license_url": "https://huggingface.co/zai-org/GLM-5",
           "notes": "Hugging Face lists the model license as MIT."
         },
@@ -217,11 +184,7 @@
           "license_id": "MIT",
           "license_url": "https://huggingface.co/zai-org/GLM-5"
         }
-      },
-      "license_id": "MIT",
-      "license_family": "permissive",
-      "requires_clickthrough": false,
-      "gated_weights_download": false
+      }
     },
     {
       "key": "gpt-oss-120b",
@@ -246,7 +209,6 @@
         "reasoning_mode": true
       },
       "open_weights": true,
-      "license": "Apache-2.0 (+ gpt-oss usage policy)",
       "best_for": [
         "reproducible open-weights workflows",
         "structured outputs and schema-following tasks",
@@ -270,16 +232,11 @@
         "tool_use",
         "evaluation_baseline"
       ],
-      "ui_badges": [
-        "Open weights",
-        "Reasoning mode"
-      ],
       "licensing": {
         "weights": {
           "license_id": "Apache-2.0",
           "license_family": "permissive",
           "requires_clickthrough": false,
-          "gated_weights_download": false,
           "license_url": "https://openai.com/index/gpt-oss-model-card/",
           "notes": "OpenAI states the model is available under Apache 2.0 plus a gpt-oss usage policy (additional constraints beyond the OSS license)."
         },
@@ -289,10 +246,6 @@
           "notes": "OpenAI describes use as governed by both Apache 2.0 and a gpt-oss usage policy; see model card / help center for details."
         }
       },
-      "license_id": "Apache-2.0",
-      "license_family": "permissive",
-      "requires_clickthrough": false,
-      "gated_weights_download": false,
       "availability_notes": "OpenAI positions gpt-oss weights for use on infrastructure you control or via hosting providers; OpenAI help docs state they are not served through the OpenAI API."
     },
     {
@@ -320,7 +273,6 @@
         "reasoning_mode": true
       },
       "open_weights": true,
-      "license": "Apache-2.0",
       "best_for": [
         "tool-using agents (multi-step workflows with external actions)",
         "multilingual tutoring and writing support",
@@ -343,23 +295,15 @@
         "reasoning",
         "coding"
       ],
-      "ui_badges": [
-        "Reasoning mode"
-      ],
       "licensing": {
         "weights": {
           "license_id": "Apache-2.0",
           "license_family": "permissive",
           "requires_clickthrough": false,
-          "gated_weights_download": false,
           "license_url": "https://huggingface.co/Qwen/Qwen3-235B-A22B",
           "notes": "Model page lists license as Apache-2.0."
         }
-      },
-      "license_id": "Apache-2.0",
-      "license_family": "permissive",
-      "requires_clickthrough": false,
-      "gated_weights_download": false
+      }
     },
     {
       "key": "gemma-4-31b-it",
@@ -386,7 +330,6 @@
         "reasoning_mode": true
       },
       "open_weights": true,
-      "license": "Apache-2.0",
       "best_for": [
         "image-based interpretation (figures, screenshots, diagrams, OCR-style reading)",
         "long-document reading and synthesis with very long context",
@@ -414,18 +357,11 @@
         "long_context",
         "general"
       ],
-      "ui_badges": [
-        "Open weights",
-        "Vision",
-        "Reasoning mode",
-        "Very long context"
-      ],
       "licensing": {
         "weights": {
           "license_id": "Apache-2.0",
           "license_family": "permissive",
           "requires_clickthrough": false,
-          "gated_weights_download": false,
           "license_url": "https://huggingface.co/google/gemma-4-31B-it",
           "notes": "Hugging Face lists the model license as Apache-2.0. Unlike Gemma 3, the Gemma 4 31B weights are not gated and do not require accepting Google's Gemma Terms of Use. Hosted providers may impose separate service terms."
         },
@@ -433,11 +369,7 @@
           "license_id": "Apache-2.0",
           "license_url": "https://huggingface.co/google/gemma-4-31B-it"
         }
-      },
-      "license_id": "Apache-2.0",
-      "license_family": "permissive",
-      "requires_clickthrough": false,
-      "gated_weights_download": false
+      }
     },
     {
       "key": "gemma-3-27b-it",
@@ -462,7 +394,6 @@
         "structured_output": "prompted"
       },
       "open_weights": true,
-      "license": "Gemma Terms of Use",
       "best_for": [
         "everyday writing, summarization, and tutoring-style explanations",
         "image-based interpretation (figures, screenshots, diagrams) when enabled",
@@ -485,24 +416,15 @@
         "long_context",
         "tool_use"
       ],
-      "ui_badges": [
-        "Open weights",
-        "Vision"
-      ],
       "licensing": {
         "weights": {
           "license_id": "gemma",
           "license_family": "restricted_terms",
           "requires_clickthrough": true,
-          "gated_weights_download": true,
           "license_url": "https://ai.google.dev/gemma/terms",
           "notes": "Access on Hugging Face requires agreeing to Google's usage license; redistribution must carry the Terms and enforce use restrictions."
         }
-      },
-      "license_id": "gemma",
-      "license_family": "restricted_terms",
-      "requires_clickthrough": true,
-      "gated_weights_download": true
+      }
     },
     {
       "key": "llama-3.1-70b-instruct",
@@ -526,7 +448,6 @@
         "structured_output": "prompted"
       },
       "open_weights": true,
-      "license": "Llama 3.1 Community License",
       "best_for": [
         "general academic chat and drafting",
         "revision and editorial assistance",
@@ -550,24 +471,16 @@
         "evaluation_baseline",
         "tool_use"
       ],
-      "ui_badges": [
-        "Open weights"
-      ],
       "licensing": {
         "weights": {
           "license_id": "llama3.1",
           "license_family": "community",
           "requires_clickthrough": true,
-          "gated_weights_download": true,
           "license_url": "https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct/blob/main/LICENSE",
           "notes": "Distributed under the Llama 3.1 Community License (redistribution + attribution requirements, incorporates the Acceptable Use Policy, and includes additional commercial terms such as an MAU threshold clause)."
         },
         "policy_url": "https://www.llama.com/llama3_1/use-policy/"
-      },
-      "license_id": "llama3.1",
-      "license_family": "community",
-      "requires_clickthrough": true,
-      "gated_weights_download": true
+      }
     }
   ]
 }

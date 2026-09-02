@@ -7,7 +7,7 @@ const isActive = (path: string) => {
   if (path === base && currentPath === base) return true;
   // "Resources" nav item also highlights on model and documentation pages
   if (path === `${base}resources` && (currentPath.startsWith(`${base}models`) || currentPath.startsWith(`${base}resources`) || currentPath.startsWith(`${base}docs`))) return true;
-  if (path !== base && currentPath.startsWith(path.replace(base, base))) return true;
+  if (path !== base && currentPath.startsWith(path)) return true;
   return false;
 };
 
