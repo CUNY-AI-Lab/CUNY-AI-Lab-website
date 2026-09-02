@@ -14,13 +14,14 @@ bun run check    # Audit dependencies and build the site
 
 ## Architecture
 
-Astro static site with Tailwind CSS. Production deploys to AWS Amplify from `main` at `ailab.gc.cuny.edu`. Submit changes through a pull request; the current branch rule requires the `Website CI` check and does not require a formal approval. Ask one independent reviewer to review substantive changes before merge.
+Astro static site with Tailwind CSS. Production is served at `ailab.gc.cuny.edu`; see Deployment for which host currently serves it. Submit changes through a pull request; the current branch rule requires the `Website CI` check and does not require a formal approval. Ask one independent reviewer to review substantive changes before merge.
 
 ## Deployment
 
-- AWS Amplify app `d1j8mvw9hg41u1` builds `main` from the versioned `amplify.yml`; the repository file overrides the Amplify console build specification.
-- Keep `amplify.yml` and `.github/workflows/ci.yml` aligned: both install from `bun.lock` with `bun install --frozen-lockfile` and build with `bun run build`.
-- After merging a build-toolchain change, verify the latest Amplify job for `main` succeeds. A passing GitHub check alone does not prove that Amplify deployed the site.
+- Cloudflare Worker `cail-website` serves the same static `dist/` build at `https://cail-website.ailab-452.workers.dev`. `wrangler.jsonc` has no production routes or application bindings. The serialized `deploy` job publishes current `main` using the repository secret `CLOUDFLARE_API_TOKEN`, then checks the exact serving version and public routes. PR jobs have no deployment credentials and run the existing browser checks against local Wrangler.
+- Production remains on AWS Amplify app `d1j8mvw9hg41u1`, which builds `main` from `amplify.yml`. Keep its build aligned with CI. A later, separately authorized domain cutover requires CUNY DNS and Cloudflare zone/route readiness; then remove the obsolete Amplify path. This preview setup does not authorize DNS, plan, or email changes.
+- Request-access authentication and intake remain restricted to the canonical website origin. Do not broaden Doorway CORS or identity origins for this preview. Test those interactions locally with the existing explicit fixtures and verify the real flow on the canonical site.
+- After a build-toolchain change, verify the deployment that currently serves production succeeded. A passing GitHub check alone does not prove the site deployed.
 
 **Data Layer:**
 Pages pull content from two sources:

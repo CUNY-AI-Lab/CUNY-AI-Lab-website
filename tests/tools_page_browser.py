@@ -161,6 +161,22 @@ def test_keyboard_tab_navigation(page: Page) -> None:
     assert_selected_panel(page, "model-access")
 
 
+def test_header_sign_in_link(page: Page) -> None:
+    sign_in_url = "https://tools.ailab.gc.cuny.edu/welcome"
+    load_tools(page)
+    desktop_link = page.locator("header").get_by_role("link", name="Sign in")
+    assert_equal(desktop_link.count(), 1)
+    assert desktop_link.is_visible()
+    assert_equal(desktop_link.get_attribute("href"), sign_in_url)
+    assert desktop_link.get_attribute("target") is None
+
+    page.set_viewport_size({"width": 390, "height": 844})
+    page.locator("#mobile-menu-button").click()
+    mobile_link = page.locator("#mobile-menu").get_by_role("link", name="Sign in")
+    assert mobile_link.is_visible()
+    assert_equal(mobile_link.get_attribute("href"), sign_in_url)
+
+
 def main() -> None:
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -171,6 +187,7 @@ def main() -> None:
                 test_media_slider_accessibility,
                 test_mobile_initial_load_does_not_scroll,
                 test_keyboard_tab_navigation,
+                test_header_sign_in_link,
             )
             for test in tests:
                 context = browser.new_context(viewport={"width": 1440, "height": 1000})
