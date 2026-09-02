@@ -1,47 +1,62 @@
 ---
-title: "CUNY Login SSO Is Now Available for the CUNY AI Lab Sandbox"
-description: "Existing approved users can now log in to the CUNY AI Lab Sandbox with their CUNY credentials through Single Sign-On — no separate username and password required."
-pubDate: 2026-06-23
+title: "How to Sign In to the CUNY AI Lab"
+description: "How CUNY Login works with Lab access, and what to do when sign-in does not get you in."
+pubDate: 2026-09-01
 authors:
   - "CUNY AI Lab"
 tags:
-  - "announcements"
+  - "guides"
 draft: false
 ---
 
-> **Please note:** SSO access currently applies to existing approved users of the CUNY AI Lab Sandbox. If you do not yet have an approved account, please refer to the last section of this post.
+CUNY Login verifies your CUNY identity, but it does not by itself grant access to the Lab. To use the Lab's tools you also need approved individual access or a place in an approved class.
 
-We're excited to share that Single Sign-On (SSO) is now available for the CUNY AI Lab Sandbox. Existing approved users can now log in using their CUNY credentials instead of a separate username and password. To do so, simply go to the [CUNY AI Lab login page](https://chat.ailab.gc.cuny.edu/) and click **"Continue with CUNY Login"** (Figure 1).
+## Signing in
+
+1. Open any tool from the [Tools page](/tools/).
+2. Sign in with CUNY Login when prompted.
+3. Complete the CUNY sign-in page. The Lab checks your current access before the tool opens.
+
+Most tools send you straight to CUNY Login. The [CAIL Sandbox](https://chat.ailab.gc.cuny.edu/) is the exception, because it shows its own sign-in form first. Use the **Continue with CUNY Login** button there and leave the email and password fields empty.
 
 <figure>
-  <img src="/images/blog/cuny-login-sso.png" alt="The CUNY AI Lab Sandbox sign-in screen, titled 'Sign in to CUNY AI Lab (Open WebUI),' with Email and Password fields and a 'Sign in' button. Below a divider labeled 'or,' a red arrow points to a 'Continue with CUNY Login' button marked with a key icon." />
-  <figcaption>Figure 1. The new login interface, with the "Continue with CUNY Login" option for Single Sign-On.</figcaption>
+  <img src="/images/blog/cuny-login-sso.png" alt="The CAIL Sandbox sign-in screen. A button labeled 'Continue with CUNY Login' sits below the email and password form, separated from it by a divider labeled 'or'." />
+  <figcaption>The Sandbox sign-in screen. Use the "Continue with CUNY Login" button, not the email and password fields.</figcaption>
 </figure>
 
-SSO makes logging in easier and more secure, and it helps us better connect access to users' CUNY affiliations.
+## Getting individual access
 
-Everyone who already has an approved account in the Sandbox with either their `@login.cuny.edu` email address or their primary campus affiliation email address should now be able to log in using SSO.
+If you do not have access yet, submit the [CAIL access application](/request-access/). The application asks you to sign in with CUNY Login so the request is attached to the CUNY identity you will use with the Lab.
 
-If you or your students are in this category but are having trouble logging in, or if you are an approved CUNY user who registered with a non-CUNY email address and would like to migrate your account to use SSO, please email us at [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu) with the following:
+When the Lab approves your application, you will receive an email with a sign-in link. After that, CUNY Login works on every Lab tool. One approval covers all of them, including personal API keys and quota under [Model Access](https://tools.ailab.gc.cuny.edu/model-access).
 
-- Your full CUNY Login email address, in the format `firstname.lastname##@login.cuny.edu`
-- Your primary campus email address
-- Your current non-CUNY login email (if applicable)
+## Joining a class
 
-## Having trouble being redirected back to the chat?
+Your instructor will share a class invitation link. Open it and sign in with CUNY Login. The page will confirm that your place in the class is reserved. You do not need to submit a separate individual application.
 
-If you are able to log in but are not redirected back to the chat, please try clearing your browser cache and cookies, then attempt to log in again.
+After that, sign in to whichever Lab tools your class uses. If your class uses the Sandbox, your first Sandbox sign-in creates your account there and adds it to the class group. Until you have done that, your instructor's roster shows you as joined but the class models will not be available to you.
 
-Instructions for specific browsers are available here:
+Class access lasts for the approved course dates. If you need the invitation link, or the class is full or closed, ask your instructor. Instructors manage their class links and rosters at [My Classes](https://tools.ailab.gc.cuny.edu/my-classes).
 
-- [Google Chrome](https://support.google.com/accounts/answer/32050?hl=en&co=GENIE.Platform%3DDesktop)
-- [Mozilla Firefox](https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox)
-- [Safari](https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac)
+## If your access is not active
 
-## New users and account approval
+You can complete CUNY Login without having active Lab access. The tool will then tell you that your access is not active, or in the Sandbox, that your account is pending. Neither is an error. Submit the access application, or if you are a student, open the invitation link from your instructor.
 
-Users who do not already have an approved CUNY AI Lab Sandbox account will continue to be subject to approval until we have the capacity to support broader access.
+If your application was already approved or you already joined a class, check that you are signing in with the same CUNY Login you used at that time. If the problem continues, email [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
 
-If you are interested in using the CUNY AI Lab and do not yet have an account, submit the [CAIL access application](/request-access/). The application uses CUNY Login to bind the request to your verified CUNY identity.
+## If the CUNY sign-in page stalls
 
-We're grateful to everyone who continues to help us test and improve the CUNY AI Lab Sandbox, and we're excited to make access easier for members of the CUNY community.
+Sometimes the CUNY sign-in page stops loading or sits on an Oracle-branded screen without showing a sign-in form. This is a problem with saved data for CUNY's sign-in site (`ssologin.cuny.edu`) in your browser. The Lab and your class invitation are unaffected.
+
+1. Close the stalled tab.
+2. Open the tool, or your class invitation link, in a private or incognito window and sign in there.
+3. If that works, clear cookies and site data for `ssologin.cuny.edu` in your regular browser. Only that site needs clearing. Then sign in again.
+
+Browser instructions:
+
+- [Chrome: delete site data](https://support.google.com/chrome/answer/95647)
+- [Firefox: clear cookies and site data](https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox)
+- [Safari on Mac: manage cookies and website data](https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac)
+- [Safari on iPhone or iPad: clear cookies and website data](https://support.apple.com/105082)
+
+If CUNY Login completes but the Lab says your access is pending or not active, clearing browser data will not help. Use the application or class-invitation steps above.
