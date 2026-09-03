@@ -32,7 +32,8 @@ def assert_selected_panel(page: Page, panel_id: str) -> None:
     selected = page.locator(
         f'[role="tab"][aria-controls="panel-{panel_id}"][aria-selected="true"]'
     )
-    assert_equal(selected.count(), 2)
+    assert_equal(selected.count(), 1)
+    assert_equal(page.locator("#tool-category").input_value(), panel_id)
 
 
 def ax_image_names(page: Page) -> list[str]:
@@ -55,12 +56,15 @@ def test_navigation_is_deterministic(page: Page) -> None:
     load_tools(page, "#media")
     assert_selected_panel(page, "media")
 
-    page.locator('.sidebar-card[data-panel="assistants"]').click()
+    page.locator('.sidebar-row[data-panel="assistants"]').click()
     assert page.url.endswith("/tools/#assistants")
     assert_selected_panel(page, "assistants")
 
     page.set_viewport_size({"width": 390, "height": 844})
-    page.locator('.mobile-tab[data-panel="model-access"]').click()
+    assert not page.locator(".tools-sidebar").is_visible()
+    picker = page.locator("#tool-category")
+    assert picker.is_visible()
+    picker.select_option("model-access")
     assert page.url.endswith("/tools/#model-access")
     assert_selected_panel(page, "model-access")
 
@@ -69,7 +73,7 @@ def test_tabs_and_accessibility_contract(page: Page) -> None:
     load_tools(page)
 
     tablists = page.locator('[role="tablist"]')
-    assert_equal(tablists.count(), 2)
+    assert_equal(tablists.count(), 1)
     for index in range(tablists.count()):
         tablist = tablists.nth(index)
         tabs = tablist.locator('[role="tab"]')
@@ -145,8 +149,10 @@ def test_mobile_initial_load_does_not_scroll(page: Page) -> None:
     assert_equal(page.evaluate("window.scrollY"), 0)
     assert_equal(page.evaluate("window.__scrollIntoViewCalls"), 0)
 
-    page.locator('.mobile-tab[data-panel="assistants"]').click()
-    assert_equal(page.evaluate("window.__scrollIntoViewCalls"), 1)
+    # The picker sits directly above the panel, so choosing a category must not scroll either.
+    page.locator("#tool-category").select_option("assistants")
+    assert_selected_panel(page, "assistants")
+    assert_equal(page.evaluate("window.__scrollIntoViewCalls"), 0)
 
 
 def test_keyboard_tab_navigation(page: Page) -> None:
