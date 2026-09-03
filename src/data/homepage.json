@@ -59,7 +59,7 @@
       },
       {
         "title": "API keys",
-        "text": "Create keys for the Lab's model API endpoint to use in your own coding projects or OpenAI-compatible services.",
+        "text": "Create keys for the Lab's model API endpoint to use in your own tools, projects, or any OpenAI-compatible services.",
         "href": "/docs/api-keys/",
         "link": "Read guide"
       }
