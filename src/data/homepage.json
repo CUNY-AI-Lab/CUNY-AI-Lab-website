@@ -47,7 +47,7 @@
     "items": [
       {
         "title": "CAIL Sandbox",
-        "text": "Leverage our chat platform to experiment with open-weight models and prototype custom models of your own for teaching, research, and critique. Approved users can sign in with CUNY Login and upon request access the Sandbox Workspace to configure and test custom use cases.",
+        "text": "Leverage our chat platform to experiment with open-weight models and prototype custom models of your own for teaching, research, and critique.",
         "href": "https://chat.ailab.gc.cuny.edu",
         "link": "Open Sandbox"
       },

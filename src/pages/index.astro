@@ -76,7 +76,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         {data.access.items.map((item: any) => (
           <div class="rounded-2xl border border-gray-100 bg-neutral-cream/40 p-8 flex flex-col">
             <h3 class="text-xl font-bold font-display text-neutral-stone mb-3">{item.title}</h3>
-            <p class="text-gray-600 leading-relaxed mb-6 flex-1">{item.text}</p>
+            <p class="text-gray-600 leading-relaxed mb-6">{item.text}</p>
             <a href={item.href.startsWith('http') ? item.href : `${base}${item.href.replace(/^\//, '')}`} class="text-vibrant-700 font-medium underline underline-offset-2 hover:text-vibrant-800 transition-colors">
               {item.link} &rarr;
             </a>
