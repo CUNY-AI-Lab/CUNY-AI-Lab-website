@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { Font } from 'astro:assets';
 import '../styles/global.css';
 
 interface Props {
@@ -54,9 +55,8 @@ imageURL.searchParams.set('v', '2');
     <meta name="twitter:image" content={imageURL} />
     <meta name="twitter:image:alt" content="CUNY AI Lab logo" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <Font cssVariable="--font-inter" preload />
+    <Font cssVariable="--font-outfit" preload />
 
     <!-- Google Analytics -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-PVJV5C0CR8"></script>

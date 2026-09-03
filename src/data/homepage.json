@@ -47,7 +47,7 @@
     "items": [
       {
         "title": "CAIL Sandbox",
-        "text": "Experiment with open-weight models and prototype custom models of your own for teaching and research.",
+        "text": "Leverage our chat platform to experiment with open-weight models and prototype custom models of your own for teaching, research, and critique. Approved users can sign in with CUNY Login and upon request access the Sandbox Workspace to configure and test custom use cases.",
         "href": "https://chat.ailab.gc.cuny.edu",
         "link": "Open Sandbox"
       },
@@ -59,7 +59,7 @@
       },
       {
         "title": "API keys",
-        "text": "Create keys for the Lab's model API endpoint and use them in your own independent projects or OpenAI-compatible tools and services. Membership includes a monthly spending limit.",
+        "text": "Create keys for the Lab's model API endpoint to use in your own coding projects or OpenAI-compatible services.",
         "href": "/docs/api-keys/",
         "link": "Read guide"
       }
