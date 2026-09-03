@@ -90,7 +90,7 @@ const subItemClass = (path: string) =>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <a href="https://tools.ailab.gc.cuny.edu/welcome" data-signin-link class="hidden lg:inline-block whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-neutral-stone hover:text-vibrant-600 hover:bg-white/50 transition-all duration-200">
+        <a href="https://tools.ailab.gc.cuny.edu/welcome" data-signin-link class="hidden lg:inline-block whitespace-nowrap min-w-[5.5rem] text-center px-4 py-2 rounded-full text-sm font-medium text-neutral-stone hover:text-vibrant-600 hover:bg-white/50 transition-all duration-200">
           Sign in
         </a>
         <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="hidden lg:inline-block whitespace-nowrap bg-vibrant-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-vibrant-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
@@ -217,13 +217,21 @@ const subItemClass = (path: string) =>
   });
 
   // Reflect an active doorway session: the identity endpoint is CORS-restricted
-  // to this origin and returns 200 only with a valid signed-in session.
+  // to this origin and returns 200 only with a valid signed-in session. The
+  // last known state is cached so repeat page loads render the right label
+  // immediately instead of swapping after the check resolves.
+  const setSigninLabel = (label: string) => {
+    document.querySelectorAll('[data-signin-link]').forEach((link) => {
+      link.textContent = label;
+    });
+  };
+  try {
+    if (sessionStorage.getItem('cail-session') === '1') setSigninLabel('Account');
+  } catch {}
   fetch('https://tools.ailab.gc.cuny.edu/request-access/identity', { credentials: 'include' })
     .then((res) => {
-      if (!res.ok) return;
-      document.querySelectorAll('[data-signin-link]').forEach((link) => {
-        link.textContent = 'Account';
-      });
+      try { sessionStorage.setItem('cail-session', res.ok ? '1' : '0'); } catch {}
+      setSigninLabel(res.ok ? 'Account' : 'Sign in');
     })
     .catch(() => {});
 </script>
