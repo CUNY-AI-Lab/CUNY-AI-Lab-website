@@ -142,43 +142,43 @@ const toolCategories = [
                   <img src={`${base}images/tools/tool-owu-zoom.png`} alt="CAIL Sandbox chat screen with the model selector, message box, and suggested prompts" class="w-full h-auto" />
                 </div>
 
-                <div class="mt-10 grid sm:grid-cols-2 gap-x-10 gap-y-4">
-                      <div class="flex items-start gap-3">
+                <div class="mt-10 sm:columns-2 gap-x-10">
+                      <div class="flex items-start gap-3 mb-4 break-inside-avoid">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
                           <span class="font-semibold text-neutral-stone text-sm">Open-weight models</span>
                           <span class="text-gray-500 text-sm ml-1">— Publicly available weights for transparency and auditability</span>
                         </div>
                       </div>
-                      <div class="flex items-start gap-3">
+                      <div class="flex items-start gap-3 mb-4 break-inside-avoid">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
                           <span class="font-semibold text-neutral-stone text-sm">Open-source platform</span>
                           <span class="text-gray-500 text-sm ml-1">— Built on Open WebUI, a community-driven chat interface for running AI models</span>
                         </div>
                       </div>
-                      <div class="flex items-start gap-3">
+                      <div class="flex items-start gap-3 mb-4 break-inside-avoid">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
-                          <span class="font-semibold text-neutral-stone text-sm">Model-provider calls</span>
-                          <span class="text-gray-500 text-sm ml-1">— Configured for zero retention</span>
+                          <span class="font-semibold text-neutral-stone text-sm">Privacy by design</span>
+                          <span class="text-gray-500 text-sm ml-1">— All requests to model providers configured for zero data retention</span>
                         </div>
                       </div>
-                      <div class="flex items-start gap-3">
+                      <div class="flex items-start gap-3 mb-4 break-inside-avoid">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
                           <span class="font-semibold text-neutral-stone text-sm">Citable configs</span>
                           <span class="text-gray-500 text-sm ml-1">— Shareable, reproducible configurations for scholarly use</span>
                         </div>
                       </div>
-                      <div class="flex items-start gap-3">
+                      <div class="flex items-start gap-3 mb-4 break-inside-avoid">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
                           <span class="font-semibold text-neutral-stone text-sm">CO₂ estimates</span>
                           <span class="text-gray-500 text-sm ml-1">— Visible energy and carbon cost per interaction</span>
                         </div>
                       </div>
-                      <div class="flex items-start gap-3">
+                      <div class="flex items-start gap-3 mb-4 break-inside-avoid">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
                           <span class="font-semibold text-neutral-stone text-sm">Accessibility</span>
@@ -188,42 +188,13 @@ const toolCategories = [
                 </div>
               </div>
 
-              <!-- Classroom Chatbots sub-section -->
+              <!-- Custom Models sub-section -->
               <div class="border-t border-gray-100 bg-gray-50/50 p-8 lg:p-10">
-                <h3 class="text-xl font-bold font-display text-neutral-stone mb-2">Classroom Chatbots</h3>
-                <p class="text-gray-500 text-sm mb-6">Custom assistants built inside the CAIL Sandbox</p>
+                <h3 class="text-xl font-bold font-display text-neutral-stone mb-2">Custom Models</h3>
+                <p class="text-gray-500 text-sm mb-6">Custom models and use cases prototyped inside the CAIL Sandbox</p>
 
                 <div class="space-y-4">
-                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
-                    <div class="w-9 h-9 rounded-lg bg-indigo-100 flex items-center justify-center flex-shrink-0">
-                      <svg class="w-4.5 h-4.5 text-indigo-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Course-Specific Assistants</h4>
-                      <p class="text-gray-600 text-sm leading-relaxed">Built for a single course from its syllabus, readings, and materials. Guiding questions carry students through difficult texts.</p>
-                      <div class="mt-2.5 flex flex-wrap items-center gap-1.5">
-                        <span class="text-xs text-gray-500">Examples:</span>
-                        <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[11px] font-medium rounded-full">Writing Process Assistant</span>
-                        <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[11px] font-medium rounded-full">Paratext Analysis Tool</span>
-                        <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[11px] font-medium rounded-full">Active Reading Companion</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
-                    <div class="w-9 h-9 rounded-lg bg-vibrant-100 flex items-center justify-center flex-shrink-0">
-                      <svg class="w-4.5 h-4.5 text-vibrant-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 class="font-bold text-neutral-stone text-sm mb-1">AmigAI</h4>
-                      <p class="text-gray-600 text-sm leading-relaxed">A chatbot that helps CUNY students practice conversational Spanish through culturally responsive pedagogy.</p>
-                    </div>
-                  </div>
-
+                  <!-- Sandbox Workspace -->
                   <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
                     <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
                       <svg class="w-4.5 h-4.5 text-green-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -232,7 +203,33 @@ const toolCategories = [
                     </div>
                     <div>
                       <h4 class="font-bold text-neutral-stone text-sm mb-1">Sandbox Workspace</h4>
-                      <p class="text-gray-600 text-sm leading-relaxed">Where custom assistants get made. Prototype custom models, draft system prompts, curate knowledge collections, and learn agentic skills and tools.</p>
+                      <p class="text-gray-600 text-sm leading-relaxed">Prototype custom models through system prompts tied to knowledge collections, then extend them with agentic skills and tool calling.</p>
+                    </div>
+                  </div>
+
+                  <!-- Course-Specific Models -->
+                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
+                    <div class="w-9 h-9 rounded-lg bg-indigo-100 flex items-center justify-center flex-shrink-0">
+                      <svg class="w-4.5 h-4.5 text-indigo-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Course-Specific Models</h4>
+                      <p class="text-gray-600 text-sm leading-relaxed">Built for specific courses to address problems or bottlenecks in the classroom. Often grounded in syllabi, lesson plans, and/or course material to help scaffold assignments and provide targeted support to students learning difficult or unfamiliar topics.</p>
+                    </div>
+                  </div>
+
+                  <!-- Pilot Projects -->
+                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
+                    <div class="w-9 h-9 rounded-lg bg-vibrant-100 flex items-center justify-center flex-shrink-0">
+                      <svg class="w-4.5 h-4.5 text-vibrant-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Pilot Projects</h4>
+                      <p class="text-gray-600 text-sm leading-relaxed">AmigAI, used on multiple CUNY campuses, helps non-native and heritage Spanish learners practice conversational Spanish through culturally responsive pedagogy. Faculty in the humanities, social sciences, and STEM have developed similar use cases.</p>
                     </div>
                   </div>
                 </div>
