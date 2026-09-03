@@ -13,7 +13,7 @@ from playwright.sync_api import Page, sync_playwright
 
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
-EXPECTED_PANELS = ["sandbox", "media", "assistants", "model-access"]
+EXPECTED_PANELS = ["sandbox", "media", "assistants", "working-with-ai", "model-access"]
 
 
 def assert_equal(actual: Any, expected: Any) -> None:
