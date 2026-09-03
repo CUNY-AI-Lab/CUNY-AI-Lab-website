@@ -59,7 +59,7 @@
       },
       {
         "title": "API keys",
-        "text": "Create keys for the Lab's model endpoint and use them in your own OpenAI-compatible tools and projects. Every membership includes a monthly spending limit.",
+        "text": "Create keys that you can use in your own independent code or compatible tools and services. Membership includes a monthly spending limit.",
         "href": "/docs/api-keys/",
         "link": "Read guide"
       }
