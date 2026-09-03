@@ -472,7 +472,7 @@ def test_class_mode(page: Page) -> None:
     page.get_by_label("End Date").fill("2026-12-20")
     page.get_by_label("Estimated Enrollment").fill("30")
 
-    # The class-leader declaration is required before a class request can be sent.
+    # The checkbox gates submission locally; Admission accepts no classLeader field.
     page.get_by_role("button", name="Submit Application").click()
     assert_equal(len(payloads), 0)
     assert_equal(page.evaluate("document.activeElement?.id"), "class-leader")
@@ -530,7 +530,6 @@ def test_class_mode(page: Page) -> None:
             "startsOn",
             "endsOn",
             "estimatedSeats",
-            "classLeader",
         },
     )
     assert_request_id(payload.pop("clientRequestId"))
@@ -545,7 +544,6 @@ def test_class_mode(page: Page) -> None:
             "startsOn": "2026-08-25",
             "endsOn": "2026-08-25",
             "estimatedSeats": 30,
-            "classLeader": True,
         },
     )
 
