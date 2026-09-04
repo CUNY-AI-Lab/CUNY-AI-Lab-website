@@ -548,7 +548,7 @@ def test_class_mode(page: Page) -> None:
     )
 
 
-def test_keyboard_navigation_and_safe_error(page: Page) -> None:
+def test_keyboard_navigation_and_safe_error_retry(page: Page) -> None:
     mock_identity(page)
     page.goto(f"{BASE_URL}/request-access/")
     wait_for_identity(page)
@@ -561,31 +561,6 @@ def test_keyboard_navigation_and_safe_error(page: Page) -> None:
     assert individual.is_checked()
     assert "kind=individual" in page.url
 
-    fill_common(page)
-    add_turnstile_token(page)
-
-    def fail(route: Route) -> None:
-        if route.request.method == "OPTIONS":
-            route.fulfill(status=204, headers=cors_headers())
-            return
-        route.fulfill(
-            status=500,
-            content_type="application/json",
-            headers=cors_headers(),
-            body=json.dumps({"error": {"code": "private_stack_trace", "message": "secret detail"}}),
-        )
-
-    page.route(INDIVIDUAL_INTAKE_URL, fail)
-    page.get_by_role("button", name="Submit Application").click()
-    status = page.locator("#form-status")
-    status.get_by_text("The access service is temporarily unavailable. Try again shortly.").wait_for()
-    assert "secret detail" not in status.inner_text()
-
-
-def test_backend_error_and_retry(page: Page) -> None:
-    mock_identity(page)
-    page.goto(f"{BASE_URL}/request-access/")
-    wait_for_identity(page)
     fill_common(page)
     add_turnstile_token(page)
     attempts = 0
@@ -741,8 +716,7 @@ def main() -> None:
                 test_post_session_expiry_requires_reauth_and_keeps_retry_id,
                 test_reauth_as_different_identity_gets_new_retry_id,
                 test_class_mode,
-                test_keyboard_navigation_and_safe_error,
-                test_backend_error_and_retry,
+                test_keyboard_navigation_and_safe_error_retry,
                 test_ambiguous_retry_reuses_client_request_id,
                 test_changed_payload_gets_new_client_request_id,
                 test_mobile_layout_and_deep_link,
