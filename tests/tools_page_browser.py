@@ -132,27 +132,26 @@ def test_media_slider_accessibility(page: Page) -> None:
 
 def test_mobile_initial_load_does_not_scroll(page: Page) -> None:
     page.set_viewport_size({"width": 390, "height": 844})
-    page.add_init_script(
-        """
-        window.__scrollIntoViewCalls = 0;
-        Element.prototype.scrollIntoView = function() {
-          window.__scrollIntoViewCalls += 1;
-        };
-        """
-    )
     load_tools(page)
+    page.wait_for_load_state("networkidle")
     assert_equal(page.evaluate("window.scrollY"), 0)
-    assert_equal(page.evaluate("window.__scrollIntoViewCalls"), 0)
 
     page.goto("about:blank")
     load_tools(page, "#media")
+    page.wait_for_load_state("networkidle")
     assert_equal(page.evaluate("window.scrollY"), 0)
-    assert_equal(page.evaluate("window.__scrollIntoViewCalls"), 0)
 
     # The picker sits directly above the panel, so choosing a category must not scroll either.
-    page.locator("#tool-category").select_option("assistants")
+    picker = page.locator("#tool-category")
+    picker.scroll_into_view_if_needed()
+    position = page.evaluate("window.scrollY")
+    picker.select_option("assistants")
     assert_selected_panel(page, "assistants")
-    assert_equal(page.evaluate("window.__scrollIntoViewCalls"), 0)
+    # Let a browser-initiated smooth scroll advance before measuring the viewport.
+    page.evaluate(
+        "() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))"
+    )
+    assert_equal(page.evaluate("window.scrollY"), position)
 
 
 def test_keyboard_tab_navigation(page: Page) -> None:
