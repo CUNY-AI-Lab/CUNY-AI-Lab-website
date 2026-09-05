@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 from typing import Any
 
-from playwright.sync_api import Page, sync_playwright
+from playwright.sync_api import Page, expect, sync_playwright
 
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
@@ -154,6 +154,34 @@ def test_header_sign_in_link(page: Page) -> None:
     assert_equal(mobile_link.get_attribute("href"), sign_in_url)
 
 
+def test_navigation_disclosures_close_with_escape(page: Page) -> None:
+    load_tools(page)
+    toggle = page.get_by_role("button", name="Show About submenu")
+    toggle.focus()
+    toggle.press("Enter")
+    team = page.locator("header").get_by_role("link", name="Team", exact=True)
+    expect(team).to_be_visible()
+    toggle.press("Tab")
+    expect(team).to_be_focused()
+    team.press("Escape")
+    expect(team).to_be_hidden()
+    expect(toggle).to_be_focused()
+    expect(toggle).to_have_attribute("aria-expanded", "false")
+
+    page.set_viewport_size({"width": 390, "height": 844})
+    menu = page.get_by_role("button", name="Toggle navigation menu")
+    menu.focus()
+    indicator = menu.evaluate("e => ({style: getComputedStyle(e).outlineStyle, width: getComputedStyle(e).outlineWidth})")
+    assert indicator["style"] != "none" and float(indicator["width"].removesuffix("px")) >= 2
+    menu.press("Enter")
+    home = page.get_by_role("navigation", name="Mobile navigation").get_by_role("link", name="Home", exact=True)
+    menu.press("Tab")
+    expect(home).to_be_focused()
+    home.press("Escape")
+    expect(home).to_be_hidden()
+    expect(menu).to_be_focused()
+
+
 def main() -> None:
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -165,6 +193,7 @@ def main() -> None:
                 test_mobile_initial_load_does_not_scroll,
                 test_keyboard_tab_navigation,
                 test_header_sign_in_link,
+                test_navigation_disclosures_close_with_escape,
             )
             for test in tests:
                 context = browser.new_context(viewport={"width": 1440, "height": 1000})

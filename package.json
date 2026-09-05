@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "axe-core": "^4.13.0",
     "typescript": "^6.0.0",
     "wrangler": "4.128.0"
   }

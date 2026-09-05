@@ -52,6 +52,7 @@ jobs:
           uv run --with playwright python tests/tools_page_browser.py
           uv run --with playwright python tests/models_page_browser.py
           uv run --with playwright python tests/request_access_browser.py
+          uv run --with playwright python tests/accessibility_browser.py
 
   deploy:
     name: Deploy Cloudflare preview

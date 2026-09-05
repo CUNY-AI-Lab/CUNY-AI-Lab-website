@@ -60,7 +60,7 @@ The Tailwind content glob includes `.json` files: `'./src/**/*.{astro,html,js,js
 - `[slug].astro` gives post images (`.post-content figure img`) a click-to-enlarge lightbox via a native `<dialog>` (Esc/backdrop/button to close). Images are already clickable — don't reinvent it. Top-of-post media uses `<figure>`/`<figcaption>`.
 
 **Color System (tailwind.config.mjs):**
-- `vibrant-600` (#3B73E6) - Primary CTA buttons
+- `vibrant-600` (#3268D8) - Accessible blue links and primary CTA buttons
 - `vibrant-700` (#2A6FB8) - Button hover states
 - `cuny-blue` (#1D3A83) - Hero section backgrounds
 - `neutral-stone` (#333333) - Body text

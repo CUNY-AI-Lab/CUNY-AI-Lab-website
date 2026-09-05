@@ -49,3 +49,12 @@ the production application page for that flow.
 A production move is separate: establish Cloudflare zone and domain routing,
 coordinate the CUNY DNS change, verify the canonical site, then retire Amplify.
 No email migration is planned.
+
+## Accessibility checks
+
+After building, run `bun run preview:cloudflare`, then
+`uv run --with playwright python tests/accessibility_browser.py`. CI runs this
+alongside the keyboard and form journeys. Axe checks the rendered pages and
+expanded tool/model states against WCAG A/AA rules, with representative mobile
+views. It does not certify conformance or replace testing with assistive
+technology. The scanner is a development dependency, not a website script.

@@ -251,7 +251,7 @@ const toolCategories = [
               <div class="px-8 lg:px-10 pb-8 lg:pb-10">
                 <h3 class="text-xl font-bold font-display text-neutral-stone mb-2">Media Processing</h3>
                 <p class="text-gray-500 text-sm mb-1.5">Powered by Whisper via Fireworks AI, AssemblyAI, and Qwen 3 VL via AWS Bedrock</p>
-                <p class="text-xs text-gray-600 mb-6">Need on-premises processing for sensitive data (FERPA, IRB, HIPAA)? <a href={`${base}contact`} class="text-vibrant-600 hover:underline">Contact us</a>.</p>
+                <p class="text-xs text-gray-600 mb-6">Need on-premises processing for sensitive data (FERPA, IRB, HIPAA)? <a href={`${base}contact`} class="text-vibrant-600 underline underline-offset-2">Contact us</a>.</p>
 
                 <div class="grid md:grid-cols-2 gap-5 mb-8">
                   <a href="https://tools.ailab.gc.cuny.edu/asr/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-teal-300 transition-all hover:shadow-lg group" data-slide="0">
@@ -303,9 +303,9 @@ const toolCategories = [
                     <svg class="w-5 h-5 text-neutral-stone" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10 7v6m-3-3h6m4 0a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                   </button>
                   <div class="flex justify-center gap-2 mt-4">
-                    <button type="button" class="slider-dot w-2.5 h-2.5 rounded-full bg-teal-500 transition-colors" data-slide="0" aria-label="Show Multilingual Transcription Suite screenshot" aria-pressed="true"></button>
-                    <button type="button" class="slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors" data-slide="1" aria-label="Show Image Description screenshot" aria-pressed="false"></button>
-                    <button type="button" class="slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors" data-slide="2" aria-label="Show Document OCR screenshot" aria-pressed="false"></button>
+                    <button type="button" class="slider-dot" data-slide="0" aria-label="Show Multilingual Transcription Suite screenshot" aria-pressed="true"></button>
+                    <button type="button" class="slider-dot" data-slide="1" aria-label="Show Image Description screenshot" aria-pressed="false"></button>
+                    <button type="button" class="slider-dot" data-slide="2" aria-label="Show Document OCR screenshot" aria-pressed="false"></button>
                   </div>
                   <dialog id="media-lightbox" class="media-lightbox" aria-label="Enlarged screenshot">
                     <button type="button" class="media-lightbox__close" aria-label="Close enlarged screenshot">&times;</button>
@@ -473,7 +473,7 @@ const toolCategories = [
         if (shouldScroll && window.innerWidth < 1024) {
           var contentArea = document.querySelector('.content-panel:not(.hidden)');
           if (contentArea) {
-            contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            contentArea.scrollIntoView({ block: 'start' });
           }
         }
       }
@@ -559,7 +559,6 @@ const toolCategories = [
         slides[current].style.opacity = '0';
         slides[current].setAttribute('aria-hidden', 'true');
         if (dots[current]) {
-          dots[current].className = 'slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors';
           dots[current].setAttribute('aria-pressed', 'false');
         }
         if (toolBtns[current]) toolBtns[current].className = 'media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group';
@@ -569,7 +568,6 @@ const toolCategories = [
         slides[current].style.opacity = '1';
         slides[current].setAttribute('aria-hidden', 'false');
         if (dots[current]) {
-          dots[current].className = 'slider-dot w-2.5 h-2.5 rounded-full bg-teal-500 transition-colors';
           dots[current].setAttribute('aria-pressed', 'true');
         }
         if (toolBtns[current]) toolBtns[current].className = 'media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-teal-300 transition-all hover:shadow-lg group';
@@ -618,6 +616,24 @@ const toolCategories = [
 </BaseLayout>
 
 <style is:global>
+  /* Keep the small visual dots inside comfortably separated 24px targets. */
+  .slider-dot {
+    width: 24px;
+    height: 24px;
+    border: 7px solid transparent;
+    border-radius: 50%;
+    background-color: #6b7280;
+    background-clip: padding-box;
+  }
+  .slider-dot[aria-pressed="true"] {
+    background-color: #007a7a;
+    outline: 2px solid #007a7a;
+    outline-offset: -5px;
+  }
+  .slider-dot:focus-visible {
+    outline: 2px solid #1d3a83;
+    outline-offset: 2px;
+  }
   .content-panel {
     transition: opacity 0.25s ease-in-out;
   }

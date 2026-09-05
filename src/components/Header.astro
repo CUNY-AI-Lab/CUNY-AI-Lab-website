@@ -97,7 +97,7 @@ const subItemClass = (path: string) =>
           CAIL Sandbox <span aria-hidden="true">→</span>
         </a>
         <div class="lg:hidden">
-          <button id="mobile-menu-button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="text-neutral-stone hover:text-vibrant-600 focus:outline-none p-2 rounded-md hover:bg-vibrant-50 transition-colors">
+          <button id="mobile-menu-button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="text-neutral-stone hover:text-vibrant-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cuny-blue p-2 rounded-md hover:bg-vibrant-50 transition-colors">
             <svg class="h-6 w-6" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
@@ -163,15 +163,28 @@ const subItemClass = (path: string) =>
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
 
+  const setMobileMenuOpen = (open: boolean) => {
+    mobileMenu?.classList.toggle('hidden', !open);
+    mobileMenuButton?.setAttribute('aria-expanded', String(open));
+  };
+
   mobileMenuButton?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('hidden');
-    const isOpen = !mobileMenu?.classList.contains('hidden');
-    mobileMenuButton?.setAttribute('aria-expanded', String(isOpen));
+    setMobileMenuOpen(mobileMenuButton.getAttribute('aria-expanded') !== 'true');
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mobileMenuButton?.getAttribute('aria-expanded') === 'true') {
+      setMobileMenuOpen(false);
+      mobileMenuButton.focus();
+    }
+  });
+  mobileMenu?.addEventListener('focusout', (event) => {
+    if (!(event.relatedTarget instanceof Node) ||
+        (!mobileMenu.contains(event.relatedTarget) && event.relatedTarget !== mobileMenuButton)) {
+      setMobileMenuOpen(false);
+    }
   });
 
-  // Desktop "About" dropdown: hover and focus open it via CSS; the toggle button
-  // and these handlers add click-to-open, click-outside/Escape-to-close, and keep
-  // aria-expanded in sync for screen readers.
+  // One open state controls both visibility and the screen-reader announcement.
   document.querySelectorAll<HTMLElement>('[data-dropdown]').forEach((dropdown) => {
     const toggle = dropdown.querySelector<HTMLButtonElement>('[data-dropdown-toggle]');
     if (!toggle) return;
@@ -186,8 +199,10 @@ const subItemClass = (path: string) =>
       setOpen(dropdown.getAttribute('data-open') !== 'true');
     });
 
-    // Tabbing into any control reflects the open state in aria-expanded
-    dropdown.addEventListener('focusin', () => toggle.setAttribute('aria-expanded', 'true'));
+    dropdown.addEventListener('mouseenter', () => setOpen(true));
+    dropdown.addEventListener('mouseleave', () => {
+      if (!dropdown.contains(document.activeElement)) setOpen(false);
+    });
     dropdown.addEventListener('focusout', (event) => {
       if (!(event.relatedTarget instanceof Node) || !dropdown.contains(event.relatedTarget)) setOpen(false);
     });
@@ -244,8 +259,6 @@ const subItemClass = (path: string) =>
     transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
   }
 
-  .nav-dropdown:hover > .nav-dropdown__menu,
-  .nav-dropdown:focus-within > .nav-dropdown__menu,
   .nav-dropdown[data-open="true"] > .nav-dropdown__menu {
     opacity: 1;
     visibility: visible;
@@ -256,8 +269,6 @@ const subItemClass = (path: string) =>
     transition: transform 0.15s ease;
   }
 
-  .nav-dropdown:hover .nav-dropdown__chevron,
-  .nav-dropdown:focus-within .nav-dropdown__chevron,
   .nav-dropdown[data-open="true"] .nav-dropdown__chevron {
     transform: rotate(180deg);
   }
