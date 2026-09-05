@@ -646,8 +646,9 @@ def test_changed_payload_gets_new_client_request_id(page: Page) -> None:
 def test_mobile_layout(page: Page) -> None:
     mock_identity(page)
     page.set_viewport_size({"width": 390, "height": 844})
-    page.goto(f"{BASE_URL}/request-access/")
+    page.goto(f"{BASE_URL}/request-access/?kind=class")
     wait_for_identity(page)
+    assert class_choice(page).is_checked()
     dimensions = page.evaluate(
         "({ scrollWidth: document.documentElement.scrollWidth, innerWidth: window.innerWidth })"
     )
