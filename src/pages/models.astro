@@ -16,7 +16,7 @@ const longContextThreshold = 100_000;
 function getLicenseFamilyInfo(family: string) {
   const families: Record<string, { label: string; color: string; bg: string; border: string }> = {
     'permissive': { label: 'Permissive', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
-    'permissive_modified': { label: 'Permissive+', color: 'text-teal-700', bg: 'bg-teal-50', border: 'border-teal-200' },
+    'permissive_modified': { label: 'Permissive+', color: 'text-teal-800', bg: 'bg-teal-50', border: 'border-teal-200' },
     'community': { label: 'Community', color: 'text-blue-700', bg: 'bg-blue-50', border: 'border-blue-200' },
     'restricted_terms': { label: 'Restricted', color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200' },
     'unknown': { label: 'Unknown', color: 'text-gray-600', bg: 'bg-gray-100', border: 'border-gray-200' }
@@ -28,7 +28,7 @@ function getLicenseFamilyInfo(family: string) {
 function getStructuredOutputInfo(value: any) {
   if (value === true) return { label: 'Native', color: 'text-emerald-600', dot: 'bg-emerald-500' };
   if (value === 'prompted') return { label: 'Prompted', color: 'text-blue-600', dot: 'bg-blue-500' };
-  return { label: 'Unknown', color: 'text-gray-400', dot: 'bg-gray-300' };
+  return { label: 'Unknown', color: 'text-gray-600', dot: 'bg-gray-300' };
 }
 ---
 
@@ -72,7 +72,7 @@ function getStructuredOutputInfo(value: any) {
             </div>
             <div>
               <p class="font-medium text-neutral-stone mb-1">License families</p>
-              <p><span class="text-emerald-600">Permissive</span> = minimal restrictions. <span class="text-blue-600">Community</span> = usage policies. <span class="text-orange-600">Restricted</span> = terms required.</p>
+              <p><span class="text-emerald-700">Permissive</span> = minimal restrictions. <span class="text-blue-600">Community</span> = usage policies. <span class="text-orange-700">Restricted</span> = terms required.</p>
             </div>
           </div>
           <a href={`${base}models/guide`} class="inline-flex items-center gap-1 mt-3 text-vibrant-600 hover:text-vibrant-700 font-medium">
@@ -102,7 +102,7 @@ function getStructuredOutputInfo(value: any) {
           <span id="tip-permissive" class="filter-tooltip" role="tooltip">Minimal legal restrictions (MIT, Apache-2.0)</span>
         </button>
         <div class="h-4 w-px bg-gray-200 mx-1"></div>
-        <span id="results-count" class="text-xs text-gray-500">{models.length} models</span>
+        <span id="results-count" role="status" class="text-xs text-gray-500">{models.length} models</span>
       </div>
     </div>
   </section>
@@ -236,12 +236,12 @@ function getStructuredOutputInfo(value: any) {
                         {model.display_name}
                       </h3>
                       {model.licensing.weights.requires_clickthrough === false && model.open_weights === true && (
-                        <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-sm">
+                        <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold bg-gradient-to-r from-emerald-700 to-teal-800 text-white shadow-sm">
                           Open
                         </span>
                       )}
                       {model.licensing.weights.requires_clickthrough === true && (
-                        <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-700 border border-amber-200">
+                        <span class="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-amber-100 text-amber-800 border border-amber-200">
                           Gated
                         </span>
                       )}
@@ -258,7 +258,7 @@ function getStructuredOutputInfo(value: any) {
                     <!-- Parameters -->
                     <div class="text-center">
                       <div class="font-bold text-neutral-stone">{model.parameters.total_b}B</div>
-                      <div class="text-xs text-gray-400">
+                      <div class="text-xs text-gray-600">
                         {model.parameters.active_b ? `${model.parameters.active_b}B active` : model.parameters.architecture}
                       </div>
                     </div>
@@ -266,7 +266,7 @@ function getStructuredOutputInfo(value: any) {
                     <!-- Context -->
                     <div class="text-center">
                       <div class="font-bold text-neutral-stone">{(model.context_window_tokens / 1000).toFixed(0)}K</div>
-                      <div class="text-xs text-gray-400">
+                      <div class="text-xs text-gray-600">
                         {hasExtendedContext ? `→ ${((model.context_window_tokens_extended || model.context_window_tokens_max) / 1000).toFixed(0)}K` : 'context'}
                       </div>
                     </div>
@@ -302,7 +302,7 @@ function getStructuredOutputInfo(value: any) {
                   </div>
 
                   <!-- Right: Expand -->
-                  <button class="expand-btn flex-shrink-0 w-10 h-10 rounded-xl bg-gray-50 hover:bg-vibrant-50 text-gray-400 hover:text-vibrant-600 flex items-center justify-center transition-all" aria-label="Show model details" aria-expanded="false">
+                  <button class="expand-btn flex-shrink-0 w-10 h-10 rounded-xl bg-gray-50 hover:bg-vibrant-50 text-gray-600 hover:text-vibrant-600 flex items-center justify-center transition-all" aria-label="Show model details" aria-expanded="false">
                     <svg class="expand-icon w-5 h-5 transition-transform" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
@@ -375,8 +375,8 @@ function getStructuredOutputInfo(value: any) {
                       <span class={`inline-flex items-center px-2.5 py-1 rounded-lg ${licenseInfo.bg} ${licenseInfo.color} ${licenseInfo.border} border font-medium`}>
                         {licenseInfo.label}
                       </span>
-                      <span class="text-gray-400">{model.parameters.architecture}</span>
-                      <span class="text-gray-400">·</span>
+                      <span class="text-gray-600">{model.parameters.architecture}</span>
+                      <span class="text-gray-600">·</span>
                       <span class={`flex items-center gap-1 ${structuredInfo.color}`}>
                         <span class={`w-1.5 h-1.5 rounded-full ${structuredInfo.dot}`}></span>
                         Structured: {structuredInfo.label}
@@ -427,7 +427,7 @@ function getStructuredOutputInfo(value: any) {
         </svg>
         Back to Tools
       </a>
-      <span class="text-xs text-gray-400">Updated: {updatedAt}</span>
+      <span class="text-xs text-gray-600">Updated: {updatedAt}</span>
     </div>
   </section>
 </BaseLayout>

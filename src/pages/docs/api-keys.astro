@@ -39,7 +39,7 @@ const base = import.meta.env.BASE_URL;
             <section aria-labelledby="setup-heading">
               <h2 id="setup-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Set the API URL and key</h2>
               <p class="text-gray-600 leading-relaxed mb-4">Use the displayed CAIL Model API base URL, which currently includes the <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/v1</code> path. Type the key only at the hidden prompt. Keep the value private and ephemeral.</p>
-              <pre class="overflow-x-auto rounded-xl bg-neutral-stone text-gray-100 p-4 text-sm leading-relaxed"><code>export CAIL_API_BASE_URL="https://tools.ailab.gc.cuny.edu/v1"
+              <pre tabindex="0" class="overflow-x-auto rounded-xl bg-neutral-stone text-gray-100 p-4 text-sm leading-relaxed"><code>export CAIL_API_BASE_URL="https://tools.ailab.gc.cuny.edu/v1"
 read -rs "CAIL_API_KEY?CAIL API key: "
 printf '\n'
 export CAIL_API_KEY</code></pre>
@@ -48,7 +48,7 @@ export CAIL_API_KEY</code></pre>
             <section aria-labelledby="models-heading">
               <h2 id="models-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Find a model ID</h2>
               <p class="text-gray-600 leading-relaxed mb-4">Call <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">GET /v1/models</code> with your key. Use a model ID returned by this request; availability can change with the live provider catalog.</p>
-              <pre class="overflow-x-auto rounded-xl bg-neutral-stone text-gray-100 p-4 text-sm leading-relaxed"><code>curl --fail-with-body --silent --show-error \
+              <pre tabindex="0" class="overflow-x-auto rounded-xl bg-neutral-stone text-gray-100 p-4 text-sm leading-relaxed"><code>curl --fail-with-body --silent --show-error \
   "$CAIL_API_BASE_URL/models" \
   --header "Authorization: Bearer $CAIL_API_KEY"</code></pre>
             </section>
@@ -56,7 +56,7 @@ export CAIL_API_KEY</code></pre>
             <section aria-labelledby="request-heading">
               <h2 id="request-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Send a chat request</h2>
               <p class="text-gray-600 leading-relaxed mb-4">Use one of the model IDs returned by <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/v1/models</code> in a request to <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">POST /v1/chat/completions</code>.</p>
-              <pre class="overflow-x-auto rounded-xl bg-neutral-stone text-gray-100 p-4 text-sm leading-relaxed"><code>curl --fail-with-body --silent --show-error \
+              <pre tabindex="0" class="overflow-x-auto rounded-xl bg-neutral-stone text-gray-100 p-4 text-sm leading-relaxed"><code>curl --fail-with-body --silent --show-error \
   --request POST \
   "$CAIL_API_BASE_URL/chat/completions" \
   --header "Authorization: Bearer $CAIL_API_KEY" \

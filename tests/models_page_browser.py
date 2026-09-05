@@ -41,6 +41,10 @@ def test_long_context_filter_matches_native_context_contract(page: Page) -> None
 
     short_context_card = model_card(page, EXTENDED_ONLY_LONG_CONTEXT_MODEL)
     assert short_context_card.is_hidden()
+    visible_models = sum(
+        card.is_visible() for card in page.get_by_role("article").all()
+    )
+    expect(page.get_by_role("status")).to_have_text(f"{visible_models} models")
     assert_equal(
         model_card(page, RESTORED_NATIVE_LONG_CONTEXT_MODEL)
         .get_by_role(
@@ -78,6 +82,28 @@ def test_license_filters_and_details(page: Page) -> None:
         expect(card.get_by_role("link", name="View License")).to_be_hidden()
 
 
+def test_guide_keyboard_navigation(page: Page) -> None:
+    page.goto(f"{BASE_URL}/models/guide/", wait_until="networkidle")
+    first_section = page.get_by_role("button", name="Using the Filters", exact=True)
+    expect(first_section).to_have_attribute("aria-current", "true")
+    page.get_by_role("button", name="Next: Reading a Model Card").focus()
+    page.keyboard.press("Enter")
+    expect(
+        page.get_by_role("heading", name="Reading a Model Card", exact=True)
+    ).to_be_focused()
+    expect(first_section).not_to_have_attribute("aria-current", "true")
+    expect(
+        page.get_by_role("button", name="Reading a Model Card", exact=True)
+    ).to_have_attribute("aria-current", "true")
+    page.keyboard.press("Tab")
+    expect(page.get_by_role("button", name="Previous", exact=True)).to_be_focused()
+    page.keyboard.press("Enter")
+    expect(
+        page.get_by_role("heading", name="Using the Filters", exact=True)
+    ).to_be_focused()
+    expect(first_section).to_have_attribute("aria-current", "true")
+
+
 def main() -> None:
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -88,10 +114,12 @@ def main() -> None:
             page.on("pageerror", lambda error: errors.append(str(error)))
             test_long_context_filter_matches_native_context_contract(page)
             test_license_filters_and_details(page)
+            test_guide_keyboard_navigation(page)
             assert_equal(errors, [])
             context.close()
             print("PASS test_long_context_filter_matches_native_context_contract")
             print("PASS test_license_filters_and_details")
+            print("PASS test_guide_keyboard_navigation")
         finally:
             browser.close()
 
