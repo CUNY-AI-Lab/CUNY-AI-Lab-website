@@ -31,17 +31,13 @@
   "form_fields": {
     "name": {
       "label": "Full Name",
-      "placeholder": "Jane Doe",
-      "required": true
+      "placeholder": "Jane Doe"
     },
     "email": {
-      "label": "Verified CUNY Email",
-      "placeholder": "Sign in with CUNY Login to load your verified email",
-      "required": true
+      "label": "Verified CUNY Email"
     },
     "affiliation": {
       "label": "CUNY Affiliation",
-      "required": true,
       "options": [
         {
           "value": "",
@@ -71,18 +67,15 @@
     },
     "department": {
       "label": "Department/Program",
-      "placeholder": "e.g., English, Digital Humanities, Library",
-      "required": true
+      "placeholder": "e.g., English, Digital Humanities, Library"
     },
     "campus": {
       "label": "CUNY College/Campus",
-      "placeholder": "e.g., Graduate Center, Hunter College, Baruch",
-      "required": true
+      "placeholder": "e.g., Graduate Center, Hunter College, Baruch"
     },
     "intended_use": {
       "label": "Intended Use or Support Request",
-      "placeholder": "Describe how you plan to use CAIL services, or tell us what help you need.",
-      "required": true
+      "placeholder": "Describe how you plan to use CAIL services, or tell us what help you need."
     }
   },
   "class_fields": {

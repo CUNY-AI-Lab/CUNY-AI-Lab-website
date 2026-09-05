@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 from typing import Any
 
-from playwright.sync_api import Page, sync_playwright
+from playwright.sync_api import Page, expect, sync_playwright
 
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
@@ -52,6 +52,32 @@ def test_long_context_filter_matches_native_context_contract(page: Page) -> None
     )
 
 
+def test_license_filters_and_details(page: Page) -> None:
+    page.goto(f"{BASE_URL}/models/", wait_until="networkidle")
+    permissive = page.get_by_role("button", name="Filter by permissive license")
+    permissive.click()
+    for name in ("DeepSeek-V3.2", "Kimi-K2.5", "Gemma-4-31b"):
+        expect(model_card(page, name)).to_be_visible()
+    for name in ("Gemma-3-27b", "Llama-3.1-70b-Instruct"):
+        expect(model_card(page, name)).to_be_hidden()
+    permissive.click()
+    # Clickthrough is represented by Open/Gated badges, not a separate filter.
+    for name, license_id, badge, family in (
+        ("DeepSeek-V3.2", "MIT", "Open", "Permissive"),
+        ("Kimi-K2.5", "modified-mit", "Open", "Permissive+"),
+        ("Gemma-3-27b", "gemma", "Gated", "Restricted"),
+        ("Llama-3.1-70b-Instruct", "llama3.1", "Gated", "Community"),
+    ):
+        card = model_card(page, name)
+        expect(card.get_by_text(license_id, exact=True)).to_be_visible()
+        expect(card.get_by_text(badge, exact=True)).to_be_visible()
+        card.get_by_role("button", name="Show model details").click()
+        expect(card.get_by_text(family, exact=True)).to_be_visible()
+        expect(card.get_by_role("link", name="View License")).to_be_visible()
+        card.get_by_role("button", name="Hide model details").click()
+        expect(card.get_by_role("link", name="View License")).to_be_hidden()
+
+
 def main() -> None:
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -61,9 +87,11 @@ def main() -> None:
             errors: list[str] = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             test_long_context_filter_matches_native_context_contract(page)
+            test_license_filters_and_details(page)
             assert_equal(errors, [])
             context.close()
             print("PASS test_long_context_filter_matches_native_context_contract")
+            print("PASS test_license_filters_and_details")
         finally:
             browser.close()
 

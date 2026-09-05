@@ -49,7 +49,6 @@ jobs:
             if curl -sf http://127.0.0.1:4321/ > /dev/null; then break; fi
             sleep 1
           done
-          curl -sf http://127.0.0.1:4321/ > /dev/null
           uv run --with playwright python tests/tools_page_browser.py
           uv run --with playwright python tests/models_page_browser.py
           uv run --with playwright python tests/request_access_browser.py

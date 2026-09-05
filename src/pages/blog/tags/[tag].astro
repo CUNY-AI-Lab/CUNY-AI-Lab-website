@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -28,10 +29,7 @@ const formatAuthors = (authors: string[]) => {
 ---
 
 <BaseLayout title={`Posts tagged "${tag}" - CUNY AI Lab`} description={`Blog posts from the CUNY AI Lab tagged "${tag}".`}>
-  <section class="relative pt-24 pb-10 lg:pt-28 lg:pb-12">
-    <div class="absolute inset-0 bg-gradient-to-b from-cuny-blue via-cuny-blue to-vibrant-900"></div>
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+  <PageHero>
       <a href={`${base}blog`} class="inline-flex items-center text-sm font-medium text-white/80 hover:text-white transition-colors mb-6">
         <span aria-hidden="true" class="mr-1">←</span> All posts
       </a>
@@ -39,8 +37,7 @@ const formatAuthors = (authors: string[]) => {
         Posts tagged <span class="text-vibrant-200">“{tag}”</span>
       </h1>
       <p class="mt-4 text-lg text-white/80">{posts.length} {posts.length === 1 ? 'post' : 'posts'}</p>
-    </div>
-  </section>
+  </PageHero>
 
   <section class="py-16 bg-white">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
