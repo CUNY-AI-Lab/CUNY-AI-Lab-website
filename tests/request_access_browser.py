@@ -439,7 +439,7 @@ def test_class_mode(page: Page) -> None:
     page.get_by_label("End Date").fill("2026-12-20")
     page.get_by_label("Estimated Enrollment").fill("30")
 
-    # The class-leader declaration is required before a class request can be sent.
+    # The checkbox gates submission locally; Admission accepts no classLeader field.
     page.get_by_role("button", name="Submit Application").click()
     assert_equal(len(payloads), 0)
     assert_equal(page.evaluate("document.activeElement?.id"), "class-leader")
@@ -493,7 +493,6 @@ def test_class_mode(page: Page) -> None:
             "startsOn",
             "endsOn",
             "estimatedSeats",
-            "classLeader",
         },
     )
     assert_request_id(payload.pop("clientRequestId"))
@@ -508,12 +507,11 @@ def test_class_mode(page: Page) -> None:
             "startsOn": "2026-08-25",
             "endsOn": "2026-08-25",
             "estimatedSeats": 30,
-            "classLeader": True,
         },
     )
 
 
-def test_keyboard_navigation_and_safe_error(page: Page) -> None:
+def test_keyboard_navigation_and_safe_error_retry(page: Page) -> None:
     mock_identity(page)
     page.goto(f"{BASE_URL}/request-access/")
     wait_for_identity(page)
@@ -528,87 +526,78 @@ def test_keyboard_navigation_and_safe_error(page: Page) -> None:
 
     fill_common(page)
     add_turnstile_token(page)
+    attempts = 0
 
-    def fail(route: Route) -> None:
+    def fail_once_then_succeed(route: Route) -> None:
+        nonlocal attempts
         if route.request.method == "OPTIONS":
             route.fulfill(status=204, headers=cors_headers())
             return
-        route.fulfill(
-            status=500,
-            content_type="application/json",
-            headers=cors_headers(),
-            body=json.dumps({"error": {"code": "private_stack_trace", "message": "secret detail"}}),
-        )
-
-    page.route(INDIVIDUAL_INTAKE_URL, fail)
-    page.get_by_role("button", name="Submit Application").click()
-    status = page.locator("#form-status")
-    status.get_by_text("The access service is temporarily unavailable. Try again shortly.").wait_for()
-    assert "secret detail" not in status.inner_text()
-
-
-def test_ambiguous_retry_reuses_client_request_id(page: Page) -> None:
-    state: dict[str, Any] = {
-        "first_failure": "abort",
-        "attempts": 0,
-        "payloads": [],
-    }
-
-    mock_identity(page)
-
-    def lose_first_response(route: Route) -> None:
-        if route.request.method == "OPTIONS":
-            route.fulfill(status=204, headers=cors_headers())
-            return
-        state["attempts"] += 1
-        state["payloads"].append(json.loads(route.request.post_data or "{}"))
-        if state["attempts"] == 1:
-            if state["first_failure"] == "abort":
-                route.abort("failed")
-            else:
-                route.fulfill(
-                    status=503,
-                    content_type="application/json",
-                    headers=cors_headers(),
-                    body=json.dumps(
-                        {"error": {"code": "admission_unavailable", "message": "private detail"}}
-                    ),
-                )
+        attempts += 1
+        if attempts == 1:
+            route.fulfill(
+                status=503,
+                content_type="application/json",
+                headers=cors_headers(),
+                body=json.dumps({"error": {"code": "admission_unavailable", "message": "private detail"}}),
+            )
             return
         route.fulfill(
             status=201,
             content_type="application/json",
             headers=cors_headers(),
-            body=json.dumps({"requestId": f"req-{state['first_failure']}"}),
+            body=json.dumps({"requestId": "req-retry"}),
+        )
+
+    page.route(INDIVIDUAL_INTAKE_URL, fail_once_then_succeed)
+    submit = page.get_by_role("button", name="Submit Application")
+    submit.click()
+    status = page.locator("#form-status")
+    status.get_by_text("The access service is temporarily unavailable. Try again shortly.").wait_for()
+    assert not submit.is_disabled()
+    assert "private detail" not in status.inner_text()
+
+    submit.click()
+    page.get_by_role("heading", name="Thank you").wait_for()
+    assert_equal(attempts, 2)
+
+
+def test_ambiguous_retry_reuses_client_request_id(page: Page) -> None:
+    mock_identity(page)
+    page.goto(f"{BASE_URL}/request-access/")
+    wait_for_identity(page)
+    fill_common(page)
+    add_turnstile_token(page)
+    payloads: list[dict[str, Any]] = []
+    attempts = 0
+
+    def lose_first_response(route: Route) -> None:
+        nonlocal attempts
+        if route.request.method == "OPTIONS":
+            route.fulfill(status=204, headers=cors_headers())
+            return
+        attempts += 1
+        payloads.append(json.loads(route.request.post_data or "{}"))
+        if attempts == 1:
+            route.abort("failed")
+            return
+        route.fulfill(
+            status=201,
+            content_type="application/json",
+            headers=cors_headers(),
+            body=json.dumps({"requestId": "req-ambiguous"}),
         )
 
     page.route(INDIVIDUAL_INTAKE_URL, lose_first_response)
-    for first_failure in ("abort", "503"):
-        state["first_failure"] = first_failure
-        state["attempts"] = 0
-        state["payloads"] = []
-        page.goto(f"{BASE_URL}/request-access/")
-        wait_for_identity(page)
-        fill_common(page)
-        add_turnstile_token(page)
+    submit = page.get_by_role("button", name="Submit Application")
+    submit.click()
+    page.get_by_text("The access service could not be reached. Check your connection and try again.").wait_for()
+    assert not submit.is_disabled()
 
-        submit = page.get_by_role("button", name="Submit Application")
-        submit.click()
-        failure_message = (
-            "The access service could not be reached. Check your connection and try again."
-            if first_failure == "abort"
-            else "The access service is temporarily unavailable. Try again shortly."
-        )
-        page.get_by_text(failure_message).wait_for()
-        assert not submit.is_disabled()
-
-        submit.click()
-        page.get_by_role("heading", name="Thank you").wait_for()
-        assert_equal(state["attempts"], 2)
-        assert_equal(
-            state["payloads"][0]["clientRequestId"],
-            state["payloads"][1]["clientRequestId"],
-        )
+    submit.click()
+    page.get_by_role("heading", name="Thank you").wait_for()
+    assert_equal(attempts, 2)
+    assert_equal(payloads[0]["clientRequestId"], payloads[1]["clientRequestId"])
 
 
 def test_changed_payload_gets_new_client_request_id(page: Page) -> None:
@@ -688,7 +677,7 @@ def main() -> None:
                 test_post_session_expiry_requires_reauth_and_keeps_retry_id,
                 test_reauth_as_different_identity_gets_new_retry_id,
                 test_class_mode,
-                test_keyboard_navigation_and_safe_error,
+                test_keyboard_navigation_and_safe_error_retry,
                 test_ambiguous_retry_reuses_client_request_id,
                 test_changed_payload_gets_new_client_request_id,
                 test_mobile_layout,

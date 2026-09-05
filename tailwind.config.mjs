@@ -52,8 +52,8 @@ export default {
 				},
 			},
 			fontFamily: {
-				'sans': ['Inter', 'system-ui', 'sans-serif'],
-				'display': ['Outfit', 'system-ui', 'sans-serif'],
+				'sans': ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+				'display': ['var(--font-outfit)', 'Outfit', 'system-ui', 'sans-serif'],
 				'serif': ['Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
 			},
 			backgroundImage: {

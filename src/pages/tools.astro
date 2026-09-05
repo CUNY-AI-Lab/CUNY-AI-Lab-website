@@ -2,80 +2,48 @@
 import PageHero from '../components/PageHero.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 const base = import.meta.env.BASE_URL;
-const mobileTabBase = 'mobile-tab flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all border-2';
-const desktopCardBase = 'sidebar-card group w-full text-left rounded-xl p-5 transition-all duration-300';
+const sidebarRowBase = 'sidebar-row flex items-center gap-3 w-full text-left rounded-lg px-3 py-2.5 text-sm transition-colors border-l-[3px]';
+const sidebarRowInactive = `${sidebarRowBase} border-transparent text-gray-600 font-medium hover:bg-white/70 hover:text-neutral-stone`;
 const toolCategories = [
   {
     id: 'sandbox',
     label: 'CAIL Sandbox',
     iconPath: 'M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z',
-    description: 'AI chat with open-weight models and classroom chatbots',
-    tags: ['Chat', 'Models', 'Chatbots'],
-    tagClass: 'bg-vibrant-50 text-vibrant-700',
     iconBackgroundClass: 'bg-vibrant-100',
     iconColorClass: 'text-vibrant-600',
-    mobile: {
-      activeClass: 'border-vibrant-500 bg-vibrant-50 text-vibrant-700',
-      inactiveClass: 'border-transparent bg-white text-gray-600 hover:border-gray-200',
-    },
-    desktop: {
-      activeClass: 'bg-white border-l-4 border-vibrant-500 shadow-md',
-      inactiveClass: 'bg-white/60 border-l-4 border-transparent hover:bg-white hover:shadow-sm',
-    },
+    activeClass: `${sidebarRowBase} bg-white border-vibrant-500 text-neutral-stone font-semibold shadow-sm`,
   },
   {
     id: 'media',
     label: 'Media Processing',
-    iconPath: 'M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3-3z',
-    description: 'Transcription, alt-text, and OCR tools',
-    tags: ['Transcription', 'Alt-text', 'OCR'],
-    tagClass: 'bg-teal-50 text-teal-700',
+    iconPath: 'M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z',
     iconBackgroundClass: 'bg-teal-50',
     iconColorClass: 'text-teal-600',
-    mobile: {
-      activeClass: 'border-teal-500 bg-teal-50 text-teal-700',
-      inactiveClass: 'border-transparent bg-white text-gray-600 hover:border-gray-200',
-    },
-    desktop: {
-      activeClass: 'bg-white border-l-4 border-teal-500 shadow-md',
-      inactiveClass: 'bg-white/60 border-l-4 border-transparent hover:bg-white hover:shadow-sm',
-    },
+    activeClass: `${sidebarRowBase} bg-white border-teal-500 text-neutral-stone font-semibold shadow-sm`,
   },
   {
     id: 'assistants',
-    label: 'AI Assistants',
+    label: 'Agentic Studios',
     iconPath: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
-    description: 'Research and website building tools',
-    tags: ['Agent Studio', 'Site Studio'],
-    tagClass: 'bg-indigo-50 text-indigo-700',
     iconBackgroundClass: 'bg-indigo-50',
     iconColorClass: 'text-indigo-600',
-    mobile: {
-      activeClass: 'border-indigo-500 bg-indigo-50 text-indigo-700',
-      inactiveClass: 'border-transparent bg-white text-gray-600 hover:border-gray-200',
-    },
-    desktop: {
-      activeClass: 'bg-white border-l-4 border-indigo-500 shadow-md',
-      inactiveClass: 'bg-white/60 border-l-4 border-transparent hover:bg-white hover:shadow-sm',
-    },
+    activeClass: `${sidebarRowBase} bg-white border-indigo-500 text-neutral-stone font-semibold shadow-sm`,
+  },
+  {
+    id: 'working-with-ai',
+    label: 'Working with AI',
+    iconPath: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4',
+    iconBackgroundClass: 'bg-green-50',
+    iconColorClass: 'text-green-600',
+    activeClass: `${sidebarRowBase} bg-white border-green-500 text-neutral-stone font-semibold shadow-sm`,
   },
   {
     id: 'model-access',
     label: 'Model Access',
     iconPath: 'M15 7a2 2 0 1 1 2 2m0 0h4v4h-2v2h-2l-2-2m2-4-7.5 7.5a2.121 2.121 0 01-3-3L14 6',
-    description: 'Personal API keys for the Model API',
-    tags: ['API keys'],
-    tagClass: 'bg-blue-50 text-blue-700',
     iconBackgroundClass: 'bg-blue-50',
     iconColorClass: 'text-blue-600',
-    mobile: {
-      activeClass: 'border-blue-500 bg-blue-50 text-blue-700',
-      inactiveClass: 'border-transparent bg-white text-gray-600 hover:border-gray-200',
-    },
-    desktop: {
-      activeClass: 'bg-white border-l-4 border-blue-500 shadow-md',
-      inactiveClass: 'bg-white/60 border-l-4 border-transparent hover:bg-white hover:shadow-sm',
-    },
+    activeClass: `${sidebarRowBase} bg-white border-blue-500 text-neutral-stone font-semibold shadow-sm`,
   },
 ] as const;
 ---
@@ -93,50 +61,40 @@ const toolCategories = [
   <section class="bg-neutral-cream min-h-[60vh]">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-      <!-- Mobile: Horizontal selector (visible < lg) -->
-      <div class="mobile-tablist flex gap-2 mb-8 lg:hidden overflow-x-auto pb-2 -mx-1 px-1" role="tablist" aria-label="Tool categories">
-        {toolCategories.map((category) => {
-          const selected = category.id === 'sandbox';
-          const activeClass = `${mobileTabBase} ${category.mobile.activeClass}`;
-          const inactiveClass = `${mobileTabBase} ${category.mobile.inactiveClass}`;
-          return (
-            <button type="button" class={selected ? activeClass : inactiveClass} data-active-class={activeClass} data-inactive-class={inactiveClass} data-panel={category.id} role="tab" aria-selected={selected ? 'true' : 'false'} aria-controls={`panel-${category.id}`} tabindex={selected ? '0' : '-1'}>
-              <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d={category.iconPath} /></svg>
-              {category.label}
-            </button>
-          );
-        })}
+      <!-- Mobile: category picker (visible < lg) -->
+      <div class="mb-6 lg:hidden">
+        <label for="tool-category" class="block text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1.5">Category</label>
+        <div class="relative">
+          <select id="tool-category" class="w-full appearance-none rounded-xl border-2 border-vibrant-100 bg-white px-4 py-3 pr-11 font-medium text-vibrant-800 focus:border-vibrant-500 focus:outline-none">
+            {toolCategories.map((category) => (
+              <option value={category.id} selected={category.id === 'sandbox'}>{category.label}</option>
+            ))}
+          </select>
+          <svg class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-vibrant-700" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+        </div>
       </div>
 
       <div class="tools-layout">
 
         <!-- ── Sidebar (desktop: sticky, visible >= lg) ── -->
         <aside class="tools-sidebar hidden lg:block">
-          <div class="sticky top-24 space-y-3" role="tablist" aria-label="Tool categories" aria-orientation="vertical">
-            {toolCategories.map((category) => {
-              const selected = category.id === 'sandbox';
-              const activeClass = `${desktopCardBase} ${category.desktop.activeClass}`;
-              const inactiveClass = `${desktopCardBase} ${category.desktop.inactiveClass}`;
-              return (
-                <button type="button" class={selected ? activeClass : inactiveClass} data-active-class={activeClass} data-inactive-class={inactiveClass} data-panel={category.id} role="tab" aria-selected={selected ? 'true' : 'false'} aria-controls={`panel-${category.id}`} tabindex={selected ? '0' : '-1'}>
-                  <div class="flex items-center gap-3 mb-2">
-                    <div class={`w-9 h-9 rounded-lg ${category.iconBackgroundClass} flex items-center justify-center flex-shrink-0`}>
-                      <svg class={`w-4.5 h-4.5 ${category.iconColorClass}`} aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <div class="sticky top-24">
+            <p class="px-3 pb-2 text-xs font-semibold uppercase tracking-wide text-gray-500" aria-hidden="true">Categories</p>
+            <div class="space-y-1" role="tablist" aria-label="Tool categories" aria-orientation="vertical">
+              {toolCategories.map((category) => {
+                const selected = category.id === 'sandbox';
+                return (
+                  <button type="button" class={selected ? category.activeClass : sidebarRowInactive} data-active-class={category.activeClass} data-inactive-class={sidebarRowInactive} data-panel={category.id} role="tab" aria-selected={selected ? 'true' : 'false'} aria-controls={`panel-${category.id}`} tabindex={selected ? '0' : '-1'}>
+                    <span class={`w-8 h-8 rounded-lg ${category.iconBackgroundClass} flex items-center justify-center flex-shrink-0`}>
+                      <svg class={`w-4 h-4 ${category.iconColorClass}`} aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d={category.iconPath} />
                       </svg>
-                    </div>
-                    <h2 class="text-base font-bold font-display text-neutral-stone">{category.label}</h2>
-                  </div>
-                  <p class="text-gray-500 text-xs leading-relaxed mb-3 pl-12">{category.description}</p>
-                  <div class="flex flex-wrap gap-1 pl-12">
-                    {category.tags.map((tag) => (
-                      <span class={`px-2 py-0.5 ${category.tagClass} text-[10px] font-medium rounded-full`}>{tag}</span>
-                    ))}
-                  </div>
-                </button>
-              );
-            })}
-
+                    </span>
+                    <span>{category.label}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </aside>
 
@@ -151,124 +109,125 @@ const toolCategories = [
 
               <!-- Main content -->
               <div class="p-8 lg:p-10">
-                <div class="grid md:grid-cols-2 gap-10 items-start">
-                  <!-- Left: Screenshot + badges -->
-                  <div>
-                    <div class="relative">
-                      <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200">
-                        <img src={`${base}images/tools/tool-owu.png`} alt="CAIL Sandbox interface showing CUNY AI Lab chat platform" class="w-full h-auto" />
-                      </div>
-                    </div>
+                <div class="mb-6">
+                  <h2 class="text-3xl font-bold font-display text-neutral-stone">CAIL Sandbox</h2>
+                  <p class="text-gray-500 mt-1">Chat platform for teaching and research with open-weight models</p>
+                </div>
+                <div class="space-y-4 text-gray-600 leading-relaxed max-w-3xl">
+                  <p>
+                    The <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a> provides CUNY students, faculty, and staff with an AI chat interface and a curated set of open-weight models. While conversations are privately stored in your Sandbox account, all requests to providers prohibit model training and are configured for zero data retention. Users can configure models to their needs while also gaining insight into the environmental impacts of their tool use.
+                  </p>
+                  <p>
+                    Existing approved users can sign in with CUNY Login. If you need access or cannot sign in, <a href={`${base}request-access`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">request access or support</a>.
+                  </p>
+                  <p>
+                    For current model availability, check the Sandbox model selector. Our <a href={`${base}models`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">Model Registry</a> provides Lab-reviewed reference notes for a smaller set of models.
+                  </p>
+                </div>
 
-                    <div class="mt-6 space-y-2.5">
-                      <div class="flex items-start gap-3">
+                <div class="mt-8 flex flex-wrap gap-4">
+                  <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-vibrant-600 text-white rounded-full font-medium hover:bg-vibrant-700 transition-colors shadow-md">
+                    Launch CAIL Sandbox
+                    <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  </a>
+                  <a href={`${base}models`} class="inline-flex items-center gap-2 px-6 py-3 border border-gray-300 text-neutral-stone rounded-full font-medium hover:border-vibrant-300 hover:text-vibrant-600 transition-colors">
+                    View Model Registry
+                  </a>
+                </div>
+
+                <div class="mt-10 max-w-4xl mx-auto rounded-xl overflow-hidden shadow-lg border border-gray-200">
+                  <img src={`${base}images/tools/tool-owu-zoom.png`} alt="CAIL Sandbox chat screen with the model selector, message box, and suggested prompts" class="w-full h-auto" />
+                </div>
+
+                <div class="mt-10 sm:columns-2 gap-x-10">
+                      <div class="flex items-start gap-3 mb-4 break-inside-avoid">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
                           <span class="font-semibold text-neutral-stone text-sm">Open-weight models</span>
                           <span class="text-gray-500 text-sm ml-1">— Publicly available weights for transparency and auditability</span>
                         </div>
                       </div>
-                      <div class="flex items-start gap-3">
+                      <div class="flex items-start gap-3 mb-4 break-inside-avoid">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
                           <span class="font-semibold text-neutral-stone text-sm">Open-source platform</span>
                           <span class="text-gray-500 text-sm ml-1">— Built on Open WebUI, a community-driven chat interface for running AI models</span>
                         </div>
                       </div>
-                      <div class="flex items-start gap-3">
+                      <div class="flex items-start gap-3 mb-4 break-inside-avoid">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
-                          <span class="font-semibold text-neutral-stone text-sm">Model-provider calls</span>
-                          <span class="text-gray-500 text-sm ml-1">— Configured for zero retention</span>
+                          <span class="font-semibold text-neutral-stone text-sm">Privacy by design</span>
+                          <span class="text-gray-500 text-sm ml-1">— All requests to model providers configured for zero data retention</span>
                         </div>
                       </div>
-                      <div class="flex items-start gap-3">
+                      <div class="flex items-start gap-3 mb-4 break-inside-avoid">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
                           <span class="font-semibold text-neutral-stone text-sm">Citable configs</span>
                           <span class="text-gray-500 text-sm ml-1">— Shareable, reproducible configurations for scholarly use</span>
                         </div>
                       </div>
-                      <div class="flex items-start gap-3">
+                      <div class="flex items-start gap-3 mb-4 break-inside-avoid">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
                           <span class="font-semibold text-neutral-stone text-sm">CO₂ estimates</span>
                           <span class="text-gray-500 text-sm ml-1">— Visible energy and carbon cost per interaction</span>
                         </div>
                       </div>
-                      <div class="flex items-start gap-3">
+                      <div class="flex items-start gap-3 mb-4 break-inside-avoid">
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
                           <span class="font-semibold text-neutral-stone text-sm">Accessibility</span>
                           <span class="text-gray-500 text-sm ml-1">— Speech-to-text is available through Media Processing; more accessibility tools are in development</span>
                         </div>
                       </div>
-                    </div>
-                  </div>
-
-                  <!-- Right: Description + CTAs -->
-                  <div>
-                    <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">CAIL Sandbox</h2>
-                    <div class="space-y-4 text-gray-600 leading-relaxed">
-                      <p>
-                        The <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">CAIL Sandbox</a> provides CUNY faculty, staff, and students with an AI chat interface and a curated set of open-weight models. Model-provider calls are configured for zero retention; conversations may still be saved in your Sandbox account. Users can configure the models to their needs while also gaining insight into the environmental impacts of their tool use.
-                      </p>
-                      <p>
-                        Existing approved users can sign in with CUNY Login. If you need access or cannot sign in, <a href={`${base}request-access`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">request access or support</a>.
-                      </p>
-                      <p>
-                        For current model availability, check the Sandbox model selector. Our <a href={`${base}models`} class="text-vibrant-600 hover:text-vibrant-700 underline font-semibold">Model Registry</a> provides Lab-reviewed reference notes for a smaller set of models.
-                      </p>
-                    </div>
-
-                    <div class="mt-8 flex flex-wrap gap-4">
-                      <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-vibrant-600 text-white rounded-full font-medium hover:bg-vibrant-700 transition-colors shadow-md">
-                        Launch CAIL Sandbox
-                        <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                      </a>
-                      <a href={`${base}models`} class="inline-flex items-center gap-2 px-6 py-3 border border-gray-300 text-neutral-stone rounded-full font-medium hover:border-vibrant-300 hover:text-vibrant-600 transition-colors">
-                        View Model Registry
-                      </a>
-                    </div>
-                  </div>
                 </div>
               </div>
 
-              <!-- Classroom Chatbots sub-section -->
+              <!-- Custom Models sub-section -->
               <div class="border-t border-gray-100 bg-gray-50/50 p-8 lg:p-10">
-                <h3 class="text-xl font-bold font-display text-neutral-stone mb-2">Classroom Chatbots</h3>
-                <p class="text-gray-500 text-sm mb-6">Custom assistants built inside the CAIL Sandbox</p>
+                <h3 class="text-xl font-bold font-display text-neutral-stone mb-2">Custom Models</h3>
+                <p class="text-gray-500 text-sm mb-6">Custom models and use cases prototyped inside the CAIL Sandbox</p>
 
-                <div class="grid md:grid-cols-3 gap-5">
-                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all">
-                    <div class="w-9 h-9 rounded-lg bg-vibrant-100 flex items-center justify-center mb-3">
-                      <svg class="w-4.5 h-4.5 text-vibrant-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                <div class="space-y-4">
+                  <!-- Sandbox Workspace -->
+                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
+                    <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
+                      <svg class="w-4.5 h-4.5 text-green-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                       </svg>
                     </div>
-                    <h4 class="font-bold text-neutral-stone text-sm mb-1.5">AmigAI</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed">A Spanish-language chatbot that helps CUNY students practice conversational Spanish through culturally responsive pedagogy.</p>
+                    <div>
+                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Sandbox Workspace</h4>
+                      <p class="text-gray-600 text-sm leading-relaxed">Prototype custom models through system prompts tied to knowledge collections, then extend them with agentic skills and tool calling.</p>
+                    </div>
                   </div>
 
-                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all">
-                    <div class="w-9 h-9 rounded-lg bg-indigo-100 flex items-center justify-center mb-3">
+                  <!-- Course-Specific Models -->
+                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
+                    <div class="w-9 h-9 rounded-lg bg-indigo-100 flex items-center justify-center flex-shrink-0">
                       <svg class="w-4.5 h-4.5 text-indigo-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                       </svg>
                     </div>
-                    <h4 class="font-bold text-neutral-stone text-sm mb-1.5">Course-Specific Assistants</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed mb-2">Built for individual courses using your syllabus, readings, and materials. Support students through complex texts with guiding questions.</p>
-                    <p class="text-[11px] text-gray-600">Examples: Writing Process Assistant, Paratext Analysis Tool, Active Reading Companion</p>
+                    <div>
+                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Course-Specific Models</h4>
+                      <p class="text-gray-600 text-sm leading-relaxed">Built for specific courses to address problems or bottlenecks in the classroom. Often grounded in syllabi, lesson plans, and/or course material to help scaffold assignments and provide targeted support to students learning difficult or unfamiliar topics.</p>
+                    </div>
                   </div>
 
-                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all">
-                    <div class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center mb-3">
-                      <svg class="w-4.5 h-4.5 text-green-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                  <!-- Pilot Projects -->
+                  <div class="bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all flex items-start gap-4">
+                    <div class="w-9 h-9 rounded-lg bg-vibrant-100 flex items-center justify-center flex-shrink-0">
+                      <svg class="w-4.5 h-4.5 text-vibrant-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
                       </svg>
                     </div>
-                    <h4 class="font-bold text-neutral-stone text-sm mb-1.5">Project Templates</h4>
-                    <p class="text-gray-600 text-xs leading-relaxed">Reusable configurations designed for common classroom workflows that instructors can adapt across sections or semesters.</p>
+                    <div>
+                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Pilot Projects</h4>
+                      <p class="text-gray-600 text-sm leading-relaxed">AmigAI, used on multiple CUNY campuses, helps non-native and heritage Spanish learners practice conversational Spanish through culturally responsive pedagogy. Faculty in the humanities, social sciences, and STEM have developed similar use cases.</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -284,13 +243,7 @@ const toolCategories = [
 
               <!-- Portal header -->
               <div class="p-8 lg:p-10 pb-0 lg:pb-0">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
-                  <h2 class="text-3xl font-bold font-display text-neutral-stone">CUNY AI Lab Tools Portal</h2>
-                  <a href="https://tools.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 bg-vibrant-600 text-white rounded-full text-sm font-medium hover:bg-vibrant-700 transition-colors flex-shrink-0">
-                    Visit Portal
-                    <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                  </a>
-                </div>
+                <h2 class="text-3xl font-bold font-display text-neutral-stone mb-4">CUNY AI Lab Tools Portal</h2>
                 <p class="text-gray-600 mb-8 max-w-3xl">Standalone web tools built and hosted by the Lab, separate from the CAIL Sandbox. Review each tool's storage guidance before uploading files.</p>
               </div>
 
@@ -300,7 +253,7 @@ const toolCategories = [
                 <p class="text-gray-500 text-sm mb-1.5">Powered by Whisper via Fireworks AI, AssemblyAI, and Qwen 3 VL via AWS Bedrock</p>
                 <p class="text-xs text-gray-600 mb-6">Need on-premises processing for sensitive data (FERPA, IRB, HIPAA)? <a href={`${base}contact`} class="text-vibrant-600 hover:underline">Contact us</a>.</p>
 
-                <div class="grid md:grid-cols-3 gap-5 mb-8">
+                <div class="grid md:grid-cols-2 gap-5 mb-8">
                   <a href="https://tools.ailab.gc.cuny.edu/asr/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-teal-300 transition-all hover:shadow-lg group" data-slide="0">
                     <div class="flex items-start justify-between gap-2">
                       <h4 class="font-bold text-neutral-stone text-sm mb-1">Multilingual Transcription Suite</h4>
@@ -320,7 +273,7 @@ const toolCategories = [
                       <h4 class="font-bold text-neutral-stone text-sm mb-1">Document OCR</h4>
                       <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                     </div>
-                    <p class="text-gray-600 text-xs leading-relaxed">Extract searchable text from PDFs, scanned documents, and archival images — even with difficult layouts or imperfect scans.</p>
+                    <p class="text-gray-600 text-xs leading-relaxed">Use optical character recognition (OCR) to extract searchable text from PDFs, scanned documents, and archival images — even with difficult layouts or imperfect scans.</p>
                   </a>
                   <a href="https://tools.ailab.gc.cuny.edu/pdf-accessibility/" target="_blank" rel="noopener noreferrer" class="block bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group">
                     <div class="flex items-start justify-between gap-2">
@@ -334,7 +287,7 @@ const toolCategories = [
                 <!-- Screenshot Slider -->
                 <div class="relative">
                   <div id="media-slider" class="relative rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-gray-50">
-                    <div class="relative aspect-[16/10] sm:aspect-[16/9] md:aspect-[16/8]">
+                    <div class="relative aspect-[16/10]">
                       <img id="slide-0" src={`${base}images/tools/demo-asr.gif`} alt="Demo of Multilingual Transcription Suite - uploading audio and receiving transcript" aria-hidden="false" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-100" />
                       <img id="slide-1" src={`${base}images/tools/tool-alt-text.png`} alt="Image Description tool interface showing alt-text generation" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
                       <img id="slide-2" src={`${base}images/tools/tool-ocr.png`} alt="Document OCR tool interface showing text extraction" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
@@ -346,11 +299,18 @@ const toolCategories = [
                   <button id="slider-next" aria-label="Next screenshot" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white transition-colors z-10">
                     <svg class="w-5 h-5 text-neutral-stone" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
                   </button>
+                  <button id="slider-zoom" aria-label="Enlarge screenshot" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white transition-colors z-10">
+                    <svg class="w-5 h-5 text-neutral-stone" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10 7v6m-3-3h6m4 0a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                  </button>
                   <div class="flex justify-center gap-2 mt-4">
                     <button type="button" class="slider-dot w-2.5 h-2.5 rounded-full bg-teal-500 transition-colors" data-slide="0" aria-label="Show Multilingual Transcription Suite screenshot" aria-pressed="true"></button>
                     <button type="button" class="slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors" data-slide="1" aria-label="Show Image Description screenshot" aria-pressed="false"></button>
                     <button type="button" class="slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-colors" data-slide="2" aria-label="Show Document OCR screenshot" aria-pressed="false"></button>
                   </div>
+                  <dialog id="media-lightbox" class="media-lightbox" aria-label="Enlarged screenshot">
+                    <button type="button" class="media-lightbox__close" aria-label="Close enlarged screenshot">&times;</button>
+                    <img class="media-lightbox__img" src="" alt="" />
+                  </dialog>
                 </div>
               </div>
 
@@ -358,21 +318,15 @@ const toolCategories = [
           </div>
 
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
-          <!-- Panel: AI Assistants              -->
+          <!-- Panel: Agentic Studios              -->
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
-          <div id="panel-assistants" class="content-panel hidden" role="tabpanel" aria-label="AI Assistants">
+          <div id="panel-assistants" class="content-panel hidden" role="tabpanel" aria-label="Agentic Studios">
             <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
 
               <div class="p-8 lg:p-10">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
-                  <div>
-                    <h2 class="text-3xl font-bold font-display text-neutral-stone">AI Assistants</h2>
-                    <p class="text-gray-500 mt-1">Research and website building tools with CAIL-managed model access</p>
-                  </div>
-                  <a href="https://tools.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 bg-vibrant-600 text-white rounded-full text-sm font-medium hover:bg-vibrant-700 transition-colors flex-shrink-0">
-                    Visit Tools Portal
-                    <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                  </a>
+                <div class="mb-4">
+                  <h2 class="text-3xl font-bold font-display text-neutral-stone">Agentic Studios</h2>
+                  <p class="text-gray-500 mt-1">Tools for conducting research and building websites</p>
                 </div>
                 <p class="text-gray-600 mb-10 max-w-3xl">Available on the CUNY AI Lab Tools Portal. Storage depends on each tool, so review its guidance before submitting sensitive information.</p>
 
@@ -415,6 +369,25 @@ const toolCategories = [
           </div>
 
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
+          <!-- Panel: Working with AI             -->
+          <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
+          <div id="panel-working-with-ai" class="content-panel hidden" role="tabpanel" aria-label="Working with AI">
+            <div class="bg-white rounded-2xl border border-gray-200 p-8 lg:p-10">
+              <div class="mb-6">
+                <h2 class="text-3xl font-bold font-display text-neutral-stone">Working with AI</h2>
+                <p class="text-gray-500 mt-1">Document how you used generative AI</p>
+              </div>
+              <a href="https://tools.ailab.gc.cuny.edu/ai-disclosure/" target="_blank" rel="noopener noreferrer" class="block bg-neutral-cream rounded-xl p-6 border border-transparent hover:shadow-lg hover:border-green-200 transition-all group">
+                <div class="flex items-start justify-between gap-2">
+                  <h3 class="text-lg font-bold text-neutral-stone mb-2">AI Use Disclosure</h3>
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-green-600 transition-colors flex-shrink-0 mt-1" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                </div>
+                <p class="text-gray-600 text-sm leading-relaxed">Create a publication-ready declaration of the tasks you delegated to generative AI, using the GAIDeT taxonomy.</p>
+              </a>
+            </div>
+          </div>
+
+          <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
           <!-- Panel: Model Access                -->
           <!-- ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ -->
           <div id="panel-model-access" class="content-panel hidden" role="tabpanel" aria-label="Model Access">
@@ -423,7 +396,7 @@ const toolCategories = [
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
                   <div>
                     <h2 class="text-3xl font-bold font-display text-neutral-stone">Model Access</h2>
-                    <p class="text-gray-500 mt-1">Personal API access through the CAIL Model API</p>
+                    <p class="text-gray-500 mt-1">Personal API keys for Model Access</p>
                   </div>
                   <a href="https://tools.ailab.gc.cuny.edu/model-access" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 bg-vibrant-600 text-white rounded-full text-sm font-medium hover:bg-vibrant-700 transition-colors flex-shrink-0">
                     Manage Model Access
@@ -442,12 +415,12 @@ const toolCategories = [
   </section>
 
   <section class="border-t border-vibrant-100 bg-vibrant-50/70" aria-labelledby="access-heading">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-12 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-7">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-12">
       <div class="max-w-2xl">
         <h2 id="access-heading" class="text-2xl font-bold font-display text-neutral-stone">Need access?</h2>
         <p class="mt-2 text-gray-600 leading-relaxed">Apply for individual or class access. Approved class instructors can manage their roster and class link.</p>
       </div>
-      <div class="flex flex-col sm:flex-row sm:flex-wrap lg:justify-end gap-3">
+      <div class="mt-6 flex flex-col sm:flex-row sm:flex-wrap gap-3">
         <a href={`${base}request-access/`} class="inline-flex justify-center items-center px-6 py-3 bg-vibrant-700 text-white rounded-full font-semibold hover:bg-vibrant-800 transition-colors shadow-md">Individual access</a>
         <a href={`${base}request-access/?kind=class`} class="inline-flex justify-center items-center px-6 py-3 bg-white text-vibrant-800 border-2 border-vibrant-700 rounded-full font-semibold hover:bg-vibrant-50 transition-colors">Class access</a>
         <a href="https://tools.ailab.gc.cuny.edu/my-classes" class="inline-flex justify-center items-center px-6 py-3 bg-white text-vibrant-800 border-2 border-vibrant-700 rounded-full font-semibold hover:bg-vibrant-50 transition-colors">Manage my classes</a>
@@ -462,8 +435,8 @@ const toolCategories = [
   <script is:inline>
     (function() {
       // ── Panel switching ──
-      var sidebarCards = document.querySelectorAll('.sidebar-card');
-      var mobileTabs = document.querySelectorAll('.mobile-tab');
+      var sidebarRows = document.querySelectorAll('.sidebar-row');
+      var categorySelect = document.getElementById('tool-category');
       var panels = document.querySelectorAll('.content-panel');
 
       function switchPanel(panelId, writeHash, shouldScroll) {
@@ -482,15 +455,14 @@ const toolCategories = [
           target.style.opacity = '1';
         }
 
-        // Update both responsive tablists from the classes rendered by the model.
-        [sidebarCards, mobileTabs].forEach(function(tabs) {
-          tabs.forEach(function(tab) {
-            var selected = tab.dataset.panel === panelId;
-            tab.setAttribute('aria-selected', selected ? 'true' : 'false');
-            tab.tabIndex = selected ? 0 : -1;
-            tab.className = selected ? tab.dataset.activeClass : tab.dataset.inactiveClass;
-          });
+        // Update the sidebar rows from the classes rendered by the model, and keep the mobile picker in sync.
+        sidebarRows.forEach(function(tab) {
+          var selected = tab.dataset.panel === panelId;
+          tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+          tab.tabIndex = selected ? 0 : -1;
+          tab.className = selected ? tab.dataset.activeClass : tab.dataset.inactiveClass;
         });
+        if (categorySelect) categorySelect.value = panelId;
 
         // Reflect the active tab in the URL so it can be linked and shared
         if (writeHash && window.history && window.history.replaceState) {
@@ -506,14 +478,18 @@ const toolCategories = [
         }
       }
 
-      // Both responsive tablists share the same panel behavior.
-      [sidebarCards, mobileTabs].forEach(function(tabs) {
-        tabs.forEach(function(tab) {
-          tab.addEventListener('click', function() {
-            switchPanel(this.dataset.panel, true, true);
-          });
+      sidebarRows.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          switchPanel(this.dataset.panel, true, true);
         });
       });
+
+      // The mobile picker sits directly above the panel, so no scroll is needed after choosing.
+      if (categorySelect) {
+        categorySelect.addEventListener('change', function() {
+          switchPanel(this.value, true, false);
+        });
+      }
 
       // Support the standard keyboard interaction for each tablist.
       document.querySelectorAll('[role="tablist"]').forEach(function(tablist) {
@@ -542,7 +518,7 @@ const toolCategories = [
       });
 
       // Choose the first panel: honor a #hash deep-link if present, otherwise show the Sandbox.
-      var panelIds = Array.from(mobileTabs).map(function(tab) { return tab.dataset.panel; });
+      var panelIds = Array.from(sidebarRows).map(function(tab) { return tab.dataset.panel; });
       function panelFromHash() {
         var id = (window.location.hash || '').replace(/^#/, '');
         return panelIds.indexOf(id) !== -1 ? id : null;
@@ -612,6 +588,30 @@ const toolCategories = [
       document.querySelectorAll('.media-tool-btn').forEach(function(btn) {
         btn.addEventListener('mouseenter', function() { goTo(parseInt(this.dataset.slide)); });
       });
+
+      // Click-to-zoom lightbox for the active screenshot
+      var lightbox = document.getElementById('media-lightbox');
+      if (lightbox && typeof lightbox.showModal === 'function') {
+        var lightboxImg = lightbox.querySelector('.media-lightbox__img');
+        var lightboxClose = lightbox.querySelector('.media-lightbox__close');
+        var openLightbox = function() {
+          var img = getSlides()[current];
+          if (!img) return;
+          lightboxImg.src = img.currentSrc || img.src;
+          lightboxImg.alt = img.alt || '';
+          lightbox.showModal();
+        };
+        var zoomBtn = document.getElementById('slider-zoom');
+        if (zoomBtn) zoomBtn.addEventListener('click', openLightbox);
+        var sliderEl = document.getElementById('media-slider');
+        if (sliderEl) {
+          sliderEl.style.cursor = 'zoom-in';
+          sliderEl.addEventListener('click', openLightbox);
+        }
+        lightboxClose.addEventListener('click', function() { lightbox.close(); });
+        lightbox.addEventListener('click', function(e) { if (e.target === lightbox) lightbox.close(); });
+        lightbox.addEventListener('close', function() { lightboxImg.removeAttribute('src'); });
+      }
     })();
   </script>
 
@@ -621,10 +621,54 @@ const toolCategories = [
   .content-panel {
     transition: opacity 0.25s ease-in-out;
   }
+  .media-lightbox {
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 2rem;
+    border: none;
+    background: rgba(0, 0, 0, 0.85);
+  }
+  .media-lightbox[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .media-lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+  }
+  .media-lightbox__img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    margin: 0;
+  }
+  .media-lightbox__close {
+    position: fixed;
+    top: 1rem;
+    right: 1.25rem;
+    font-size: 2.25rem;
+    line-height: 1;
+    color: #fff;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem 0.75rem;
+    z-index: 1;
+  }
+  .media-lightbox__close:hover {
+    color: #cbd5e1;
+  }
   @media (min-width: 1024px) {
     .tools-layout {
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 240px 1fr;
       gap: 2rem;
     }
     .tools-sidebar {

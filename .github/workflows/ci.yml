@@ -50,6 +50,7 @@ jobs:
             sleep 1
           done
           uv run --with playwright python tests/tools_page_browser.py
+          uv run --with playwright python tests/models_page_browser.py
           uv run --with playwright python tests/request_access_browser.py
 
   deploy:
@@ -92,8 +93,25 @@ jobs:
         run: bun run deploy:cloudflare --tag "$GITHUB_SHA" --message "commit $GITHUB_SHA"
 
       - name: Verify Cloudflare preview
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           set -euo pipefail
+          api='https://api.cloudflare.com/client/v4/accounts/452c33847cf5cb1e46f391fca32fd1b5/workers/scripts/cail-website'
+          deployment="$(curl --fail --silent --show-error \
+            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$api/deployments")"
+          version="$(jq -er '
+            select(.success == true) | .result.deployments[0].versions |
+            select(length == 1 and .[0].percentage == 100) | .[0].version_id
+          ' <<<"$deployment")"
+          curl --fail --silent --show-error \
+            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$api/versions/$version" |
+            jq -e --arg sha "$GITHUB_SHA" '
+              .success == true and
+              .result.annotations["workers/tag"] == $sha and
+              .result.annotations["workers/message"] == ("commit " + $sha)
+            ' >/dev/null
+          echo "Cloudflare preview serves version $version for $GITHUB_SHA"
           origin='https://cail-website.ailab-452.workers.dev'
           for path in / /tools/ /request-access/ /blog/cuny-login-sso/ /rss.xml; do
             status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' "$origin$path")"

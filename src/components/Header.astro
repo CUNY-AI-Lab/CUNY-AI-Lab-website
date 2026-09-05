@@ -44,13 +44,22 @@ const subItemClass = (path: string) =>
       <div class="flex items-center">
         <div class="flex-shrink-0">
           <a href={base} class="hover:opacity-80 transition-opacity">
-            <img src={`${base}images/logo-horizontal.png`} alt="CUNY AI Lab" class="h-10 w-auto" />
+            <img src={`${base}images/logo-horizontal.png`} alt="CUNY AI Lab" width="1154" height="259" class="h-10 w-auto" />
           </a>
         </div>
         <div class="hidden lg:block">
-          <div class="ml-10 flex items-baseline space-x-8">
+          <div class="ml-6 xl:ml-10 flex items-baseline space-x-3 xl:space-x-8">
           <a href={base} class={linkClass(base)}>
             Home
+          </a>
+          <a href={`${base}tools`} class={linkClass(`${base}tools`)}>
+            Tools
+          </a>
+          <a href={`${base}resources`} class={linkClass(`${base}resources`)}>
+            Resources
+          </a>
+          <a href={`${base}blog`} class={linkClass(`${base}blog`)}>
+            Blog
           </a>
           <div class="relative nav-dropdown" data-dropdown data-open="false">
             <div class={`flex items-center rounded-full text-sm font-medium transition-all duration-200 ${aboutTriggerClass}`}>
@@ -77,23 +86,14 @@ const subItemClass = (path: string) =>
               </div>
             </div>
           </div>
-          <a href={`${base}tools`} class={linkClass(`${base}tools`)}>
-            Tools
-          </a>
-          <a href={`${base}resources`} class={linkClass(`${base}resources`)}>
-            Resources
-          </a>
-          <a href={`${base}blog`} class={linkClass(`${base}blog`)}>
-            Blog
-          </a>
           </div>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <a href="https://tools.ailab.gc.cuny.edu/welcome" class="hidden lg:inline-block px-4 py-2 rounded-full text-sm font-medium text-neutral-stone hover:text-vibrant-600 hover:bg-white/50 transition-all duration-200">
+        <a href="https://tools.ailab.gc.cuny.edu/welcome" data-signin-link class="hidden lg:inline-block whitespace-nowrap min-w-[5.5rem] text-center px-4 py-2 rounded-full text-sm font-medium text-neutral-stone hover:text-vibrant-600 hover:bg-white/50 transition-all duration-200">
           Sign in
         </a>
-        <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="hidden lg:inline-block bg-vibrant-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-vibrant-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+        <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="hidden lg:inline-block whitespace-nowrap bg-vibrant-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-vibrant-700 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
           CAIL Sandbox <span aria-hidden="true">→</span>
         </a>
         <div class="lg:hidden">
@@ -108,10 +108,19 @@ const subItemClass = (path: string) =>
   </nav>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" role="navigation" aria-label="Mobile navigation" class="hidden lg:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 absolute w-full shadow-xl">
+  <div id="mobile-menu" role="navigation" aria-label="Mobile navigation" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl max-h-[calc(100dvh-4.5rem)] overflow-y-auto">
     <div class="px-4 pt-4 pb-6 space-y-2">
       <a href={base} class={mobileLinkClass(base)}>
         Home
+      </a>
+      <a href={`${base}tools`} class={mobileLinkClass(`${base}tools`)}>
+        Tools
+      </a>
+      <a href={`${base}resources`} class={mobileLinkClass(`${base}resources`)}>
+        Resources
+      </a>
+      <a href={`${base}blog`} class={mobileLinkClass(`${base}blog`)}>
+        Blog
       </a>
       <div class="flex items-center gap-1">
         <a href={`${base}about`} class={`${mobileLinkClass(`${base}about`)} flex-1`}>
@@ -138,17 +147,8 @@ const subItemClass = (path: string) =>
           Contact
         </a>
       </div>
-      <a href={`${base}tools`} class={mobileLinkClass(`${base}tools`)}>
-        Tools
-      </a>
-      <a href={`${base}resources`} class={mobileLinkClass(`${base}resources`)}>
-        Resources
-      </a>
-      <a href={`${base}blog`} class={mobileLinkClass(`${base}blog`)}>
-        Blog
-      </a>
       <div class="pt-4 mt-4 border-t border-gray-100 space-y-2">
-        <a href="https://tools.ailab.gc.cuny.edu/welcome" class="block w-full text-center px-4 py-3 rounded-lg text-base font-medium text-neutral-stone hover:text-vibrant-600 hover:bg-gray-50 transition-colors">
+        <a href="https://tools.ailab.gc.cuny.edu/welcome" data-signin-link class="block w-full text-center px-4 py-3 rounded-lg text-base font-medium text-neutral-stone hover:text-vibrant-600 hover:bg-gray-50 transition-colors">
           Sign in
         </a>
         <a href="https://chat.ailab.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="block w-full text-center px-4 py-3 rounded-lg text-base font-semibold bg-vibrant-600 text-white hover:bg-vibrant-700 shadow-md">
@@ -215,6 +215,25 @@ const subItemClass = (path: string) =>
     aboutMobileToggle.setAttribute('aria-expanded', String(isOpen));
     aboutMobileChevron?.classList.toggle('rotate-180', isOpen);
   });
+
+  // Reflect an active doorway session: the identity endpoint is CORS-restricted
+  // to this origin and returns 200 only with a valid signed-in session. The
+  // last known state is cached so repeat page loads render the right label
+  // immediately instead of swapping after the check resolves.
+  const setSigninLabel = (label: string) => {
+    document.querySelectorAll('[data-signin-link]').forEach((link) => {
+      link.textContent = label;
+    });
+  };
+  try {
+    if (sessionStorage.getItem('cail-session') === '1') setSigninLabel('Account');
+  } catch {}
+  fetch('https://tools.ailab.gc.cuny.edu/request-access/identity', { credentials: 'include' })
+    .then((res) => {
+      try { sessionStorage.setItem('cail-session', res.ok ? '1' : '0'); } catch {}
+      setSigninLabel(res.ok ? 'Account' : 'Sign in');
+    })
+    .catch(() => {});
 </script>
 
 <style>

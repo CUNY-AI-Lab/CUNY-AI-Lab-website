@@ -13,7 +13,7 @@ from playwright.sync_api import Page, sync_playwright
 
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
-EXPECTED_PANELS = ["sandbox", "media", "assistants", "model-access"]
+EXPECTED_PANELS = ["sandbox", "media", "assistants", "working-with-ai", "model-access"]
 
 
 def assert_equal(actual: Any, expected: Any) -> None:
@@ -32,7 +32,8 @@ def assert_selected_panel(page: Page, panel_id: str) -> None:
     selected = page.locator(
         f'[role="tab"][aria-controls="panel-{panel_id}"][aria-selected="true"]'
     )
-    assert_equal(selected.count(), 2)
+    assert_equal(selected.count(), 1)
+    assert_equal(page.locator("#tool-category").input_value(), panel_id)
 
 
 def test_navigation_is_deterministic(page: Page) -> None:
@@ -42,12 +43,15 @@ def test_navigation_is_deterministic(page: Page) -> None:
     load_tools(page, "#media")
     assert_selected_panel(page, "media")
 
-    page.locator('.sidebar-card[data-panel="assistants"]').click()
+    page.locator('.sidebar-row[data-panel="assistants"]').click()
     assert page.url.endswith("/tools/#assistants")
     assert_selected_panel(page, "assistants")
 
     page.set_viewport_size({"width": 390, "height": 844})
-    page.locator('.mobile-tab[data-panel="model-access"]').click()
+    assert not page.locator(".tools-sidebar").is_visible()
+    picker = page.locator("#tool-category")
+    assert picker.is_visible()
+    picker.select_option("model-access")
     assert page.url.endswith("/tools/#model-access")
     assert_selected_panel(page, "model-access")
 
@@ -56,7 +60,7 @@ def test_tabs_and_accessibility_contract(page: Page) -> None:
     load_tools(page)
 
     tablists = page.locator('[role="tablist"]')
-    assert_equal(tablists.count(), 2)
+    assert_equal(tablists.count(), 1)
     for index in range(tablists.count()):
         tablist = tablists.nth(index)
         tabs = tablist.locator('[role="tab"]')
@@ -78,6 +82,7 @@ def test_tabs_and_accessibility_contract(page: Page) -> None:
     for svg_index in range(page.locator("svg").count()):
         assert_equal(page.locator("svg").nth(svg_index).get_attribute("aria-hidden"), "true")
 
+
 def test_media_slider_accessibility(page: Page) -> None:
     load_tools(page, "#media")
 
@@ -98,25 +103,26 @@ def test_media_slider_accessibility(page: Page) -> None:
 
 def test_mobile_initial_load_does_not_scroll(page: Page) -> None:
     page.set_viewport_size({"width": 390, "height": 844})
-    page.add_init_script(
-        """
-        window.__scrollIntoViewCalls = 0;
-        Element.prototype.scrollIntoView = function() {
-          window.__scrollIntoViewCalls += 1;
-        };
-        """
-    )
     load_tools(page)
+    page.wait_for_load_state("networkidle")
     assert_equal(page.evaluate("window.scrollY"), 0)
-    assert_equal(page.evaluate("window.__scrollIntoViewCalls"), 0)
 
     page.goto("about:blank")
     load_tools(page, "#media")
+    page.wait_for_load_state("networkidle")
     assert_equal(page.evaluate("window.scrollY"), 0)
-    assert_equal(page.evaluate("window.__scrollIntoViewCalls"), 0)
 
-    page.locator('.mobile-tab[data-panel="assistants"]').click()
-    assert_equal(page.evaluate("window.__scrollIntoViewCalls"), 1)
+    # The picker sits directly above the panel, so choosing a category must not scroll either.
+    picker = page.locator("#tool-category")
+    picker.scroll_into_view_if_needed()
+    position = page.evaluate("window.scrollY")
+    picker.select_option("assistants")
+    assert_selected_panel(page, "assistants")
+    # Let a browser-initiated smooth scroll advance before measuring the viewport.
+    page.evaluate(
+        "() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))"
+    )
+    assert_equal(page.evaluate("window.scrollY"), position)
 
 
 def test_keyboard_tab_navigation(page: Page) -> None:
