@@ -451,7 +451,7 @@ const toolCategories = [
         if (target) {
           target.classList.remove('hidden');
           // Trigger reflow for animation
-          target.offsetHeight;
+          void target.offsetHeight;
           target.style.opacity = '1';
         }
 
@@ -589,7 +589,7 @@ const toolCategories = [
 
       // Click-to-zoom lightbox for the active screenshot
       var lightbox = document.getElementById('media-lightbox');
-      if (lightbox && typeof lightbox.showModal === 'function') {
+      if (lightbox && 'showModal' in lightbox) {
         var lightboxImg = lightbox.querySelector('.media-lightbox__img');
         var lightboxClose = lightbox.querySelector('.media-lightbox__close');
         var openLightbox = function() {

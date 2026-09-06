@@ -13,15 +13,17 @@ const updatedAt = modelData.updated_at;
 const longContextThreshold = 100_000;
 
 // Helper to get license family display info
-function getLicenseFamilyInfo(family: string) {
-  const families: Record<string, { label: string; color: string; bg: string; border: string }> = {
-    'permissive': { label: 'Permissive', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' },
-    'permissive_modified': { label: 'Permissive+', color: 'text-teal-800', bg: 'bg-teal-50', border: 'border-teal-200' },
-    'community': { label: 'Community', color: 'text-blue-700', bg: 'bg-blue-50', border: 'border-blue-200' },
-    'restricted_terms': { label: 'Restricted', color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200' },
-    'unknown': { label: 'Unknown', color: 'text-gray-600', bg: 'bg-gray-100', border: 'border-gray-200' }
-  };
-  return families[family] || families['unknown'];
+type LicenseFamilyInfo = { label: string; color: string; bg: string; border: string };
+const unknownLicenseFamily: LicenseFamilyInfo = { label: 'Unknown', color: 'text-gray-600', bg: 'bg-gray-100', border: 'border-gray-200' };
+const licenseFamilies = new Map<string, LicenseFamilyInfo>([
+  ['permissive', { label: 'Permissive', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' }],
+  ['permissive_modified', { label: 'Permissive+', color: 'text-teal-800', bg: 'bg-teal-50', border: 'border-teal-200' }],
+  ['community', { label: 'Community', color: 'text-blue-700', bg: 'bg-blue-50', border: 'border-blue-200' }],
+  ['restricted_terms', { label: 'Restricted', color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200' }],
+  ['unknown', unknownLicenseFamily],
+]);
+function getLicenseFamilyInfo(family: string): LicenseFamilyInfo {
+  return licenseFamilies.get(family) ?? unknownLicenseFamily;
 }
 
 // Helper for structured output display

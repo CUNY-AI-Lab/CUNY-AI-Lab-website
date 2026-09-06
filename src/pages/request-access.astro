@@ -408,6 +408,8 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
   <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
+    import { z } from 'zod';
+
     const form = document.querySelector<HTMLFormElement>('#access-request-form');
     const submit = document.querySelector<HTMLButtonElement>('#access-request-submit');
     const status = document.querySelector<HTMLElement>('#form-status');
@@ -430,6 +432,36 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     type TurnstileWindow = Window & {
       turnstile?: { reset: () => void };
     };
+    const identitySchema = z.object({ email: z.string() });
+    const intakeOutcomeSchema = z.object({
+      requestId: z.string().optional(),
+      error: z.object({ code: z.string().optional() }).optional(),
+    });
+    type CommonApplicationFields = {
+      name: string;
+      affiliation: string;
+      department: string;
+      campus: string;
+      intendedUse: string;
+    };
+    type ClassApplicationFields = CommonApplicationFields & {
+      className: string;
+      term: string;
+      section: string;
+      startsOn: string;
+      endsOn: string;
+      estimatedSeats: number;
+    };
+    type IndividualApplicationFields = CommonApplicationFields & { tools: string[] };
+
+    function textField(fields: FormData, name: string): string {
+      const value = fields.get(name);
+      return value === null || value instanceof File ? '' : value;
+    }
+
+    function textFields(fields: FormData, name: string): string[] {
+      return fields.getAll(name).flatMap((value) => (value instanceof File ? [] : [value]));
+    }
 
     function showStatus(message: string, outcome: 'success' | 'error') {
       if (!status) return;
@@ -443,6 +475,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     }
 
     function resetTurnstile() {
+      // SAFETY: the Turnstile script installs `window.turnstile` when it loads; optional chaining covers its absence.
       (window as TurnstileWindow).turnstile?.reset();
     }
 
@@ -499,11 +532,8 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
           return;
         }
 
-        const result: unknown = await response.json().catch(() => null);
-        const email =
-          result !== null && typeof result === 'object' && 'email' in result && typeof result.email === 'string'
-            ? result.email.trim()
-            : '';
+        const identity = identitySchema.safeParse(await response.json().catch(() => null));
+        const email = identity.success ? identity.data.email.trim() : '';
         if (!email) {
           setIdentityStatus('We could not verify your CUNY sign-in. Try again shortly.', 'error');
           return;
@@ -551,7 +581,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     }
 
     function isIsoDate(value: FormDataEntryValue | null): value is string {
-      if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+      if (value === null || value instanceof File || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
       const date = new Date(`${value}T00:00:00.000Z`);
       return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
     }
@@ -579,8 +609,8 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
       const fields = new FormData(form);
       const kind = fields.get('application-kind') === 'class' ? 'class' : 'individual';
-      const turnstileToken = fields.get('cf-turnstile-response');
-      if (typeof turnstileToken !== 'string' || turnstileToken.length === 0) {
+      const turnstileToken = textField(fields, 'cf-turnstile-response');
+      if (turnstileToken.length === 0) {
         showStatus('Complete the verification before sending your request.', 'error');
         return;
       }
@@ -591,13 +621,13 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
       try {
         const common = {
-          name: fields.get('name'),
-          affiliation: fields.get('affiliation'),
-          department: fields.get('department'),
-          campus: fields.get('campus'),
-          intendedUse: fields.get('intended-use'),
+          name: textField(fields, 'name'),
+          affiliation: textField(fields, 'affiliation'),
+          department: textField(fields, 'department'),
+          campus: textField(fields, 'campus'),
+          intendedUse: textField(fields, 'intended-use'),
         };
-        let applicationFields: Record<string, unknown>;
+        let applicationFields: ClassApplicationFields | IndividualApplicationFields;
         if (kind === 'class') {
           const startsOn = fields.get('startsOn');
           const endsOn = fields.get('endsOn');
@@ -621,9 +651,9 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
           applicationFields = {
             ...common,
-            className: fields.get('className'),
-            term: fields.get('term'),
-            section: fields.get('section'),
+            className: textField(fields, 'className'),
+            term: textField(fields, 'term'),
+            section: textField(fields, 'section'),
             startsOn,
             endsOn,
             estimatedSeats,
@@ -631,7 +661,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         } else {
           applicationFields = {
             ...common,
-            tools: fields.getAll('tools[]'),
+            tools: textFields(fields, 'tools[]'),
           };
         }
 
@@ -650,8 +680,9 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
           credentials: 'include',
           body: JSON.stringify(payload),
         });
-        const result: { requestId?: string; error?: { code?: string } } = await response.json().catch(() => ({}));
-        if (response.status === 201 && typeof result.requestId === 'string') {
+        const outcome = intakeOutcomeSchema.safeParse(await response.json().catch(() => null));
+        const result = outcome.success ? outcome.data : intakeOutcomeSchema.parse({});
+        if (response.status === 201 && result.requestId !== undefined) {
           pendingApplication = null;
           form.hidden = true;
           if (confirmationMessage) {
