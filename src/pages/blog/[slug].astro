@@ -68,7 +68,7 @@ const formatAuthors = (authors: string[]) => {
 <script is:inline>
   (function () {
     const dialog = document.getElementById('post-lightbox');
-    if (!dialog || typeof dialog.showModal !== 'function') return;
+    if (!dialog || !('showModal' in dialog)) return;
 
     const dialogImg = dialog.querySelector('.post-lightbox__img');
     const closeBtn = dialog.querySelector('.post-lightbox__close');

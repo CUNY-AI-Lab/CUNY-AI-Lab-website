@@ -9,8 +9,20 @@ bun install --frozen-lockfile
 bun run dev      # Start dev server at localhost:4321
 bun run build    # Build production site to ./dist/
 bun run preview  # Preview production build locally
-bun run check    # Audit dependencies and build the site
+bun run lint     # Run Oxlint with the vendored anti-slop profile
+bun run check    # Audit dependencies, lint, type-check, and build the site
 ```
+
+## Lint
+
+`bun run check` starts with the vendored full generic anti-slop profile in
+`tools/oxlint/anti-slop/` (`bun run lint`). It covers `.ts`, `.mjs`, `.js`, and
+the frontmatter and `<script>` blocks of `.astro` files. Fix findings at the
+actual contract or boundary: parse `fetch` responses and form data with
+`zod/mini` schemas as `request-access.astro` does (the mini build keeps the
+client bundle small) rather than `typeof` checks, and keep DOM feature detection to the `in` operator. Do not add rule
+suppressions, evasive wrappers, or generic `SAFETY` comments. Effect-specific
+rules stay disabled because this repository has no Effect code.
 
 ## Architecture
 
