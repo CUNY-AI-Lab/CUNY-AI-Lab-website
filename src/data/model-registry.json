@@ -1,6 +1,6 @@
 {
   "registry_version": "1.0",
-  "updated_at": "2026-05-31",
+  "updated_at": "2026-09-08",
   "models": [
     {
       "key": "deepseek-v3.2",
@@ -250,6 +250,7 @@
     },
     {
       "key": "qwen3-235b-a22b",
+      "hidden": true,
       "display_name": "Qwen3-235b",
       "vendor": "Qwen (Alibaba)",
       "family": "Qwen3",
