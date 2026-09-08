@@ -26,7 +26,7 @@ rules stay disabled because this repository has no Effect code.
 
 ## Architecture
 
-Astro static site with Tailwind CSS. Production is served at `ailab.gc.cuny.edu`; see Deployment for which host currently serves it. Submit changes through a pull request; the current branch rule requires the `Website CI` check and does not require a formal approval. Ask one independent reviewer to review substantive changes before merge.
+Astro static site with Tailwind CSS. Production is served at `ailab.gc.cuny.edu`; see Deployment for which host currently serves it. Repo admins can push directly to `main`: the branch rule requires the `Website CI` check but no longer enforces it for admins, and no formal approval is required. Use a pull request when you want CI to run before the change lands, or when you want review; ask one independent reviewer to look at substantive changes.
 
 ## Deployment
 
