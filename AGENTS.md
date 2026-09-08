@@ -56,6 +56,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 - `src/components/` - Header.astro, Footer.astro
 - `src/pages/` - Route pages (index, about, tools, team, contact, request-access, events, resources, models, guides)
 - `src/pages/models.astro` - Live Model API catalog with search and provider/capability filters
+- `src/data/featured-models.json` - The registry page's Featured shortlist: `name`, a one-line `note`, and the exact Gateway API `ids` for that model (one per provider route). An entry shows only while at least one of its IDs is in the live catalog, so a retired ID drops out on its own. Update `updated_at` when editing. All other model data comes from Gateway at load time.
 - `src/scripts/model-availability.ts` - Public Gateway catalog parsing, filtering, rendering, and API ID copying; preserve exact provider identities and unknown prices
 - `src/pages/models/guide.astro` - Guide to the live registry, factual specifications, and provider token prices
 - Gateway owns optional sourced `model_name` and `specifications`; render available facts directly from the catalog, without static identity matching or an allowlist. Malformed optional metadata must not remove valid offerings. Reconcile group facts independently and withhold conflicts.

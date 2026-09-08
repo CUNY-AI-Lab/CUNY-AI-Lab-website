@@ -30,7 +30,11 @@ const base = import.meta.env.BASE_URL;
           <button id="refresh-catalog" class="registry-button" type="button">Refresh catalog</button>
         </div>
       </div>
-      <p id="results-count" class="results-count" aria-live="polite"></p>
+      <section id="featured-models" aria-labelledby="featured-heading" hidden>
+        <div class="section-head"><h2 id="featured-heading">Featured</h2><p>A short list of current models the lab suggests starting with. Each one also appears in the full registry below.</p></div>
+        <div id="featured-list"></div>
+      </section>
+      <div class="section-head"><h2 id="all-models-heading">All models</h2><p id="results-count" class="results-count" aria-live="polite"></p></div>
       <div id="models-list"></div>
       <p id="empty-state" class="empty-state" hidden></p>
       <noscript><p class="py-6">JavaScript is needed to load and filter the live registry. <a class="underline text-vibrant-600" href="https://tools.ailab.gc.cuny.edu/v1/catalog">Open the public Gateway catalog</a> or <a class="underline text-vibrant-600" href={`${base}models/guide/`}>read the registry guide</a>.</p></noscript>
@@ -54,8 +58,12 @@ const base = import.meta.env.BASE_URL;
   #model-registry :is(button, input, select, summary):focus-visible { outline: 3px solid var(--registry-accent); outline-offset: 3px; }
   #model-registry .registry-status { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--registry-line); }
   #model-registry .registry-status p { font-size: .85rem; color: var(--registry-muted); }
-  #model-registry .results-count { margin: 1.75rem 0 .9rem; font-size: .85rem; font-weight: 600; color: var(--registry-muted); }
-  #model-registry .results-count:empty { margin: 0; }
+  #model-registry .section-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem 1rem; margin: 2rem 0 .9rem; }
+  #model-registry .section-head h2 { font-family: Outfit, sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--registry-ink); }
+  #model-registry .section-head p { font-size: .85rem; color: var(--registry-muted); }
+  #model-registry .results-count { font-weight: 600; }
+  #model-registry .featured-card { border-color: #b9d0ef; box-shadow: 0 2px 8px rgba(29, 58, 131, .08); }
+  #model-registry .featured-note { margin-top: .35rem; font-size: .9rem; line-height: 1.5; color: #46556b; max-width: 60ch; }
   #model-registry .empty-state { padding: 3rem 1rem; text-align: center; color: var(--registry-muted); }
   #model-registry .model-card { padding: 1.5rem 1.75rem 1.25rem; border: 1px solid var(--registry-line); border-radius: 1rem; background: white; margin-bottom: 1rem; box-shadow: 0 1px 2px rgba(29, 58, 131, .05); }
   #model-registry .model-card[hidden], #model-registry .provider-offering[hidden] { display: none; }
@@ -89,6 +97,7 @@ const base = import.meta.env.BASE_URL;
   #model-registry .spec-value { font-size: .95rem; line-height: 1.35; color: var(--registry-text); font-variant-numeric: tabular-nums; }
   #model-registry .spec-value strong { font-weight: 600; overflow-wrap: anywhere; }
   #model-registry .price-unit { grid-column: 1 / -1; margin-top: -.35rem; font-size: .68rem; color: var(--registry-muted); }
+  #model-registry .price-estimate { grid-column: 1 / -1; font-size: .78rem; color: #46556b; }
   #model-registry .capabilities { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .4rem; }
   #model-registry .capability { display: inline-flex; align-items: center; gap: .3rem; padding: .2rem .55rem; border: 1px solid var(--registry-line); border-radius: 999px; font-size: .72rem; color: #46556b; overflow-wrap: anywhere; }
   #model-registry .capability svg { width: .85rem; height: .85rem; flex-shrink: 0; color: var(--registry-accent); }

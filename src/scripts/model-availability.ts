@@ -1,4 +1,5 @@
 import * as z from 'zod/mini';
+import featuredData from '../data/featured-models.json';
 
 const catalogUrl = 'https://tools.ailab.gc.cuny.edu/v1/catalog';
 const price = z.number().check(z.nonnegative());
@@ -36,6 +37,11 @@ const offeringSchema = z.object({
   pricing: z.optional(pricingSchema),
 });
 const catalogSchema = z.object({ object: z.literal('list'), data: z.array(offeringSchema) });
+const featuredSchema = z.object({
+  updated_at: z.string(),
+  models: z.array(z.object({ name: metadataText, note: metadataText, ids: z.array(z.string().check(z.minLength(1))).check(z.minLength(1)) })),
+});
+const featured = featuredSchema.parse(featuredData);
 type Offering = z.infer<typeof offeringSchema>;
 const providerNames = new Map([
   ['workers-ai', 'Workers AI'],
@@ -55,6 +61,8 @@ const dollars = new Intl.NumberFormat('en-US', {
 });
 const integers = new Intl.NumberFormat('en-US');
 const list = document.querySelector<HTMLElement>('#models-list');
+const featuredSection = document.querySelector<HTMLElement>('#featured-models');
+const featuredList = document.querySelector<HTMLElement>('#featured-list');
 const status = document.querySelector<HTMLElement>('#catalog-status');
 const refresh = document.querySelector<HTMLButtonElement>('#refresh-catalog');
 const search = document.querySelector<HTMLInputElement>('#model-search');
@@ -215,9 +223,28 @@ function offeringRow(offering: Offering): HTMLElement {
     const { input, output, basis } = offering.pricing;
     const prefix = basis === 'starting_at' ? 'from ' : '';
     prices.append(figure(`Input ${prefix}`, formatPrice(input)), figure(`Output ${prefix}`, formatPrice(output)), element('p', 'USD per million tokens', 'spec-unit price-unit'));
+    const estimate = promptsPerDollar(input, output);
+    if (estimate !== null) {
+      const note = element('p', `≈ ${basis === 'starting_at' ? 'up to ' : ''}${integers.format(estimate)} typical prompts per $1`, 'price-estimate');
+      note.title = `Assumes ${integers.format(TYPICAL_PROMPT.input)} input and ${integers.format(TYPICAL_PROMPT.output)} output tokens per prompt at the listed rates.`;
+      prices.append(note);
+    }
   }
   row.append(identity, specs, prices, capabilities);
   return row;
+}
+
+// A rough, explicitly labeled reference so readers can compare routes without
+// converting micro-cent token rates themselves. Real prompts vary widely.
+const TYPICAL_PROMPT = { input: 1_000, output: 500 } as const;
+
+function promptsPerDollar(inputPerMillion: number, outputPerMillion: number): number | null {
+  const dollarsPerPrompt = (TYPICAL_PROMPT.input * inputPerMillion + TYPICAL_PROMPT.output * outputPerMillion) / 1_000_000;
+  if (dollarsPerPrompt <= 0) return null;
+  const prompts = 1 / dollarsPerPrompt;
+  if (prompts < 1) return null;
+  const magnitude = 10 ** Math.max(0, Math.floor(Math.log10(prompts)) - 1);
+  return Math.round(prompts / magnitude) * magnitude;
 }
 
 function figure(label: string, value: string): HTMLElement {
@@ -249,16 +276,34 @@ function groupOfferings(offerings: Offering[]): ModelGroup[] {
   }).sort((a, b) => a.name.localeCompare(b.name) || a.key.localeCompare(b.key));
 }
 
-function modelCard(group: ModelGroup): HTMLElement {
-  const card = element('article', '', 'model-card');
-  card.append(element('h2', group.name), modelSummary(group));
+function modelCard(group: ModelGroup, note?: string): HTMLElement {
+  const card = element('article', '', note === undefined ? 'model-card' : 'model-card featured-card');
+  card.append(element('h2', group.name));
+  if (note !== undefined) card.append(element('p', note, 'featured-note'));
+  card.append(modelSummary(group));
   card.append(...group.offerings.map(offeringRow));
   return card;
+}
+
+function featuredCards(offerings: Offering[]): HTMLElement[] {
+  const byId = new Map(offerings.map(offering => [offering.id, offering]));
+  return featured.models.flatMap(entry => {
+    const listed = entry.ids.flatMap(id => byId.get(id) ?? []);
+    if (listed.length === 0) return [];
+    const group: ModelGroup = {
+      key: entry.ids[0] ?? entry.name,
+      name: entry.name,
+      offerings: listed.toSorted((a, b) => (providerNames.get(a.provider) ?? a.provider).localeCompare(providerNames.get(b.provider) ?? b.provider) || a.id.localeCompare(b.id)),
+    };
+    return [modelCard(group, entry.note)];
+  });
 }
 
 function applyFilters(): void {
   if (!list || !count || !empty || !loaded) return;
   const query = search?.value.trim().toLocaleLowerCase() ?? '';
+  const filtering = query !== '' || Boolean(providerFilter?.value) || Boolean(capabilityFilter?.value);
+  if (featuredSection) featuredSection.hidden = filtering || (featuredList?.childElementCount ?? 0) === 0;
   let visibleModels = 0;
   let visibleOfferings = 0;
   for (const [index, card] of Array.from(list.children).entries()) {
@@ -297,6 +342,8 @@ async function refreshCatalog(): Promise<void> {
   loaded = false;
   groups = [];
   list.replaceChildren();
+  featuredList?.replaceChildren();
+  if (featuredSection) featuredSection.hidden = true;
   count.textContent = '';
   empty.hidden = true;
   status.textContent = 'Loading the live catalog…';
@@ -311,7 +358,8 @@ async function refreshCatalog(): Promise<void> {
     groups = groupOfferings(offerings);
     populateFilter(providerFilter, [...new Set(offerings.map(offering => offering.provider))], providerNames, 'All providers');
     populateFilter(capabilityFilter, [...new Set(offerings.flatMap(offering => offering.capabilities))], capabilityNames, 'All capabilities');
-    list.replaceChildren(...groups.map(modelCard));
+    list.replaceChildren(...groups.map(group => modelCard(group)));
+    featuredList?.replaceChildren(...featuredCards(offerings));
     loaded = true;
     applyFilters();
     const checkedAt = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date());
