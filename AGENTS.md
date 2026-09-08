@@ -26,7 +26,9 @@ rules stay disabled because this repository has no Effect code.
 
 ## Architecture
 
-Astro static site with Tailwind CSS. Production is served at `ailab.gc.cuny.edu`; see Deployment for which host currently serves it. Repo admins can push directly to `main`: the branch rule requires the `Website CI` check but no longer enforces it for admins, and no formal approval is required. Use a pull request when you want CI to run before the change lands, or when you want review; ask one independent reviewer to look at substantive changes.
+Astro static site with Tailwind CSS. Production is served at `ailab.gc.cuny.edu`; see Deployment for which host currently serves it. `main` is governed by the `main-ci-required` repository ruleset: it requires the `Website CI` check on an up-to-date branch, and blocks force pushes and branch deletion. The only bypass actor is `smorello87`, who may commit and push straight to `main`. Everyone else — including the other repo admins — must open a pull request and let `Website CI` pass; no formal approval is required, but ask one independent reviewer to look at substantive changes.
+
+Because a bypassed push skips CI, run `bun run build` locally before pushing to `main`, and confirm the deployment afterward (see Deployment) rather than relying on a green check.
 
 ## Deployment
 
