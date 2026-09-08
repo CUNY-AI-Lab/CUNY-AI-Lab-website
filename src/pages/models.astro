@@ -28,6 +28,7 @@ const base = import.meta.env.BASE_URL;
         <button id="refresh-catalog" class="registry-button" type="button">Refresh catalog</button>
       </div>
       <p class="text-sm text-gray-600 mb-4">Models are sorted by name, with provider offerings shown underneath. Filters show the providers that match your selection. Listed availability can change and does not guarantee a successful request. Prices are USD per million input/output tokens. “From” rates are separate minima and may come from different endpoints; the selected route and additional fees can cost more.</p>
+      <p class="text-sm text-gray-600 mb-4">Reference facts link to their published sources and carry their own check dates. Advertised sizes and checkpoint parameter counts are labeled separately.</p>
       <p id="results-count" class="font-semibold mb-3" aria-live="polite"></p>
       <div id="models-list"></div>
       <p id="empty-state" class="py-12 text-center text-gray-600" hidden></p>
@@ -47,28 +48,47 @@ const base = import.meta.env.BASE_URL;
   #model-registry button:hover { background: #eff6ff; }
   #model-registry button:disabled { opacity: .6; cursor: wait; }
   #model-registry :is(button, input, select):focus-visible { outline: 3px solid #3268D8; outline-offset: 3px; }
-  #model-registry .model-card { padding: 1.25rem; border: 1px solid #d1d5db; border-radius: .7rem; background: white; margin-bottom: .75rem; }
-  #model-registry .provider-offering { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem; padding-top: 1rem; margin-top: 1rem; border-top: 1px solid #e5e7eb; }
+  #model-registry .model-card { padding: 1.4rem 1.5rem; border: 1px solid #dbe1e9; border-radius: .65rem; background: white; margin-bottom: 1rem; }
+  #model-registry .provider-offering { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, .9fr) minmax(0, 1fr); column-gap: 1.5rem; row-gap: .65rem; padding-top: 1rem; margin-top: 1rem; border-top: 1px solid #e2e7ee; }
   #model-registry .model-card[hidden], #model-registry .provider-offering[hidden] { display: none; }
-  #model-registry .model-card h2 { font-family: Outfit, sans-serif; font-size: 1.125rem; font-weight: 600; overflow-wrap: anywhere; color: #1D3A83; }
-  #model-registry .provider { font-size: .8rem; font-weight: 600; color: #4b5563; margin-bottom: .3rem; }
-  #model-registry .identity { margin-top: .65rem; display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
-  #model-registry code { font-size: .75rem; overflow-wrap: anywhere; background: #f3f4f6; padding: .25rem .4rem; border-radius: .25rem; user-select: all; }
-  #model-registry .identity button { padding: .3rem .5rem; font-size: .75rem; }
-  #model-registry .spec-label { font-size: .75rem; font-weight: 600; color: #4b5563; margin-bottom: .3rem; }
-  #model-registry .spec-value { font-size: .875rem; }
-  #model-registry .capabilities { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .7rem; }
-  #model-registry .capability { font-size: .75rem; border-radius: .25rem; background: #eff6ff; color: #1D3A83; padding: .2rem .4rem; overflow-wrap: anywhere; }
-  #model-registry .capability, #model-registry .weights-badge { display: inline-flex; align-items: center; gap: .3rem; }
-  #model-registry :is(.capability, .weights-badge) svg { width: 1rem; height: 1rem; flex-shrink: 0; }
-  #model-registry .model-summary { margin-top: .4rem; }
-  #model-registry .model-size { font-size: .875rem; color: #4b5563; }
-  #model-registry .model-references { display: flex; flex-wrap: wrap; gap: .4rem .85rem; align-items: center; margin-top: .5rem; font-size: .75rem; }
-  #model-registry .model-references a { color: #1D3A83; text-decoration: underline; text-underline-offset: 2px; }
-  #model-registry .weights-badge { background: #ecfdf5; color: #065f46; padding: .2rem .4rem; border-radius: .25rem; }
-  #model-registry .specification-date { color: #4b5563; }
+  #model-registry .model-card h2 { font-family: Outfit, sans-serif; font-size: 1.5rem; line-height: 1.25; font-weight: 600; overflow-wrap: anywhere; color: #1D3A83; }
+  #model-registry .provider { font-size: .85rem; font-weight: 650; color: #333333; margin-bottom: .4rem; }
+  #model-registry .identity { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
+  #model-registry code { font-size: .75rem; overflow-wrap: anywhere; background: #f4f6f9; padding: .3rem .4rem; border-radius: .2rem; user-select: all; }
+  #model-registry .identity button { padding: .25rem .45rem; font-size: .7rem; border-color: #c5d2e7; border-radius: .25rem; }
+  #model-registry .spec-label { font-size: .7rem; font-weight: 500; color: #596579; margin-bottom: .35rem; }
+  #model-registry .spec-value { font-size: .82rem; font-variant-numeric: tabular-nums; line-height: 1.6; }
+  #model-registry .capabilities { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .4rem 1rem; }
+  #model-registry .capability { display: inline-flex; align-items: center; gap: .3rem; font-size: .7rem; color: #4b5b72; overflow-wrap: anywhere; }
+  #model-registry .capability svg { width: .9rem; height: .9rem; flex-shrink: 0; color: #3268D8; }
+  #model-registry .model-summary { margin-top: .65rem; }
+  #model-registry .model-highlights { display: flex; align-items: baseline; flex-wrap: wrap; gap: .5rem 0; }
+  #model-registry .model-highlight { min-width: 0; max-width: 100%; padding-right: 1rem; margin-right: 1rem; border-right: 1px solid #dbe1e9; font-size: .8rem; color: #36465e; overflow-wrap: anywhere; }
+  #model-registry .model-highlight:last-child { border-right: 0; padding-right: 0; margin-right: 0; }
+  #model-registry .model-highlight a { color: #1D3A83; text-decoration: none; }
+  #model-registry .model-highlight a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  #model-registry .model-size { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: .35rem; }
+  #model-registry .model-size strong { font-size: 1.05rem; font-weight: 600; color: #333333; }
+  #model-registry .size-basis { font-size: .72rem; color: #596579; }
+  #model-registry .model-reference-footer { display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin-top: .65rem; align-items: baseline; }
+  #model-registry .model-details { min-width: 0; }
+  #model-registry .model-details[open] { flex-basis: 100%; }
+  #model-registry .model-details summary { cursor: pointer; color: #36527b; font-size: .72rem; width: fit-content; }
+  #model-registry .model-details summary:focus-visible { outline: 3px solid #3268D8; outline-offset: 4px; }
+  #model-registry .model-evidence { margin-top: .7rem; padding: .7rem 1rem; border-left: 2px solid #c5d2e7; background: #f6f8fb; }
+  #model-registry .model-references { display: grid; grid-template-columns: 6rem minmax(0, 1fr) auto; gap: .4rem 1rem; align-items: baseline; padding: .35rem 0; font-size: .73rem; }
+  #model-registry .evidence-label { color: #596579; }
+  #model-registry .model-references a { min-width: 0; overflow-wrap: anywhere; color: #1D3A83; text-decoration: underline; text-underline-offset: 3px; }
+  #model-registry .specification-date, #model-registry .summary-date { color: #596579; font-size: .7rem; }
+  #model-registry .model-details[open] + .summary-date { display: none; }
   #model-registry .copy-result { font-size: .75rem; }
   @media (max-width: 767px) {
+    #model-registry .model-card { padding: 1.1rem; }
+    #model-registry .model-card h2 { font-size: 1.3rem; }
+    #model-registry .model-highlights { gap: .35rem 1rem; }
+    #model-registry .model-highlight { border: 0; margin: 0; padding: 0; }
+    #model-registry .model-size { flex-basis: 100%; }
+    #model-registry .model-references { grid-template-columns: minmax(0, 1fr); gap: .2rem; padding: .5rem 0; }
     #model-registry .registry-filters { grid-template-columns: 1fr 1fr; }
     #model-registry .registry-filters .filter-field:first-child { grid-column: 1 / -1; }
     #model-registry .provider-offering { grid-template-columns: 1fr 1fr; gap: 1rem; }

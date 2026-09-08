@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import re
+from pathlib import Path
 from typing import Any
 
 from playwright.sync_api import Page, expect, sync_playwright
@@ -24,11 +25,20 @@ def pricing(input_price: float, output_price: float, basis: str = "standard") ->
             "output": output_price, "basis": basis}
 
 
+SPECS = {
+    "checked_at": "2026-09-08T10:00:00Z",
+    "model_url": "https://example.org/model",
+    "size": {"label": "116.8B", "basis": "checkpoint", "source_url": "https://example.org/size"},
+    "architecture": {"name": "MoE", "source_url": "https://example.org/architecture"},
+    "weights": {"available": True, "source_url": "https://example.org/weights"},
+    "license": {"name": "Apache-2.0", "url": "https://example.org/license", "source_url": "https://example.org/license-evidence"},
+}
+
 CATALOG = {"object": "list", "data": [
     offering("deepseek/deepseek-v3.2", name="DeepSeek V3.2", model_group="deepseek/deepseek-v3.2", pricing=pricing(0.2, 0.3)),
     offering("deepseek.v3.2", "bedrock-mantle", name="DeepSeek alternate name", model_group="deepseek/deepseek-v3.2", context_length=None, capabilities=["text-generation"]),
-    offering("@cf/openai/gpt-oss-120b", "workers-ai", name="Alternate OSS name", model_group="openai/gpt-oss-120b", pricing=pricing(0, 0.000001)),
-    offering("openai/gpt-oss-120b", name="GPT OSS 120B", pricing=pricing(0.04, 0.15, "starting_at")),
+    offering("@cf/openai/gpt-oss-120b", "workers-ai", name="Alternate OSS name", model_name="GPT OSS 120B", specifications=SPECS, model_group="openai/gpt-oss-120b", pricing=pricing(0, 0.000001)),
+    offering("openai/gpt-oss-120b", name="Provider-prefixed OSS label", pricing=pricing(0.04, 0.15, "starting_at")),
     offering("google/gemma-4-31b-it", name="Gemma 4 31B", capabilities=["text-generation", "vision"]),
     offering("deepseek/deepseek-v3.2-speciale", name="DeepSeek V3.2 Speciale"),
     offering("future/new-release-2099", name="Previously unseen release"),
@@ -85,9 +95,17 @@ def test_catalog_offerings_and_copy(page: Page) -> None:
     expect(page.get_by_role("heading", name="Identical name", exact=True)).to_have_count(2)
     expect(model_card(page, "deepseek/deepseek-v3.2-speciale").locator(".provider-offering")).to_have_count(1)
     gpt_summary = model_card(page, "openai/gpt-oss-120b").locator(".model-summary")
-    expect(gpt_summary).to_contain_text("116.8B parameters · 5.1B active · MoE")
+    expect(gpt_summary.locator(".model-evidence")).to_be_hidden()
+    gpt_summary.get_by_text("Details and sources", exact=True).press("Enter")
+    expect(gpt_summary.locator(".model-evidence")).to_be_visible()
+    expect(gpt_summary).to_contain_text("116.8B · Checkpoint parameter count")
     expect(gpt_summary.get_by_role("link", name="Apache-2.0", exact=True)).to_be_visible()
-    expect(model_card(page, "future/new-release-2099").locator(".model-summary")).to_contain_text("Size not available")
+    expect(gpt_summary.get_by_role("link", name="116.8B · Checkpoint parameter count", exact=True)).to_have_attribute("href", "https://example.org/size")
+    expect(gpt_summary.get_by_role("link", name="Source for Apache-2.0", exact=True)).to_have_attribute("href", "https://example.org/license-evidence")
+    expect(gpt_summary).to_contain_text("Checked 2026-09-08")
+    expect(gpt_summary).not_to_contain_text("active")
+    expect(model_card(page, "deepseek/deepseek-v3.2").locator(".model-summary")).to_have_text("Reference specifications have not been published in the catalog.")
+    expect(model_card(page, "future/new-release-2099").locator(".model-summary")).not_to_contain_text("Size not available")
     native = provider_row(page, "deepseek/deepseek-v3.2")
     expect(native.get_by_text("Reasoning", exact=True)).to_be_visible()
     expect(native.get_by_text("Long context", exact=True)).to_be_visible()
@@ -183,6 +201,50 @@ def test_refresh_empty_failure_retry_and_safe_text(page: Page) -> None:
     page.set_viewport_size({"width": 1440, "height": 1000})
 
 
+def test_optional_metadata_and_conflicts(page: Page) -> None:
+    long_license = "license-" + "x" * 130
+    long_architecture = "architecture-" + "y" * 130
+    entries = [
+        offering("provider/one", model_group="shared", model_name="Clean model", specifications=SPECS),
+        offering("provider/two", model_group="shared", specifications={**SPECS, "size": {**SPECS["size"], "label": "120B"}}),
+        offering("provider/malformed", model_name=42, specifications={**SPECS, "size": {"label": "Fake"}, "license": {**SPECS["license"], "url": "javascript:alert(1)"}, "weights": {"available": False, "source_url": "https://example.org/closed"}}),
+        offering("provider/long-metadata", specifications={**SPECS, "license": {**SPECS["license"], "name": long_license}, "architecture": {**SPECS["architecture"], "name": long_architecture}}),
+        offering("provider/bad-date", specifications={**SPECS, "checked_at": "yesterday"}),
+        offering("provider/advertised", specifications={"checked_at": SPECS["checked_at"], "size": {**SPECS["size"], "label": "120B", "basis": "advertised"}}),
+    ]
+    stub_catalog(page, {"object": "list", "data": entries})
+    page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
+    expect_checked(page)
+    expect(page.locator(".provider-offering")).to_have_count(6)
+    shared = model_card(page, "provider/one")
+    expect(shared.get_by_role("heading", name="Clean model", exact=True)).to_be_visible()
+    expect(shared.locator(".model-summary")).not_to_contain_text("116.8B")
+    expect(shared.locator(".model-summary")).to_contain_text("MoE")
+    malformed = model_card(page, "provider/malformed")
+    expect(malformed).to_contain_text("Weights not published")
+    expect(malformed).to_contain_text("MoE")
+    expect(malformed.get_by_role("link", name="Apache-2.0", exact=True)).to_have_count(0)
+    expect(model_card(page, "provider/bad-date").locator(".model-summary")).not_to_contain_text("MoE")
+    expect(page.locator('a[href^="javascript:"]')).to_have_count(0)
+    advertised = model_card(page, "provider/advertised").locator(".model-summary")
+    expect(advertised).to_contain_text("120B · Advertised size")
+    expect(advertised).not_to_contain_text("Weights not published")
+    expect(advertised).not_to_contain_text("Reference specifications have not been published")
+    page.set_viewport_size({"width": 390, "height": 844})
+    long_summary = model_card(page, "provider/long-metadata").locator(".model-summary")
+    long_summary.get_by_text("Details and sources", exact=True).press("Enter")
+    for label in (long_license, long_architecture):
+        link = long_summary.get_by_role("link", name=label, exact=True)
+        expect(link).to_be_visible()
+        bounds = link.bounding_box()
+        assert bounds and bounds["x"] >= 0 and bounds["x"] + bounds["width"] <= 390
+    assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), "Long specification text overflows mobile page"
+    page.add_script_tag(path=str(Path("node_modules/axe-core/axe.min.js").resolve()))
+    violations = page.evaluate("""async () => (await axe.run('#model-registry', {runOnly: {type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa']}})).violations""")
+    assert violations == [], violations
+    page.set_viewport_size({"width": 1440, "height": 1000})
+
+
 def test_guide(page: Page) -> None:
     page.goto(f"{BASE_URL}/models/guide/", wait_until="domcontentloaded")
     for heading in ("How to use the model registry", "Find a model", "Compare provider offerings", "Read token prices", "Use an API ID"):
@@ -203,7 +265,7 @@ def main() -> None:
             errors: list[str] = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             for test in (test_catalog_offerings_and_copy, test_search_and_combined_filters,
-                         test_refresh_empty_failure_retry_and_safe_text, test_guide):
+                         test_refresh_empty_failure_retry_and_safe_text, test_optional_metadata_and_conflicts, test_guide):
                 test(page)
                 print(f"PASS {test.__name__}", flush=True)
             assert errors == [], errors

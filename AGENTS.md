@@ -58,7 +58,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 - `src/pages/models.astro` - Live Model API catalog with search and provider/capability filters
 - `src/scripts/model-availability.ts` - Public Gateway catalog parsing, filtering, rendering, and API ID copying; preserve exact provider identities and unknown prices
 - `src/pages/models/guide.astro` - Guide to the live registry, factual specifications, and provider token prices
-- `src/data/model-specifications.json` - Optional source-verified size, architecture, weights, and license metadata keyed to exact identities; never use it as a catalog allowlist
+- Gateway owns optional sourced `model_name` and `specifications`; render available facts directly from the catalog, without static identity matching or an allowlist. Malformed optional metadata must not remove valid offerings. Reconcile group facts independently and withhold conflicts.
 - `tailwind.config.mjs` - Color palette and theme configuration
 
 **Tailwind Content Scanning:**

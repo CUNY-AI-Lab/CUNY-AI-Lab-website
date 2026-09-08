@@ -62,13 +62,17 @@ filters match individual offerings, so different providers cannot jointly satisf
 a filter that neither supports alone. There is no curated allowlist, review data,
 or fixed set of featured models.
 
-`src/data/model-specifications.json` supplements the live list with verified
-parameter counts, architecture, open-weight status, and license/source links.
-These facts match exact group/API identities and carry their own verification
-date. They never limit which models appear. Unknown specifications remain
-unknown; editorial reviews, recommendations, and static capability/context
-claims are not retained. Capability icons and the 100K long-context indicator
-come from each current provider offering.
+Gateway supplies clean `model_name` labels and optional sourced `specifications`
+with their own check date. Cards summarize size, weights, and license; the native
+**Details and sources** disclosure contains architecture and per-field evidence.
+The website has no static metadata lookup. Published
+size, architecture, weights, and license facts link to their sources. Checkpoint
+parameter counts are distinguished from advertised sizes. Missing facts are
+omitted; conflicting facts within a group are withheld independently, while
+agreeing facts use the oldest supporting check date. Malformed optional fields
+are ignored without removing valid provider offerings. An invalid specifications
+check date discards those specifications. Capability icons and the 100K
+long-context indicator come from each current provider offering.
 New catalog offerings appear automatically, including non-text routes.
 
 The check time applies to catalog availability, route capabilities, context, and
@@ -87,7 +91,7 @@ are outside these token rates. These are provider prices, not personal spending,
 quota balances, or estimates of a particular request's cost.
 
 The website is the caller and the existing public Gateway catalog is the receiver;
-this UI change needs no Gateway deployment or contract change. Browser tests
+Gateway must supply sourced metadata for the reference facts to appear. Browser tests
 substitute catalogs for deterministic filtering, failure, and identity cases.
 Rollout verification also loads the deployed page against the real public Gateway
 without intercepting that request. No API key or paid inference is needed.
