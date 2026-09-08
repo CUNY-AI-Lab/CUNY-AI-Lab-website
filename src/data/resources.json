@@ -3,7 +3,7 @@
   "cards": [
     {
       "title": "Model Registry",
-      "description": "Lab-reviewed reference notes for a smaller set of open-weight models, with capabilities, licensing, and recommended use cases.",
+      "description": "Search the live Model API catalog and compare provider offerings, capabilities, context limits, and prices.",
       "url": "/models",
       "external": false,
       "link_text": "Browse models",
