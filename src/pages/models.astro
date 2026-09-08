@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ModelAvailability from '../components/ModelAvailability.astro';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -8,7 +9,7 @@ const base = import.meta.env.BASE_URL;
 // Load model registry at build time
 const jsonPath = path.join(process.cwd(), 'src/data/model-registry.json');
 const modelData = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
-const models = modelData.models;
+const models = modelData.models.filter((model: { hidden?: boolean }) => model.hidden !== true);
 const updatedAt = modelData.updated_at;
 const longContextThreshold = 100_000;
 
@@ -44,7 +45,7 @@ function getStructuredOutputInfo(value: any) {
         <div>
           <h1 class="text-3xl md:text-4xl font-bold font-display text-white tracking-tight">Model Registry</h1>
           <p class="mt-3 text-vibrant-200/80 text-base max-w-2xl">
-            Lab-reviewed reference notes for a smaller set of open-weight models. Availability changes, so check the Sandbox model selector or the Model API's <code class="text-white">/v1/models</code> response before choosing a model. Members can call currently available models with their own API key; the <a href="/docs/api-keys/" class="underline underline-offset-2 hover:text-white">guide</a> covers setup.
+            Lab-reviewed reference notes for a smaller set of open-weight models, with current provider offerings from the Model API. Members can call available models with their own API key; the <a href="/docs/api-keys/" class="underline underline-offset-2 hover:text-white">guide</a> covers setup.
           </p>
         </div>
         <a href={`${base}models/guide`} class="hidden sm:flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl text-vibrant-200 hover:text-white text-sm font-medium transition-all border border-white/10">
@@ -210,6 +211,15 @@ function getStructuredOutputInfo(value: any) {
   <!-- Single Column Model List -->
   <section class="py-6 bg-gradient-to-b from-gray-50 to-neutral-cream min-h-[60vh]">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-5 flex flex-wrap items-start justify-between gap-3 text-sm text-gray-600">
+        <div>
+          <p id="availability-status" role="status" aria-label="Availability check">Live availability hasn’t been checked.</p>
+          <p class="mt-1">Provider prices are in US dollars per million tokens. Input is what you send; output is what the model generates.</p>
+          <p class="mt-1">OpenRouter shows starting rates in its healthy zero-retention provider pool; the selected provider can cost more. Additional charges may apply.</p>
+          <noscript><p class="mt-1">Enable JavaScript to check current offerings and prices. The reviewed model notes remain available below.</p></noscript>
+        </div>
+        <button id="refresh-availability" type="button" hidden class="rounded-lg border border-gray-300 bg-white px-3 py-2 font-medium text-vibrant-600 hover:bg-vibrant-50 disabled:opacity-60">Refresh availability</button>
+      </div>
       <div id="models-list" class="space-y-3">
         {models.map((model: any, index: number) => {
           const licenseInfo = getLicenseFamilyInfo(model.licensing.weights.license_family);
@@ -311,6 +321,8 @@ function getStructuredOutputInfo(value: any) {
                   </button>
                 </div>
               </div>
+
+              <ModelAvailability modelKey={model.key} modelName={model.display_name} />
 
               <!-- Expandable Details -->
               <div class="details-panel hidden">
@@ -433,6 +445,10 @@ function getStructuredOutputInfo(value: any) {
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  import '../scripts/model-availability';
+</script>
 
 <script is:inline>
   // Filter state

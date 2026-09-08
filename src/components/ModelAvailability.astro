@@ -1,0 +1,19 @@
+---
+interface Props {
+  modelKey: string;
+  modelName: string;
+}
+const { modelKey, modelName } = Astro.props;
+---
+
+<section
+  class="model-availability border-t border-gray-100 px-4 py-3 sm:px-5"
+  data-model-key={modelKey}
+  aria-label={`Model API offerings for ${modelName}`}
+>
+  <p class="availability-message text-sm text-gray-600">Availability hasn’t been checked.</p>
+  <details class="availability-details mt-2" hidden>
+    <summary class="cursor-pointer text-sm font-medium text-vibrant-600 hover:text-vibrant-700">View providers and prices</summary>
+    <ul class="availability-offerings mt-3 space-y-4" aria-label={`Provider offerings for ${modelName}`}></ul>
+  </details>
+</section>

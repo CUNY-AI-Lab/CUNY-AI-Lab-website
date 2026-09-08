@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 
 from playwright.sync_api import Page, sync_playwright
+from models_page_browser import CATALOG, CATALOG_URL, expect_checked
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
@@ -49,6 +50,15 @@ def main() -> None:
             for _ in range(details.count()):
                 details.first.click()
             check_accessibility(page, "expanded model details")
+            context.route(CATALOG_URL, lambda route: route.fulfill(
+                status=200, content_type="application/json", body=json.dumps(CATALOG)))
+            page.goto(BASE_URL + "/models/", wait_until="domcontentloaded")
+            expect_checked(page)
+            for summary in page.locator(".availability-details:not([hidden]) summary").all():
+                summary.click()
+            check_accessibility(page, "expanded provider offerings and prices")
+            page.set_viewport_size({"width": 390, "height": 1000})
+            check_accessibility(page, "mobile provider offerings and prices")
             page.goto(BASE_URL + "/tools/", wait_until="networkidle")
             for category in ("media", "assistants", "working-with-ai", "model-access"):
                 page.get_by_label("Category", exact=True).select_option(category)

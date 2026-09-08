@@ -3,6 +3,7 @@ dist/
 .output/
 .astro/
 .wrangler/
+__pycache__/
 
 # dependencies
 node_modules/
