@@ -8,7 +8,7 @@ const base = import.meta.env.BASE_URL;
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <p class="text-sm font-semibold tracking-widest uppercase mb-3">CUNY AI Lab · Model API</p>
       <h1 class="font-display text-4xl sm:text-5xl font-bold">Model Registry</h1>
-      <p class="mt-4 max-w-2xl text-lg text-blue-100">Browse the full live Gateway catalog. Compare provider offerings, context limits, and token prices, then copy an exact API ID.</p>
+      <p class="mt-4 max-w-2xl text-lg text-blue-100">Browse models by name, with each model’s providers underneath. Compare context limits and token prices, then copy an exact API ID.</p>
       <div class="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm font-semibold">
         <a class="underline underline-offset-4" href={`${base}models/guide/`}>Read the registry guide</a>
         <a class="underline underline-offset-4" href={`${base}docs/api-keys/`}>Model API documentation</a>
@@ -27,7 +27,7 @@ const base = import.meta.env.BASE_URL;
         <p id="catalog-status" role="status" aria-label="Catalog status" class="text-sm text-gray-600">Loading the live catalog…</p>
         <button id="refresh-catalog" class="registry-button" type="button">Refresh catalog</button>
       </div>
-      <p class="text-sm text-gray-600 mb-4">Each row is one provider offering, sorted by name. Listed availability can change and does not guarantee a successful request. Prices are USD per million input/output tokens. “From” rates are separate minima and may come from different endpoints; the selected route and additional fees can cost more.</p>
+      <p class="text-sm text-gray-600 mb-4">Models are sorted by name, with provider offerings shown underneath. Filters show the providers that match your selection. Listed availability can change and does not guarantee a successful request. Prices are USD per million input/output tokens. “From” rates are separate minima and may come from different endpoints; the selected route and additional fees can cost more.</p>
       <p id="results-count" class="font-semibold mb-3" aria-live="polite"></p>
       <div id="models-list"></div>
       <p id="empty-state" class="py-12 text-center text-gray-600" hidden></p>
@@ -47,8 +47,9 @@ const base = import.meta.env.BASE_URL;
   #model-registry button:hover { background: #eff6ff; }
   #model-registry button:disabled { opacity: .6; cursor: wait; }
   #model-registry :is(button, input, select):focus-visible { outline: 3px solid #3268D8; outline-offset: 3px; }
-  #model-registry .model-card { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem; padding: 1.25rem; border: 1px solid #d1d5db; border-radius: .7rem; background: white; margin-bottom: .75rem; }
-  #model-registry .model-card[hidden] { display: none; }
+  #model-registry .model-card { padding: 1.25rem; border: 1px solid #d1d5db; border-radius: .7rem; background: white; margin-bottom: .75rem; }
+  #model-registry .provider-offering { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem; padding-top: 1rem; margin-top: 1rem; border-top: 1px solid #e5e7eb; }
+  #model-registry .model-card[hidden], #model-registry .provider-offering[hidden] { display: none; }
   #model-registry .model-card h2 { font-family: Outfit, sans-serif; font-size: 1.125rem; font-weight: 600; overflow-wrap: anywhere; color: #1D3A83; }
   #model-registry .provider { font-size: .8rem; font-weight: 600; color: #4b5563; margin-bottom: .3rem; }
   #model-registry .identity { margin-top: .65rem; display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
@@ -58,12 +59,20 @@ const base = import.meta.env.BASE_URL;
   #model-registry .spec-value { font-size: .875rem; }
   #model-registry .capabilities { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .7rem; }
   #model-registry .capability { font-size: .75rem; border-radius: .25rem; background: #eff6ff; color: #1D3A83; padding: .2rem .4rem; overflow-wrap: anywhere; }
+  #model-registry .capability, #model-registry .weights-badge { display: inline-flex; align-items: center; gap: .3rem; }
+  #model-registry :is(.capability, .weights-badge) svg { width: 1rem; height: 1rem; flex-shrink: 0; }
+  #model-registry .model-summary { margin-top: .4rem; }
+  #model-registry .model-size { font-size: .875rem; color: #4b5563; }
+  #model-registry .model-references { display: flex; flex-wrap: wrap; gap: .4rem .85rem; align-items: center; margin-top: .5rem; font-size: .75rem; }
+  #model-registry .model-references a { color: #1D3A83; text-decoration: underline; text-underline-offset: 2px; }
+  #model-registry .weights-badge { background: #ecfdf5; color: #065f46; padding: .2rem .4rem; border-radius: .25rem; }
+  #model-registry .specification-date { color: #4b5563; }
   #model-registry .copy-result { font-size: .75rem; }
   @media (max-width: 767px) {
     #model-registry .registry-filters { grid-template-columns: 1fr 1fr; }
     #model-registry .registry-filters .filter-field:first-child { grid-column: 1 / -1; }
-    #model-registry .model-card { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    #model-registry .provider-offering { grid-template-columns: 1fr 1fr; gap: 1rem; }
     #model-registry .offering-identity { grid-column: 1 / -1; }
   }
-  @media (max-width: 380px) { #model-registry .registry-filters, #model-registry .model-card { grid-template-columns: 1fr; } }
+  @media (max-width: 380px) { #model-registry .registry-filters, #model-registry .provider-offering { grid-template-columns: 1fr; } }
 </style>

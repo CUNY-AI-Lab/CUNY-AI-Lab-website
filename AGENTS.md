@@ -57,7 +57,8 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 - `src/pages/` - Route pages (index, about, tools, team, contact, request-access, events, resources, models, guides)
 - `src/pages/models.astro` - Live Model API catalog with search and provider/capability filters
 - `src/scripts/model-availability.ts` - Public Gateway catalog parsing, filtering, rendering, and API ID copying; preserve exact provider identities and unknown prices
-- `src/pages/models/guide.astro` - Guide to the live registry and provider token prices
+- `src/pages/models/guide.astro` - Guide to the live registry, factual specifications, and provider token prices
+- `src/data/model-specifications.json` - Optional source-verified size, architecture, weights, and license metadata keyed to exact identities; never use it as a catalog allowlist
 - `tailwind.config.mjs` - Color palette and theme configuration
 
 **Tailwind Content Scanning:**

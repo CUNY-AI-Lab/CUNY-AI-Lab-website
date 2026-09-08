@@ -25,18 +25,22 @@ def pricing(input_price: float, output_price: float, basis: str = "standard") ->
 
 
 CATALOG = {"object": "list", "data": [
-    offering("deepseek/deepseek-v3.2", name="DeepSeek V3.2", pricing=pricing(0.2, 0.3)),
-    offering("deepseek.v3.2", "bedrock-mantle", name="DeepSeek V3.2", context_length=None),
-    offering("@cf/openai/gpt-oss-120b", "workers-ai", pricing=pricing(0, 0.000001)),
-    offering("openai/gpt-oss-120b", pricing=pricing(0.04, 0.15, "starting_at")),
+    offering("deepseek/deepseek-v3.2", name="DeepSeek V3.2", model_group="deepseek/deepseek-v3.2", pricing=pricing(0.2, 0.3)),
+    offering("deepseek.v3.2", "bedrock-mantle", name="DeepSeek alternate name", model_group="deepseek/deepseek-v3.2", context_length=None, capabilities=["text-generation"]),
+    offering("@cf/openai/gpt-oss-120b", "workers-ai", name="Alternate OSS name", model_group="openai/gpt-oss-120b", pricing=pricing(0, 0.000001)),
+    offering("openai/gpt-oss-120b", name="GPT OSS 120B", pricing=pricing(0.04, 0.15, "starting_at")),
     offering("google/gemma-4-31b-it", name="Gemma 4 31B", capabilities=["text-generation", "vision"]),
     offering("deepseek/deepseek-v3.2-speciale", name="DeepSeek V3.2 Speciale"),
     offering("future/new-release-2099", name="Previously unseen release"),
-    offering("deepseek-embedding", name="DeepSeek Embeddings", model_group="deepseek/deepseek-v3.2",
+    offering("deepseek-embedding", name="DeepSeek Embeddings",
              capabilities=["embeddings"]),
+    offering("independent/same-name-a", name="Identical name"),
+    offering("independent/same-name-b", name="Identical name"),
     offering("provider/image-route", name="Image generator", capabilities=["text-to-image"], pricing=pricing(0.00000001, 0.1)),
 ]}
 
+
+MODEL_COUNT = 9
 
 def stub_catalog(page: Page, payload: Any = CATALOG, *, network_failure: bool = False) -> None:
     page.unroute(CATALOG_URL)
@@ -56,25 +60,50 @@ def model_card(page: Page, api_id: str):
     return page.locator("article.model-card").filter(has=page.locator("code").filter(has_text=re.compile("^" + re.escape(api_id) + "$")))
 
 
+def provider_row(page: Page, api_id: str):
+    return page.locator(".provider-offering").filter(has=page.locator("code").filter(has_text=re.compile("^" + re.escape(api_id) + "$")))
+
+
 def test_catalog_offerings_and_copy(page: Page) -> None:
     stub_catalog(page)
     page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
     expect_checked(page)
-    expect(page.locator("article.model-card")).to_have_count(len(CATALOG["data"]))
+    expect(page.locator("article.model-card")).to_have_count(MODEL_COUNT)
+    expect(page.locator(".provider-offering")).to_have_count(len(CATALOG["data"]))
+    expect(page.locator("#results-count")).to_have_text("9 models · 11 provider offerings")
     for entry in CATALOG["data"]:
-        card = model_card(page, entry["id"])
-        expect(card).to_be_visible()
-        expect(card.get_by_role("heading", name=entry["name"], exact=True)).to_be_visible()
-        expect(card.locator("code")).to_have_text(entry["id"])
-    deepseek = model_card(page, "deepseek/deepseek-v3.2")
+        row = provider_row(page, entry["id"])
+        expect(row).to_be_visible()
+        expect(row.locator("code")).to_have_text(entry["id"])
+        provider_name = {"openrouter": "OpenRouter", "workers-ai": "Workers AI", "bedrock-mantle": "Bedrock Mantle"}[entry["provider"]]
+        expect(row.get_by_role("heading", name=provider_name, exact=True)).to_be_visible()
+    for api_id, title in (("deepseek/deepseek-v3.2", "DeepSeek V3.2"),
+                          ("openai/gpt-oss-120b", "GPT OSS 120B")):
+        card = model_card(page, api_id)
+        expect(card.get_by_role("heading", name=title, exact=True)).to_be_visible()
+        expect(card.locator(".provider-offering")).to_have_count(2)
+    expect(page.get_by_role("heading", name="Identical name", exact=True)).to_have_count(2)
+    expect(model_card(page, "deepseek/deepseek-v3.2-speciale").locator(".provider-offering")).to_have_count(1)
+    gpt_summary = model_card(page, "openai/gpt-oss-120b").locator(".model-summary")
+    expect(gpt_summary).to_contain_text("116.8B parameters · 5.1B active · MoE")
+    expect(gpt_summary.get_by_role("link", name="Apache-2.0", exact=True)).to_be_visible()
+    expect(model_card(page, "future/new-release-2099").locator(".model-summary")).to_contain_text("Size not available")
+    native = provider_row(page, "deepseek/deepseek-v3.2")
+    expect(native.get_by_text("Reasoning", exact=True)).to_be_visible()
+    expect(native.get_by_text("Long context", exact=True)).to_be_visible()
+    expect(native.locator(".capability svg").first).to_have_attribute("aria-hidden", "true")
+    mantle = provider_row(page, "deepseek.v3.2")
+    expect(mantle.get_by_text("Reasoning", exact=True)).to_have_count(0)
+    expect(mantle.get_by_text("Long context", exact=True)).to_have_count(0)
+    deepseek = provider_row(page, "deepseek/deepseek-v3.2")
     expect(deepseek).to_contain_text("Input $0.20")
     expect(deepseek).to_contain_text("Output $0.30")
-    expect(model_card(page, "deepseek.v3.2")).to_contain_text("Token prices not published")
-    expect(model_card(page, "deepseek.v3.2").get_by_text("Not published", exact=True)).to_be_visible()
-    expect(model_card(page, "@cf/openai/gpt-oss-120b")).to_contain_text("Input $0.00")
-    expect(model_card(page, "@cf/openai/gpt-oss-120b")).to_contain_text("Output $0.000001")
-    expect(model_card(page, "openai/gpt-oss-120b")).to_contain_text("Input from $0.04")
-    expect(model_card(page, "openai/gpt-oss-120b")).to_contain_text("Output from $0.15")
+    expect(provider_row(page, "deepseek.v3.2")).to_contain_text("Token prices not published")
+    expect(provider_row(page, "deepseek.v3.2").get_by_text("Not published", exact=True)).to_be_visible()
+    expect(provider_row(page, "@cf/openai/gpt-oss-120b")).to_contain_text("Input $0.00")
+    expect(provider_row(page, "@cf/openai/gpt-oss-120b")).to_contain_text("Output $0.000001")
+    expect(provider_row(page, "openai/gpt-oss-120b")).to_contain_text("Input from $0.04")
+    expect(provider_row(page, "openai/gpt-oss-120b")).to_contain_text("Output from $0.15")
     expect(model_card(page, "provider/image-route")).to_contain_text("$0.00000001")
     page.get_by_role("button", name="Copy API ID deepseek.v3.2", exact=True).press("Enter")
     expect(page.get_by_role("status", name="Copy result for deepseek.v3.2", exact=True)).to_have_text("Copied")
@@ -91,15 +120,28 @@ def test_search_and_combined_filters(page: Page) -> None:
     page.get_by_label("Capability", exact=True).select_option("text-generation")
     expect(page.locator("article.model-card:visible")).to_have_count(2)
     expect(page.locator("#results-count")).to_contain_text("2")
+    expect(page.locator(".provider-offering:visible")).to_have_count(2)
+    expect(provider_row(page, "deepseek.v3.2")).to_be_hidden()
+    search.fill("deepseek")
+    page.get_by_label("Provider", exact=True).select_option("bedrock-mantle")
+    page.get_by_label("Capability", exact=True).select_option("reasoning")
+    expect(page.locator("article.model-card:visible")).to_have_count(0)
+    expect(page.locator(".provider-offering:visible")).to_have_count(0)
+    expect(page.locator("#results-count")).to_have_text("0 models · 0 provider offerings")
+    page.get_by_label("Capability", exact=True).select_option("text-generation")
+    expect(page.locator("#results-count")).to_have_text("1 model · 1 provider offering")
+    expect(provider_row(page, "deepseek.v3.2")).to_be_visible()
+    expect(provider_row(page, "deepseek/deepseek-v3.2")).to_be_hidden()
     search.fill("no-such-model")
     expect(page.locator("article.model-card:visible")).to_have_count(0)
     expect(page.locator("#results-count")).to_contain_text("0")
     expect(page.get_by_text("No models match your filters. Clear filters to see all offerings.", exact=True)).to_be_visible()
     page.get_by_role("button", name="Clear filters", exact=True).press("Enter")
+    expect(page.locator(".provider-offering:visible")).to_have_count(len(CATALOG["data"]))
     expect(search).to_have_value("")
     expect(page.get_by_label("Provider", exact=True)).to_have_value("")
     expect(page.get_by_label("Capability", exact=True)).to_have_value("")
-    expect(page.locator("article.model-card:visible")).to_have_count(len(CATALOG["data"]))
+    expect(page.locator("article.model-card:visible")).to_have_count(MODEL_COUNT)
 
 
 def test_refresh_empty_failure_retry_and_safe_text(page: Page) -> None:
@@ -117,11 +159,12 @@ def test_refresh_empty_failure_retry_and_safe_text(page: Page) -> None:
         stub_catalog(page)
         refresh.click()
         expect_checked(page)
-        expect(page.locator("article.model-card")).to_have_count(len(CATALOG["data"]))
+        expect(page.locator("article.model-card")).to_have_count(MODEL_COUNT)
         stub_catalog(page, invalid, network_failure=invalid is None)
         refresh.click()
         expect(status).to_have_text("Couldn’t load the Gateway catalog. Availability and prices are unknown.")
         expect(page.locator("article.model-card")).to_have_count(0)
+        expect(page.locator(".provider-offering")).to_have_count(0)
         expect(refresh).to_be_enabled()
     replacement_id = "provider/" + "long-model-id-" * 20
     hostile_name = '<img src=x onerror="window.registryInjected=true">'

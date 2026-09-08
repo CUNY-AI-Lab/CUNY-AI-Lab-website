@@ -54,9 +54,21 @@ No email migration is planned.
 
 The registry renders every offering from the public Gateway `/v1/catalog`,
 loaded in the browser without credentials on page load and **Refresh catalog**.
-Search and provider/capability filters operate on that live response. Each entry
-retains its exact API ID and provider; names do not establish shared identity.
-There is no curated allowlist, review data, or fixed set of featured models.
+Models are organized by name, with their provider offerings underneath. Gateway
+`model_group` establishes shared identity, falling back to the exact API ID when
+no group is supplied; similar names never merge models. Each provider retains its
+exact API ID, capabilities, context, and prices. Search and provider/capability
+filters match individual offerings, so different providers cannot jointly satisfy
+a filter that neither supports alone. There is no curated allowlist, review data,
+or fixed set of featured models.
+
+`src/data/model-specifications.json` supplements the live list with verified
+parameter counts, architecture, open-weight status, and license/source links.
+These facts match exact group/API identities and carry their own verification
+date. They never limit which models appear. Unknown specifications remain
+unknown; editorial reviews, recommendations, and static capability/context
+claims are not retained. Capability icons and the 100K long-context indicator
+come from each current provider offering.
 New catalog offerings appear automatically, including non-text routes.
 
 The check time applies to catalog availability, route capabilities, context, and

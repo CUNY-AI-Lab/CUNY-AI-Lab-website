@@ -16,14 +16,20 @@ const base = import.meta.env.BASE_URL;
     <article class="max-w-3xl mx-auto px-4 sm:px-6 py-10 space-y-9 text-gray-700 leading-relaxed">
       <section aria-labelledby="find-heading">
         <h2 id="find-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Find a model</h2>
-        <p>Search by model name or API ID, or narrow the list by provider and capability. Filters work together; choose <strong>Clear filters</strong> to return to the full catalog. The registry includes text and speech offerings, so check the capabilities before choosing a model for your task.</p>
+        <p>Search by model name or API ID, or narrow the list by provider and capability. Filters work together and show the provider offerings that match; choose <strong>Clear filters</strong> to return to the full catalog. The registry includes text and speech offerings, so check the capabilities before choosing a model for your task.</p>
         <p class="mt-3">The catalog loads when you open the page. Choose <strong>Refresh catalog</strong> to check again. If the catalog cannot be loaded, try refreshing; the page clears earlier results so they are not mistaken for current availability.</p>
       </section>
       <section aria-labelledby="providers-heading">
         <h2 id="providers-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Compare provider offerings</h2>
-        <p>Each entry is a provider offering with its own API ID. A model available through multiple providers appears more than once. Similar names may refer to different versions; compare the exact IDs, capabilities, and context limits.</p>
+        <p>Models are listed by name, with their provider offerings underneath. Each provider has its own API ID, capabilities, context limit, and prices. Different versions stay separate, even when their names are similar.</p>
         <p class="mt-3">Context is measured in tokens and can differ by provider. A missing context limit means it has not been published in the catalog. Capabilities describe the current API route; they do not establish model quality or licensing terms.</p>
         <p class="mt-3">A catalog listing does not guarantee that a provider has capacity for every request. The Sandbox has its own model selector, which may offer a smaller selection.</p>
+      </section>
+      <section aria-labelledby="specifications-heading">
+        <h2 id="specifications-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Read model specifications</h2>
+        <p>Model size is the number of parameters, shown in billions (B). A mixture-of-experts model (MoE) can have a larger total size while using a smaller set of active parameters for each token. Size alone does not measure quality or speed.</p>
+        <p class="mt-3">Where verified information is available, the model summary links to its source model card and license. <strong>Open weights</strong> means model weights are available to download; consult the linked license for the terms. Missing size or license information is shown as unavailable.</p>
+        <p class="mt-3">These reference specifications have their own verification date. The catalog check time covers live provider details. Capability icons accompany text labels in each provider row; the long-context label means that provider reports a context limit of at least 100,000 tokens.</p>
       </section>
       <section aria-labelledby="prices-heading">
         <h2 id="prices-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Read token prices</h2>
