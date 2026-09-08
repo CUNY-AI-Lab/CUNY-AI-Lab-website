@@ -8,7 +8,7 @@ const base = import.meta.env.BASE_URL;
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <p class="text-sm font-semibold tracking-widest uppercase mb-3">CUNY AI Lab · Model API</p>
       <h1 class="font-display text-4xl sm:text-5xl font-bold">Model Registry</h1>
-      <p class="mt-4 max-w-2xl text-lg text-blue-100">Browse models by name, with each model’s providers underneath. Compare context limits and token prices, then copy an exact API ID.</p>
+      <p class="mt-4 max-w-2xl text-lg text-blue-100">Browse open-weight models available through non-retaining or zero-data-retention (ZDR) provider routes. Compare context limits and token prices, then copy an exact API ID.</p>
       <div class="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm font-semibold">
         <a class="underline underline-offset-4" href={`${base}models/guide/`}>Read the registry guide</a>
         <a class="underline underline-offset-4" href={`${base}docs/api-keys/`}>Model API documentation</a>
@@ -28,7 +28,7 @@ const base = import.meta.env.BASE_URL;
         <button id="refresh-catalog" class="registry-button" type="button">Refresh catalog</button>
       </div>
       <p class="text-sm text-gray-600 mb-4">Models are sorted by name, with provider offerings shown underneath. Filters show the providers that match your selection. Listed availability can change and does not guarantee a successful request. Prices are USD per million input/output tokens. “From” rates are separate minima and may come from different endpoints; the selected route and additional fees can cost more.</p>
-      <p class="text-sm text-gray-600 mb-4">Reference facts link to their published sources and carry their own check dates. Advertised sizes and checkpoint parameter counts are labeled separately.</p>
+      <p class="text-sm text-gray-600 mb-4">The registry loads the eligible catalog directly from Gateway, which enforces both the open-weight and data-retention requirements. Closed-weight models are currently unavailable. Reference facts link to their published sources and carry their own check dates. Advertised sizes and checkpoint parameter counts are labeled separately.</p>
       <p id="results-count" class="font-semibold mb-3" aria-live="polite"></p>
       <div id="models-list"></div>
       <p id="empty-state" class="py-12 text-center text-gray-600" hidden></p>
