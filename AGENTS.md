@@ -40,7 +40,7 @@ Because a bypassed push skips CI, run `bun run build` locally before pushing to 
 **Data Layer:**
 Pages pull content from two sources:
 - `src/content/pages/*.md` — Astro content collections for prose-heavy pages (about, contact). Loaded via `getEntry('pages', 'slug')` with `.render()` for markdown body and `.data` for frontmatter fields.
-- `src/data/*.json` — JSON files for structured/list data (team, events, resources, homepage, request-access, model-registry). Loaded via `fs.readFileSync` in Astro frontmatter:
+- `src/data/*.json` — JSON files for structured/list data (team, events, resources, homepage, request-access). Loaded via `fs.readFileSync` in Astro frontmatter:
 ```javascript
 import fs from 'node:fs';
 import path from 'node:path';
@@ -55,9 +55,10 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 - `src/layouts/BaseLayout.astro` - Main layout wrapper (Header, Footer, fonts, favicon)
 - `src/components/` - Header.astro, Footer.astro
 - `src/pages/` - Route pages (index, about, tools, team, contact, request-access, events, resources, models, guides)
-- `src/pages/models.astro` - Model registry with filters and collapsible guide
-- `src/pages/models/guide.astro` - Field guide explaining registry UI elements
-- `src/data/model-registry.json` - Model registry data. Update `updated_at` when modifying. Validate after editing: `node -e "require('./src/data/model-registry.json')"`. Source specs from the vendor model card + Hugging Face repo, don't guess.
+- `src/pages/models.astro` - Live Model API catalog with search and provider/capability filters
+- `src/scripts/model-availability.ts` - Public Gateway catalog parsing, filtering, rendering, and API ID copying; preserve exact provider identities and unknown prices
+- `src/pages/models/guide.astro` - Guide to the live registry, factual specifications, and provider token prices
+- `src/data/model-specifications.json` - Optional source-verified size, architecture, weights, and license metadata keyed to exact identities; never use it as a catalog allowlist
 - `tailwind.config.mjs` - Color palette and theme configuration
 
 **Tailwind Content Scanning:**

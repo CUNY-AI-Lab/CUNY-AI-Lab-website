@@ -50,29 +50,32 @@ A production move is separate: establish Cloudflare zone and domain routing,
 coordinate the CUNY DNS change, verify the canonical site, then retire Amplify.
 No email migration is planned.
 
-## Model registry availability
+## Live model registry
 
-The registry keeps reviewed notes in `src/data/model-registry.json`. Entries
-marked `hidden: true` remain in source but are omitted from the page. The original
-Qwen3-235B-A22B card is hidden because current Gateway offerings are different
-revisions or VL variants.
+The registry renders every offering from the public Gateway `/v1/catalog`,
+loaded in the browser without credentials on page load and **Refresh catalog**.
+Models are organized by name, with their provider offerings underneath. Gateway
+`model_group` establishes shared identity, falling back to the exact API ID when
+no group is supplied; similar names never merge models. Each provider retains its
+exact API ID, capabilities, context, and prices. Search and provider/capability
+filters match individual offerings, so different providers cannot jointly satisfy
+a filter that neither supports alone. There is no curated allowlist, review data,
+or fixed set of featured models.
 
-The browser reads the public Gateway `/v1/catalog` once on load and when the
-reader chooses **Refresh availability**, without credentials. The displayed
-check time applies to availability, route capabilities, context, and prices;
-these values can change. Failed or malformed discovery clears prior offerings
-and shows an unknown state while the reviewed notes remain usable.
+`src/data/model-specifications.json` supplements the live list with verified
+parameter counts, architecture, open-weight status, and license/source links.
+These facts match exact group/API identities and carry their own verification
+date. They never limit which models appear. Unknown specifications remain
+unknown; editorial reviews, recommendations, and static capability/context
+claims are not retained. Capability icons and the 100K long-context indicator
+come from each current provider offering.
+New catalog offerings appear automatically, including non-text routes.
 
-`src/data/model-gateway-links.json` owns exact card-to-offering matches. A row
-must match an explicitly listed native API ID or Gateway's verified `model_group`.
-Names and model-family prefixes never establish identity. Native variants stay
-separate, and every matched provider offering remains visible. The explicit
-Mantle mappings for DeepSeek V3.2 and GLM 5 follow their
-[AWS DeepSeek card](https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-deepseek-deepseek-v3-2.html)
-and [AWS GLM card](https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-zai-glm-5.html).
-Gemma 3's exact Mantle ID is not explicitly matched while AWS's corresponding
-page inconsistently identifies its checkpoint as PT and IT; a verified Gateway
-group can still establish identity.
+The check time applies to catalog availability, route capabilities, context, and
+prices. Failed or malformed discovery clears previous results and offers retry.
+An empty catalog and a search with no matches have separate messages. JavaScript
+is required for the interactive list; a public JSON catalog link remains usable
+without it. No inference request is sent by browsing, filtering, or copying IDs.
 
 Prices come only from Gateway's optional `pricing` field, in USD per million
 input/output tokens. Missing prices stay unknown; zero is displayed only when
@@ -83,11 +86,11 @@ same endpoint. The selected route can cost more, and additional provider fees
 are outside these token rates. These are provider prices, not personal spending,
 quota balances, or estimates of a particular request's cost.
 
-The website is the caller and Gateway is the receiver. Deploy and verify the
-additive Gateway pricing contract before releasing a website consumer. Browser
-tests inject catalogs for failure and identity cases; rollout verification must
-also load the deployed page against the real public Gateway without intercepting
-that request. No inference or API key is needed for this integration.
+The website is the caller and the existing public Gateway catalog is the receiver;
+this UI change needs no Gateway deployment or contract change. Browser tests
+substitute catalogs for deterministic filtering, failure, and identity cases.
+Rollout verification also loads the deployed page against the real public Gateway
+without intercepting that request. No API key or paid inference is needed.
 
 ## Accessibility checks
 
