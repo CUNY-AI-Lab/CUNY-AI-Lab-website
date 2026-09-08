@@ -134,8 +134,8 @@ function modelSummary(group: ModelGroup): HTMLElement {
     references.append(row);
     dates.add(checkedAt.slice(0, 10));
   }
-  function highlight(label: string, url?: string): void {
-    const item = element('span', '', 'model-highlight');
+  function highlight(label: string, className: string, url?: string): void {
+    const item = element('span', '', `model-highlight ${className}`);
     if (url) {
       const link = element('a', label);
       link.href = url;
@@ -145,20 +145,18 @@ function modelSummary(group: ModelGroup): HTMLElement {
   }
   const size = agreedFact(group, 'size', value => JSON.stringify([value.label, value.basis]));
   if (size) {
-    const item = element('span', '', 'model-highlight model-size');
-    item.append(element('strong', size.value.label), element('span', size.value.basis === 'checkpoint' ? 'checkpoint parameters' : 'advertised size', 'size-basis'));
-    highlights.append(item);
+    highlight(size.value.label, 'model-size');
     fact('Size', `${size.value.label} · ${size.value.basis === 'checkpoint' ? 'Checkpoint parameter count' : 'Advertised size'}`, size.value.source_url, size.checkedAt);
   }
   const weights = agreedFact(group, 'weights', value => String(value.available));
   if (weights) {
     const label = weights.value.available ? 'Open weights' : 'Weights not published';
-    highlight(label, weights.value.source_url);
+    highlight(label, weights.value.available ? 'model-open' : 'model-closed', weights.value.source_url);
     fact('Weights', label, weights.value.source_url, weights.checkedAt);
   }
   const license = agreedFact(group, 'license', value => JSON.stringify([value.name, value.url]));
   if (license) {
-    highlight(license.value.name, license.value.url);
+    highlight(license.value.name, 'model-license', license.value.url);
     fact('License', license.value.name, license.value.source_url, license.checkedAt);
   }
   const architecture = agreedFact(group, 'architecture', value => value.name);
@@ -166,13 +164,11 @@ function modelSummary(group: ModelGroup): HTMLElement {
   const modelUrl = agreedFact(group, 'model_url', value => value);
   if (modelUrl) fact('Reference', 'Model card', modelUrl.value, modelUrl.checkedAt);
   if (references.childElementCount === 0) {
-    summary.append(element('p', 'Reference specifications have not been published in the catalog.', 'specification-date'));
+    summary.append(element('p', 'Specifications not published', 'specification-date'));
   } else {
+    if (dates.size === 1) references.append(element('p', `Checked ${Array.from(dates)[0]}`, 'specification-date evidence-date'));
     details.append(references);
-    const footer = element('div', '', 'model-reference-footer');
-    footer.append(details);
-    if (dates.size === 1) footer.append(element('span', `Specifications checked ${Array.from(dates)[0]}`, 'summary-date'));
-    summary.append(highlights, footer);
+    summary.append(highlights, details);
   }
   return summary;
 }
@@ -206,24 +202,31 @@ function offeringRow(offering: Offering): HTMLElement {
   });
   api.append(code, copy, result);
   identity.append(api);
-  const specs = element('div', '', 'offering-context');
-  specs.append(element('p', 'Context limit', 'spec-label'), element('p', offering.context_length === null ? 'Not published' : `${integers.format(offering.context_length)} tokens`, 'spec-value'));
+  const specs = figure('Context limit', offering.context_length === null ? 'Not published' : `${integers.format(offering.context_length)} tokens`);
   const capabilities = element('div', '', 'capabilities');
   for (const capability of offering.capabilities) capabilities.append(badge(capabilityNames.get(capability) ?? capability, capability));
   if (offering.capabilities.length === 0) capabilities.append(element('span', 'Capabilities not published', 'spec-value'));
   if (offering.context_length !== null && offering.context_length >= 100_000) capabilities.append(badge('Long context', 'long-context'));
 
   const prices = element('div', '', 'offering-prices');
-  prices.append(element('p', 'USD / million tokens', 'spec-label'));
   if (offering.pricing === undefined) {
-    prices.append(element('p', 'Token prices not published', 'spec-value'));
+    prices.append(figure('USD / million tokens', 'Token prices not published'));
   } else {
     const { input, output, basis } = offering.pricing;
     const prefix = basis === 'starting_at' ? 'from ' : '';
-    prices.append(element('p', `Input ${prefix}${formatPrice(input)}`, 'spec-value'), element('p', `Output ${prefix}${formatPrice(output)}`, 'spec-value'));
+    prices.append(figure(`Input ${prefix}`, formatPrice(input)), figure(`Output ${prefix}`, formatPrice(output)), element('p', 'USD per million tokens', 'spec-unit price-unit'));
   }
   row.append(identity, specs, prices, capabilities);
   return row;
+}
+
+function figure(label: string, value: string): HTMLElement {
+  const node = element('div', '', 'spec');
+  node.append(element('p', label.trim(), 'spec-label'), document.createTextNode(' '));
+  const line = element('p', '', 'spec-value');
+  line.append(element('strong', value));
+  node.append(line);
+  return node;
 }
 
 function groupOfferings(offerings: Offering[]): ModelGroup[] {

@@ -3,35 +3,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Model Registry - CUNY AI Lab">
-  <section class="relative pt-24 pb-10 lg:pt-28 bg-cuny-blue text-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="text-sm font-semibold tracking-widest uppercase mb-3">CUNY AI Lab · Model API</p>
-      <h1 class="font-display text-4xl sm:text-5xl font-bold">Model Registry</h1>
-      <p class="mt-4 max-w-2xl text-lg text-blue-100">Browse open-weight models available through non-retaining or zero-data-retention (ZDR) provider routes. Compare context limits and token prices, then copy an exact API ID.</p>
+<BaseLayout title="Model Registry - CUNY AI Lab" description="Open-weight models available through the CAIL Model API, with provider capabilities, context limits, and token prices.">
+  <section class="relative pt-24 pb-12 lg:pt-28 lg:pb-14 bg-cuny-blue text-white overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="background: radial-gradient(ellipse at 85% 10%, rgba(47, 184, 214, 0.22) 0%, transparent 55%);"></div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase mb-3 text-blue-200">Model API</p>
+      <h1 class="font-display text-4xl sm:text-5xl font-bold tracking-tight">Model Registry</h1>
+      <p class="mt-4 max-w-2xl text-lg text-blue-100">Open-weight models served through non-retaining provider routes. Compare context limits and token prices, then copy the exact API ID.</p>
       <div class="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm font-semibold">
-        <a class="underline underline-offset-4" href={`${base}models/guide/`}>Read the registry guide</a>
-        <a class="underline underline-offset-4" href={`${base}docs/api-keys/`}>Model API documentation</a>
+        <a class="underline underline-offset-4 decoration-blue-300 hover:decoration-white" href={`${base}models/guide/`}>How to read the registry</a>
+        <a class="underline underline-offset-4 decoration-blue-300 hover:decoration-white" href={`${base}docs/api-keys/`}>Model API documentation</a>
       </div>
     </div>
   </section>
-  <section class="bg-neutral-cream py-8">
+  <section class="bg-neutral-cream py-8 lg:py-10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" id="model-registry">
-      <div class="registry-filters">
-        <div class="filter-field"><label for="model-search">Search models</label><input id="model-search" type="search" placeholder="Name, API ID, provider, or capability" autocomplete="off" /></div>
-        <div class="filter-field"><label for="provider-filter">Provider</label><select id="provider-filter"><option value="">All providers</option></select></div>
-        <div class="filter-field"><label for="capability-filter">Capability</label><select id="capability-filter"><option value="">All capabilities</option></select></div>
-        <button id="clear-filters" type="button">Clear filters</button>
+      <div class="registry-toolbar">
+        <div class="registry-filters">
+          <div class="filter-field"><label for="model-search">Search models</label><input id="model-search" type="search" placeholder="Name, API ID, provider, or capability" autocomplete="off" /></div>
+          <div class="filter-field"><label for="provider-filter">Provider</label><select id="provider-filter"><option value="">All providers</option></select></div>
+          <div class="filter-field"><label for="capability-filter">Capability</label><select id="capability-filter"><option value="">All capabilities</option></select></div>
+          <button id="clear-filters" class="registry-button" type="button">Clear filters</button>
+        </div>
+        <div class="registry-status">
+          <p id="catalog-status" role="status" aria-label="Catalog status">Loading the live catalog…</p>
+          <button id="refresh-catalog" class="registry-button" type="button">Refresh catalog</button>
+        </div>
       </div>
-      <div class="flex flex-wrap items-center justify-between gap-3 py-5">
-        <p id="catalog-status" role="status" aria-label="Catalog status" class="text-sm text-gray-600">Loading the live catalog…</p>
-        <button id="refresh-catalog" class="registry-button" type="button">Refresh catalog</button>
-      </div>
-      <p class="text-sm text-gray-600 mb-4">Models are sorted by name, with provider offerings shown underneath. Filters show the providers that match your selection. Listed availability can change and does not guarantee a successful request. Prices are USD per million input/output tokens. “From” rates are separate minima and may come from different endpoints; the selected route and additional fees can cost more.</p>
-      <p class="text-sm text-gray-600 mb-4">The registry loads the eligible catalog directly from Gateway, which enforces both the open-weight and data-retention requirements. Closed-weight models are currently unavailable. Reference facts link to their published sources and carry their own check dates. Advertised sizes and checkpoint parameter counts are labeled separately.</p>
-      <p id="results-count" class="font-semibold mb-3" aria-live="polite"></p>
+      <p id="results-count" class="results-count" aria-live="polite"></p>
       <div id="models-list"></div>
-      <p id="empty-state" class="py-12 text-center text-gray-600" hidden></p>
+      <p id="empty-state" class="empty-state" hidden></p>
       <noscript><p class="py-6">JavaScript is needed to load and filter the live registry. <a class="underline text-vibrant-600" href="https://tools.ailab.gc.cuny.edu/v1/catalog">Open the public Gateway catalog</a> or <a class="underline text-vibrant-600" href={`${base}models/guide/`}>read the registry guide</a>.</p></noscript>
     </div>
   </section>
@@ -40,59 +41,66 @@ const base = import.meta.env.BASE_URL;
   import '../scripts/model-availability';
 </script>
 <style is:global>
+  #model-registry { --registry-ink: #1D3A83; --registry-text: #333333; --registry-muted: #5b6878; --registry-line: #dfe5ee; --registry-soft: #f3f6fa; --registry-accent: #3268D8; }
+  #model-registry .registry-toolbar { background: white; border: 1px solid var(--registry-line); border-radius: 1rem; box-shadow: 0 1px 2px rgba(29, 58, 131, .05); padding: 1.25rem 1.5rem; }
   #model-registry .registry-filters { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) auto; gap: 1rem; align-items: end; }
-  #model-registry .filter-field { display: grid; gap: .4rem; }
-  #model-registry label { font-size: .875rem; font-weight: 600; }
-  #model-registry input, #model-registry select { width: 100%; min-width: 0; padding: .7rem; border: 1px solid #9ca3af; border-radius: .5rem; background: white; font-weight: 400; }
-  #model-registry button { border: 1px solid #3268D8; border-radius: .5rem; padding: .65rem .8rem; color: #1D3A83; background: white; font-size: .875rem; font-weight: 600; }
-  #model-registry button:hover { background: #eff6ff; }
+  #model-registry .filter-field { display: grid; gap: .35rem; }
+  #model-registry label { font-size: .8rem; font-weight: 600; color: var(--registry-muted); }
+  #model-registry input, #model-registry select { width: 100%; min-width: 0; padding: .65rem .8rem; border: 1px solid #c6cfdb; border-radius: .625rem; background: white; color: var(--registry-text); font-weight: 400; }
+  #model-registry input:hover, #model-registry select:hover { border-color: #9fb0c8; }
+  #model-registry .registry-button { border: 1px solid #c6cfdb; border-radius: .625rem; padding: .65rem .9rem; color: var(--registry-ink); background: white; font-size: .875rem; font-weight: 600; white-space: nowrap; }
+  #model-registry .registry-button:hover { border-color: var(--registry-accent); background: #eff5ff; }
   #model-registry button:disabled { opacity: .6; cursor: wait; }
-  #model-registry :is(button, input, select):focus-visible { outline: 3px solid #3268D8; outline-offset: 3px; }
-  #model-registry .model-card { padding: 1.4rem 1.5rem; border: 1px solid #dbe1e9; border-radius: .65rem; background: white; margin-bottom: 1rem; }
-  #model-registry .provider-offering { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, .9fr) minmax(0, 1fr); column-gap: 1.5rem; row-gap: .65rem; padding-top: 1rem; margin-top: 1rem; border-top: 1px solid #e2e7ee; }
+  #model-registry :is(button, input, select, summary):focus-visible { outline: 3px solid var(--registry-accent); outline-offset: 3px; }
+  #model-registry .registry-status { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--registry-line); }
+  #model-registry .registry-status p { font-size: .85rem; color: var(--registry-muted); }
+  #model-registry .results-count { margin: 1.75rem 0 .9rem; font-size: .85rem; font-weight: 600; color: var(--registry-muted); }
+  #model-registry .results-count:empty { margin: 0; }
+  #model-registry .empty-state { padding: 3rem 1rem; text-align: center; color: var(--registry-muted); }
+  #model-registry .model-card { padding: 1.5rem 1.75rem 1.25rem; border: 1px solid var(--registry-line); border-radius: 1rem; background: white; margin-bottom: 1rem; box-shadow: 0 1px 2px rgba(29, 58, 131, .05); }
   #model-registry .model-card[hidden], #model-registry .provider-offering[hidden] { display: none; }
-  #model-registry .model-card h2 { font-family: Outfit, sans-serif; font-size: 1.5rem; line-height: 1.25; font-weight: 600; overflow-wrap: anywhere; color: #1D3A83; }
-  #model-registry .provider { font-size: .85rem; font-weight: 650; color: #333333; margin-bottom: .4rem; }
-  #model-registry .identity { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
-  #model-registry code { font-size: .75rem; overflow-wrap: anywhere; background: #f4f6f9; padding: .3rem .4rem; border-radius: .2rem; user-select: all; }
-  #model-registry .identity button { padding: .25rem .45rem; font-size: .7rem; border-color: #c5d2e7; border-radius: .25rem; }
-  #model-registry .spec-label { font-size: .7rem; font-weight: 500; color: #596579; margin-bottom: .35rem; }
-  #model-registry .spec-value { font-size: .82rem; font-variant-numeric: tabular-nums; line-height: 1.6; }
-  #model-registry .capabilities { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .4rem 1rem; }
-  #model-registry .capability { display: inline-flex; align-items: center; gap: .3rem; font-size: .7rem; color: #4b5b72; overflow-wrap: anywhere; }
-  #model-registry .capability svg { width: .9rem; height: .9rem; flex-shrink: 0; color: #3268D8; }
-  #model-registry .model-summary { margin-top: .65rem; }
-  #model-registry .model-highlights { display: flex; align-items: baseline; flex-wrap: wrap; gap: .5rem 0; }
-  #model-registry .model-highlight { min-width: 0; max-width: 100%; padding-right: 1rem; margin-right: 1rem; border-right: 1px solid #dbe1e9; font-size: .8rem; color: #36465e; overflow-wrap: anywhere; }
-  #model-registry .model-highlight:last-child { border-right: 0; padding-right: 0; margin-right: 0; }
-  #model-registry .model-highlight a { color: #1D3A83; text-decoration: none; }
+  #model-registry .model-card h2 { font-family: Outfit, sans-serif; font-size: 1.35rem; line-height: 1.25; font-weight: 600; letter-spacing: -.01em; overflow-wrap: anywhere; color: var(--registry-ink); }
+  #model-registry .model-summary { margin-top: .7rem; }
+  #model-registry .model-highlights { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; }
+  #model-registry .model-highlight { display: inline-flex; align-items: center; min-width: 0; max-width: 100%; padding: .25rem .65rem; border-radius: 999px; background: var(--registry-soft); color: var(--registry-text); font-size: .75rem; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+  #model-registry .model-highlight a { color: inherit; text-decoration: none; }
   #model-registry .model-highlight a:hover { text-decoration: underline; text-underline-offset: 3px; }
-  #model-registry .model-size { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: .35rem; }
-  #model-registry .model-size strong { font-size: 1.05rem; font-weight: 600; color: #333333; }
-  #model-registry .size-basis { font-size: .72rem; color: #596579; }
-  #model-registry .model-reference-footer { display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin-top: .65rem; align-items: baseline; }
-  #model-registry .model-details { min-width: 0; }
-  #model-registry .model-details[open] { flex-basis: 100%; }
-  #model-registry .model-details summary { cursor: pointer; color: #36527b; font-size: .72rem; width: fit-content; }
-  #model-registry .model-details summary:focus-visible { outline: 3px solid #3268D8; outline-offset: 4px; }
-  #model-registry .model-evidence { margin-top: .7rem; padding: .7rem 1rem; border-left: 2px solid #c5d2e7; background: #f6f8fb; }
-  #model-registry .model-references { display: grid; grid-template-columns: 6rem minmax(0, 1fr) auto; gap: .4rem 1rem; align-items: baseline; padding: .35rem 0; font-size: .73rem; }
-  #model-registry .evidence-label { color: #596579; }
-  #model-registry .model-references a { min-width: 0; overflow-wrap: anywhere; color: #1D3A83; text-decoration: underline; text-underline-offset: 3px; }
-  #model-registry .specification-date, #model-registry .summary-date { color: #596579; font-size: .7rem; }
-  #model-registry .model-details[open] + .summary-date { display: none; }
-  #model-registry .copy-result { font-size: .75rem; }
+  #model-registry .model-size { background: #e9eef8; color: var(--registry-ink); font-variant-numeric: tabular-nums; }
+  #model-registry .model-open { background: #e6f6ee; color: #146c43; }
+  #model-registry .model-closed { background: #fdf0e6; color: #8a4a05; }
+  #model-registry .model-details { margin-top: .6rem; min-width: 0; }
+  #model-registry .model-details summary { cursor: pointer; width: fit-content; color: var(--registry-muted); font-size: .75rem; font-weight: 600; }
+  #model-registry .model-details summary:hover { color: var(--registry-ink); }
+  #model-registry .model-evidence { margin-top: .6rem; padding: .6rem 1rem; border-left: 2px solid #c5d2e7; background: var(--registry-soft); border-radius: 0 .5rem .5rem 0; }
+  #model-registry .model-references { display: grid; grid-template-columns: 6rem minmax(0, 1fr) auto; gap: .4rem 1rem; align-items: baseline; padding: .3rem 0; font-size: .75rem; }
+  #model-registry .evidence-label { color: var(--registry-muted); }
+  #model-registry .model-references a { min-width: 0; overflow-wrap: anywhere; color: var(--registry-ink); text-decoration: underline; text-underline-offset: 3px; }
+  #model-registry .specification-date { color: var(--registry-muted); font-size: .72rem; }
+  #model-registry .evidence-date { margin-top: .25rem; }
+  #model-registry .provider-offering { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, .9fr) minmax(0, 1.1fr); column-gap: 1.5rem; row-gap: .75rem; align-items: start; padding: 1.1rem 0 .25rem; margin-top: 1.1rem; border-top: 1px solid var(--registry-line); }
+  #model-registry .provider { font-size: .8rem; font-weight: 700; color: var(--registry-muted); margin-bottom: .5rem; }
+  #model-registry .identity { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
+  #model-registry code { font-size: .78rem; overflow-wrap: anywhere; background: var(--registry-soft); border: 1px solid var(--registry-line); color: var(--registry-ink); padding: .3rem .5rem; border-radius: .4rem; user-select: all; }
+  #model-registry .identity button { padding: .3rem .55rem; font-size: .72rem; font-weight: 600; color: var(--registry-ink); background: white; border: 1px solid #c6cfdb; border-radius: .4rem; }
+  #model-registry .identity button:hover { border-color: var(--registry-accent); background: #eff5ff; }
+  #model-registry .copy-result { font-size: .75rem; color: var(--registry-muted); }
+  #model-registry .offering-prices { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+  #model-registry .spec-label { font-size: .68rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--registry-muted); margin-bottom: .2rem; }
+  #model-registry .spec-value { font-size: .95rem; line-height: 1.35; color: var(--registry-text); font-variant-numeric: tabular-nums; }
+  #model-registry .spec-value strong { font-weight: 600; overflow-wrap: anywhere; }
+  #model-registry .price-unit { grid-column: 1 / -1; margin-top: -.35rem; font-size: .68rem; color: var(--registry-muted); }
+  #model-registry .capabilities { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .4rem; }
+  #model-registry .capability { display: inline-flex; align-items: center; gap: .3rem; padding: .2rem .55rem; border: 1px solid var(--registry-line); border-radius: 999px; font-size: .72rem; color: #46556b; overflow-wrap: anywhere; }
+  #model-registry .capability svg { width: .85rem; height: .85rem; flex-shrink: 0; color: var(--registry-accent); }
   @media (max-width: 767px) {
-    #model-registry .model-card { padding: 1.1rem; }
-    #model-registry .model-card h2 { font-size: 1.3rem; }
-    #model-registry .model-highlights { gap: .35rem 1rem; }
-    #model-registry .model-highlight { border: 0; margin: 0; padding: 0; }
-    #model-registry .model-size { flex-basis: 100%; }
-    #model-registry .model-references { grid-template-columns: minmax(0, 1fr); gap: .2rem; padding: .5rem 0; }
+    #model-registry .registry-toolbar { padding: 1rem; }
     #model-registry .registry-filters { grid-template-columns: 1fr 1fr; }
     #model-registry .registry-filters .filter-field:first-child { grid-column: 1 / -1; }
+    #model-registry .model-card { padding: 1.1rem 1.1rem .9rem; }
+    #model-registry .model-card h2 { font-size: 1.2rem; }
+    #model-registry .model-references { grid-template-columns: minmax(0, 1fr); gap: .2rem; padding: .5rem 0; }
     #model-registry .provider-offering { grid-template-columns: 1fr 1fr; gap: 1rem; }
     #model-registry .offering-identity { grid-column: 1 / -1; }
   }
-  @media (max-width: 380px) { #model-registry .registry-filters, #model-registry .provider-offering { grid-template-columns: 1fr; } }
+  @media (max-width: 380px) { #model-registry .registry-filters, #model-registry .provider-offering, #model-registry .offering-prices { grid-template-columns: 1fr; } }
 </style>
