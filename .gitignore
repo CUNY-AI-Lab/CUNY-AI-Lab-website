@@ -36,3 +36,6 @@ Thumbs.db
 fellows/
 screenshot-*.png
 hover-test.png
+
+# Local editorial reviews and receipts
+/reviews/

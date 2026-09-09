@@ -3,71 +3,68 @@ title: "Roles & Permissions"
 headingId: "roles--permissions"
 ---
 
-When you share a model, knowledge base, or prompt with students, you need to control who can use it, who can edit it, and who can see it. Roles and permissions give you that control. The Sandbox serves faculty, graduate students, undergraduates, and staff across multiple departments. Clear permissions prevent confusion and protect sensitive institutional data.
+Set permissions when sharing models, knowledge bases, or prompts so the intended faculty, students, or staff can view, use, and edit them. The sections below distinguish account roles from the visibility settings on individual resources.
 
 ---
 
 ## How Roles Work
 
-The Sandbox supports three role tiers:
+Open WebUI has three account roles — **Admin**, **User**, and **Pending**. Faculty, staff, and students receive access through their account permissions and groups.
 
 ### Administrators
-Full platform access. Configure providers, manage users, install tools, set instance-wide defaults. Typically the AI Lab team and designated departmental contacts.
+Administrators configure providers, manage users and groups, install tools, and set instance-wide defaults.
 
 ### Faculty / Staff
-Create and share models, knowledge bases, and prompts. Manage their own groups. Cannot modify instance-wide settings or install tools.
+Faculty and staff with Workspace permissions can create and share models, knowledge bases, and prompts. Approved courses receive a group automatically; contact the Lab if its membership or permissions need attention.
 
 ### Students
-Use shared resources. Create private configurations. Cannot modify shared resources unless explicitly granted access by a faculty member or administrator.
+Students join through their instructor’s invitation and use resources shared with their course group. Creating private configurations and editing shared resources require the corresponding permissions.
 
-These roles map to CUNY's existing institutional hierarchy. Administrators can customize role definitions and permission boundaries through the Admin Panel.
+A **Pending** account cannot use the main platform until activated.
 
 ---
 
 ## Visibility Settings
 
-Every resource you create has a visibility setting:
+Use the resource’s access controls to choose its audience.
 
-1. **Private** — only you can see and use it
-   - Good while you are building and testing
-2. **Limited** — shared with specific users or groups you designate
-   - The most common setting for course-specific resources
-3. **Public** — available to all Sandbox users
-   - Use for resources that serve the entire community (e.g., a quantitative methods model)
+1. **Private** — available to you and any users or groups added through **Add Access**. With no access grants, it stays private to you.
+2. **Public** — available to all signed-in Sandbox users, where your account permits public sharing.
+
+Administrators may also access resources for platform management.
 
 ### Setting Visibility
 
 1. Create or edit a resource (model, knowledge base, or prompt)
-2. Look for the **Visibility** setting in the editor
-3. Select Private, Limited, or Public
-4. If Limited, specify which users or groups should have access
-5. Click **Save**
+2. Open **Access** or the access controls shown in the editor
+3. Keep **Private** for course materials and choose **Add Access**
+4. Select your course group and grant **Read** access; grant **Write** only to collaborators who should edit
+5. Save the resource if the editor shows a save button
 
-> **Tip:** Start private. Share when ready. This lets you iterate without exposing unfinished work to your students.
+> **Tip.** Build and test resources with Private visibility, then share them when they are ready for students.
 
 ---
 
 ## Working with Groups
 
-Groups simplify permission management. Instead of sharing a resource with 30 individual students, you share it with the "ENG 2100 Fall 2026" group.
+Share a resource with a course group, such as "ENG 2100 Fall 2026", to grant access to its 30 students through one group setting.
 
 ### Creating a Group (Admin)
 
 1. Go to **Admin Panel > Users**
 2. Select **Groups**
-3. Click **+ Create Group**
+3. Choose **Create Group**
 4. Name the group
-   - Use something recognizable: course code + term, research team name, department
+   - Use a recognizable name, such as the course code and term, research team, or department
 5. Add members
 6. Click **Save**
 
 ### What Groups Enable
 
-When you share a resource with a group:
-- Every member of that group gains access immediately
-- New members added to the group automatically see the shared resources
-- Members removed from the group lose access
-- You manage one group. Thirty students, one permission change.
+When you share a resource with a group
+- Members gain the access granted to their group.
+- New members receive that group access.
+- Removing a member removes access granted through that group; other grants may still apply.
 
 ---
 
@@ -78,13 +75,11 @@ When you share a resource with a group:
 
 ### SCIM 2.0 Provisioning
 
-For institutions with identity providers (Okta, Azure AD, Google Workspace), Open WebUI supports SCIM 2.0. This automates user lifecycle management: when a student is added to a course roster in your identity provider, their Sandbox account and group memberships update automatically. When they drop the course, access revokes.
-
-Contact the AI Lab team to configure SCIM integration for your department.
+Open WebUI supports SCIM 2.0 for identity-provider provisioning when administrators configure it. For Sandbox courses, use the course invitation and **My classes** process described in [Student Onboarding](student-onboarding.md); a registrar roster change alone is not confirmation of Sandbox enrollment or removal.
 
 ### Permission Inheritance
 
-Custom roles inherit from the default `@everyone` baseline. When you create a new group, its members start with standard user permissions. You then layer on additional access through resource sharing.
+Administrators set default user permissions and group permissions. Group grants are additive, so a user may retain access through another group or a direct grant after leaving one group.
 
 </details>
 
@@ -93,14 +88,14 @@ Custom roles inherit from the default `@everyone` baseline. When you create a ne
 ## Callout
 
 <div class="callout">
-  <strong>For instructors:</strong> Establish groups at the start of each semester, organized by course section. Share your models and knowledge bases with those groups before the first day of class. When students log in, your resources are already waiting for them.
+  <strong>For instructors.</strong> Approved Sandbox courses automatically receive a private course group and text channel. Confirm access to your course group, then share the course models and knowledge bases with it before the first class.
 </div>
 
 ---
 
 ## Additional Resources
 
-- [Open WebUI User Management](https://docs.openwebui.com) — official documentation for roles, groups, and SCIM provisioning
+- [Open WebUI User Management](https://docs.openwebui.com/features/authentication-access/rbac/) — official documentation for roles, groups, and SCIM provisioning
 - [CUNY IT Policies](https://www.cuny.edu/about/administration/offices/cis/it-policies/) — institutional guidelines for data access and user management
 
 ---

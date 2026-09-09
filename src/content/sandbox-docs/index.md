@@ -29,8 +29,8 @@ The CAIL Sandbox is hosted and maintained by the [CUNY AI Lab](https://ailab.gc.
 
 ## Supporting Resources
 
-**Models:** The Sandbox hosts open-weight models selected for teaching and research. See the [Model Registry](https://ailab.gc.cuny.edu/models/) for the current list.
+**Models.** Check the Sandbox’s model selector for current chat models. The [Model Registry](https://ailab.gc.cuny.edu/models/) lists Model API offerings.
 
-**Support:** Questions, workshop schedules, and office hours are available through the [AI Lab website](https://ailab.gc.cuny.edu).
+**Support.** Questions, workshop schedules, and office hours are available through the [AI Lab website](https://ailab.gc.cuny.edu).
 
-**Teaching Resources:** Visit the [Teach@CUNY AI Toolkit](https://aitoolkit.commons.gc.cuny.edu/) for pedagogical guidance on integrating AI into your courses.
+**Teaching Resources.** Visit the [Teach@CUNY AI Toolkit](https://aitoolkit.commons.gc.cuny.edu/) for pedagogical guidance on integrating AI into your courses.

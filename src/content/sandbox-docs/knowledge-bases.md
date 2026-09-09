@@ -3,9 +3,9 @@ title: "Grounding AI with Knowledge Collections"
 headingId: "grounding-ai-with-knowledge-collections"
 ---
 
-A Knowledge Base lets you upload your own documents so the model searches them before responding. This process is called Retrieval-Augmented Generation (RAG): the model checks your files, retrieves relevant passages, and uses them to answer.
+A **knowledge base** contains documents the model can search before responding. Through **retrieval-augmented generation (RAG)**, the model receives relevant passages from those files as context for its response.
 
-Consider the difference. A student asks your course model: "What does the syllabus say about late submissions?" Without a knowledge base, the model guesses, and the response might sound confident while being completely wrong. With your syllabus uploaded, the model retrieves the actual passage and cites what you wrote. At CUNY, where students navigate multiple courses, departments, and institutional policies, grounding a model in your actual materials gives students reliable answers from documents you trust.
+When a student asks, "What does the syllabus say about late submissions?", an uploaded syllabus gives the model a document to search and cite. Without that document, the model may generate a confident but incorrect response. Test whether it retrieves the relevant passage and represents your policy accurately before students rely on it.
 
 ---
 
@@ -13,39 +13,38 @@ Consider the difference. A student asks your course model: "What does the syllab
 
 1. Click **Workspace** in the left sidebar
 2. Select **Knowledge**
-3. Click **+ Create a Knowledge Base**
+3. Click **Create** beside the Workspace tabs
    - A dialog opens asking you to describe what you are building
 4. Give it a **name**
-   - Use something your students or colleagues will recognize: "ENG 2100 Fall 2026 Readings" or "IRB Protocol Archive"
+   - Use a name your students or colleagues will recognize, such as "ENG 2100 Fall 2026 Readings" or "IRB Protocol Archive"
 5. Describe its **purpose**
    - A sentence or two about what you are trying to achieve. This helps you stay organized as you build more knowledge bases over time.
-6. Set **visibility**
-   - **Private**: only you can access it (good while you are building)
-   - **Limited**: shared with specific users or groups (e.g., your course section)
-   - **Public**: available to all Sandbox users
-7. Click **Create**
+6. Set access
+   - Keep **Private** while building. Use **Add Access** to grant your course group **Read** access.
+   - Choose **Public** only for materials intended for all signed-in Sandbox users, where permitted.
+7. Click **Create Knowledge**
 
 ### Uploading Documents
 
 8. **Drag and drop files** into the knowledge base, or click to browse
-   - Supported formats: PDF, Markdown, plain text
+   - Supported formats. PDF, Markdown, plain text
    - You can upload multiple files at once
 9. Wait for processing to complete
-   - The system splits your documents into chunks and creates searchable embeddings. This takes a few seconds per file.
+   - The system splits your documents into chunks and creates searchable embeddings. Processing time depends on file size and the configured services.
 
-That's it. Your documents are now searchable.
+Once processing finishes, your documents are searchable.
 
 ### Connecting to a Model
 
 10. Go to **Workspace > Models** and edit the model you want to ground
 11. Scroll to the **Knowledge** section
 12. Select the knowledge base you just created
-    - You can attach multiple knowledge bases to a single model. The system searches across all of them.
-13. Click **Save**
+    - You can attach multiple knowledge bases to a single model so it can retrieve from those collections.
+13. Click **Save & Update**
 
-Now every conversation with that model draws from your uploaded documents.
+The knowledge base is now attached to the model. Grant its intended users access to the knowledge base as well as the model so they can use it for retrieval.
 
-> **Tip:** Start with a small collection (syllabus + 2-3 key readings) to test how well the model retrieves and uses your materials. Add more documents once you are confident in the results.
+> **Tip.** Start with a small collection (syllabus + 2-3 key readings) to test how well the model retrieves and uses your materials. Add more documents once you are confident in the results.
 
 ---
 
@@ -58,19 +57,19 @@ Now every conversation with that model draws from your uploaded documents.
 
 When you upload a document, the Sandbox splits it into chunks and converts each chunk into a numerical representation called an embedding. Embeddings capture the meaning of the text, including synonyms and related concepts. This means a question about "thesis committee requirements" can surface a passage about "dissertation advisory boards" because the concepts are semantically related.
 
-When a user asks a question, the system finds the chunks most relevant to the query and injects them into the model's context window. The model then generates its response with your documents as context.
+Retrieval depends on the model’s configuration. In native tool-calling mode, the model can use knowledge tools to fetch passages; other modes add retrieved context automatically. Check that it retrieves the relevant material when testing.
 
 ### Choosing What to Upload
 
-Not all documents work equally well. Clean, well-structured text produces better results than messy formatting.
+Use clean, well-structured text so the system can divide it into usable passages.
 
-**Works well:**
+**Works well**
 - Markdown files and plain text
 - Well-formatted PDFs with clear headings and paragraphs
 - Course syllabi, handbooks, policy documents
 - Research papers and annotated bibliographies
 
-**May need preprocessing:**
+**May need preprocessing**
 - Complex PDFs with multi-column layouts, tables, or embedded images
 - Scanned documents without OCR
 - Slide decks (convert to text or PDF with notes first)
@@ -79,13 +78,13 @@ If a PDF produces poor results, try converting it to Markdown first. The retriev
 
 ### Managing Your Files
 
-Access all uploaded files through **Settings > Data Controls > Manage Files**. This centralized manager lets you search by filename, sort by name or date, and inspect file metadata. When you delete a file here, the system performs deep cleanup: it removes the file from all knowledge bases and deletes the corresponding embeddings.
+Access all uploaded files through **Settings > Data Controls > Manage Files**. This centralized manager lets you search by filename, sort by name or date, and inspect file metadata. Deleting a file here removes it from all knowledge bases and deletes the corresponding embeddings.
 
 ### RAG Template (Admin)
 
-Administrators can customize how retrieved passages are presented to the model via **Admin Panel > Settings > Documents > RAG Template**. A good template tells the model to cite sources, acknowledge gaps, and prioritize retrieved content over general knowledge.
+Administrators can customize how retrieved passages are presented to the model via **Settings > Admin > Documents > RAG Template**. A good template tells the model to cite sources, acknowledge gaps, and prioritize retrieved content over general knowledge.
 
-Example for CUNY:
+Example for CUNY
 
 ```
 You are assisting a CUNY researcher. Respond based primarily on
@@ -97,7 +96,7 @@ information. Prioritize accuracy over elaboration.
 
 ### Embedding Model Configuration
 
-The default embedding model (Sentence Transformers MiniLM-L6) works well for most use cases. Administrators can change it in **Admin Panel > Settings > Documents**. Alternative models are available through Hugging Face. Changing the embedding model re-indexes all uploaded documents, so plan accordingly.
+Administrators can check or change the embedding model in **Settings > Admin > Documents**. After changing it, use **Reindex** to rebuild knowledge-base embeddings. Files uploaded directly to chats must be uploaded again; changing the setting does not rebuild them automatically.
 
 </details>
 
@@ -106,14 +105,14 @@ The default embedding model (Sentence Transformers MiniLM-L6) works well for mos
 ## Callout
 
 <div class="callout">
-  <strong>For researchers:</strong> Consider building knowledge bases around your methodological frameworks and foundational literature. A model grounded in your curated sources can help with literature review, source comparison, and gap identification while citing the documents you actually trust.
+  <strong>For researchers.</strong> Consider building knowledge bases around your methodological frameworks and foundational literature. A model grounded in your curated sources can help with literature review, source comparison, and gap identification while citing the documents you actually trust.
 </div>
 
 ---
 
 ## Additional Resources
 
-- [Open WebUI RAG Documentation](https://docs.openwebui.com) — technical details on embedding models, chunk size, and retrieval configuration
+- [Open WebUI RAG Documentation](https://docs.openwebui.com/features/chat-conversations/rag/) — technical details on embedding models, chunk size, and retrieval configuration
 - [Teach@CUNY AI Toolkit](https://aitoolkit.commons.gc.cuny.edu/) — pedagogical resources for integrating AI into CUNY courses
 - [Hugging Face Sentence Transformers](https://huggingface.co/sentence-transformers) — alternative embedding models if the default does not meet your needs
 

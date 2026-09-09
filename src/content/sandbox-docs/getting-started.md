@@ -6,9 +6,9 @@ description: "Get access, sign in, and start experimenting with open-weight mode
 
 ## What You'll Find Here
 
-The CAIL Sandbox is a shared chat platform for teaching and research with open-weight models. You can compare models, create custom configurations, ground them in course materials, and share them with students or colleagues.
+The CAIL Sandbox is a shared chat platform for teaching and research at CUNY, built for privacy and hands-on experimentation with open-weight models.
 
-It runs on CUNY infrastructure with zero-retention agreements: prompts and responses are not stored or used for model training. Chat history persists in Open WebUI and is accessible only to you and system administrators.
+These docs bring together guidance and examples to help you get the most out of the Sandbox, from getting started to developing and refining course activities. Teaching is the main focus, with material you can also adapt for research and experimentation beyond the classroom.
 
 ---
 
@@ -20,7 +20,7 @@ Apply for individual use or for a class using the steps below. **Students do not
 
 1. Open the [individual access application](https://ailab.gc.cuny.edu/request-access/?kind=individual), select **My own access**, and sign in with **CUNY Login** if prompted.
 2. Fill in your details and intended use. Selecting tools of interest is optional; one application covers the Lab's tools.
-3. Complete the verification and select **Submit Application**. Wait for approval at your verified CUNY email, then continue to [First Login](#first-login).
+3. Complete the verification and select **Submit Application**. Watch your verified CUNY email for approval, then continue to [First Login](#first-login).
 
 ### Request Course Access
 
@@ -51,7 +51,7 @@ Apply for individual use or for a class using the steps below. **Students do not
 ### Step by Step
 
 1. **Navigate to** [chat.ailab.gc.cuny.edu](https://chat.ailab.gc.cuny.edu)
-   - Bookmark this page. You'll be back often.
+   - Bookmark this page for later use.
 
 2. **Select "Continue with CUNY Login"**
    - The Sandbox uses CUNY's authentication system, so you'll be redirected to the standard CUNY login page
@@ -60,7 +60,7 @@ Apply for individual use or for a class using the steps below. **Students do not
    - Same process as accessing CUNY email or Blackboard
 
 4. **You'll land on the main chat interface**
-   - Clean layout. Chat input at the bottom. Model selector at the top. Sidebar on the left with workspace features.
+   - The model selector is on the right inside the message box. The left sidebar holds your conversations and Workspace.
 
 If you joined a course, confirm that its private text channel is available before continuing. If login stalls, try a private browser window or a different browser; for help, contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
 
@@ -70,13 +70,13 @@ If you joined a course, confirm that its private text channel is available befor
 
 ### Try This
 
-In the chat input at the bottom of the screen, type something simple:
+In the chat input at the bottom of the screen, type something simple
 
 > "Explain the concept of scaffolding in education, suitable for graduate students in a teaching methods course."
 
 Press Enter (or click the send button). The AI model responds.
 
-The model name at the top of the screen shows which one you're talking to. Click it to switch. Different models have different strengths: writing, reasoning, image understanding, speed. You can switch mid-conversation.
+Click the model name on the right inside the message box to switch models, including during a conversation. Compare how models handle writing, reasoning, and images, as well as their response speed.
 
 ---
 
@@ -90,25 +90,26 @@ For terminology and interface layout, see [Sandbox Basics](sandbox-basics.md).
 
 ### Settings You Might Want to Adjust
 
-1. Click your **profile avatar** (top right)
+1. Open your **profile menu** in the sidebar
 2. Select **Settings**
-3. You'll see several tabs. Here's what matters for getting started:
+3. Review the settings below.
 
-**General Tab:**
-- **Default Model** — Choose which AI model loads when you start a new chat
-  - Recommendation: Start with a general-purpose model like DeepSeek V3.2 or Kimi K2.5
-- **Interface Theme** — Light, dark, or auto (matches your system settings)
-  - Dark mode reduces eye strain during long writing sessions
-- **Chat Input Mode** — Desktop defaults to Enter to send, Shift+Enter for new line
-  - If you prefer multiline input, flip this setting
+**General Tab**
+- **Theme** — Choose light, dark, or system to match your device.
+- **System Prompt** and **Advanced Parameters** — Set personal defaults if you need them.
 
-**Account Tab:**
+**Interface Tab**
+- **Enter to Send** — Choose how you send messages and insert line breaks.
+
+To choose a default model, open a new chat, select a model in the message box, and choose **Set as default** in the selector.
+
+**Account Tab**
 - **Profile Picture** — Optional, but helps when collaborating with colleagues
 - **Display Name** — How your name appears to others when you share models or knowledge bases
 
 ### Save and Return to Chat
 
-Once you've adjusted your preferences:
+Once you've adjusted your preferences
 
 1. Scroll to the bottom of the Settings panel
 2. Click **Save**
@@ -122,24 +123,30 @@ Once you've adjusted your preferences:
 
 To create custom models, knowledge bases, and tool configurations, open **Workspace**. If those features are unavailable for your account, contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
 
-Once you have access, head to the **Design & Test** section to:
+Once you have access, head to the **Design & Test** section to
 - Create custom models with specific behaviors
 - Build knowledge bases from your course materials
 - Bind tools that extend what the AI can do
 
-In the meantime, explore: try different models (click the model name at the top), upload a document and ask questions about it, or experiment with different prompts.
+Try different models by using the model selector in the message box, upload a document and ask questions about it, or experiment with different prompts.
 
 ---
 
 ## Tips for Getting Started
 
-**Start small.** You don't need to build complex configurations on day one. Chat with the default models. See what works. See what doesn't. Let that guide what you build later.
+**Start small.** Try the default models and use what you learn from those conversations to decide which configurations to build.
 
-**Save interesting conversations.** Click the chat title in the sidebar to rename it. This makes it easier to find later when you want to revisit a useful interaction.
+**Save interesting conversations.** Open the three-dot menu beside a chat in the sidebar and choose **Rename**. This makes it easier to find later when you want to revisit a useful interaction.
 
-**Don't worry about breaking things.** The Sandbox is a shared tool, but your personal workspace is yours. Create models. Delete them. Experiment. You can't break the instance for others.
+**Experiment in your personal workspace.** Create and test private configurations as you learn how the Sandbox works.
 
-**Ask for help.** If you get stuck, reach out to the AI Lab team or check the community channels. CUNY faculty and researchers are building with this platform every day, and the community is generous with support.
+**Ask for help.** Contact the AI Lab team or check the community channels when you need help.
+
+---
+
+## Privacy and Chat History
+
+Model-provider calls are configured for zero retention and prohibit use for model training. Conversations may still be saved in your Sandbox account. Administrators can access stored chats; sharing a chat or posting in a course channel also makes that content available to its audience. See the [Lab’s description of the Sandbox](https://ailab.gc.cuny.edu/tools/).
 
 ---
 
