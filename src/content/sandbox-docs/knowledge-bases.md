@@ -9,9 +9,7 @@ Consider the difference. A student asks your course model: "What does the syllab
 
 ---
 
-## Creating a Knowledge Base
-
-### Creating a Knowledge Base
+## Creating a Knowledge Base<span id="creating-a-knowledge-base-1" aria-hidden="true"></span>
 
 1. Click **Workspace** in the left sidebar
 2. Select **Knowledge**

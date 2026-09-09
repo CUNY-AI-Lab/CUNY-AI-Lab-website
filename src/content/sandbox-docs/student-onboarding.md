@@ -78,7 +78,7 @@ Give students a low-stakes prompt to try. This builds comfort with the interface
 
 **Starter Prompt:** "Ask the course model to explain one concept from last week's reading that you found confusing. Then ask a follow-up question about its response."
 
-Walk the roomand answer questions if any. Let students discover the interface at their own pace.
+Walk the room and answer questions if any. Let students discover the interface at their own pace.
 
 ---
 
@@ -102,7 +102,7 @@ Once students are comfortable with the interface, introduce critical engagement.
 
 
 **"Is this cheating?"**
-Not when used as directed. The course’s AI use policy defines the boundaries, so using the course model for an [AI-Assisted] assignment accordingly is the same as using a calculator in a math class or a spell-checker in a writing class. However, using it on a non-AI assignmentor submitting AI output as your own work is a direct violation of course policies.
+Not when used as directed. The course’s AI use policy defines the boundaries, so using the course model for an [AI-Assisted] assignment accordingly is the same as using a calculator in a math class or a spell-checker in a writing class. However, using it on a non-AI assignment or submitting AI output as your own work is a direct violation of course policies.
 
 **"Can the AI see my other conversations?"**
 Each conversation is separate. The model does not remember previous chats unless you are in the same thread. 
