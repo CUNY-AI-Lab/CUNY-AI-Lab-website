@@ -21,7 +21,7 @@ Fellows will contribute to the Lab's work in the following areas:
 * Testing [Lab-built applications](/tools/) and providing feedback;
 * Providing technical and pedagogical support to participating faculty at the Graduate Center and partner CUNY campuses;
 * Assisting with communications and outreach to help promote the Lab and its programming;
-* Drafting teaching materials and [documentation](https://cuny-ai-lab.github.io/sandbox-docs/);
+* Drafting teaching materials and [documentation](/sandbox-docs/);
 * Writing reflections on their experimentation with AI for the [CAIL blog](/blog/);
 * Developing and running [workshops](/events/) on CAIL tools.
 

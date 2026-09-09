@@ -22,10 +22,10 @@
       "icon_svg": "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 5.25a3 3 0 00-4.243 0L5.25 11.507a3 3 0 004.243 4.243l1.06-1.06m4.394-9.44l1.06-1.06a3 3 0 114.243 4.243l-6.257 6.257a3 3 0 01-4.243 0m1.06-1.06l6.257-6.257\" />"
     },
     {
-      "title": "Sandbox Documentation",
+      "title": "CAIL Sandbox Docs",
       "description": "Technical documentation for the CAIL Sandbox.",
-      "url": "https://cuny-ai-lab.github.io/sandbox-docs",
-      "external": true,
+      "url": "/sandbox-docs/",
+      "external": false,
       "link_text": "Read the docs",
       "icon_bg": "bg-emerald-100",
       "icon_color": "text-emerald-600",

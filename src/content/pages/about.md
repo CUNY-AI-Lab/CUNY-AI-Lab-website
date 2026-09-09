@@ -24,7 +24,7 @@ The CUNY AI Lab (CAIL) is a faculty- and staff-led initiative at the CUNY Gradua
 
 Alongside the Sandbox, CAIL runs a [Tools Portal](https://tools.ailab.gc.cuny.edu/) for research workflows, academic publishing, and direct model access. Agent Studio supports research work involving sources, data, files, drafts, and visualizations. Site Studio supports portfolios, project sites, and other academic web publishing. Model Access lets approved users manage personal API keys for the CAIL Model API.
 
-CAIL also supports teaching and experimentation through documentation, training, events, and reusable technical infrastructure. The Lab publishes [Sandbox documentation](https://cuny-ai-lab.github.io/sandbox-docs/), [guides and tutorials](/guides); hosts [events](/events); and shares its open-source projects on [GitHub](https://github.com/CUNY-AI-Lab) for reuse and adaptation.
+CAIL also supports teaching and experimentation through documentation, training, events, and reusable technical infrastructure. The Lab publishes [Sandbox documentation](/sandbox-docs/), [guides and tutorials](/guides); hosts [events](/events); and shares its open-source projects on [GitHub](https://github.com/CUNY-AI-Lab) for reuse and adaptation.
 
 Our work is guided by privacy, sustainability, transparency, and critical AI literacy. In practice, this means clear data-handling policies, attention to environmental cost, open-weight models that can be audited, and an approach to AI that emphasizes literacy and judgment rather than dependency.
 

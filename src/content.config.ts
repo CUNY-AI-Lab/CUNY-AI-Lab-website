@@ -40,4 +40,9 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { pages, blog };
+// Preserve the published Markdown verbatim; link conversion happens at render time.
+const sandboxDocs = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/sandbox-docs' }),
+});
+
+export const collections = { pages, blog, sandboxDocs };

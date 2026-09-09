@@ -39,7 +39,7 @@ def main() -> None:
             context.route("https://www.googletagmanager.com/**", lambda route: route.abort())
             context.route("https://challenges.cloudflare.com/**", lambda route: route.abort())
             page = context.new_page()
-            for width, paths in ((1440, routes), (390, ["/", "/tools/", "/models/", "/models/guide/", "/request-access/?kind=class", "/docs/api-keys/", "/research/"])):
+            for width, paths in ((1440, routes), (390, ["/", "/tools/", "/models/", "/models/guide/", "/request-access/?kind=class", "/docs/api-keys/", "/research/", "/sandbox-docs/", "/sandbox-docs/system-prompts/"])):
                 page.set_viewport_size({"width": width, "height": 1000})
                 for path in paths:
                     page.goto(BASE_URL + path, wait_until="networkidle")

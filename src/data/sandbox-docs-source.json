@@ -1,0 +1,20 @@
+{
+  "repository": "https://github.com/CUNY-AI-Lab/sandbox-docs",
+  "revision": "74ce09d2bb6cc58b37e1f7296a3a01e988009222",
+  "files": {
+    "basic-concepts.md": "edf73c61c66f05d3aaf634fd998150bd30f3626f1d44f0ead88787ca67b7edcf",
+    "getting-started.md": "ed2cc29a434962718b6dde46e6c5eb5d1273b243423a8d29c62cc6682f75b326",
+    "index.md": "94072d4d815e155bc770f144831b143f3129bd64466b41324fbd1cde7dd05484",
+    "knowledge-bases.md": "a8fc1f65ec64cd474193ecb0a1a937a74b99ddd6bd8561baa0d7e8c1e17c1ecc",
+    "models.md": "450b5b4e704cab9f659669e8ecb45f046ae55fc0e7464c854e0b5ca6bb37bd00",
+    "quick-tour.md": "3c9e62d2a3a9b99f3b6ab99013d81f63573aff156310b04e10b63a858e77caae",
+    "roles-permissions.md": "4d908bf2a6b01512e0fed28066f1ef5ad3c450cee2c9a8c4f9949df44145bbb6",
+    "sample-activities.md": "38453a5246ef994b2a5951eeed101ece846bba71692ba48fb3748599c540ccb7",
+    "sandbox-basics.md": "798dae4e00132e6857071f01be355a2623592c3e954e5b5ce7f2236aa11587d9",
+    "student-onboarding.md": "302f3d08f431e12c3941fe1cd6b8471246701115db382ffa345e7182009b84b6",
+    "system-prompts.md": "15ac824d549489f7f75449f18ba2d69efc9234d8499af0a80ce691d41fca6ddc",
+    "teaching-tips.md": "de4f1d933b2c6797712f68a650d639b3eb8bad3ea8ef80333416f4bd92064151",
+    "tools-skills.md": "88629cd33d6ae828f284f7894249cc7428518e3665de563c36030ca7e705e13e",
+    "use-cases.md": "6918271a388d4b4d1b4c6fa699c37fdba05df1a927422bfb3a46ffb97f9f0277"
+  }
+}
