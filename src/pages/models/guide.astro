@@ -37,7 +37,6 @@ const base = import.meta.env.BASE_URL;
         <h2 id="prices-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Read token prices</h2>
         <p>Input and output prices are shown in <strong>USD per million tokens</strong>. Input is what you send to the model; output is what it generates. An unpublished price is unknown. A displayed zero means the catalog explicitly reports zero for that token rate.</p>
         <p class="mt-3">OpenRouter prices labeled <strong>from</strong> are the lowest input and output rates among its currently eligible endpoints. Those two rates can come from different endpoints, and the endpoint used for a request can cost more. Additional provider fees are outside the displayed token rates.</p>
-        <p class="mt-3">The <strong>typical prompts per $1</strong> line is a rough reference for comparing routes. It assumes 1,000 input and 500 output tokens per prompt at the listed rates; a long document or a long answer costs far more, and a short question costs less. For “from” rates it is an upper bound.</p>
         <p class="mt-3">These are provider rates. They do not show your quota balance or the final cost of a request. Prices and availability can change after the displayed check time.</p>
       </section>
       <section aria-labelledby="api-heading">

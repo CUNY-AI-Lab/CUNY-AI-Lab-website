@@ -116,11 +116,6 @@ def test_catalog_offerings_and_copy(page: Page) -> None:
     deepseek = provider_row(page, "deepseek/deepseek-v3.2")
     expect(deepseek).to_contain_text("Input $0.20")
     expect(deepseek).to_contain_text("Output $0.30")
-    # (1,000 × $0.20 + 500 × $0.30) / 1M = $0.00035 per prompt, rounded to two figures.
-    expect(deepseek).to_contain_text("≈ 2,900 typical prompts per $1")
-    expect(provider_row(page, "openai/gpt-oss-120b")).to_contain_text("≈ up to 8,700 typical prompts per $1")
-    expect(provider_row(page, "@cf/openai/gpt-oss-120b")).to_contain_text("typical prompts per $1")
-    expect(provider_row(page, "deepseek.v3.2")).not_to_contain_text("typical prompts")
     expect(provider_row(page, "deepseek.v3.2")).to_contain_text("Token prices not published")
     expect(provider_row(page, "deepseek.v3.2").get_by_text("Not published", exact=True)).to_be_visible()
     expect(provider_row(page, "@cf/openai/gpt-oss-120b")).to_contain_text("Input $0.00")

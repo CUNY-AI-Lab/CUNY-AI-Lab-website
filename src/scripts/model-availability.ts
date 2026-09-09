@@ -223,28 +223,9 @@ function offeringRow(offering: Offering): HTMLElement {
     const { input, output, basis } = offering.pricing;
     const prefix = basis === 'starting_at' ? 'from ' : '';
     prices.append(figure(`Input ${prefix}`, formatPrice(input)), figure(`Output ${prefix}`, formatPrice(output)), element('p', 'USD per million tokens', 'spec-unit price-unit'));
-    const estimate = promptsPerDollar(input, output);
-    if (estimate !== null) {
-      const note = element('p', `≈ ${basis === 'starting_at' ? 'up to ' : ''}${integers.format(estimate)} typical prompts per $1`, 'price-estimate');
-      note.title = `Assumes ${integers.format(TYPICAL_PROMPT.input)} input and ${integers.format(TYPICAL_PROMPT.output)} output tokens per prompt at the listed rates.`;
-      prices.append(note);
-    }
   }
   row.append(identity, specs, prices, capabilities);
   return row;
-}
-
-// A rough, explicitly labeled reference so readers can compare routes without
-// converting micro-cent token rates themselves. Real prompts vary widely.
-const TYPICAL_PROMPT = { input: 1_000, output: 500 } as const;
-
-function promptsPerDollar(inputPerMillion: number, outputPerMillion: number): number | null {
-  const dollarsPerPrompt = (TYPICAL_PROMPT.input * inputPerMillion + TYPICAL_PROMPT.output * outputPerMillion) / 1_000_000;
-  if (dollarsPerPrompt <= 0) return null;
-  const prompts = 1 / dollarsPerPrompt;
-  if (prompts < 1) return null;
-  const magnitude = 10 ** Math.max(0, Math.floor(Math.log10(prompts)) - 1);
-  return Math.round(prompts / magnitude) * magnitude;
 }
 
 function figure(label: string, value: string): HTMLElement {
