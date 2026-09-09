@@ -62,8 +62,9 @@ not a requirement to keep future documentation frozen.
 
 Make future documentation edits here through the normal website pull request
 and deployment workflow. Builds do not fetch GitHub Pages or depend on its
-runtime Markdown renderer. The original GitHub Pages site remains available;
-it does not automatically synchronize edits from this repository.
+runtime Markdown renderer. The original GitHub Pages site redirects to these
+routes, including legacy article hashes and direct article paths. Its retained
+Markdown files are a historical source snapshot, not the editing destination.
 
 The docs use the shared website header, footer, fonts, and canonical URLs,
 with the original three sidebar groups plus links to the three supplementary
@@ -72,8 +73,9 @@ legacy links such as `/sandbox-docs/#student-onboarding` resolve to the article.
 The imported Markdown text is unchanged by these transformations. The landing
 page heading was subsequently renamed to **CAIL Sandbox Docs**. Student
 Onboarding now foregrounds the instructor course-access checkpoint and the
-course invitation, group, and channel enrollment process. Other imported
-article text is unchanged.
+course invitation, group, and channel enrollment process. Getting Started uses
+the current lab support address, `ailab@gc.cuny.edu`. Other imported article
+text is unchanged.
 
 ## Live model registry
 
