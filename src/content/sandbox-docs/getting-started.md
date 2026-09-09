@@ -90,7 +90,7 @@ Once you've adjusted your preferences:
 
 ## What's Next?
 
-To create custom AI models, knowledge bases, and tool configurations, request Workspace access by emailing **ailab@cuny.edu**.
+To create custom AI models, knowledge bases, and tool configurations, request Workspace access by emailing **ailab@gc.cuny.edu**.
 
 Once you have access, head to the **Design & Test** section to:
 - Create custom models with specific behaviors
