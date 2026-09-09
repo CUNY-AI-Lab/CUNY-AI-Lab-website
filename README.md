@@ -79,18 +79,22 @@ text is unchanged.
 
 ## Live model registry
 
-The registry renders every native provider offering from the public Gateway `/v1/catalog`,
-loaded in the browser without credentials on page load and **Refresh catalog**.
-Automatic choices marked `routing.mode: "automatic"` are omitted from this native
-provider list during the Sandbox-first rollout. Their current default provider
-does not make them pinned provider offerings.
-Models are organized by name, with their provider offerings underneath. Gateway
-`model_group` establishes shared identity, falling back to the exact API ID when
-no group is supplied; similar names never merge models. Each provider retains its
-exact API ID, capabilities, context, and prices. Search and provider/capability
-filters match individual offerings, so different providers cannot jointly satisfy
-a filter that neither supports alone. There is no curated allowlist, review data,
-or fixed set of featured models.
+The registry loads the public Gateway `/v1/catalog` in the browser without
+credentials on page load and **Refresh catalog**. Each exact model has one primary
+API ID and copy control. Gateway automatic rows supply that ID and an ordered list
+of verified native routes. Their native compatibility rows appear only as factual
+provider support, with their own capabilities, context limits, and prices.
+Automatic routing follows Workers AI → Bedrock Mantle → OpenRouter among the
+routes listed for that model. Provider filters inspect support; they do not pin
+requests to a provider. Primary catalog provider facts describe the preferred
+Chat route, not the provider used by every request.
+
+Older catalogs without automatic rows remain readable: `model_group` establishes
+shared identity, falling back to the exact API ID when no group is supplied. One
+existing ID is presented per group without claiming automatic fallback. Similar
+names never merge models. Featured entries resolve to the same primary cards.
+Search and provider/capability filters match individual provider offerings, so
+different providers cannot jointly satisfy a filter that neither supports alone.
 
 Gateway supplies clean `model_name` labels and optional sourced `specifications`
 with their own check date. Cards summarize size, weights, and license; the native
