@@ -8,7 +8,7 @@ import json
 import os
 from pathlib import Path
 
-from playwright.sync_api import Page, sync_playwright
+from playwright.sync_api import Page, expect, sync_playwright
 from models_page_browser import CATALOG, CATALOG_URL, expect_checked
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,12 +39,26 @@ def main() -> None:
             context.route("https://www.googletagmanager.com/**", lambda route: route.abort())
             context.route("https://challenges.cloudflare.com/**", lambda route: route.abort())
             page = context.new_page()
-            for width, paths in ((1440, routes), (390, ["/", "/tools/", "/models/", "/models/guide/", "/request-access/?kind=class", "/docs/api-keys/"])):
+            for width, paths in ((1440, routes), (390, ["/", "/tools/", "/models/", "/models/guide/", "/request-access/?kind=class", "/docs/api-keys/", "/research/"])):
                 page.set_viewport_size({"width": width, "height": 1000})
                 for path in paths:
                     page.goto(BASE_URL + path, wait_until="networkidle")
                     check_accessibility(page, f"{width}px {path}")
                 print(f"PASS axe WCAG A/AA: {len(paths)} routes at {width}px", flush=True)
+            for width in (1440, 390):
+                page.set_viewport_size({"width": width, "height": 1000})
+                page.goto(BASE_URL + "/", wait_until="domcontentloaded")
+                if width < 1024:
+                    page.get_by_role("button", name="Toggle navigation menu", exact=True).press("Enter")
+                    page.get_by_role("button", name="Toggle About submenu", exact=True).press("Enter")
+                else:
+                    page.get_by_role("button", name="Show About submenu", exact=True).press("Enter")
+                page.get_by_role("link", name="Research", exact=True).filter(visible=True).press("Enter")
+                expect(page.get_by_role("heading", name="Research", exact=True)).to_be_visible()
+                expect(page.get_by_role("link", name="Read article on Project MUSE", exact=True)).to_have_attribute(
+                    "href", "https://doi.org/10.1353/pla.2026.a994555")
+                assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), "Research page overflows horizontally"
+            print("PASS desktop/mobile keyboard navigation to Research and article link")
             context.route(CATALOG_URL, lambda route: route.fulfill(
                 status=200, content_type="application/json", body=json.dumps(CATALOG)))
             page.goto(BASE_URL + "/models/", wait_until="domcontentloaded")
