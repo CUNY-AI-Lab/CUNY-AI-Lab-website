@@ -4,9 +4,19 @@ headingId: "getting-started"
 description: "Get access, sign in, and start experimenting with open-weight models."
 ---
 
-## Request Access
+<div id="request-access" aria-hidden="true"></div>
 
-Choose the application that fits your use of the Lab. **CUNY Login verifies your identity; it does not by itself grant Lab access.** If your individual account is already approved, continue to [First Login](#first-login). Instructors need a course application for each class they plan to enroll.
+## Get Access
+
+**Students join through their instructor's invitation link. They do not submit an individual access request.** Follow [Join a Course as a Student](#join-a-course-as-a-student).
+
+Instructors need a [course application](#request-course-access) for each class they plan to enroll.
+
+### Join a Course as a Student
+
+1. Open the invitation link provided by your instructor. If you do not have it, ask your instructor.
+2. Sign in with **CUNY Login** and complete the confirmation prompts to join the course.
+3. Follow [First Login](#first-login) below to open the Sandbox. Your course group and text channel membership are added automatically through course enrollment and Sandbox sign-in.
 
 ### Request Individual Access
 
@@ -27,17 +37,7 @@ Choose the application that fits your use of the Lab. **CUNY Login verifies your
 4. Under **Class details**, enter **Class Name**, **Term**, **Section**, **Start Date**, **End Date**, and **Estimated Enrollment**. The end date should be the last day participants need access.
 5. Check **I teach or lead this class**, complete the form's verification, and select **Submit Application**. Look for the **Thank you** confirmation, then watch your verified CUNY email for the decision or follow-up questions.
 6. After approval, sign in to [My classes](https://tools.ailab.gc.cuny.edu/my-classes), open the class, and create or copy its reusable class invitation link. Keep the link ready for student enrollment.
-7. Sign in to the Sandbox and confirm that you can access the course's **private group and text channel**, which are created automatically for approved Sandbox courses. Then share the invitation link with your students; they do not submit separate individual access requests. Use the [instructor course-access checkpoint](student-onboarding.md#instructor-checkpoint-complete-course-access-first) to guide their onboarding.
-
-### Join a Course as a Student
-
-1. Open the invitation link provided by your instructor. If you do not have it, ask your instructor.
-2. Sign in with **CUNY Login** and complete the confirmation prompts to join the course.
-3. Follow **First Login** below to open the Sandbox. Your course group and text channel membership are added automatically through course enrollment and Sandbox sign-in.
-
-### Complete Your Access Checkpoint
-
-**Continue when your individual request is approved, your course request is approved, or you have joined your instructor's course.** Course access runs for the approved course dates. If you are unsure about your request or enrollment, contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
+7. Sign in to the Sandbox and confirm that you can access the course's **private group and text channel**, which are created automatically for approved Sandbox courses. Then share the invitation link with your students. **Students join through this link; they do not submit individual access requests.** Use the [instructor course-access checkpoint](student-onboarding.md#instructor-checkpoint-complete-course-access-first) to guide their onboarding.
 
 ---
 
