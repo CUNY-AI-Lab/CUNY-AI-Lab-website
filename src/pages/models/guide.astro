@@ -3,35 +3,35 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Model Registry Guide - CUNY AI Lab" description="Find current CAIL Model API offerings and compare providers, capabilities, context limits, and token prices.">
+<BaseLayout title="Model Registry Guide - CUNY AI Lab" description="Find current CAIL Model API offerings and compare capabilities, context limits, and token prices.">
   <section class="relative pt-24 pb-10 lg:pt-28 lg:pb-12">
     <div class="absolute inset-0 bg-gradient-to-br from-cuny-blue via-cuny-blue to-vibrant-800" aria-hidden="true"></div>
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <a href={`${base}models/`} class="inline-block text-vibrant-200 underline underline-offset-2 hover:text-white mb-4">Back to Model Registry</a>
       <h1 class="text-3xl md:text-4xl font-bold font-display text-white">How to use the model registry</h1>
-      <p class="mt-3 text-vibrant-200 text-lg max-w-2xl">Find current open-weight models and compare the provider offerings available through the CAIL Model API.</p>
+      <p class="mt-3 text-vibrant-200 text-lg max-w-2xl">Find current open-weight models and compare the models available through the CAIL Model API.</p>
     </div>
   </section>
   <div class="bg-neutral-cream">
     <article class="max-w-3xl mx-auto px-4 sm:px-6 py-10 space-y-9 text-gray-700 leading-relaxed">
       <section aria-labelledby="find-heading">
         <h2 id="find-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Find a model</h2>
-        <p><strong>Featured</strong> is a short list of current models the lab suggests starting with, each with a one-line note. Every featured model also appears in the full registry, and searching or filtering searches the full registry.</p>
-        <p class="mt-3">Search by model name or API ID, or narrow the list by provider and capability. Filters work together and show the provider offerings that match; choose <strong>Clear filters</strong> to return to the full catalog. The registry includes text and speech offerings, so check the capabilities before choosing a model for your task.</p>
+        <p><strong>Featured</strong> is a short list of current models the lab suggests starting with, each with a one-line note. Featured links lead to the model’s card in the full registry, and searching or filtering searches the full registry.</p>
+        <p class="mt-3">Search by model name or API ID, or narrow the list by capability. Filters work together and show the models that match; choose <strong>Clear filters</strong> to return to the full catalog. The registry includes text and speech offerings, so check the capabilities before choosing a model for your task.</p>
         <p class="mt-3">The registry loads its catalog directly from Gateway. Eligible offerings must use open-weight models and non-retaining or zero-data-retention (ZDR) provider routes. Gateway enforces both requirements for API requests as well as catalog listings. Closed-weight models are currently unavailable; a ZDR route alone does not make a model eligible.</p>
-        <p class="mt-3">Older catalogs may show an existing model ID without an automatic-routing label; that does not establish fallback support. The catalog loads when you open the page. Choose <strong>Refresh catalog</strong> to check again. If the catalog cannot be loaded, try refreshing; the page clears earlier results so they are not mistaken for current availability.</p>
+        <p class="mt-3">The catalog loads when you open the page. Choose <strong>Refresh catalog</strong> to check again. If the catalog cannot be loaded, try refreshing; the page clears earlier results so they are not mistaken for current availability.</p>
       </section>
       <section aria-labelledby="providers-heading">
-        <h2 id="providers-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Compare provider offerings</h2>
-        <p>Models are listed by name, with their provider offerings underneath. Each model has one primary API ID. Provider rows retain factual reference IDs, capabilities, context limits, and prices. Different versions stay separate, even when their names are similar.</p>
-        <p class="mt-3">Context is measured in tokens and can differ by provider. The preferred Chat provider’s catalog facts do not describe every request after fallback. A missing context limit means it has not been published in the catalog. Capabilities describe the current API route; they do not establish model quality or licensing terms.</p>
-        <p class="mt-3">A catalog listing does not guarantee that a provider has capacity for every request. Automatic models use the verified routes listed on their card, in Workers AI → Bedrock Mantle → OpenRouter order. A model may have only one verified route. Provider filters inspect support and do not select the provider used for a request.</p>
+        <h2 id="providers-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Compare models</h2>
+        <p>Each model appears once with one API ID, preserving its complete version and variant. Gateway chooses an eligible provider for each request. The registry does not offer provider-specific alternatives.</p>
+        <p class="mt-3">Context is measured in tokens. The displayed context and prices describe the preferred offering and can differ from the route used for a request. A missing context limit means it has not been published. Capabilities reflect the eligible routes available for the model; a request still needs one route supporting all of its requirements.</p>
+        <p class="mt-3">A catalog listing does not guarantee provider capacity for every request. Capabilities do not establish model quality or licensing terms.</p>
       </section>
       <section aria-labelledby="specifications-heading">
         <h2 id="specifications-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Read model specifications</h2>
         <p>Model size is usually reported in billions of parameters (B). An advertised size follows the publisher’s label; a checkpoint parameter count measures the published weights and may differ from that label. Size alone does not measure quality or speed.</p>
-        <p class="mt-3">Gateway supplies reference specifications from published sources. Expand <strong>Details and sources</strong> to see the architecture, evidence links, and individual check dates. The summary keeps size, weights, and license information together. <strong>Open weights</strong> means model weights are available to download; consult the linked license for the terms. Unpublished facts are omitted. Conflicting provider facts are withheld for that field; a missing weights label does not establish whether weights are available.</p>
-        <p class="mt-3">These reference specifications have their own verification date. The catalog check time covers live provider details. Capability icons accompany text labels in each provider row; the long-context label means that provider reports a context limit of at least 100,000 tokens.</p>
+        <p class="mt-3">Gateway supplies reference specifications from published sources. Expand <strong>Details and sources</strong> to see the architecture, evidence links, and individual check dates. The summary keeps size, weights, and license information together. <strong>Open weights</strong> means model weights are available to download; consult the linked license for the terms. Unpublished facts are omitted. A missing weights label does not establish whether weights are available.</p>
+        <p class="mt-3">These reference specifications have their own verification date. The catalog check time covers live provider details. Capability icons accompany text labels in each model card; the long-context label means the preferred offering reports a context limit of at least 100,000 tokens.</p>
       </section>
       <section aria-labelledby="prices-heading">
         <h2 id="prices-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Read token prices</h2>
@@ -41,7 +41,7 @@ const base = import.meta.env.BASE_URL;
       </section>
       <section aria-labelledby="api-heading">
         <h2 id="api-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Use an API ID</h2>
-        <p>Choose <strong>Copy API ID</strong> on the model card. Gateway applies the model’s routing policy; provider reference IDs are shown for comparison. Use that exact ID with the appropriate API endpoint for its capabilities. Text generation and speech recognition use different request formats.</p>
+        <p>Choose <strong>Copy API ID</strong> on the model card. Gateway handles provider routing. Use that exact ID with the appropriate API endpoint for its capabilities. Text generation and speech recognition use different request formats.</p>
         <p class="mt-3">The <a href={`${base}docs/api-keys/`} class="text-vibrant-700 underline underline-offset-2">API key guide</a> explains how to create a personal key and send a chat request. Browsing the registry does not require a key.</p>
       </section>
       <p><a href={`${base}models/`} class="text-vibrant-700 underline underline-offset-2 font-semibold">Browse the model registry</a></p>

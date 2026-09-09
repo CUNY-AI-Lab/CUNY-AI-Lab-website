@@ -1,45 +1,45 @@
 {
-  "updated_at": "2026-09-08",
+  "updated_at": "2026-09-09",
   "models": [
     {
       "name": "DeepSeek V4 Flash 0731",
       "note": "Fast and inexpensive everyday model with a 1.3M-token context.",
-      "ids": ["deepseek/deepseek-v4-flash-0731", "@cf/deepseek-ai/deepseek-v4-flash-0731"]
+      "id": "deepseek-v4-flash-0731"
     },
     {
       "name": "Kimi K3",
       "note": "Moonshot's 2.8T-parameter multimodal reasoning model with a 1M-token context; the largest open model in the catalog.",
-      "ids": ["moonshotai/kimi-k3"]
+      "id": "kimi-k3"
     },
     {
       "name": "GLM 5.3",
       "note": "Z.ai's model for agentic coding and software engineering, with reasoning and a 1M-token context.",
-      "ids": ["z-ai/glm-5.3", "@cf/zai-org/glm-5.3"]
+      "id": "glm-5.3"
     },
     {
       "name": "Qwen3.8 27B",
       "note": "Dense 27B vision-language model from Qwen with a 1M-token context; a strong mid-size choice.",
-      "ids": ["qwen/qwen3.8-27b", "@cf/qwen/qwen3.8-27b"]
+      "id": "qwen3.8-27b"
     },
     {
       "name": "gpt-oss-120b",
       "note": "OpenAI's open-weight reasoning model under Apache-2.0.",
-      "ids": ["openai/gpt-oss-120b", "@cf/openai/gpt-oss-120b", "openai.gpt-oss-120b"]
+      "id": "gpt-oss-120b"
     },
     {
       "name": "Gemma 4 31B",
       "note": "Google DeepMind's dense multimodal model; text and image input with a 262K-token context.",
-      "ids": ["google/gemma-4-31b-it"]
+      "id": "gemma-4-31b-it"
     },
     {
       "name": "Mistral Small 4",
       "note": "Mistral's efficient multimodal model with reasoning and a 262K-token context.",
-      "ids": ["mistralai/mistral-small-2603"]
+      "id": "mistral-small-2603"
     },
     {
       "name": "Whisper Large V3 Turbo",
       "note": "Speech recognition and transcription; use the audio endpoint rather than chat.",
-      "ids": ["@cf/openai/whisper-large-v3-turbo"]
+      "id": "whisper-large-v3-turbo"
     }
   ]
 }

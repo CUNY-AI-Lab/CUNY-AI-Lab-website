@@ -20,8 +20,7 @@ const base = import.meta.env.BASE_URL;
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" id="model-registry">
       <div class="registry-toolbar">
         <div class="registry-filters">
-          <div class="filter-field"><label for="model-search">Search models</label><input id="model-search" type="search" placeholder="Name, API ID, provider, or capability" autocomplete="off" /></div>
-          <div class="filter-field"><label for="provider-filter">Provider</label><select id="provider-filter"><option value="">All providers</option></select></div>
+          <div class="filter-field"><label for="model-search">Search models</label><input id="model-search" type="search" placeholder="Name, API ID, or capability" autocomplete="off" /></div>
           <div class="filter-field"><label for="capability-filter">Capability</label><select id="capability-filter"><option value="">All capabilities</option></select></div>
           <button id="clear-filters" class="registry-button" type="button">Clear filters</button>
         </div>
@@ -31,7 +30,7 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
       <section id="featured-models" aria-labelledby="featured-heading" hidden>
-        <div class="section-head"><h2 id="featured-heading">Featured</h2><p>A short list of current models the lab suggests starting with. Each one also appears in the full registry below.</p></div>
+        <div class="section-head"><h2 id="featured-heading">Featured</h2><p>A short list of current models the lab suggests starting with. Choose a name to jump to its model card.</p></div>
         <div id="featured-list"></div>
       </section>
       <div class="section-head"><h2 id="all-models-heading" tabindex="-1">All models</h2><p id="results-count" class="results-count" aria-live="polite"></p></div>
@@ -57,7 +56,7 @@ const base = import.meta.env.BASE_URL;
 <style is:global>
   #model-registry { --registry-ink: #1D3A83; --registry-text: #333333; --registry-muted: #5b6878; --registry-line: #dfe5ee; --registry-soft: #f3f6fa; --registry-accent: #3268D8; }
   #model-registry .registry-toolbar { background: white; border: 1px solid var(--registry-line); border-radius: 1rem; box-shadow: 0 1px 2px rgba(29, 58, 131, .05); padding: 1.25rem 1.5rem; }
-  #model-registry .registry-filters { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) auto; gap: 1rem; align-items: end; }
+  #model-registry .registry-filters { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto; gap: 1rem; align-items: end; }
   #model-registry .filter-field { display: grid; gap: .35rem; }
   #model-registry label { font-size: .8rem; font-weight: 600; color: var(--registry-muted); }
   #model-registry input, #model-registry select { width: 100%; min-width: 0; padding: .65rem .8rem; border: 1px solid #c6cfdb; border-radius: .625rem; background: white; color: var(--registry-text); font-weight: 400; }
@@ -77,11 +76,14 @@ const base = import.meta.env.BASE_URL;
   #model-registry .registry-pagination p { text-align: center; font-size: .8rem; color: var(--registry-muted); }
   #model-registry .registry-pagination button:disabled { cursor: default; }
   #model-registry :is(#featured-heading, #all-models-heading) { scroll-margin-top: 6rem; }
+  #featured-list { display: flex; flex-wrap: wrap; gap: .6rem 1.25rem; }
+  #featured-list a { color: var(--registry-ink); text-decoration: underline; text-underline-offset: 3px; }
+  #model-registry .model-card { scroll-margin-top: 6rem; }
   #model-registry .featured-card { border-color: #b9d0ef; box-shadow: 0 2px 8px rgba(29, 58, 131, .08); }
   #model-registry .featured-note { margin-top: .35rem; font-size: .9rem; line-height: 1.5; color: #46556b; max-width: 60ch; }
   #model-registry .empty-state { padding: 3rem 1rem; text-align: center; color: var(--registry-muted); }
   #model-registry .model-card { padding: 1.5rem 1.75rem 1.25rem; border: 1px solid var(--registry-line); border-radius: 1rem; background: white; margin-bottom: 1rem; box-shadow: 0 1px 2px rgba(29, 58, 131, .05); }
-  #model-registry .model-card[hidden], #model-registry .provider-offering[hidden] { display: none; }
+  #model-registry .model-card[hidden] { display: none; }
   #model-registry .model-card h2 { font-family: Outfit, sans-serif; font-size: 1.35rem; line-height: 1.25; font-weight: 600; letter-spacing: -.01em; overflow-wrap: anywhere; color: var(--registry-ink); }
   #model-registry .model-summary { margin-top: .7rem; }
   #model-registry .model-highlights { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; }
@@ -100,10 +102,7 @@ const base = import.meta.env.BASE_URL;
   #model-registry .model-references a { min-width: 0; overflow-wrap: anywhere; color: var(--registry-ink); text-decoration: underline; text-underline-offset: 3px; }
   #model-registry .specification-date { color: var(--registry-muted); font-size: .72rem; }
   #model-registry .evidence-date { margin-top: .25rem; }
-  #model-registry .provider-offering { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, .9fr) minmax(0, 1.1fr); column-gap: 1.5rem; row-gap: .75rem; align-items: start; padding: 1.1rem 0 .25rem; margin-top: 1.1rem; border-top: 1px solid var(--registry-line); }
-  #model-registry .provider { font-size: .8rem; font-weight: 700; color: var(--registry-muted); margin-bottom: .5rem; }
-  #model-registry .offering-identity code { display: inline-block; max-width: 100%; }
-  #model-registry .routing-policy { margin: .75rem 0 .25rem; font-size: .85rem; color: var(--registry-ink); }
+  #model-registry .model-facts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 1.5rem; row-gap: .75rem; align-items: start; padding: 1.1rem 0 .25rem; margin-top: 1.1rem; border-top: 1px solid var(--registry-line); }
   #model-registry .model-card > .identity { margin-top: .6rem; }
   #model-registry .identity { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
   #model-registry code { font-size: .78rem; overflow-wrap: anywhere; background: var(--registry-soft); border: 1px solid var(--registry-line); color: var(--registry-ink); padding: .3rem .5rem; border-radius: .4rem; user-select: all; }
@@ -125,8 +124,7 @@ const base = import.meta.env.BASE_URL;
     #model-registry .model-card { padding: 1.1rem 1.1rem .9rem; }
     #model-registry .model-card h2 { font-size: 1.2rem; }
     #model-registry .model-references { grid-template-columns: minmax(0, 1fr); gap: .2rem; padding: .5rem 0; }
-    #model-registry .provider-offering { grid-template-columns: 1fr 1fr; gap: 1rem; }
-    #model-registry .offering-identity { grid-column: 1 / -1; }
+    #model-registry .model-facts { grid-template-columns: 1fr; gap: 1rem; }
   }
-  @media (max-width: 380px) { #model-registry .registry-filters, #model-registry .provider-offering, #model-registry .offering-prices { grid-template-columns: 1fr; } }
+  @media (max-width: 380px) { #model-registry .registry-filters, #model-registry .model-facts, #model-registry .offering-prices { grid-template-columns: 1fr; } }
 </style>

@@ -29,11 +29,8 @@ const offeringSchema = z.object({
   id: z.string().check(z.minLength(1), z.maxLength(512)),
   name: z.string().check(z.minLength(1)),
   provider: z.string().check(z.minLength(1)),
-  routing: z.optional(z.object({ mode: z.literal('automatic'), routes: z.array(z.string().check(z.minLength(1))).check(z.minLength(1)) })),
-  duplicate_of: z.optional(z.string().check(z.minLength(1))),
   model_name: z.catch(z.optional(metadataText), undefined),
   specifications: z.catch(z.optional(specificationsSchema), undefined),
-  model_group: z.optional(z.string().check(z.minLength(1))),
   capabilities: z.array(z.string()),
   context_length: z.nullable(z.int().check(z.positive())),
   pricing: z.optional(pricingSchema),
@@ -41,15 +38,10 @@ const offeringSchema = z.object({
 const catalogSchema = z.object({ object: z.literal('list'), data: z.array(offeringSchema) });
 const featuredSchema = z.object({
   updated_at: z.string(),
-  models: z.array(z.object({ name: metadataText, note: metadataText, ids: z.array(z.string().check(z.minLength(1))).check(z.minLength(1)) })),
+  models: z.array(z.object({ name: metadataText, note: metadataText, id: z.string().check(z.minLength(1)) })),
 });
 const featured = featuredSchema.parse(featuredData);
 type Offering = z.infer<typeof offeringSchema>;
-const providerNames = new Map([
-  ['workers-ai', 'Workers AI'],
-  ['openrouter', 'OpenRouter'],
-  ['bedrock-mantle', 'Bedrock Mantle'],
-]);
 const capabilityNames = new Map([
   ['text-generation', 'Text generation'],
   ['automatic-speech-recognition', 'Speech recognition'],
@@ -68,12 +60,10 @@ const featuredList = document.querySelector<HTMLElement>('#featured-list');
 const status = document.querySelector<HTMLElement>('#catalog-status');
 const refresh = document.querySelector<HTMLButtonElement>('#refresh-catalog');
 const search = document.querySelector<HTMLInputElement>('#model-search');
-const providerFilter = document.querySelector<HTMLSelectElement>('#provider-filter');
 const capabilityFilter = document.querySelector<HTMLSelectElement>('#capability-filter');
 const count = document.querySelector<HTMLElement>('#results-count');
 const empty = document.querySelector<HTMLElement>('#empty-state');
-type ModelGroup = { key: string; name: string; primary: Offering; offerings: Offering[] };
-let groups: ModelGroup[] = [];
+let models: Offering[] = [];
 let loaded = false;
 const modelsPerPage = 12;
 let modelPage = 1;
@@ -130,24 +120,18 @@ function badge(label: string, icon: string, className = 'capability'): HTMLEleme
   return node;
 }
 
-function agreedFact<K extends keyof Omit<Specifications, 'checked_at'>>(group: ModelGroup, key: K, identity: (value: NonNullable<Specifications[K]>) => string): { value: NonNullable<Specifications[K]>; checkedAt: string } | undefined {
-  const facts = group.offerings.flatMap(offering => {
-    const specs = offering.specifications;
-    const value = specs?.[key];
-    return specs && value !== undefined ? [{ value, checkedAt: specs.checked_at }] : [];
-  }).sort((a, b) => Date.parse(a.checkedAt) - Date.parse(b.checkedAt));
-  const first = facts[0];
-  if (!first || !facts.every(fact => identity(fact.value) === identity(first.value))) return undefined;
-  return first;
-}
-
-function modelSummary(group: ModelGroup): HTMLElement {
+function modelSummary(model: Offering): HTMLElement {
   const summary = element('div', '', 'model-summary');
   const highlights = element('div', '', 'model-highlights');
   const details = element('details', '', 'model-details');
   details.append(element('summary', 'Details and sources'));
   const references = element('div', '', 'model-evidence');
   const dates = new Set<string>();
+  const specs = model.specifications;
+  function sourced<K extends keyof Omit<Specifications, 'checked_at'>>(key: K): { value: NonNullable<Specifications[K]>; checkedAt: string } | undefined {
+    const value = specs?.[key];
+    return specs && value !== undefined ? { value, checkedAt: specs.checked_at } : undefined;
+  }
   function fact(field: string, label: string, sourceUrl: string, checkedAt: string): void {
     const row = element('div', '', 'model-references');
     row.append(element('span', field, 'evidence-label'));
@@ -167,25 +151,25 @@ function modelSummary(group: ModelGroup): HTMLElement {
     } else item.textContent = label;
     highlights.append(item);
   }
-  const size = agreedFact(group, 'size', value => JSON.stringify([value.label, value.basis]));
+  const size = sourced('size');
   if (size) {
     highlight(size.value.label, 'model-size');
     fact('Size', `${size.value.label} · ${size.value.basis === 'checkpoint' ? 'Checkpoint parameter count' : 'Advertised size'}`, size.value.source_url, size.checkedAt);
   }
-  const weights = agreedFact(group, 'weights', value => String(value.available));
+  const weights = sourced('weights');
   if (weights) {
     const label = weights.value.available ? 'Open weights' : 'Weights not published';
     highlight(label, weights.value.available ? 'model-open' : 'model-closed', weights.value.source_url);
     fact('Weights', label, weights.value.source_url, weights.checkedAt);
   }
-  const license = agreedFact(group, 'license', value => JSON.stringify([value.name, value.url]));
+  const license = sourced('license');
   if (license) {
     highlight(license.value.name, 'model-license', license.value.url);
     fact('License', license.value.name, license.value.source_url, license.checkedAt);
   }
-  const architecture = agreedFact(group, 'architecture', value => value.name);
+  const architecture = sourced('architecture');
   if (architecture) fact('Architecture', architecture.value.name, architecture.value.source_url, architecture.checkedAt);
-  const modelUrl = agreedFact(group, 'model_url', value => value);
+  const modelUrl = sourced('model_url');
   if (modelUrl) fact('Reference', 'Model card', modelUrl.value, modelUrl.checkedAt);
   if (references.childElementCount === 0) {
     summary.append(element('p', 'Specifications not published', 'specification-date'));
@@ -226,9 +210,7 @@ function apiIdentity(offering: Offering): HTMLElement {
 }
 
 function offeringRow(offering: Offering): HTMLElement {
-  const row = element('div', '', 'provider-offering');
-  const identity = element('div', '', 'offering-identity');
-  identity.append(element('h3', providerNames.get(offering.provider) ?? offering.provider, 'provider'), element('p', 'Provider reference ID', 'spec-label'), element('code', offering.id));
+  const row = element('div', '', 'model-facts');
   const specs = figure('Context limit', offering.context_length === null ? 'Not published' : `${integers.format(offering.context_length)} tokens`);
   const capabilities = element('div', '', 'capabilities');
   for (const capability of offering.capabilities) capabilities.append(badge(capabilityNames.get(capability) ?? capability, capability));
@@ -243,7 +225,7 @@ function offeringRow(offering: Offering): HTMLElement {
     const prefix = basis === 'starting_at' ? 'from ' : '';
     prices.append(figure(`Input ${prefix}`, formatPrice(input)), figure(`Output ${prefix}`, formatPrice(output)), element('p', 'USD per million tokens', 'spec-unit price-unit'));
   }
-  row.append(identity, specs, prices, capabilities);
+  row.append(specs, prices, capabilities);
   return row;
 }
 
@@ -256,101 +238,53 @@ function figure(label: string, value: string): HTMLElement {
   return node;
 }
 
-function groupOfferings(offerings: Offering[]): ModelGroup[] {
-  const byId = new Map(offerings.map(offering => [offering.id, offering]));
-  const automatic = offerings.filter(offering => offering.routing?.mode === 'automatic');
-  const claimed = new Set<string>();
-  const result: ModelGroup[] = automatic.map(primary => {
-    const routes = primary.routing?.routes ?? [];
-    const entries = routes.map(id => {
-      const native = byId.get(id);
-      if (!native || native.routing || claimed.has(id) || (native.duplicate_of !== undefined && native.duplicate_of !== primary.id)) throw new Error('invalid_automatic_routes');
-      claimed.add(id);
-      return native;
-    });
-    return { key: primary.model_group ?? primary.id, name: primary.model_name ?? primary.name, primary, offerings: entries };
-  });
-  const byKey = new Map<string, Offering[]>();
-  for (const offering of offerings) {
-    if (offering.routing || claimed.has(offering.id)) continue;
-    const key = offering.model_group ?? offering.id;
-    const automaticGroup = result.find(group => group.key === key);
-    if (automaticGroup) {
-      automaticGroup.offerings.push(offering);
-      continue;
-    }
-    const existing = byKey.get(key);
-    if (existing) existing.push(offering);
-    else byKey.set(key, [offering]);
-  }
-  for (const [key, entries] of byKey) {
-    const alphabetical = entries.toSorted((a, b) => a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
-    const primary = alphabetical.find(offering => offering.id === key) ?? alphabetical[0];
-    if (!primary) throw new Error('empty_model_group');
-    result.push({ key, name: primary.model_name ?? alphabetical.find(offering => offering.model_name)?.model_name ?? primary.name, primary, offerings: entries.toSorted((a, b) => (providerNames.get(a.provider) ?? a.provider).localeCompare(providerNames.get(b.provider) ?? b.provider) || a.id.localeCompare(b.id)) });
-  }
-  return result.sort((a, b) => a.name.localeCompare(b.name) || a.key.localeCompare(b.key));
-}
-
-function modelCard(group: ModelGroup, note?: string): HTMLElement {
+function modelCard(model: Offering): HTMLElement {
+  const note = featured.models.find(entry => entry.id === model.id)?.note;
   const card = element('article', '', note === undefined ? 'model-card' : 'model-card featured-card');
-  card.append(element('h2', group.name));
+  card.id = `model-${model.id}`;
+  card.append(element('h2', model.model_name ?? model.name));
   if (note !== undefined) card.append(element('p', note, 'featured-note'));
-  card.append(apiIdentity(group.primary), modelSummary(group));
-  if (group.primary.routing) {
-    const order = group.primary.routing.routes.map(id => group.offerings.find(offering => offering.id === id)).flatMap(offering => offering ? [providerNames.get(offering.provider) ?? offering.provider] : []).join(' → ');
-    card.append(element('p', `Automatic routing: ${order}. Gateway uses eligible routes in this order.`, 'routing-policy'));
-    card.append(element('p', 'Provider capabilities, context limits, and prices below are route facts; the provider used can vary by request.', 'specification-date'));
-  }
-  card.append(...group.offerings.map(offeringRow));
+  card.append(apiIdentity(model), modelSummary(model), offeringRow(model));
   return card;
 }
 
-function featuredCards(): HTMLElement[] {
-  const shown = new Set<string>();
-  return featured.models.flatMap(entry => groups.flatMap(group => {
-    if (shown.has(group.primary.id) || !entry.ids.some(id => group.primary.id === id || group.offerings.some(offering => offering.id === id))) return [];
-    shown.add(group.primary.id);
-    return [modelCard(group, entry.note)];
-  }));
+function featuredLinks(): HTMLElement[] {
+  return featured.models.flatMap(entry => {
+    const model = models.find(model => model.id === entry.id);
+    if (!model) return [];
+    const link = element('a', model.model_name ?? model.name);
+    link.href = `#model-${model.id}`;
+    link.addEventListener('click', () => {
+      modelPage = Math.floor(models.indexOf(model) / modelsPerPage) + 1;
+      applyFilters();
+    });
+    return [link];
+  });
 }
 
 function applyFilters(): void {
   if (!list || !count || !empty || !loaded) return;
   const query = search?.value.trim().toLocaleLowerCase() ?? '';
-  const filtering = query !== '' || Boolean(providerFilter?.value) || Boolean(capabilityFilter?.value);
+  const filtering = query !== '' || Boolean(capabilityFilter?.value);
   if (featuredSection) featuredSection.hidden = filtering || (featuredList?.childElementCount ?? 0) === 0;
-  let visibleModels = 0;
-  let visibleOfferings = 0;
   const matchingCards: HTMLElement[] = [];
   for (const [index, card] of Array.from(list.children).entries()) {
-    const group = groups[index];
-    if (!group || !(card instanceof HTMLElement)) continue;
-    let matchesInGroup = 0;
-    const rows = card.querySelectorAll<HTMLElement>('.provider-offering');
-    for (const [offeringIndex, row] of Array.from(rows).entries()) {
-      const offering = group.offerings[offeringIndex];
-      if (!offering) continue;
-      const haystack = [group.name, group.key, group.primary.id, offering.name, offering.id, offering.provider, providerNames.get(offering.provider) ?? '', ...offering.capabilities, ...offering.capabilities.map(capability => capabilityNames.get(capability) ?? capability)].join(' ').toLocaleLowerCase();
-      const matches = haystack.includes(query) && (!providerFilter?.value || offering.provider === providerFilter.value) && (!capabilityFilter?.value || offering.capabilities.includes(capabilityFilter.value));
-      row.hidden = !matches;
-      if (matches) matchesInGroup++;
-    }
-    card.hidden = matchesInGroup === 0;
-    if (matchesInGroup > 0) {
-      visibleModels++;
-      matchingCards.push(card);
-    }
-    visibleOfferings += matchesInGroup;
+    const model = models[index];
+    if (!model || !(card instanceof HTMLElement)) continue;
+    const haystack = [model.model_name ?? model.name, model.id, ...model.capabilities, ...model.capabilities.map(capability => capabilityNames.get(capability) ?? capability)].join(' ').toLocaleLowerCase();
+    const matches = haystack.includes(query) && (!capabilityFilter?.value || model.capabilities.includes(capabilityFilter.value));
+    card.hidden = !matches;
+    if (matches) matchingCards.push(card);
   }
+  const visibleModels = matchingCards.length;
   modelPage = Math.min(modelPage, Math.max(1, Math.ceil(visibleModels / modelsPerPage)));
   matchingCards.forEach((card, index) => {
     card.hidden = index < (modelPage - 1) * modelsPerPage || index >= modelPage * modelsPerPage;
   });
   updatePagination(modelPage, visibleModels, modelsPerPage);
-  count.textContent = `${visibleModels} model${visibleModels === 1 ? '' : 's'} · ${visibleOfferings} provider offering${visibleOfferings === 1 ? '' : 's'}`;
+  count.textContent = `${visibleModels} model${visibleModels === 1 ? '' : 's'}`;
   empty.hidden = visibleModels > 0;
-  empty.textContent = groups.length === 0 ? 'The Gateway catalog currently contains no offerings.' : 'No models match your filters. Clear filters to see all offerings.';
+  empty.textContent = models.length === 0 ? 'The Gateway catalog currently contains no models.' : 'No models match your filters. Clear filters to see all models.';
 }
 
 function populateFilter(select: HTMLSelectElement | null, values: string[], names: Map<string, string>, all: string): void {
@@ -365,7 +299,7 @@ async function refreshCatalog(): Promise<void> {
   if (!refresh || !status || !list || !empty || !count || refresh.disabled) return;
   refresh.disabled = true;
   loaded = false;
-  groups = [];
+  models = [];
   modelPage = 1;
   updatePagination(modelPage, 0, modelsPerPage);
   list.replaceChildren();
@@ -381,12 +315,10 @@ async function refreshCatalog(): Promise<void> {
     if (!response.ok) throw new Error('catalog_unavailable');
     const catalog = catalogSchema.parse(await response.json());
     if (new Set(catalog.data.map(offering => offering.id)).size !== catalog.data.length) throw new Error('ambiguous_catalog');
-    groups = groupOfferings(catalog.data);
-    const offerings = groups.flatMap(group => group.offerings);
-    populateFilter(providerFilter, [...new Set(offerings.map(offering => offering.provider))], providerNames, 'All providers');
-    populateFilter(capabilityFilter, [...new Set(offerings.flatMap(offering => offering.capabilities))], capabilityNames, 'All capabilities');
-    list.replaceChildren(...groups.map(group => modelCard(group)));
-    featuredList?.replaceChildren(...featuredCards());
+    models = catalog.data.toSorted((a, b) => (a.model_name ?? a.name).localeCompare(b.model_name ?? b.name) || a.id.localeCompare(b.id));
+    populateFilter(capabilityFilter, [...new Set(models.flatMap(model => model.capabilities))], capabilityNames, 'All capabilities');
+    list.replaceChildren(...models.map(modelCard));
+    featuredList?.replaceChildren(...featuredLinks());
     loaded = true;
     applyFilters();
     const checkedAt = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date());
@@ -420,11 +352,9 @@ for (const nav of document.querySelectorAll<HTMLElement>('[data-pagination="all"
 }
 
 search?.addEventListener('input', resetFiltersPage);
-providerFilter?.addEventListener('change', resetFiltersPage);
 capabilityFilter?.addEventListener('change', resetFiltersPage);
 document.querySelector('#clear-filters')?.addEventListener('click', () => {
   if (search) search.value = '';
-  if (providerFilter) providerFilter.value = '';
   if (capabilityFilter) capabilityFilter.value = '';
   resetFiltersPage();
 });
