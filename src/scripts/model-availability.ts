@@ -29,6 +29,7 @@ const offeringSchema = z.object({
   id: z.string().check(z.minLength(1), z.maxLength(512)),
   name: z.string().check(z.minLength(1)),
   provider: z.string().check(z.minLength(1)),
+  routing: z.catch(z.optional(z.object({ mode: z.string() })), undefined),
   model_name: z.catch(z.optional(metadataText), undefined),
   specifications: z.catch(z.optional(specificationsSchema), undefined),
   model_group: z.optional(z.string().check(z.minLength(1))),
@@ -360,7 +361,7 @@ async function refreshCatalog(): Promise<void> {
     if (!response.ok) throw new Error('catalog_unavailable');
     const catalog = catalogSchema.parse(await response.json());
     if (new Set(catalog.data.map(offering => offering.id)).size !== catalog.data.length) throw new Error('ambiguous_catalog');
-    const offerings = catalog.data;
+    const offerings = catalog.data.filter(offering => offering.routing?.mode !== 'automatic');
     groups = groupOfferings(offerings);
     populateFilter(providerFilter, [...new Set(offerings.map(offering => offering.provider))], providerNames, 'All providers');
     populateFilter(capabilityFilter, [...new Set(offerings.flatMap(offering => offering.capabilities))], capabilityNames, 'All capabilities');

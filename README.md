@@ -79,8 +79,11 @@ text is unchanged.
 
 ## Live model registry
 
-The registry renders every offering from the public Gateway `/v1/catalog`,
+The registry renders every native provider offering from the public Gateway `/v1/catalog`,
 loaded in the browser without credentials on page load and **Refresh catalog**.
+Automatic choices marked `routing.mode: "automatic"` are omitted from this native
+provider list during the Sandbox-first rollout. Their current default provider
+does not make them pinned provider offerings.
 Models are organized by name, with their provider offerings underneath. Gateway
 `model_group` establishes shared identity, falling back to the exact API ID when
 no group is supplied; similar names never merge models. Each provider retains its

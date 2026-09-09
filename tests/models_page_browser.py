@@ -74,6 +74,31 @@ def provider_row(page: Page, api_id: str):
     return page.locator("#models-list .provider-offering").filter(has=page.locator("code").filter(has_text=re.compile("^" + re.escape(api_id) + "$")))
 
 
+def test_automatic_choices_do_not_change_native_offerings(page: Page) -> None:
+    fixture = json.loads((Path(__file__).parent / "fixtures/gateway-native-offerings.json").read_text())
+    catalog = fixture["catalog"]
+    stub_catalog(page, catalog)
+    page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
+    expect_checked(page)
+    rows = page.locator("#models-list .provider-offering")
+    native_ids = sorted(row["id"] for row in catalog["data"])
+    expect(rows).to_have_count(len(native_ids))
+    before_count = page.locator("#results-count").inner_text()
+    default = catalog["data"][0]
+    automatic = {**default, "id": "auto/openai/gpt-oss-120b",
+                 "name": "GPT OSS 120B (Automatic)",
+                 "routing": {"mode": "automatic", "routes": native_ids}}
+    stub_catalog(page, {"object": "list", "data": [*catalog["data"], automatic]})
+    page.get_by_role("button", name="Refresh catalog", exact=True).click()
+    expect_checked(page)
+    expect(rows).to_have_count(len(native_ids))
+    expect(page.locator("#results-count")).to_have_text(before_count)
+    assert sorted(rows.locator("code").all_text_contents()) == native_ids
+    expect(page.locator("#featured-list code").filter(has_text="auto/")).to_have_count(0)
+    page.get_by_role("searchbox", name="Search models", exact=True).fill("auto/")
+    expect(page.locator("#results-count")).to_have_text("0 models · 0 provider offerings")
+
+
 def test_catalog_offerings_and_copy(page: Page) -> None:
     stub_catalog(page)
     page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
@@ -425,7 +450,7 @@ def main() -> None:
             page = context.new_page()
             errors: list[str] = []
             page.on("pageerror", lambda error: errors.append(str(error)))
-            for test in (test_catalog_offerings_and_copy, test_search_and_combined_filters,
+            for test in (test_automatic_choices_do_not_change_native_offerings, test_catalog_offerings_and_copy, test_search_and_combined_filters,
                          test_refresh_empty_failure_retry_and_safe_text, test_optional_metadata_and_conflicts,
                          test_featured_models, test_pagination_and_filter_resets,
                          test_featured_unpaginated_and_flash_only_v4, test_guide):
