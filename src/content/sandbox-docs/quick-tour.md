@@ -3,23 +3,23 @@ title: "Quick Tour"
 headingId: "quick-tour"
 ---
 
-A visual walkthrough of the Sandbox interface. This page shows you where things are and what they do.
+Find the main controls in the Sandbox interface and follow the steps to use them.
 
 ---
 
 ## Main Interface
 
-When you log in, you see the main chat interface. Three areas:
+When you log in, you see the main chat interface. Three areas
 
-1. **Sidebar (left):** Your conversation history, workspace access, settings
-2. **Chat area (center):** The conversation thread and input box
-3. **Top bar:** Model selector, settings, profile
+1. **Sidebar (left).** Your conversation history, workspace access, settings
+2. **Chat area (center).** The conversation thread
+3. **Message box.** Text input, attachments, integrations, and the model selector on the right
 
 ---
 
 ## Sidebar
 
-The sidebar has several sections:
+The sidebar has several sections
 
 **Chats**
 - Your conversation history
@@ -39,12 +39,12 @@ The sidebar has several sections:
 
 ## Starting a Conversation
 
-Click the **+ New Chat** button at the top of the sidebar (or press `Ctrl/Cmd + Shift + N`).
+Click the **New Chat** button at the top of the sidebar (or press `Ctrl/Cmd + Shift + O`).
 
-A new conversation opens. You'll see:
+A new conversation opens. You'll see
 - An empty chat area
 - The input box at the bottom
-- The current model name at the top
+- The current model name on the right inside the message box
 
 Type a message and press Enter to send.
 
@@ -52,27 +52,23 @@ Type a message and press Enter to send.
 
 ## Switching Models
 
-Click the **model name** at the top of the chat area.
+Click the **model name** on the right inside the message box.
 
-A dropdown appears showing all available models. Click one to switch.
-
-Your conversation history stays the same. Only the model responding changes.
+Choose a model from the dropdown to switch while retaining the conversation history.
 
 ---
 
 ## Input Box Features
 
-The input box has several buttons:
+The input box has several buttons
 
-**➕ (Plus icon)**
-- Add tools to the current conversation
-- Tools appear as options (Web Search, Code Interpreter, etc.)
-- Toggle them on/off for this chat
+**Integrations (beside the plus button)**
+- Choose available tools, skills, and capabilities for this chat
+- Options depend on your model and account permissions
 
-**📎 (Paperclip icon)**
-- Attach files to your message
-- Upload images, PDFs, or documents
-- The model can analyze or reference them
+**➕ > Upload Files**
+- Attach images, PDFs, or documents to your message
+- You can also drag files into the chat
 
 **↑ (Send button)**
 - Send your message
@@ -80,27 +76,27 @@ The input box has several buttons:
 
 ---
 
-## Workspace: Models
+## Workspace. Models
 
 Go to **Workspace > Models** in the sidebar.
 
-You'll see:
+You'll see
 - A list of models you've created
 - Models shared with you
-- A **+ New Model** button to create one
+- A shared **Create** button beside the Workspace tabs
 
-Click **+ New Model** to open the model editor.
+With **Models** selected, click **Create** to open the model editor.
 
 ---
 
 ## Model Editor
 
-The model editor has several sections:
+The model editor has several sections
 
 **Basic Info**
 - Name your model
 - Choose a base model
-- Set visibility (Private, Limited, Public)
+- Open **Access** to keep it private or share with selected users and groups
 
 **System Prompt**
 - Write instructions for the model
@@ -110,29 +106,29 @@ The model editor has several sections:
 - Attach knowledge bases (document collections)
 
 **Tools**
-- Enable tools (Web Search, Code Interpreter, etc.)
+- Choose available Workspace tools; configure Web Search and Code Interpreter under **Capabilities** and **Default Features**
 
 **Skills**
-- Bind domain expertise (if available)
+- Attach reusable instructions (if available)
 
 ---
 
-## Workspace: Knowledge
+## Workspace. Knowledge
 
 Go to **Workspace > Knowledge** in the sidebar.
 
-You'll see:
+You'll see
 - A list of knowledge bases you've created
 - Knowledge bases shared with you
-- A **+ Create a Knowledge Base** button
+- A shared **Create** button beside the Workspace tabs
 
-Click **+ Create a Knowledge Base** to start building a document collection.
+With **Knowledge** selected, click **Create**, enter a name and description, then choose **Create Knowledge**.
 
 ---
 
 ## Knowledge Base Editor
 
-When creating or editing a knowledge base:
+When creating or editing a knowledge base
 
 **Basic Info**
 - Name it
@@ -145,40 +141,36 @@ When creating or editing a knowledge base:
 - Processing happens automatically
 
 **Connected Models**
-- See which models use this knowledge base
-- Add or remove connections
+- Open a model in **Workspace > Models**
+- Add or remove the collection in its **Knowledge** section
 
 ---
 
 ## Settings
 
-Click your **profile avatar** (top right) and select **Settings**.
+Open your **profile menu** in the sidebar and select **Settings**.
 
-You'll see several tabs:
+You'll see several tabs
 
 **General**
-- Default model
-- Interface theme (light, dark, auto)
-- Chat input mode
+- Theme and language
+- Personal system prompt and advanced model parameters
 
 **Account**
 - Profile picture
 - Display name
 - Email
 
-**Advanced**
-- Temperature (controls response creativity)
-- System prompt (global instructions for all chats)
+**Interface**
+- Message display and input preferences, including **Enter to Send**
+
+Choose a default model from **Set as default** in the model selector when starting a new chat.
 
 ---
 
 ## Conversation Actions
 
-In any conversation, click the **three dots** next to a message to:
-- **Edit** the message (useful if you want to rephrase and regenerate)
-- **Copy** the message text
-- **Delete** the message
-- **Regenerate** the response (ask the model to try again)
+Use the action buttons beneath a message to **Copy**, **Edit**, or **Regenerate**, where available. Open its **three-dot menu** for additional actions such as **Delete**.
 
 ---
 
@@ -186,7 +178,7 @@ In any conversation, click the **three dots** next to a message to:
 
 Hover over a chat in the sidebar and click the **three dots** that appear.
 
-Options:
+Options
 - **Rename** — Give the chat a descriptive title
 - **Archive** — Remove from active list (still accessible)
 - **Delete** — Permanently remove
@@ -198,10 +190,10 @@ Renaming helps you find conversations later.
 
 ## What's Next?
 
-Now that you've toured the interface, you can:
-- Start using the Sandbox: [Getting Started](getting-started.md)
-- Build your first custom model: [Custom Models](models.md)
-- Learn about teaching strategies: [Teaching Tips](teaching-tips.md)
+Now that you've toured the interface, you can
+- Start using the Sandbox. [Getting Started](getting-started.md)
+- Build your first custom model. [Custom Models](models.md)
+- Learn about teaching strategies. [Teaching Tips](teaching-tips.md)
 
 ---
 
