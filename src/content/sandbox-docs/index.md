@@ -4,6 +4,10 @@ headingId: "cail-sandbox-docs"
 description: "Shared chat platform for teaching, research, and hands-on experimentation with open-weight models. See documentation below."
 ---
 
+## About the Sandbox
+
+The CAIL Sandbox is hosted and maintained by the [CUNY AI Lab](https://ailab.gc.cuny.edu) at the Graduate Center. It runs [Open WebUI](https://openwebui.com), an open-source platform configured for academic use at CUNY.
+
 ## Getting Started
 
 - [Getting Started](getting-started.md) — Log in, explore the interface, have your first conversation.
@@ -23,9 +27,7 @@ description: "Shared chat platform for teaching, research, and hands-on experime
 - [Student Onboarding](student-onboarding.md) — A first-week plan for introducing AI tools.
 - [Use Cases](use-cases.md) — Semester-long workflows across disciplines.
 
-## About the Sandbox
-
-The CAIL Sandbox is hosted and maintained by the [CUNY AI Lab](https://ailab.gc.cuny.edu) at the Graduate Center. It runs [Open WebUI](https://openwebui.com), an open-source platform configured for academic use at CUNY.
+## Supporting Resources
 
 **Models:** The Sandbox hosts open-weight models selected for teaching and research. See the [Model Registry](https://ailab.gc.cuny.edu/models/) for the current list.
 
