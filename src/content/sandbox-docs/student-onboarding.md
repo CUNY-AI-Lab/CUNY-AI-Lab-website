@@ -1,6 +1,19 @@
 # Student Onboarding
 
-Students need context when their first use CUNY CAIL Sandbox, and the instructor should be clear with them about what this tool is, what it can and cannot do, and how you expect them to use it in your course. This page outlines a first-week onboarding plan you can adapt to any discipline before introducing the tool into your classroom.
+Students need context when they first use CUNY CAIL Sandbox, and the instructor should be clear with them about what this tool is, what it can and cannot do, and how you expect them to use it in your course. This page outlines a first-week onboarding plan you can adapt to any discipline before introducing the tool into your classroom.
+
+---
+
+## Instructor Checkpoint: Complete Course Access First
+
+**Complete this checkpoint before preparing the class environment or asking students to use the Sandbox.** An individual Sandbox account does not enroll your course.
+
+1. Submit a [course access request](https://ailab.gc.cuny.edu/request-access/?kind=class). Select **A class I'm teaching or organizing**, sign in with CUNY Login, and provide the requested course details. One application covers your class; students do not need to submit separate individual access requests.
+2. Wait for the course to be approved. Sign in to [My classes](https://tools.ailab.gc.cuny.edu/my-classes) to review your course, its enrollment dates, and the invitation link you will share with students.
+3. Open the [Sandbox](https://chat.ailab.gc.cuny.edu/) with CUNY Login and confirm that you can access your course group and text channel. **Every approved Sandbox course automatically receives its own private course group and text channel.** Use the course group when sharing models and knowledge bases with your students.
+4. Share the course invitation link with your students and use the first-login steps below to guide them through enrollment. Students are automatically added to the course group and text channel after completing course enrollment and signing in to the Sandbox.
+
+**Ready to proceed:** Your course is approved, you can access its group and text channel, and you have the course invitation link ready. Before the first Sandbox activity, check the roster in **My classes** and resolve any enrollment or login problems. For help, contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
 
 ---
 
@@ -48,10 +61,13 @@ Frame the Sandbox in your course context. Students need to understand why you ch
 
 Walk students through the login process. Project your screen or share a link to the [Getting Started](getting-started.md) page.
 
-1. Navigate to [chat.ailab.gc.cuny.edu](https://chat.ailab.gc.cuny.edu)
-2. Click **Sign in with CUNY Login**
-3. Authenticate with CUNY credentials
-4. Locate the course model in the model selector dropdown
+1. Open the **course invitation link provided by your instructor**. Going directly to the Sandbox does not enroll you in the course.
+2. Sign in with **CUNY Login** and complete the confirmation prompts to join the course.
+3. Navigate to [chat.ailab.gc.cuny.edu](https://chat.ailab.gc.cuny.edu/).
+4. Select **Continue with CUNY Login** and authenticate again if prompted.
+5. Confirm that the course's private text channel is available, then locate the course model in the model selector. Course group and channel membership are added automatically through this onboarding process.
+
+If CUNY Login stalls, try a private browser window or a different browser. If you still cannot enroll or see the course resources, contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu) before continuing.
 
 ### Day 1: Guided First Conversation (15 minutes)
 
