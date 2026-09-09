@@ -81,22 +81,17 @@ text is unchanged except for standardizing the name to **CAIL Sandbox**.
 
 ## Live model registry
 
-The registry loads the public Gateway `/v1/catalog` in the browser without
-credentials on page load and **Refresh catalog**. Each exact model has one primary
-API ID and copy control. Gateway automatic rows supply that ID and an ordered list
-of verified native routes. Their native compatibility rows appear only as factual
-provider support, with their own capabilities, context limits, and prices.
-Automatic routing follows Workers AI → Bedrock Mantle → OpenRouter among the
-routes listed for that model. Provider filters inspect support; they do not pin
-requests to a provider. Primary catalog provider facts describe the preferred
-Chat route, not the provider used by every request.
+The registry loads the public Gateway `/v1/catalog` without credentials on page
+load and **Refresh catalog**. Each canonical catalog row renders once, with one
+exact API ID and copy control. IDs preserve the complete model variant, such as
+`gpt-oss-20b`. Gateway owns identity and routing; the website does not group,
+strip prefixes, or display alternate provider IDs. Featured links jump to those
+same cards. Search and capability filters operate on the canonical rows.
 
-Older catalogs without automatic rows remain readable: `model_group` establishes
-shared identity, falling back to the exact API ID when no group is supplied. One
-existing ID is presented per group without claiming automatic fallback. Similar
-names never merge models. Featured entries resolve to the same primary cards.
-Search and provider/capability filters match individual provider offerings, so
-different providers cannot jointly satisfy a filter that neither supports alone.
+Capabilities reflect Gateway's eligible-route union. A request still requires a
+route supporting its complete capability combination. Context and comparative
+prices describe the preferred offering, so they are not guarantees for every
+request. Models with similar names remain separate rows.
 
 Gateway supplies clean `model_name` labels and optional sourced `specifications`
 with their own check date. Cards summarize size, weights, and license; the native
@@ -104,12 +99,10 @@ with their own check date. Cards summarize size, weights, and license; the nativ
 The website has no static metadata lookup. Published
 size, architecture, weights, and license facts link to their sources. Checkpoint
 parameter counts are distinguished from advertised sizes. Missing facts are
-omitted; conflicting facts within a group are withheld independently, while
-agreeing facts use the oldest supporting check date. Malformed optional fields
-are ignored without removing valid provider offerings. An invalid specifications
-check date discards those specifications. Capability icons and the 100K
-long-context indicator come from each current provider offering.
-New catalog offerings appear automatically, including non-text routes.
+omitted. Malformed optional fields are ignored without removing valid models.
+An invalid specifications check date discards those specifications. Capability icons and the 100K
+long-context indicator come from the canonical model.
+New catalog models appear automatically, including non-text routes.
 
 The check time applies to catalog availability, route capabilities, context, and
 prices. Failed or malformed discovery clears previous results and offers retry.

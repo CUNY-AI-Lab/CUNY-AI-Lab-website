@@ -47,7 +47,7 @@ export CAIL_API_KEY</code></pre>
 
             <section aria-labelledby="models-heading">
               <h2 id="models-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Find a model ID</h2>
-              <p class="text-gray-600 leading-relaxed mb-4">Call <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">GET /v1/models</code> with your key. Use a model ID returned by this request; availability can change with the live provider catalog.</p>
+              <p class="text-gray-600 leading-relaxed mb-4">Call <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">GET /v1/models</code> with your key. Use the exact canonical model ID returned by this request, such as <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">gpt-oss-20b</code> when listed. Gateway handles provider selection; availability can change with the live catalog.</p>
               <pre tabindex="0" class="overflow-x-auto rounded-xl bg-neutral-stone text-gray-100 p-4 text-sm leading-relaxed"><code>curl --fail-with-body --silent --show-error \
   "$CAIL_API_BASE_URL/models" \
   --header "Authorization: Bearer $CAIL_API_KEY"</code></pre>

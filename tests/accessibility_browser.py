@@ -66,7 +66,6 @@ def main() -> None:
             for width in (1440, 390):
                 page.set_viewport_size({"width": width, "height": 1000})
                 check_accessibility(page, f"{width}px loaded model catalog")
-                page.get_by_label("Provider", exact=True).select_option("openrouter")
                 page.get_by_label("Capability", exact=True).select_option("text-generation")
                 page.get_by_role("searchbox", name="Search models", exact=True).fill("deepseek")
                 check_accessibility(page, f"{width}px filtered model catalog")
