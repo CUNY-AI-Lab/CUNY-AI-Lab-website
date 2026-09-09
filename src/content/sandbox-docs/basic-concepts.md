@@ -1,4 +1,7 @@
-# Basic Concepts
+---
+title: "Basic Concepts"
+headingId: "basic-concepts"
+---
 
 Before you build custom configurations, it helps to understand a few core concepts. This page covers the terminology and structure of the Sandbox.
 
@@ -123,7 +126,7 @@ Now that you know the basic concepts, you can:
 
 ## Learn More
 
-The CUNY CAIL Sandbox is hosted and maintained by the [CUNY AI Lab](https://ailab.gc.cuny.edu) at the Graduate Center. For workshops, office hours, and additional resources, visit the [AI Lab website](https://ailab.gc.cuny.edu).
+The CAIL Sandbox is hosted and maintained by the [CUNY AI Lab](https://ailab.gc.cuny.edu) at the Graduate Center. For workshops, office hours, and additional resources, visit the [AI Lab website](https://ailab.gc.cuny.edu).
 
 ---
 

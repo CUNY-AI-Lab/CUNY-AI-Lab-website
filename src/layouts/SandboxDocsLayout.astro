@@ -1,13 +1,16 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
 import source from '../data/sandbox-docs-source.json';
 
 interface Props {
   title: string;
   page: string;
+  headingId: string;
+  description?: string;
 }
 
-const { title, page } = Astro.props;
+const { title, page, headingId, description } = Astro.props;
 const groups = [
   { title: 'Getting Started', pages: [
     ['getting-started', 'Getting Started'], ['sandbox-basics', 'Sandbox Basics'],
@@ -30,11 +33,18 @@ const related = [
 const legacyPages = Object.keys(source.files).map((file) => file.replace(/\.md$/, ''));
 ---
 
-<BaseLayout title={`${title} - CUNY AI Lab`} description="Documentation for the CUNY CAIL Sandbox: getting started, custom models, knowledge bases, tools, and teaching activities.">
+<BaseLayout title={`${title} - CUNY AI Lab`} description={description ?? 'Documentation for the CAIL Sandbox: getting started, custom models, knowledge bases, tools, and teaching activities.'}>
+  <PageHero sectionClass="docs-hero relative mt-[72px] py-5 lg:py-6 text-white" containerClass="max-w-[1280px] mx-auto px-6 lg:px-8">
+    <a class="inline-block text-xs font-semibold tracking-widest uppercase text-blue-200 hover:text-white mb-2" href={page === 'index' ? '/resources/' : '/sandbox-docs/'}>
+      {page === 'index' ? 'Resources' : 'CAIL Sandbox Docs'}
+    </a>
+    <h1 id={headingId} class="font-display text-3xl sm:text-4xl font-bold tracking-tight leading-tight">{title}</h1>
+    {description && <p class="mt-3 max-w-4xl text-base leading-6 text-blue-100">{description}</p>}
+  </PageHero>
   <div class="sandbox-docs">
     <aside class="docs-sidebar">
       <details open id="docs-menu">
-        <summary>CAIL Sandbox Docs</summary>
+        <summary>Browse guides</summary>
         <nav aria-label="CAIL Sandbox Docs">
           <a href="/sandbox-docs/" aria-current={page === 'index' ? 'page' : undefined}>Home</a>
           {groups.map((group) => (
@@ -55,10 +65,6 @@ const legacyPages = Object.keys(source.files).map((file) => file.replace(/\.md$/
       </details>
     </aside>
     <div class="docs-reading-pane">
-      <nav class="docs-breadcrumbs" aria-label="Breadcrumb">
-        <a href="/resources/">Resources</a><span aria-hidden="true">/</span>
-        <a href="/sandbox-docs/">CAIL Sandbox Docs</a>
-      </nav>
       <article class="sandbox-content"><slot /></article>
     </div>
   </div>
@@ -85,21 +91,19 @@ const legacyPages = Object.keys(source.files).map((file) => file.replace(/\.md$/
 </script>
 
 <style is:global>
-  .sandbox-docs { display: grid; grid-template-columns: 260px minmax(0, 880px); max-width: 1280px; margin: 72px auto 0; min-height: calc(100vh - 72px); }
-  .docs-sidebar { border-right: 1px solid #e5e7eb; background: rgb(255 255 255 / 70%); }
-  .docs-sidebar details { position: sticky; top: 72px; max-height: calc(100vh - 72px); overflow-y: auto; padding: 24px 0; }
+  .sandbox-docs { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 24px; max-width: 1280px; margin: 0 auto; padding: 24px 32px 64px; }
+  .docs-sidebar { align-self: start; position: sticky; top: 96px; border: 1px solid #dfe5ee; border-radius: 12px; background: #fff; overflow: hidden; }
+  .docs-sidebar details { max-height: calc(100vh - 120px); overflow-y: auto; padding: 12px 0; }
   .docs-sidebar summary { padding: 8px 24px; font-family: var(--font-outfit), sans-serif; font-weight: 600; cursor: pointer; }
   .docs-sidebar a { display: block; padding: 8px 24px; color: #333; font-size: .875rem; font-weight: 500; }
   .docs-sidebar a:hover { background: #e8f4fc; color: #2a6fb8; }
   .docs-sidebar a[aria-current="page"] { color: #2a6fb8; font-weight: 600; border-right: 3px solid #3b73e6; background: rgb(209 233 249 / 40%); }
   .docs-section-label { padding: 20px 24px 4px; font: 600 .75rem var(--font-outfit), sans-serif; text-transform: uppercase; letter-spacing: .08em; color: #596273; }
-  .docs-reading-pane { min-width: 0; padding: 32px 64px 80px; }
-  .docs-breadcrumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; color: #596273; font-size: .8rem; }
-  .docs-breadcrumbs a:hover { text-decoration: underline; }
+  .docs-reading-pane { min-width: 0; padding: 24px 32px 40px; border: 1px solid #dfe5ee; border-radius: 16px; background: #fff; box-shadow: 0 1px 2px rgb(29 58 131 / 5%); }
   .sandbox-content { font-family: var(--font-inter), sans-serif; line-height: 1.7; overflow-wrap: anywhere; }
-  .sandbox-content h1, .sandbox-content h2, .sandbox-content h3, .sandbox-content h4 { font-family: var(--font-outfit), sans-serif; }
-  .sandbox-content h1 { font-size: 2.25rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -.02em; line-height: 1.2; }
-  .sandbox-content h2 { font-size: 1.5rem; font-weight: 600; margin: 2.5em 0 .8em; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb; }
+  .sandbox-content > :first-child { margin-top: 0; }
+  .sandbox-content h2, .sandbox-content h3, .sandbox-content h4 { font-family: var(--font-outfit), sans-serif; color: #1d3a83; }
+  .sandbox-content h2 { font-size: 1.5rem; font-weight: 600; margin: 1.75em 0 .65em; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb; }
   .sandbox-content h3 { font-size: 1.125rem; font-weight: 600; margin: 1.8em 0 .6em; }
   .sandbox-content h4 { font-size: 1rem; font-weight: 600; margin: 1.4em 0 .5em; }
   .sandbox-content p { margin: .9em 0; }
@@ -121,11 +125,11 @@ const legacyPages = Object.keys(source.files).map((file) => file.replace(/\.md$/
   .sandbox-content .callout strong { color: #2a6fb8; }
   .sandbox-content summary { cursor: pointer; font-weight: 600; padding: 8px 0; }
   .sandbox-docs :focus-visible { outline: 3px solid #2a6fb8; outline-offset: 3px; }
+  .docs-hero :focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
   @media (max-width: 767px) {
-    .sandbox-docs { display: block; }
-    .docs-sidebar { border-right: 0; border-bottom: 1px solid #e5e7eb; }
+    .sandbox-docs { display: block; padding: 16px 16px 40px; }
+    .docs-sidebar { position: static; margin-bottom: 16px; }
     .docs-sidebar details { position: static; max-height: none; padding: 12px 0; }
-    .docs-reading-pane { padding: 24px 24px 64px; }
-    .sandbox-content h1 { font-size: 1.875rem; }
+    .docs-reading-pane { padding: 20px; }
   }
 </style>

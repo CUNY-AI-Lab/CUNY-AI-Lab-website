@@ -1,6 +1,9 @@
-# Getting Started
+---
+title: "Getting Started"
+headingId: "getting-started"
+---
 
-Your first steps into the CUNY CAIL Sandbox — from logging in to having your first conversation with an AI model.
+Your first steps into the CAIL Sandbox — from logging in to having your first conversation with an AI model.
 
 ---
 

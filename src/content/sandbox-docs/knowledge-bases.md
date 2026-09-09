@@ -1,4 +1,7 @@
-# Grounding AI with Knowledge Collections
+---
+title: "Grounding AI with Knowledge Collections"
+headingId: "grounding-ai-with-knowledge-collections"
+---
 
 A Knowledge Base lets you upload your own documents so the model searches them before responding. This process is called Retrieval-Augmented Generation (RAG): the model checks your files, retrieves relevant passages, and uses them to answer.
 

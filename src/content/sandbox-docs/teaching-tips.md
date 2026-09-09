@@ -1,4 +1,7 @@
-# Teaching Tips
+---
+title: "Teaching Tips"
+headingId: "teaching-tips"
+---
 
 Integrating AI into teaching requires intentional pedagogical design. Not only do CUNY undergraduates lead complex lives, balancing jobs, family obligations, and coursework, many are also international or first-generation college students. In turn, AI tools carry the potential to support their learning, or they can amplify inequities, and your pedagogical intentionality with these tools will largely shape the outcome.
 

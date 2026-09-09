@@ -1,4 +1,7 @@
-# Roles & Permissions
+---
+title: "Roles & Permissions"
+headingId: "roles--permissions"
+---
 
 When you share a model, knowledge base, or prompt with students, you need to control who can use it, who can edit it, and who can see it. Roles and permissions give you that control. The Sandbox serves faculty, graduate students, undergraduates, and staff across multiple departments. Clear permissions prevent confusion and protect sensitive institutional data.
 

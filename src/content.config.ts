@@ -40,9 +40,14 @@ const blog = defineCollection({
   }),
 });
 
-// Preserve the published Markdown verbatim; link conversion happens at render time.
+// Article headings and the landing introduction render in the shared page hero.
 const sandboxDocs = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/sandbox-docs' }),
+  schema: z.object({
+    title: z.string(),
+    headingId: z.string(),
+    description: z.string().optional(),
+  }),
 });
 
 export const collections = { pages, blog, sandboxDocs };

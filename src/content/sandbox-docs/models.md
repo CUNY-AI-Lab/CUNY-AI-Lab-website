@@ -1,4 +1,7 @@
-# Custom Models
+---
+title: "Custom Models"
+headingId: "custom-models"
+---
 
 A custom model lets you shape how the AI behaves in your course, what documents it draws from, and which tools it can use. You are not training a new AI from scratch. You are assembling existing components into something tuned to your teaching context: what the AI should do, what it should refuse to do, and what materials it should draw from when responding.
 
