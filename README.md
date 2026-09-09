@@ -50,10 +50,10 @@ A production move is separate: establish Cloudflare zone and domain routing,
 coordinate the CUNY DNS change, verify the canonical site, then retire Amplify.
 No email migration is planned.
 
-## Sandbox documentation
+## CAIL Sandbox Docs
 
 `/sandbox-docs/` and its article routes are built from
-`src/content/sandbox-docs/*.md`. The initial import preserves all 14 published
+`src/content/sandbox-docs/*.md`. The initial import preserved all 14 published
 Markdown files from `CUNY-AI-Lab/sandbox-docs` at revision
 `74ce09d2bb6cc58b37e1f7296a3a01e988009222`, including examples, tables, and
 expandable sections. `src/data/sandbox-docs-source.json` records that import's
@@ -69,7 +69,9 @@ The docs use the shared website header, footer, fonts, and canonical URLs,
 with the original three sidebar groups plus links to the three supplementary
 articles. Relative `.md` links become website routes during rendering, and
 legacy links such as `/sandbox-docs/#student-onboarding` resolve to the article.
-The imported Markdown text is unchanged by these transformations.
+The imported Markdown text is unchanged by these transformations. The landing
+page heading was subsequently renamed to **CAIL Sandbox Docs**; the rest of the
+imported article text is unchanged.
 
 ## Live model registry
 

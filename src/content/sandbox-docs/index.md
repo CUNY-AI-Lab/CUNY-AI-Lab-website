@@ -1,4 +1,4 @@
-# CUNY CAIL Sandbox Documentation
+# CAIL Sandbox Docs
 
 The CUNY CAIL Sandbox is an AI platform for teaching and research at CUNY. It runs on CUNY infrastructure, keeps student data private, and gives you full control over how AI tools work in your courses and projects.
 

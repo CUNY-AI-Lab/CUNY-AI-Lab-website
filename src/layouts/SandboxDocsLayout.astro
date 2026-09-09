@@ -34,8 +34,8 @@ const legacyPages = Object.keys(source.files).map((file) => file.replace(/\.md$/
   <div class="sandbox-docs">
     <aside class="docs-sidebar">
       <details open id="docs-menu">
-        <summary>Sandbox documentation</summary>
-        <nav aria-label="Sandbox documentation">
+        <summary>CAIL Sandbox Docs</summary>
+        <nav aria-label="CAIL Sandbox Docs">
           <a href="/sandbox-docs/" aria-current={page === 'index' ? 'page' : undefined}>Home</a>
           {groups.map((group) => (
             <div>
@@ -57,7 +57,7 @@ const legacyPages = Object.keys(source.files).map((file) => file.replace(/\.md$/
     <div class="docs-reading-pane">
       <nav class="docs-breadcrumbs" aria-label="Breadcrumb">
         <a href="/resources/">Resources</a><span aria-hidden="true">/</span>
-        <a href="/sandbox-docs/">Sandbox documentation</a>
+        <a href="/sandbox-docs/">CAIL Sandbox Docs</a>
       </nav>
       <article class="sandbox-content"><slot /></article>
     </div>
