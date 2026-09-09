@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout
+  title="Research - CUNY AI Lab"
+  description="Selected publications and conference presentations by CUNY AI Lab members on AI in libraries, critical AI literacy, and university infrastructure."
+>
+  <PageHero>
+    <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Research</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-white/90">
+      We study how AI changes academic work and how universities can shape its use.
+      These selected publications and presentations include individual scholarship
+      by Lab members and collaborative work with colleagues across CUNY.
+    </p>
+  </PageHero>
+
+  <section class="py-12 md:py-16 bg-white" aria-labelledby="publications-heading">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="publications-heading" class="text-2xl md:text-3xl font-bold font-display text-neutral-stone mb-8">Publications</h2>
+      <article class="research-entry" aria-labelledby="artifacts-title">
+        <p class="text-sm font-medium text-gray-600 mb-3">July 2026 · Journal article · Published</p>
+        <h3 id="artifacts-title" class="text-2xl md:text-3xl font-semibold font-display leading-snug text-cuny-blue">
+          Do Artifacts Still Have Politics? Technological Determinism and Professional Agency in Academic Libraries’ AI Transformation
+        </h3>
+        <p class="mt-4 font-medium">Stephen Zweibel</p>
+        <p class="mt-1 text-gray-600"><cite>portal: Libraries and the Academy</cite> 26, no. 3 (2026): 495–512.</p>
+        <p class="mt-5 text-lg leading-relaxed text-gray-600">
+          Compares generative AI with earlier library database automation and examines
+          how libraries can retain professional agency when adopting systems they do
+          not control. Proposes a critical implementation framework for making those choices.
+        </p>
+        <div class="mt-5 flex flex-wrap items-baseline gap-x-5 gap-y-2">
+          <a class="research-link" href="https://doi.org/10.1353/pla.2026.a994555">Read article on Project MUSE</a>
+          <span class="text-sm text-gray-600">Full text may require library access.</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="py-12 md:py-16 bg-neutral-cream" aria-labelledby="presentations-heading">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="presentations-heading" class="text-2xl md:text-3xl font-bold font-display text-neutral-stone mb-8">Conference presentations</h2>
+      <div class="space-y-10">
+        <article class="research-entry" aria-labelledby="infrastructure-title">
+          <p class="text-sm font-medium text-gray-600 mb-3">June 26, 2026 · Conference presentation</p>
+          <h3 id="infrastructure-title" class="text-2xl font-semibold font-display leading-snug text-cuny-blue">Building Community-Oriented Infrastructures for AI Experimentation</h3>
+          <p class="mt-4 font-medium">Matthew K. Gold, Luke Waltzer, Zach Muhlbauer, Azucena García Gutiérrez, and Stephen Zweibel</p>
+          <p class="mt-1 text-gray-600">Association for Computers and the Humanities (ACH) 2026.</p>
+          <p class="mt-5 text-lg leading-relaxed text-gray-600">
+            Presents the Lab’s shared AI infrastructure alongside faculty development
+            and classroom projects, including Spanish-language learning and tools for scholarly work.
+          </p>
+          <p class="mt-5"><a class="research-link" href="https://cuny-ai-lab.github.io/ach-2026/">View ACH presentation slides</a></p>
+        </article>
+        <article class="research-entry border-t border-gray-200 pt-10" aria-labelledby="tinkering-title">
+          <p class="text-sm font-medium text-gray-600 mb-3">April 21, 2026 · Conference presentation</p>
+          <h3 id="tinkering-title" class="text-2xl font-semibold font-display leading-snug text-cuny-blue">Tinkering as Critical AI Literacy: Teaching Infrastructure through Breakdown &amp; (Re)Configuration</h3>
+          <p class="mt-4 font-medium">Zachary Muhlbauer</p>
+          <p class="mt-1 text-gray-600">NARST 2026 Annual International Conference.</p>
+          <p class="mt-5 text-lg leading-relaxed text-gray-600">
+            Examines how changing model settings and system prompts can help faculty
+            understand AI infrastructure and adapt it to their teaching. Part of the
+            Critical AI Literacy Institute’s session, “Community, Transparency, and
+            Tinkering for Just Futures.”
+          </p>
+          <div class="mt-5 flex flex-wrap gap-x-6 gap-y-3">
+            <a class="research-link" href="https://cuny-ai-lab.github.io/cali-narst/">View CALI session slides</a>
+            <a class="research-link" href="https://narst.org/sites/default/files/2026-04/NARST_2026_Conference_Program_FINAL.pdf#page=171">Conference program (PDF, p. 171)</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .research-entry {
+    max-width: 48rem;
+  }
+
+  .research-link {
+    color: #3268D8;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .research-link:hover {
+    color: #2A6FB8;
+  }
+
+  .research-link:focus-visible {
+    outline: 2px solid #1D3A83;
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+</style>
