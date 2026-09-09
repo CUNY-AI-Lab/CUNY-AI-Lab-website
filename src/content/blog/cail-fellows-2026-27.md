@@ -27,7 +27,7 @@ Fellows will contribute to the Lab's work in the following areas:
 
 ## Compensation and Eligibility
 
-This is a top-up fellowship of $10,000 that can be held alongside other Graduate Center support. Masters students and Ph.D. students from all disciplines are encouraged to apply.
+This is a top-up fellowship of $10,000 that can be held alongside other Graduate Center support. Graduate Center masters students and Ph.D. students from all disciplines are encouraged to apply.
 
 ## To Apply
 
