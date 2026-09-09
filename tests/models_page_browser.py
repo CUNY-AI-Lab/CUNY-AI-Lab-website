@@ -74,6 +74,50 @@ def provider_row(page: Page, api_id: str):
     return page.locator("#models-list .provider-offering").filter(has=page.locator("code").filter(has_text=re.compile("^" + re.escape(api_id) + "$")))
 
 
+def test_automatic_primary_and_native_facts(page: Page) -> None:
+    fixture = json.loads((Path(__file__).parent / "fixtures/gateway-native-offerings.json").read_text())
+    catalog = fixture["catalog"]
+    stub_catalog(page, catalog)
+    page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
+    expect_checked(page)
+    rows = page.locator("#models-list .provider-offering")
+    native_ids = [row["id"] for row in catalog["data"]]
+    expect(rows).to_have_count(len(native_ids))
+    before_count = page.locator("#results-count").inner_text()
+    before_facts = {api_id: provider_row(page, api_id).inner_text() for api_id in native_ids}
+    default = catalog["data"][0]
+    automatic_id = "auto/openai/gpt-oss-120b"
+    automatic = {**default, "id": automatic_id, "name": "GPT OSS 120B",
+                 "routing": {"mode": "automatic", "routes": native_ids}}
+    native = [{**row, "duplicate_of": automatic_id} for row in catalog["data"]]
+    stub_catalog(page, {"object": "list", "data": [*native, automatic]})
+    page.get_by_role("button", name="Refresh catalog", exact=True).click()
+    expect_checked(page)
+    expect(rows).to_have_count(len(native_ids))
+    expect(page.locator("#results-count")).to_have_text(before_count)
+    assert rows.locator("code").all_text_contents() == native_ids
+    assert {api_id: provider_row(page, api_id).inner_text() for api_id in native_ids} == before_facts
+    card = model_card(page, automatic_id)
+    expect(card.get_by_role("button", name="Copy API ID " + automatic_id, exact=True)).to_have_count(1)
+    expect(rows.get_by_role("button")).to_have_count(0)
+    expect(card.locator(".routing-policy")).to_contain_text("Workers AI → Bedrock Mantle → OpenRouter")
+    card.get_by_role("button", name="Copy API ID " + automatic_id, exact=True).click()
+    assert page.evaluate("navigator.clipboard.readText()") == automatic_id
+    page.get_by_label("Provider", exact=True).select_option("openrouter")
+    expect(card.get_by_role("button", name="Copy API ID " + automatic_id, exact=True)).to_be_visible()
+    page.get_by_role("button", name="Clear filters", exact=True).click()
+    page.get_by_role("searchbox", name="Search models", exact=True).fill("auto/")
+    expect(page.locator("#models-list article.model-card:visible")).to_have_count(1)
+    # A single verified route does not advertise providers absent from the catalog.
+    stub_catalog(page, {"object": "list", "data": [native[0], {**automatic, "routing": {"mode": "automatic", "routes": [native_ids[0]]}}, offering("unseen/new", name="Unknown model"), offering("same-model-embedding", model_group="openai/gpt-oss-120b", capabilities=["embeddings"])]})
+    page.get_by_role("button", name="Clear filters", exact=True).click()
+    page.get_by_role("button", name="Refresh catalog", exact=True).click()
+    expect_checked(page)
+    expect(page.locator("#results-count")).to_have_text("2 models · 3 provider offerings")
+    expect(card.locator(".routing-policy")).not_to_contain_text("OpenRouter")
+    expect(model_card(page, "unseen/new").get_by_role("button", name="Copy API ID unseen/new", exact=True)).to_be_visible()
+
+
 def test_catalog_offerings_and_copy(page: Page) -> None:
     stub_catalog(page)
     page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
@@ -123,9 +167,9 @@ def test_catalog_offerings_and_copy(page: Page) -> None:
     expect(provider_row(page, "openai/gpt-oss-120b")).to_contain_text("Input from $0.04")
     expect(provider_row(page, "openai/gpt-oss-120b")).to_contain_text("Output from $0.15")
     expect(model_card(page, "provider/image-route")).to_contain_text("$0.00000001")
-    page.locator("#models-list").get_by_role("button", name="Copy API ID deepseek.v3.2", exact=True).press("Enter")
-    expect(page.locator("#models-list").get_by_role("status", name="Copy result for deepseek.v3.2", exact=True)).to_have_text("Copied")
-    assert page.evaluate("navigator.clipboard.readText()") == "deepseek.v3.2"
+    page.locator("#models-list").get_by_role("button", name="Copy API ID deepseek/deepseek-v3.2", exact=True).press("Enter")
+    expect(page.locator("#models-list").get_by_role("status", name="Copy result for deepseek/deepseek-v3.2", exact=True)).to_have_text("Copied")
+    assert page.evaluate("navigator.clipboard.readText()") == "deepseek/deepseek-v3.2"
 
 
 def test_search_and_combined_filters(page: Page) -> None:
@@ -172,7 +216,9 @@ def test_refresh_empty_failure_retry_and_safe_text(page: Page) -> None:
     expect(page.locator("#results-count")).to_contain_text("0")
     expect(page.get_by_text("The Gateway catalog currently contains no offerings.", exact=True)).to_be_visible()
     invalid_price = offering("bad-price", pricing=pricing(-1, 0.3))
-    for invalid in ({"object": "list"}, {"object": "list", "data": [invalid_price]},
+    missing_route = offering("auto/missing", routing={"mode": "automatic", "routes": ["absent"]})
+    duplicate_route = offering("auto/duplicate", routing={"mode": "automatic", "routes": [CATALOG["data"][0]["id"]] * 2})
+    for invalid in ({"object": "list", "data": [missing_route]}, {"object": "list", "data": [CATALOG["data"][0], duplicate_route]}, {"object": "list"}, {"object": "list", "data": [invalid_price]},
                     {"object": "list", "data": [CATALOG["data"][0], CATALOG["data"][0]]}, None):
         stub_catalog(page)
         refresh.click()
@@ -193,10 +239,10 @@ def test_refresh_empty_failure_retry_and_safe_text(page: Page) -> None:
     expect(model_card(page, replacement_id).get_by_role("heading", name=hostile_name, exact=True)).to_be_visible()
     assert page.evaluate("window.registryInjected === undefined")
     expect(page.locator("#models-list article.model-card img")).to_have_count(0)
-    expect(page.locator("#models-list article.model-card code")).to_have_text(replacement_id)
+    expect(page.locator("#models-list article.model-card > .identity code")).to_have_text(replacement_id)
     page.set_viewport_size({"width": 390, "height": 844})
     assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), "Long model text overflows mobile page"
-    bounds = page.locator("#models-list article.model-card code").bounding_box()
+    bounds = page.locator("#models-list article.model-card > .identity code").bounding_box()
     assert bounds and bounds["x"] >= 0 and bounds["x"] + bounds["width"] <= 390
     page.set_viewport_size({"width": 1440, "height": 1000})
 
@@ -256,10 +302,10 @@ def test_featured_models(page: Page) -> None:
     # every other featured entry has no listed offering and must not render.
     expect(cards).to_have_count(2)
     card = cards.first
-    expect(card.get_by_role("heading", name="gpt-oss-120b", exact=True)).to_be_visible()
+    expect(card.get_by_role("heading", name="GPT OSS 120B", exact=True)).to_be_visible()
     expect(card.locator(".featured-note")).to_contain_text("Apache-2.0")
     expect(card.locator(".provider-offering")).to_have_count(2)
-    expect(card.locator("code")).to_have_text(["openai/gpt-oss-120b", "@cf/openai/gpt-oss-120b"])
+    expect(card.locator(".provider-offering code")).to_have_text(["openai/gpt-oss-120b", "@cf/openai/gpt-oss-120b"])
     gemma = cards.nth(1)
     expect(gemma.get_by_role("heading", name="Gemma 4 31B", exact=True)).to_be_visible()
     expect(gemma.locator(".provider-offering")).to_have_count(1)
@@ -425,7 +471,7 @@ def main() -> None:
             page = context.new_page()
             errors: list[str] = []
             page.on("pageerror", lambda error: errors.append(str(error)))
-            for test in (test_catalog_offerings_and_copy, test_search_and_combined_filters,
+            for test in (test_automatic_primary_and_native_facts, test_catalog_offerings_and_copy, test_search_and_combined_filters,
                          test_refresh_empty_failure_retry_and_safe_text, test_optional_metadata_and_conflicts,
                          test_featured_models, test_pagination_and_filter_resets,
                          test_featured_unpaginated_and_flash_only_v4, test_guide):

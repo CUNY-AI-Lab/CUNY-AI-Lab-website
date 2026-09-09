@@ -29,6 +29,8 @@ const offeringSchema = z.object({
   id: z.string().check(z.minLength(1), z.maxLength(512)),
   name: z.string().check(z.minLength(1)),
   provider: z.string().check(z.minLength(1)),
+  routing: z.optional(z.object({ mode: z.literal('automatic'), routes: z.array(z.string().check(z.minLength(1))).check(z.minLength(1)) })),
+  duplicate_of: z.optional(z.string().check(z.minLength(1))),
   model_name: z.catch(z.optional(metadataText), undefined),
   specifications: z.catch(z.optional(specificationsSchema), undefined),
   model_group: z.optional(z.string().check(z.minLength(1))),
@@ -70,7 +72,7 @@ const providerFilter = document.querySelector<HTMLSelectElement>('#provider-filt
 const capabilityFilter = document.querySelector<HTMLSelectElement>('#capability-filter');
 const count = document.querySelector<HTMLElement>('#results-count');
 const empty = document.querySelector<HTMLElement>('#empty-state');
-type ModelGroup = { key: string; name: string; offerings: Offering[] };
+type ModelGroup = { key: string; name: string; primary: Offering; offerings: Offering[] };
 let groups: ModelGroup[] = [];
 let loaded = false;
 const modelsPerPage = 12;
@@ -201,10 +203,7 @@ function formatPrice(value: number): string {
     : dollars.format(value);
 }
 
-function offeringRow(offering: Offering): HTMLElement {
-  const row = element('div', '', 'provider-offering');
-  const identity = element('div', '', 'offering-identity');
-  identity.append(element('h3', providerNames.get(offering.provider) ?? offering.provider, 'provider'));
+function apiIdentity(offering: Offering): HTMLElement {
   const api = element('div', '', 'identity');
   const code = element('code', offering.id);
   const copy = element('button', 'Copy API ID');
@@ -223,7 +222,13 @@ function offeringRow(offering: Offering): HTMLElement {
     }
   });
   api.append(code, copy, result);
-  identity.append(api);
+  return api;
+}
+
+function offeringRow(offering: Offering): HTMLElement {
+  const row = element('div', '', 'provider-offering');
+  const identity = element('div', '', 'offering-identity');
+  identity.append(element('h3', providerNames.get(offering.provider) ?? offering.provider, 'provider'), element('p', 'Provider reference ID', 'spec-label'), element('code', offering.id));
   const specs = figure('Context limit', offering.context_length === null ? 'Not published' : `${integers.format(offering.context_length)} tokens`);
   const capabilities = element('div', '', 'capabilities');
   for (const capability of offering.capabilities) capabilities.append(badge(capabilityNames.get(capability) ?? capability, capability));
@@ -252,46 +257,62 @@ function figure(label: string, value: string): HTMLElement {
 }
 
 function groupOfferings(offerings: Offering[]): ModelGroup[] {
+  const byId = new Map(offerings.map(offering => [offering.id, offering]));
+  const automatic = offerings.filter(offering => offering.routing?.mode === 'automatic');
+  const claimed = new Set<string>();
+  const result: ModelGroup[] = automatic.map(primary => {
+    const routes = primary.routing?.routes ?? [];
+    const entries = routes.map(id => {
+      const native = byId.get(id);
+      if (!native || native.routing || claimed.has(id) || (native.duplicate_of !== undefined && native.duplicate_of !== primary.id)) throw new Error('invalid_automatic_routes');
+      claimed.add(id);
+      return native;
+    });
+    return { key: primary.model_group ?? primary.id, name: primary.model_name ?? primary.name, primary, offerings: entries };
+  });
   const byKey = new Map<string, Offering[]>();
   for (const offering of offerings) {
+    if (offering.routing || claimed.has(offering.id)) continue;
     const key = offering.model_group ?? offering.id;
+    const automaticGroup = result.find(group => group.key === key);
+    if (automaticGroup) {
+      automaticGroup.offerings.push(offering);
+      continue;
+    }
     const existing = byKey.get(key);
     if (existing) existing.push(offering);
     else byKey.set(key, [offering]);
   }
-  return Array.from(byKey, ([key, entries]) => {
+  for (const [key, entries] of byKey) {
     const alphabetical = entries.toSorted((a, b) => a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
-    const preferred = alphabetical.find(offering => offering.id === key) ?? alphabetical[0];
-    if (!preferred) throw new Error('empty_model_group');
-    return {
-      key,
-      name: preferred.model_name ?? alphabetical.find(offering => offering.model_name)?.model_name ?? preferred.name,
-      offerings: entries.toSorted((a, b) => (providerNames.get(a.provider) ?? a.provider).localeCompare(providerNames.get(b.provider) ?? b.provider) || a.id.localeCompare(b.id)),
-    };
-  }).sort((a, b) => a.name.localeCompare(b.name) || a.key.localeCompare(b.key));
+    const primary = alphabetical.find(offering => offering.id === key) ?? alphabetical[0];
+    if (!primary) throw new Error('empty_model_group');
+    result.push({ key, name: primary.model_name ?? alphabetical.find(offering => offering.model_name)?.model_name ?? primary.name, primary, offerings: entries.toSorted((a, b) => (providerNames.get(a.provider) ?? a.provider).localeCompare(providerNames.get(b.provider) ?? b.provider) || a.id.localeCompare(b.id)) });
+  }
+  return result.sort((a, b) => a.name.localeCompare(b.name) || a.key.localeCompare(b.key));
 }
 
 function modelCard(group: ModelGroup, note?: string): HTMLElement {
   const card = element('article', '', note === undefined ? 'model-card' : 'model-card featured-card');
   card.append(element('h2', group.name));
   if (note !== undefined) card.append(element('p', note, 'featured-note'));
-  card.append(modelSummary(group));
+  card.append(apiIdentity(group.primary), modelSummary(group));
+  if (group.primary.routing) {
+    const order = group.primary.routing.routes.map(id => group.offerings.find(offering => offering.id === id)).flatMap(offering => offering ? [providerNames.get(offering.provider) ?? offering.provider] : []).join(' → ');
+    card.append(element('p', `Automatic routing: ${order}. Gateway uses eligible routes in this order.`, 'routing-policy'));
+    card.append(element('p', 'Provider capabilities, context limits, and prices below are route facts; the provider used can vary by request.', 'specification-date'));
+  }
   card.append(...group.offerings.map(offeringRow));
   return card;
 }
 
-function featuredCards(offerings: Offering[]): HTMLElement[] {
-  const byId = new Map(offerings.map(offering => [offering.id, offering]));
-  return featured.models.flatMap(entry => {
-    const listed = entry.ids.flatMap(id => byId.get(id) ?? []);
-    if (listed.length === 0) return [];
-    const group: ModelGroup = {
-      key: entry.ids[0] ?? entry.name,
-      name: entry.name,
-      offerings: listed.toSorted((a, b) => (providerNames.get(a.provider) ?? a.provider).localeCompare(providerNames.get(b.provider) ?? b.provider) || a.id.localeCompare(b.id)),
-    };
+function featuredCards(): HTMLElement[] {
+  const shown = new Set<string>();
+  return featured.models.flatMap(entry => groups.flatMap(group => {
+    if (shown.has(group.primary.id) || !entry.ids.some(id => group.primary.id === id || group.offerings.some(offering => offering.id === id))) return [];
+    shown.add(group.primary.id);
     return [modelCard(group, entry.note)];
-  });
+  }));
 }
 
 function applyFilters(): void {
@@ -310,7 +331,7 @@ function applyFilters(): void {
     for (const [offeringIndex, row] of Array.from(rows).entries()) {
       const offering = group.offerings[offeringIndex];
       if (!offering) continue;
-      const haystack = [group.name, group.key, offering.name, offering.id, offering.provider, providerNames.get(offering.provider) ?? '', ...offering.capabilities, ...offering.capabilities.map(capability => capabilityNames.get(capability) ?? capability)].join(' ').toLocaleLowerCase();
+      const haystack = [group.name, group.key, group.primary.id, offering.name, offering.id, offering.provider, providerNames.get(offering.provider) ?? '', ...offering.capabilities, ...offering.capabilities.map(capability => capabilityNames.get(capability) ?? capability)].join(' ').toLocaleLowerCase();
       const matches = haystack.includes(query) && (!providerFilter?.value || offering.provider === providerFilter.value) && (!capabilityFilter?.value || offering.capabilities.includes(capabilityFilter.value));
       row.hidden = !matches;
       if (matches) matchesInGroup++;
@@ -360,12 +381,12 @@ async function refreshCatalog(): Promise<void> {
     if (!response.ok) throw new Error('catalog_unavailable');
     const catalog = catalogSchema.parse(await response.json());
     if (new Set(catalog.data.map(offering => offering.id)).size !== catalog.data.length) throw new Error('ambiguous_catalog');
-    const offerings = catalog.data;
-    groups = groupOfferings(offerings);
+    groups = groupOfferings(catalog.data);
+    const offerings = groups.flatMap(group => group.offerings);
     populateFilter(providerFilter, [...new Set(offerings.map(offering => offering.provider))], providerNames, 'All providers');
     populateFilter(capabilityFilter, [...new Set(offerings.flatMap(offering => offering.capabilities))], capabilityNames, 'All capabilities');
     list.replaceChildren(...groups.map(group => modelCard(group)));
-    featuredList?.replaceChildren(...featuredCards(offerings));
+    featuredList?.replaceChildren(...featuredCards());
     loaded = true;
     applyFilters();
     const checkedAt = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date());

@@ -23,7 +23,7 @@
     },
     {
       "name": "gpt-oss-120b",
-      "note": "OpenAI's open-weight reasoning model under Apache-2.0, available on all three provider routes.",
+      "note": "OpenAI's open-weight reasoning model under Apache-2.0.",
       "ids": ["openai/gpt-oss-120b", "@cf/openai/gpt-oss-120b", "openai.gpt-oss-120b"]
     },
     {
