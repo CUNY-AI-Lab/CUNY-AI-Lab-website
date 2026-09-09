@@ -1,19 +1,28 @@
 ---
 title: "Getting Started"
 headingId: "getting-started"
----
-
-Your first steps into the CAIL Sandbox — from logging in to having your first conversation with an AI model.
-
+description: "Get access, sign in, and start experimenting with open-weight models."
 ---
 
 ## What You'll Find Here
 
-The Sandbox gives you a shared AI platform where you can create custom agents, ground them in your course materials, and share configurations with students or colleagues. It runs on CUNY infrastructure with zero-retention agreements: prompts and responses are not stored or used for model training. Chat history persists in Open WebUI and is accessible only to you and system administrators.
+The CAIL Sandbox is a shared chat platform for teaching and research with open-weight models. You can compare models, create custom configurations, ground them in course materials, and share them with students or colleagues.
+
+It runs on CUNY infrastructure with zero-retention agreements: prompts and responses are not stored or used for model training. Chat history persists in Open WebUI and is accessible only to you and system administrators.
 
 ---
 
 ## First Login
+
+### Complete Your Access Checkpoint
+
+Before signing in to the Sandbox:
+
+- **Using it on your own:** Submit an [individual access request](https://ailab.gc.cuny.edu/request-access/?kind=individual) and wait for approval.
+- **Teaching a course:** Complete the [instructor course-access checkpoint](student-onboarding.md#instructor-checkpoint-complete-course-access-first) before preparing the class environment or inviting students.
+- **Joining a course as a student:** Open your instructor's course invitation link, sign in with CUNY Login, and complete the confirmation prompts. You do not need a separate individual access request.
+
+Approved Sandbox courses automatically receive a private course group and text channel. Students join them through course enrollment and their Sandbox sign-in.
 
 ### What You Need
 
@@ -26,7 +35,7 @@ The Sandbox gives you a shared AI platform where you can create custom agents, g
 1. **Navigate to** [chat.ailab.gc.cuny.edu](https://chat.ailab.gc.cuny.edu)
    - Bookmark this page. You'll be back often.
 
-2. **Click "Sign In"** at the top right
+2. **Select "Continue with CUNY Login"**
    - The Sandbox uses CUNY's authentication system, so you'll be redirected to the standard CUNY login page
 
 3. **Enter your CUNY credentials** and complete any two-factor authentication if prompted
@@ -35,7 +44,7 @@ The Sandbox gives you a shared AI platform where you can create custom agents, g
 4. **You'll land on the main chat interface**
    - Clean layout. Chat input at the bottom. Model selector at the top. Sidebar on the left with workspace features.
 
-**Voila!** You're in. Now let's have a conversation.
+If you joined a course, confirm that its private text channel is available before continuing. If login stalls, try a private browser window or a different browser; for help, contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
 
 ---
 
@@ -93,7 +102,7 @@ Once you've adjusted your preferences:
 
 ## What's Next?
 
-To create custom AI models, knowledge bases, and tool configurations, request Workspace access by emailing **ailab@gc.cuny.edu**.
+To create custom models, knowledge bases, and tool configurations, open **Workspace**. If those features are unavailable for your account, contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
 
 Once you have access, head to the **Design & Test** section to:
 - Create custom models with specific behaviors
