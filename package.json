@@ -15,21 +15,24 @@
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
-    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.2.4",
+    "astro": "^7.3.2",
     "tailwindcss": "^4.3.3",
     "zod": "^4.5.4"
   },
   "overrides": {
-    "mdast-util-to-hast": "13.2.1"
+    "mdast-util-to-hast": "13.2.1",
+    "svgo": "4.1.0",
+    "js-yaml": "4.3.2",
+    "sharp": "0.35.4"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@oxlint/plugins": "1.79.0",
     "axe-core": "^4.13.0",
     "oxlint": "1.79.0",
-    "typescript": "^6.0.0",
+    "typescript": "^6.0.3",
     "wrangler": "4.128.0"
   }
 }

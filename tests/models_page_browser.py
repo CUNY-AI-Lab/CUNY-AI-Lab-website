@@ -67,19 +67,19 @@ def expect_checked(page: Page) -> None:
 
 
 def model_card(page: Page, api_id: str):
-    return page.locator("article.model-card").filter(has=page.locator("code").filter(has_text=re.compile("^" + re.escape(api_id) + "$")))
+    return page.locator("#models-list article.model-card").filter(has=page.locator("code").filter(has_text=re.compile("^" + re.escape(api_id) + "$")))
 
 
 def provider_row(page: Page, api_id: str):
-    return page.locator(".provider-offering").filter(has=page.locator("code").filter(has_text=re.compile("^" + re.escape(api_id) + "$")))
+    return page.locator("#models-list .provider-offering").filter(has=page.locator("code").filter(has_text=re.compile("^" + re.escape(api_id) + "$")))
 
 
 def test_catalog_offerings_and_copy(page: Page) -> None:
     stub_catalog(page)
     page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
     expect_checked(page)
-    expect(page.locator("article.model-card")).to_have_count(MODEL_COUNT)
-    expect(page.locator(".provider-offering")).to_have_count(len(CATALOG["data"]))
+    expect(page.locator("#models-list article.model-card")).to_have_count(MODEL_COUNT)
+    expect(page.locator("#models-list .provider-offering")).to_have_count(len(CATALOG["data"]))
     expect(page.locator("#results-count")).to_have_text("9 models · 11 provider offerings")
     for entry in CATALOG["data"]:
         row = provider_row(page, entry["id"])
@@ -92,7 +92,7 @@ def test_catalog_offerings_and_copy(page: Page) -> None:
         card = model_card(page, api_id)
         expect(card.get_by_role("heading", name=title, exact=True)).to_be_visible()
         expect(card.locator(".provider-offering")).to_have_count(2)
-    expect(page.get_by_role("heading", name="Identical name", exact=True)).to_have_count(2)
+    expect(page.locator("#models-list").get_by_role("heading", name="Identical name", exact=True)).to_have_count(2)
     expect(model_card(page, "deepseek/deepseek-v3.2-speciale").locator(".provider-offering")).to_have_count(1)
     gpt_summary = model_card(page, "openai/gpt-oss-120b").locator(".model-summary")
     expect(gpt_summary.locator(".model-evidence")).to_be_hidden()
@@ -104,7 +104,7 @@ def test_catalog_offerings_and_copy(page: Page) -> None:
     expect(gpt_summary.get_by_role("link", name="Source for Apache-2.0", exact=True)).to_have_attribute("href", "https://example.org/license-evidence")
     expect(gpt_summary).to_contain_text("Checked 2026-09-08")
     expect(gpt_summary).not_to_contain_text("active")
-    expect(model_card(page, "deepseek/deepseek-v3.2").locator(".model-summary")).to_have_text("Reference specifications have not been published in the catalog.")
+    expect(model_card(page, "deepseek/deepseek-v3.2").locator(".model-summary")).to_have_text("Specifications not published")
     expect(model_card(page, "future/new-release-2099").locator(".model-summary")).not_to_contain_text("Size not available")
     native = provider_row(page, "deepseek/deepseek-v3.2")
     expect(native.get_by_text("Reasoning", exact=True)).to_be_visible()
@@ -123,8 +123,8 @@ def test_catalog_offerings_and_copy(page: Page) -> None:
     expect(provider_row(page, "openai/gpt-oss-120b")).to_contain_text("Input from $0.04")
     expect(provider_row(page, "openai/gpt-oss-120b")).to_contain_text("Output from $0.15")
     expect(model_card(page, "provider/image-route")).to_contain_text("$0.00000001")
-    page.get_by_role("button", name="Copy API ID deepseek.v3.2", exact=True).press("Enter")
-    expect(page.get_by_role("status", name="Copy result for deepseek.v3.2", exact=True)).to_have_text("Copied")
+    page.locator("#models-list").get_by_role("button", name="Copy API ID deepseek.v3.2", exact=True).press("Enter")
+    expect(page.locator("#models-list").get_by_role("status", name="Copy result for deepseek.v3.2", exact=True)).to_have_text("Copied")
     assert page.evaluate("navigator.clipboard.readText()") == "deepseek.v3.2"
 
 
@@ -132,34 +132,34 @@ def test_search_and_combined_filters(page: Page) -> None:
     search = page.get_by_role("searchbox", name="Search models", exact=True)
     for query, expected in (("previously unseen", 1), ("speciale", 1), ("bedrock-mantle", 1), ("embeddings", 1)):
         search.fill(query)
-        expect(page.locator("article.model-card:visible")).to_have_count(expected)
+        expect(page.locator("#models-list article.model-card:visible")).to_have_count(expected)
     search.fill("deepseek")
     page.get_by_label("Provider", exact=True).select_option("openrouter")
     page.get_by_label("Capability", exact=True).select_option("text-generation")
-    expect(page.locator("article.model-card:visible")).to_have_count(2)
+    expect(page.locator("#models-list article.model-card:visible")).to_have_count(2)
     expect(page.locator("#results-count")).to_contain_text("2")
-    expect(page.locator(".provider-offering:visible")).to_have_count(2)
+    expect(page.locator("#models-list .provider-offering:visible")).to_have_count(2)
     expect(provider_row(page, "deepseek.v3.2")).to_be_hidden()
     search.fill("deepseek")
     page.get_by_label("Provider", exact=True).select_option("bedrock-mantle")
     page.get_by_label("Capability", exact=True).select_option("reasoning")
-    expect(page.locator("article.model-card:visible")).to_have_count(0)
-    expect(page.locator(".provider-offering:visible")).to_have_count(0)
+    expect(page.locator("#models-list article.model-card:visible")).to_have_count(0)
+    expect(page.locator("#models-list .provider-offering:visible")).to_have_count(0)
     expect(page.locator("#results-count")).to_have_text("0 models · 0 provider offerings")
     page.get_by_label("Capability", exact=True).select_option("text-generation")
     expect(page.locator("#results-count")).to_have_text("1 model · 1 provider offering")
     expect(provider_row(page, "deepseek.v3.2")).to_be_visible()
     expect(provider_row(page, "deepseek/deepseek-v3.2")).to_be_hidden()
     search.fill("no-such-model")
-    expect(page.locator("article.model-card:visible")).to_have_count(0)
+    expect(page.locator("#models-list article.model-card:visible")).to_have_count(0)
     expect(page.locator("#results-count")).to_contain_text("0")
     expect(page.get_by_text("No models match your filters. Clear filters to see all offerings.", exact=True)).to_be_visible()
     page.get_by_role("button", name="Clear filters", exact=True).press("Enter")
-    expect(page.locator(".provider-offering:visible")).to_have_count(len(CATALOG["data"]))
+    expect(page.locator("#models-list .provider-offering:visible")).to_have_count(len(CATALOG["data"]))
     expect(search).to_have_value("")
     expect(page.get_by_label("Provider", exact=True)).to_have_value("")
     expect(page.get_by_label("Capability", exact=True)).to_have_value("")
-    expect(page.locator("article.model-card:visible")).to_have_count(MODEL_COUNT)
+    expect(page.locator("#models-list article.model-card:visible")).to_have_count(MODEL_COUNT)
 
 
 def test_refresh_empty_failure_retry_and_safe_text(page: Page) -> None:
@@ -168,7 +168,7 @@ def test_refresh_empty_failure_retry_and_safe_text(page: Page) -> None:
     stub_catalog(page, {"object": "list", "data": []})
     refresh.click()
     expect_checked(page)
-    expect(page.locator("article.model-card")).to_have_count(0)
+    expect(page.locator("#models-list article.model-card")).to_have_count(0)
     expect(page.locator("#results-count")).to_contain_text("0")
     expect(page.get_by_text("The Gateway catalog currently contains no offerings.", exact=True)).to_be_visible()
     invalid_price = offering("bad-price", pricing=pricing(-1, 0.3))
@@ -177,26 +177,26 @@ def test_refresh_empty_failure_retry_and_safe_text(page: Page) -> None:
         stub_catalog(page)
         refresh.click()
         expect_checked(page)
-        expect(page.locator("article.model-card")).to_have_count(MODEL_COUNT)
+        expect(page.locator("#models-list article.model-card")).to_have_count(MODEL_COUNT)
         stub_catalog(page, invalid, network_failure=invalid is None)
         refresh.click()
         expect(status).to_have_text("Couldn’t load the Gateway catalog. Availability and prices are unknown.")
-        expect(page.locator("article.model-card")).to_have_count(0)
-        expect(page.locator(".provider-offering")).to_have_count(0)
+        expect(page.locator("#models-list article.model-card")).to_have_count(0)
+        expect(page.locator("#models-list .provider-offering")).to_have_count(0)
         expect(refresh).to_be_enabled()
     replacement_id = "provider/" + "long-model-id-" * 20
     hostile_name = '<img src=x onerror="window.registryInjected=true">'
     stub_catalog(page, {"object": "list", "data": [offering(replacement_id, name=hostile_name)]})
     refresh.click()
     expect_checked(page)
-    expect(page.locator("article.model-card")).to_have_count(1)
+    expect(page.locator("#models-list article.model-card")).to_have_count(1)
     expect(model_card(page, replacement_id).get_by_role("heading", name=hostile_name, exact=True)).to_be_visible()
     assert page.evaluate("window.registryInjected === undefined")
-    expect(page.locator("article.model-card img")).to_have_count(0)
-    expect(page.locator("article.model-card code")).to_have_text(replacement_id)
+    expect(page.locator("#models-list article.model-card img")).to_have_count(0)
+    expect(page.locator("#models-list article.model-card code")).to_have_text(replacement_id)
     page.set_viewport_size({"width": 390, "height": 844})
     assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), "Long model text overflows mobile page"
-    bounds = page.locator("article.model-card code").bounding_box()
+    bounds = page.locator("#models-list article.model-card code").bounding_box()
     assert bounds and bounds["x"] >= 0 and bounds["x"] + bounds["width"] <= 390
     page.set_viewport_size({"width": 1440, "height": 1000})
 
@@ -215,7 +215,7 @@ def test_optional_metadata_and_conflicts(page: Page) -> None:
     stub_catalog(page, {"object": "list", "data": entries})
     page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
     expect_checked(page)
-    expect(page.locator(".provider-offering")).to_have_count(6)
+    expect(page.locator("#models-list .provider-offering")).to_have_count(6)
     shared = model_card(page, "provider/one")
     expect(shared.get_by_role("heading", name="Clean model", exact=True)).to_be_visible()
     expect(shared.locator(".model-summary")).not_to_contain_text("116.8B")
@@ -229,7 +229,7 @@ def test_optional_metadata_and_conflicts(page: Page) -> None:
     advertised = model_card(page, "provider/advertised").locator(".model-summary")
     expect(advertised).to_contain_text("120B · Advertised size")
     expect(advertised).not_to_contain_text("Weights not published")
-    expect(advertised).not_to_contain_text("Reference specifications have not been published")
+    expect(advertised).not_to_contain_text("Specifications not published")
     page.set_viewport_size({"width": 390, "height": 844})
     long_summary = model_card(page, "provider/long-metadata").locator(".model-summary")
     long_summary.get_by_text("Details and sources", exact=True).press("Enter")
@@ -243,6 +243,47 @@ def test_optional_metadata_and_conflicts(page: Page) -> None:
     violations = page.evaluate("""async () => (await axe.run('#model-registry', {runOnly: {type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa']}})).violations""")
     assert violations == [], violations
     page.set_viewport_size({"width": 1440, "height": 1000})
+
+
+def test_featured_models(page: Page) -> None:
+    stub_catalog(page)
+    page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
+    expect_checked(page)
+    featured = page.locator("#featured-models")
+    expect(featured).to_be_visible()
+    cards = featured.locator("article.featured-card")
+    # Only gpt-oss-120b and Gemma 4 31B have IDs in the substituted catalog;
+    # every other featured entry has no listed offering and must not render.
+    expect(cards).to_have_count(2)
+    card = cards.first
+    expect(card.get_by_role("heading", name="gpt-oss-120b", exact=True)).to_be_visible()
+    expect(card.locator(".featured-note")).to_contain_text("Apache-2.0")
+    expect(card.locator(".provider-offering")).to_have_count(2)
+    expect(card.locator("code")).to_have_text(["openai/gpt-oss-120b", "@cf/openai/gpt-oss-120b"])
+    gemma = cards.nth(1)
+    expect(gemma.get_by_role("heading", name="Gemma 4 31B", exact=True)).to_be_visible()
+    expect(gemma.locator(".provider-offering")).to_have_count(1)
+    expect(page.get_by_role("heading", name="All models", exact=True)).to_be_visible()
+    expect(page.locator("#models-list article.model-card")).to_have_count(MODEL_COUNT)
+    search = page.get_by_role("searchbox", name="Search models", exact=True)
+    search.fill("gpt")
+    expect(featured).to_be_hidden()
+    search.fill("")
+    expect(featured).to_be_visible()
+    page.get_by_label("Provider", exact=True).select_option("workers-ai")
+    expect(featured).to_be_hidden()
+    page.get_by_role("button", name="Clear filters", exact=True).press("Enter")
+    expect(featured).to_be_visible()
+    stub_catalog(page, {"object": "list", "data": [offering("provider/unfeatured", name="Not featured")]})
+    page.get_by_role("button", name="Refresh catalog", exact=True).click()
+    expect_checked(page)
+    expect(featured).to_be_hidden()
+    expect(cards).to_have_count(0)
+    stub_catalog(page, network_failure=True)
+    page.get_by_role("button", name="Refresh catalog", exact=True).click()
+    expect(page.get_by_role("status", name="Catalog status", exact=True)).to_contain_text("Couldn’t load")
+    expect(featured).to_be_hidden()
+    stub_catalog(page)
 
 
 def test_guide(page: Page) -> None:
@@ -265,7 +306,8 @@ def main() -> None:
             errors: list[str] = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             for test in (test_catalog_offerings_and_copy, test_search_and_combined_filters,
-                         test_refresh_empty_failure_retry_and_safe_text, test_optional_metadata_and_conflicts, test_guide):
+                         test_refresh_empty_failure_retry_and_safe_text, test_optional_metadata_and_conflicts,
+                         test_featured_models, test_guide):
                 test(page)
                 print(f"PASS {test.__name__}", flush=True)
             assert errors == [], errors

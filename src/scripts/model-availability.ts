@@ -1,4 +1,5 @@
 import * as z from 'zod/mini';
+import featuredData from '../data/featured-models.json';
 
 const catalogUrl = 'https://tools.ailab.gc.cuny.edu/v1/catalog';
 const price = z.number().check(z.nonnegative());
@@ -36,6 +37,11 @@ const offeringSchema = z.object({
   pricing: z.optional(pricingSchema),
 });
 const catalogSchema = z.object({ object: z.literal('list'), data: z.array(offeringSchema) });
+const featuredSchema = z.object({
+  updated_at: z.string(),
+  models: z.array(z.object({ name: metadataText, note: metadataText, ids: z.array(z.string().check(z.minLength(1))).check(z.minLength(1)) })),
+});
+const featured = featuredSchema.parse(featuredData);
 type Offering = z.infer<typeof offeringSchema>;
 const providerNames = new Map([
   ['workers-ai', 'Workers AI'],
@@ -55,6 +61,8 @@ const dollars = new Intl.NumberFormat('en-US', {
 });
 const integers = new Intl.NumberFormat('en-US');
 const list = document.querySelector<HTMLElement>('#models-list');
+const featuredSection = document.querySelector<HTMLElement>('#featured-models');
+const featuredList = document.querySelector<HTMLElement>('#featured-list');
 const status = document.querySelector<HTMLElement>('#catalog-status');
 const refresh = document.querySelector<HTMLButtonElement>('#refresh-catalog');
 const search = document.querySelector<HTMLInputElement>('#model-search');
@@ -134,8 +142,8 @@ function modelSummary(group: ModelGroup): HTMLElement {
     references.append(row);
     dates.add(checkedAt.slice(0, 10));
   }
-  function highlight(label: string, url?: string): void {
-    const item = element('span', '', 'model-highlight');
+  function highlight(label: string, className: string, url?: string): void {
+    const item = element('span', '', `model-highlight ${className}`);
     if (url) {
       const link = element('a', label);
       link.href = url;
@@ -145,20 +153,18 @@ function modelSummary(group: ModelGroup): HTMLElement {
   }
   const size = agreedFact(group, 'size', value => JSON.stringify([value.label, value.basis]));
   if (size) {
-    const item = element('span', '', 'model-highlight model-size');
-    item.append(element('strong', size.value.label), element('span', size.value.basis === 'checkpoint' ? 'checkpoint parameters' : 'advertised size', 'size-basis'));
-    highlights.append(item);
+    highlight(size.value.label, 'model-size');
     fact('Size', `${size.value.label} · ${size.value.basis === 'checkpoint' ? 'Checkpoint parameter count' : 'Advertised size'}`, size.value.source_url, size.checkedAt);
   }
   const weights = agreedFact(group, 'weights', value => String(value.available));
   if (weights) {
     const label = weights.value.available ? 'Open weights' : 'Weights not published';
-    highlight(label, weights.value.source_url);
+    highlight(label, weights.value.available ? 'model-open' : 'model-closed', weights.value.source_url);
     fact('Weights', label, weights.value.source_url, weights.checkedAt);
   }
   const license = agreedFact(group, 'license', value => JSON.stringify([value.name, value.url]));
   if (license) {
-    highlight(license.value.name, license.value.url);
+    highlight(license.value.name, 'model-license', license.value.url);
     fact('License', license.value.name, license.value.source_url, license.checkedAt);
   }
   const architecture = agreedFact(group, 'architecture', value => value.name);
@@ -166,13 +172,11 @@ function modelSummary(group: ModelGroup): HTMLElement {
   const modelUrl = agreedFact(group, 'model_url', value => value);
   if (modelUrl) fact('Reference', 'Model card', modelUrl.value, modelUrl.checkedAt);
   if (references.childElementCount === 0) {
-    summary.append(element('p', 'Reference specifications have not been published in the catalog.', 'specification-date'));
+    summary.append(element('p', 'Specifications not published', 'specification-date'));
   } else {
+    if (dates.size === 1) references.append(element('p', `Checked ${Array.from(dates)[0]}`, 'specification-date evidence-date'));
     details.append(references);
-    const footer = element('div', '', 'model-reference-footer');
-    footer.append(details);
-    if (dates.size === 1) footer.append(element('span', `Specifications checked ${Array.from(dates)[0]}`, 'summary-date'));
-    summary.append(highlights, footer);
+    summary.append(highlights, details);
   }
   return summary;
 }
@@ -206,24 +210,31 @@ function offeringRow(offering: Offering): HTMLElement {
   });
   api.append(code, copy, result);
   identity.append(api);
-  const specs = element('div', '', 'offering-context');
-  specs.append(element('p', 'Context limit', 'spec-label'), element('p', offering.context_length === null ? 'Not published' : `${integers.format(offering.context_length)} tokens`, 'spec-value'));
+  const specs = figure('Context limit', offering.context_length === null ? 'Not published' : `${integers.format(offering.context_length)} tokens`);
   const capabilities = element('div', '', 'capabilities');
   for (const capability of offering.capabilities) capabilities.append(badge(capabilityNames.get(capability) ?? capability, capability));
   if (offering.capabilities.length === 0) capabilities.append(element('span', 'Capabilities not published', 'spec-value'));
   if (offering.context_length !== null && offering.context_length >= 100_000) capabilities.append(badge('Long context', 'long-context'));
 
   const prices = element('div', '', 'offering-prices');
-  prices.append(element('p', 'USD / million tokens', 'spec-label'));
   if (offering.pricing === undefined) {
-    prices.append(element('p', 'Token prices not published', 'spec-value'));
+    prices.append(figure('USD / million tokens', 'Token prices not published'));
   } else {
     const { input, output, basis } = offering.pricing;
     const prefix = basis === 'starting_at' ? 'from ' : '';
-    prices.append(element('p', `Input ${prefix}${formatPrice(input)}`, 'spec-value'), element('p', `Output ${prefix}${formatPrice(output)}`, 'spec-value'));
+    prices.append(figure(`Input ${prefix}`, formatPrice(input)), figure(`Output ${prefix}`, formatPrice(output)), element('p', 'USD per million tokens', 'spec-unit price-unit'));
   }
   row.append(identity, specs, prices, capabilities);
   return row;
+}
+
+function figure(label: string, value: string): HTMLElement {
+  const node = element('div', '', 'spec');
+  node.append(element('p', label.trim(), 'spec-label'), document.createTextNode(' '));
+  const line = element('p', '', 'spec-value');
+  line.append(element('strong', value));
+  node.append(line);
+  return node;
 }
 
 function groupOfferings(offerings: Offering[]): ModelGroup[] {
@@ -246,16 +257,34 @@ function groupOfferings(offerings: Offering[]): ModelGroup[] {
   }).sort((a, b) => a.name.localeCompare(b.name) || a.key.localeCompare(b.key));
 }
 
-function modelCard(group: ModelGroup): HTMLElement {
-  const card = element('article', '', 'model-card');
-  card.append(element('h2', group.name), modelSummary(group));
+function modelCard(group: ModelGroup, note?: string): HTMLElement {
+  const card = element('article', '', note === undefined ? 'model-card' : 'model-card featured-card');
+  card.append(element('h2', group.name));
+  if (note !== undefined) card.append(element('p', note, 'featured-note'));
+  card.append(modelSummary(group));
   card.append(...group.offerings.map(offeringRow));
   return card;
+}
+
+function featuredCards(offerings: Offering[]): HTMLElement[] {
+  const byId = new Map(offerings.map(offering => [offering.id, offering]));
+  return featured.models.flatMap(entry => {
+    const listed = entry.ids.flatMap(id => byId.get(id) ?? []);
+    if (listed.length === 0) return [];
+    const group: ModelGroup = {
+      key: entry.ids[0] ?? entry.name,
+      name: entry.name,
+      offerings: listed.toSorted((a, b) => (providerNames.get(a.provider) ?? a.provider).localeCompare(providerNames.get(b.provider) ?? b.provider) || a.id.localeCompare(b.id)),
+    };
+    return [modelCard(group, entry.note)];
+  });
 }
 
 function applyFilters(): void {
   if (!list || !count || !empty || !loaded) return;
   const query = search?.value.trim().toLocaleLowerCase() ?? '';
+  const filtering = query !== '' || Boolean(providerFilter?.value) || Boolean(capabilityFilter?.value);
+  if (featuredSection) featuredSection.hidden = filtering || (featuredList?.childElementCount ?? 0) === 0;
   let visibleModels = 0;
   let visibleOfferings = 0;
   for (const [index, card] of Array.from(list.children).entries()) {
@@ -294,6 +323,8 @@ async function refreshCatalog(): Promise<void> {
   loaded = false;
   groups = [];
   list.replaceChildren();
+  featuredList?.replaceChildren();
+  if (featuredSection) featuredSection.hidden = true;
   count.textContent = '';
   empty.hidden = true;
   status.textContent = 'Loading the live catalog…';
@@ -308,7 +339,8 @@ async function refreshCatalog(): Promise<void> {
     groups = groupOfferings(offerings);
     populateFilter(providerFilter, [...new Set(offerings.map(offering => offering.provider))], providerNames, 'All providers');
     populateFilter(capabilityFilter, [...new Set(offerings.flatMap(offering => offering.capabilities))], capabilityNames, 'All capabilities');
-    list.replaceChildren(...groups.map(modelCard));
+    list.replaceChildren(...groups.map(group => modelCard(group)));
+    featuredList?.replaceChildren(...featuredCards(offerings));
     loaded = true;
     applyFilters();
     const checkedAt = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date());
