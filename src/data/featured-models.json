@@ -12,11 +12,6 @@
       "ids": ["moonshotai/kimi-k3"]
     },
     {
-      "name": "DeepSeek V4 Pro 0813",
-      "note": "DeepSeek's general-availability flagship for reasoning, analysis, and coding over a 1M-token context.",
-      "ids": ["deepseek/deepseek-v4-pro-0813", "@cf/deepseek-ai/deepseek-v4-pro-0813"]
-    },
-    {
       "name": "GLM 5.3",
       "note": "Z.ai's model for agentic coding and software engineering, with reasoning and a 1M-token context.",
       "ids": ["z-ai/glm-5.3", "@cf/zai-org/glm-5.3"]

@@ -379,44 +379,40 @@ def test_pagination_and_filter_resets(page: Page) -> None:
     page.set_viewport_size({"width": 1440, "height": 1000})
 
 
-def test_featured_pagination_and_flash_first(page: Page) -> None:
+def test_featured_unpaginated_and_flash_only_v4(page: Page) -> None:
     featured_data = json.loads(Path("src/data/featured-models.json").read_text())["models"]
     entries = [offering(api_id, name=entry["name"], model_group=entry["ids"][0])
                for entry in featured_data for api_id in entry["ids"]]
+    entries.extend([
+        offering("deepseek/deepseek-v4-pro-0813", name="DeepSeek V4 Pro 0813"),
+        offering("deepseek/deepseek-v4-flash", name="DeepSeek V4 Flash 0423"),
+    ])
     stub_catalog(page, {"object": "list", "data": entries})
     page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
     expect_checked(page)
     cards = page.locator("#featured-list article.featured-card:visible")
     nav = page.get_by_role("navigation", name="Featured model pages", exact=True)
-    expect(cards).to_have_count(3)
+    expect(cards).to_have_count(8)
     expect(cards.first.get_by_role("heading", name="DeepSeek V4 Flash 0731", exact=True)).to_be_visible()
     expect(cards.first.locator(".provider-offering")).to_have_count(2)
-    expect(nav.get_by_role("button", name="Previous", exact=True)).to_be_disabled()
-    seen = cards.locator("h2").all_text_contents()
-    for number in (2, 3):
-        nav.get_by_role("button", name="Next", exact=True).press("Enter")
-        expect(page.locator("#featured-heading")).to_be_focused()
-        expect(nav).to_contain_text(f"Page {number} of 3")
-        expect(cards).to_have_count(3)
-        seen += cards.locator("h2").all_text_contents()
-    assert seen == [entry["name"] for entry in featured_data]
-    expect(nav.get_by_role("button", name="Next", exact=True)).to_be_disabled()
-    nav.get_by_role("button", name="Previous", exact=True).click()
-    expect(nav).to_contain_text("Page 2 of 3")
+    expect(nav).to_have_count(0)
+    assert cards.locator("h2").all_text_contents() == [entry["name"] for entry in featured_data]
+    expect(cards.filter(has=page.get_by_role("heading", name=re.compile("V4")))).to_have_count(1)
+    expect(model_card(page, "deepseek/deepseek-v4-pro-0813")).to_be_visible()
+    expect(model_card(page, "deepseek/deepseek-v4-flash")).to_be_visible()
     page.get_by_role("searchbox", name="Search models", exact=True).fill("Flash")
     expect(page.locator("#featured-models")).to_be_hidden()
     page.get_by_role("button", name="Clear filters", exact=True).click()
-    expect(nav).to_contain_text("Page 1 of 3")
-    nav.get_by_role("button", name="Next", exact=True).click()
+    expect(cards).to_have_count(8)
     page.get_by_role("button", name="Refresh catalog", exact=True).click()
     expect_checked(page)
-    expect(nav).to_contain_text("Page 1 of 3")
+    expect(cards).to_have_count(8)
     stub_catalog(page, {"object": "list", "data": [offering("moonshotai/kimi-k3", name="Kimi K3")]})
     page.get_by_role("button", name="Refresh catalog", exact=True).click()
     expect_checked(page)
     expect(cards).to_have_count(1)
     expect(cards.first.get_by_role("heading", name="Kimi K3", exact=True)).to_be_visible()
-    expect(nav).to_be_hidden()
+    expect(nav).to_have_count(0)
     stub_catalog(page)
 
 
@@ -432,7 +428,7 @@ def main() -> None:
             for test in (test_catalog_offerings_and_copy, test_search_and_combined_filters,
                          test_refresh_empty_failure_retry_and_safe_text, test_optional_metadata_and_conflicts,
                          test_featured_models, test_pagination_and_filter_resets,
-                         test_featured_pagination_and_flash_first, test_guide):
+                         test_featured_unpaginated_and_flash_only_v4, test_guide):
                 test(page)
                 print(f"PASS {test.__name__}", flush=True)
             assert errors == [], errors
