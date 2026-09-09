@@ -74,7 +74,8 @@ Assignment: {{ASSIGNMENT_DESCRIPTION}}
 4. Compare your feedback with a partner's in response to the same draft
 5. Discuss: Where did you agree? Where did you differ? What does that tell you about the rubric?
 
-**What to Watch For:** Students who are new to peer review often default to vague praise ("good job") or surface-level criticism ("needs more detail"). That’s a starting point, not a problem. Use the step 5 comparison to help them see what more specific, evidence-based feedback looks like in practice.
+**What to Watch For:** Students who are new to peer review often default to vague praise ("good job") or surface-level criticism ("needs more detail"). That’s a starting point, not a problem. Use the step 5 comparison to help them see what more specific, evidence-based feedback looks like in practice.<span id="what-to-watch-for-students-who-are-new-to-peer-review-often-default-to-vague-praise-good-job-or-surface-level-criticism-needs-more-detail-thats-a-starting-point-not-a-problem-use-the-step-5-comparison-to-help-them-see-what-more-specific-evidence-based-feedback-looks-like-in-practice" aria-hidden="true"></span>
+
 ---
 
 ## 3. Concept Translation Exercise
@@ -166,7 +167,8 @@ requests English.
 5. The model will ask for your interpretation first. Share what you think the passage is doing.
 6. Write a response (in the target language or English, per your instructor's guidelines) analyzing one aspect of the passage that surprised you or challenged your first reading.
 
-**What to Watch For:** Many students will want to skip straight to  "What does this passage mean?"  While the system prompt is designed to redirect them, you may need to emphasize  the importance of engaging with the language before  jumping to content analysis. 
+**What to Watch For:** Many students will want to skip straight to  "What does this passage mean?"  While the system prompt is designed to redirect them, you may need to emphasize  the importance of engaging with the language before  jumping to content analysis.<span id="what-to-watch-for-many-students-will-want-to-skip-straight-to--what-does-this-passage-mean--while-the-system-prompt-is-designed-to-redirect-them-you-may-need-to-emphasize--the-importance-of-engaging-with-the-language-before--jumping-to-content-analysis" aria-hidden="true"></span>
+
 ---
 
 ## Adapting These Activities

@@ -31,7 +31,7 @@ Apply for individual use or for a class using the steps below. **Students do not
 3. Wait for approval by email. Then open your course in [My classes](https://tools.ailab.gc.cuny.edu/my-classes) and create or copy its invitation link.
 4. Sign in to the [Sandbox](https://chat.ailab.gc.cuny.edu/) and confirm access to the course's automatically created **private group and text channel**. Then share the invitation with students. See [Student Onboarding](student-onboarding.md#instructor-checkpoint-complete-course-access-first) for class setup guidance.
 
-### Join a Course as a Student
+### Join Course as a Student<span id="join-a-course-as-a-student" aria-hidden="true"></span>
 
 **Use your instructor's invitation link; do not submit an individual access request.**
 
