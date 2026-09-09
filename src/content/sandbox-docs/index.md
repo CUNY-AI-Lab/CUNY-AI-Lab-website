@@ -1,6 +1,8 @@
-# CAIL Sandbox Docs
-
-The CUNY CAIL Sandbox is an AI platform for teaching and research at CUNY. It runs on CUNY infrastructure, keeps student data private, and gives you full control over how AI tools work in your courses and projects.
+---
+title: "CAIL Sandbox Docs"
+headingId: "cail-sandbox-docs"
+description: "Shared chat platform for teaching, research, and hands-on experimentation with open-weight models. See documentation below."
+---
 
 ## Getting Started
 
@@ -23,7 +25,7 @@ The CUNY CAIL Sandbox is an AI platform for teaching and research at CUNY. It ru
 
 ## About the Sandbox
 
-The CUNY CAIL Sandbox is hosted and maintained by the [CUNY AI Lab](https://ailab.gc.cuny.edu) at the Graduate Center. It runs [Open WebUI](https://openwebui.com), an open-source platform configured for academic use at CUNY.
+The CAIL Sandbox is hosted and maintained by the [CUNY AI Lab](https://ailab.gc.cuny.edu) at the Graduate Center. It runs [Open WebUI](https://openwebui.com), an open-source platform configured for academic use at CUNY.
 
 **Models:** The Sandbox hosts open-weight models selected for teaching and research. See the [Model Registry](https://ailab.gc.cuny.edu/models/) for the current list.
 

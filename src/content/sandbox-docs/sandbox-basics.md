@@ -1,4 +1,7 @@
-# Sandbox Basics
+---
+title: "Sandbox Basics"
+headingId: "sandbox-basics"
+---
 
 Core terminology, interface layout, and navigation.
 

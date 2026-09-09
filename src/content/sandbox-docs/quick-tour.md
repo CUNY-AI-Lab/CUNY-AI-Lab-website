@@ -1,4 +1,7 @@
-# Quick Tour
+---
+title: "Quick Tour"
+headingId: "quick-tour"
+---
 
 A visual walkthrough of the Sandbox interface. This page shows you where things are and what they do.
 

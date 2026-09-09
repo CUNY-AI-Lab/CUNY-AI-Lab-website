@@ -1,4 +1,7 @@
-# System Prompts as Instructional Design
+---
+title: "System Prompts as Instructional Design"
+headingId: "system-prompts-as-instructional-design"
+---
 
 A system prompt tells the model who it is, how it behaves, and what it pays attention to. For instructors, this is where pedagogy meets configuration. The prompt you write shapes every interaction your students have with the model. It determines whether the model lectures, questions, scaffolds, or stays silent until asked.
 

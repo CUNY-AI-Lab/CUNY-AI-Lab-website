@@ -1,4 +1,7 @@
-# Integrated Use Cases
+---
+title: "Integrated Use Cases"
+headingId: "integrated-use-cases"
+---
 
 These use cases show how workspace components combine to support teaching and learning across a semester. Each describes a realistic CUNY course scenario, the models and knowledge bases built for it, and how students and instructors use them over time.
 

@@ -1,4 +1,7 @@
-# Sample Activities
+---
+title: "Sample Activities"
+headingId: "sample-activities"
+---
 
 Each activity below includes a learning objective, the model configuration you will need, step-by-step instructions for your students, and notes on what to watch for. Copy what works. Adapt the rest.
 
