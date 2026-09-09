@@ -24,8 +24,8 @@
     {
       "title": "Sandbox Documentation",
       "description": "Technical documentation for the CAIL Sandbox.",
-      "url": "https://cuny-ai-lab.github.io/sandbox-docs",
-      "external": true,
+      "url": "/sandbox-docs/",
+      "external": false,
       "link_text": "Read the docs",
       "icon_bg": "bg-emerald-100",
       "icon_color": "text-emerald-600",

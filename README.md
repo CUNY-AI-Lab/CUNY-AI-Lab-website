@@ -50,6 +50,27 @@ A production move is separate: establish Cloudflare zone and domain routing,
 coordinate the CUNY DNS change, verify the canonical site, then retire Amplify.
 No email migration is planned.
 
+## Sandbox documentation
+
+`/sandbox-docs/` and its article routes are built from
+`src/content/sandbox-docs/*.md`. The initial import preserves all 14 published
+Markdown files from `CUNY-AI-Lab/sandbox-docs` at revision
+`74ce09d2bb6cc58b37e1f7296a3a01e988009222`, including examples, tables, and
+expandable sections. `src/data/sandbox-docs-source.json` records that import's
+source revision and SHA-256 hashes. It is provenance for the initial import,
+not a requirement to keep future documentation frozen.
+
+Make future documentation edits here through the normal website pull request
+and deployment workflow. Builds do not fetch GitHub Pages or depend on its
+runtime Markdown renderer. The original GitHub Pages site remains available;
+it does not automatically synchronize edits from this repository.
+
+The docs use the shared website header, footer, fonts, and canonical URLs,
+with the original three sidebar groups plus links to the three supplementary
+articles. Relative `.md` links become website routes during rendering, and
+legacy links such as `/sandbox-docs/#student-onboarding` resolve to the article.
+The imported Markdown text is unchanged by these transformations.
+
 ## Live model registry
 
 The registry renders every offering from the public Gateway `/v1/catalog`,

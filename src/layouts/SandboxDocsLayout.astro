@@ -1,0 +1,131 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import source from '../data/sandbox-docs-source.json';
+
+interface Props {
+  title: string;
+  page: string;
+}
+
+const { title, page } = Astro.props;
+const groups = [
+  { title: 'Getting Started', pages: [
+    ['getting-started', 'Getting Started'], ['sandbox-basics', 'Sandbox Basics'],
+  ] },
+  { title: 'Design & Test', pages: [
+    ['models', 'Custom Models'], ['knowledge-bases', 'Knowledge Bases'],
+    ['tools-skills', 'Tools & Skills'], ['roles-permissions', 'Roles & Permissions'],
+  ] },
+  { title: 'Teach & Refine', pages: [
+    ['teaching-tips', 'Teaching Tips'], ['sample-activities', 'Sample Activities'],
+    ['student-onboarding', 'Student Onboarding'], ['use-cases', 'Use Cases'],
+  ] },
+];
+// These linked articles were not in the original sidebar. Keep them reachable
+// without changing the published navigation groups.
+const related = [
+  ['basic-concepts', 'Basic Concepts'], ['quick-tour', 'Quick Tour'],
+  ['system-prompts', 'System Prompts'],
+];
+const legacyPages = Object.keys(source.files).map((file) => file.replace(/\.md$/, ''));
+---
+
+<BaseLayout title={`${title} - CUNY AI Lab`} description="Documentation for the CUNY CAIL Sandbox: getting started, custom models, knowledge bases, tools, and teaching activities.">
+  <div class="sandbox-docs">
+    <aside class="docs-sidebar">
+      <details open id="docs-menu">
+        <summary>Sandbox documentation</summary>
+        <nav aria-label="Sandbox documentation">
+          <a href="/sandbox-docs/" aria-current={page === 'index' ? 'page' : undefined}>Home</a>
+          {groups.map((group) => (
+            <div>
+              <p class="docs-section-label">{group.title}</p>
+              {group.pages.map(([id, label]) => (
+                <a href={`/sandbox-docs/${id}/`} aria-current={page === id ? 'page' : undefined}>{label}</a>
+              ))}
+            </div>
+          ))}
+          <div>
+            <p class="docs-section-label">Related guides</p>
+            {related.map(([id, label]) => (
+              <a href={`/sandbox-docs/${id}/`} aria-current={page === id ? 'page' : undefined}>{label}</a>
+            ))}
+          </div>
+        </nav>
+      </details>
+    </aside>
+    <div class="docs-reading-pane">
+      <nav class="docs-breadcrumbs" aria-label="Breadcrumb">
+        <a href="/resources/">Resources</a><span aria-hidden="true">/</span>
+        <a href="/sandbox-docs/">Sandbox documentation</a>
+      </nav>
+      <article class="sandbox-content"><slot /></article>
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline define:vars={{ legacyPages, page }}>
+  // Preserve links such as /sandbox-docs/#student-onboarding from the old SPA.
+  function followLegacyLink() {
+    const target = location.hash.slice(1);
+    if (page === 'index' && legacyPages.includes(target)) {
+      location.replace(`/sandbox-docs/${target === 'index' ? '' : `${target}/`}`);
+    }
+  }
+  followLegacyLink();
+  window.addEventListener('hashchange', followLegacyLink);
+
+  const docsMenu = document.getElementById('docs-menu');
+  const mobileDocs = window.matchMedia('(max-width: 767px)');
+  function resizeDocsMenu() {
+    docsMenu.open = !mobileDocs.matches;
+  }
+  resizeDocsMenu();
+  mobileDocs.addEventListener('change', resizeDocsMenu);
+</script>
+
+<style is:global>
+  .sandbox-docs { display: grid; grid-template-columns: 260px minmax(0, 880px); max-width: 1280px; margin: 72px auto 0; min-height: calc(100vh - 72px); }
+  .docs-sidebar { border-right: 1px solid #e5e7eb; background: rgb(255 255 255 / 70%); }
+  .docs-sidebar details { position: sticky; top: 72px; max-height: calc(100vh - 72px); overflow-y: auto; padding: 24px 0; }
+  .docs-sidebar summary { padding: 8px 24px; font-family: var(--font-outfit), sans-serif; font-weight: 600; cursor: pointer; }
+  .docs-sidebar a { display: block; padding: 8px 24px; color: #333; font-size: .875rem; font-weight: 500; }
+  .docs-sidebar a:hover { background: #e8f4fc; color: #2a6fb8; }
+  .docs-sidebar a[aria-current="page"] { color: #2a6fb8; font-weight: 600; border-right: 3px solid #3b73e6; background: rgb(209 233 249 / 40%); }
+  .docs-section-label { padding: 20px 24px 4px; font: 600 .75rem var(--font-outfit), sans-serif; text-transform: uppercase; letter-spacing: .08em; color: #596273; }
+  .docs-reading-pane { min-width: 0; padding: 32px 64px 80px; }
+  .docs-breadcrumbs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; color: #596273; font-size: .8rem; }
+  .docs-breadcrumbs a:hover { text-decoration: underline; }
+  .sandbox-content { font-family: var(--font-inter), sans-serif; line-height: 1.7; overflow-wrap: anywhere; }
+  .sandbox-content h1, .sandbox-content h2, .sandbox-content h3, .sandbox-content h4 { font-family: var(--font-outfit), sans-serif; }
+  .sandbox-content h1 { font-size: 2.25rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -.02em; line-height: 1.2; }
+  .sandbox-content h2 { font-size: 1.5rem; font-weight: 600; margin: 2.5em 0 .8em; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb; }
+  .sandbox-content h3 { font-size: 1.125rem; font-weight: 600; margin: 1.8em 0 .6em; }
+  .sandbox-content h4 { font-size: 1rem; font-weight: 600; margin: 1.4em 0 .5em; }
+  .sandbox-content p { margin: .9em 0; }
+  .sandbox-content ul, .sandbox-content ol { margin: 1em 0 1em 1.8em; }
+  .sandbox-content ul { list-style: disc; }
+  .sandbox-content ol { list-style: decimal; }
+  .sandbox-content li { margin: .4em 0; }
+  .sandbox-content a { color: #2a6fb8; text-decoration: underline; text-underline-offset: 2px; }
+  .sandbox-content a:hover { color: #1d3a83; }
+  .sandbox-content code { font-family: Menlo, monospace; font-size: .9em; background: #f3f4f6; padding: 2px 6px; border-radius: 4px; }
+  .sandbox-content pre { background: #f3f4f6; padding: 16px 20px; border-radius: 8px; overflow-x: auto; margin: 1.2em 0; line-height: 1.6; border-left: 3px solid #3b73e6; }
+  .sandbox-content pre code { background: none; padding: 0; }
+  .sandbox-content blockquote { border-left: 4px solid #a3d3f3; padding: 12px 20px; margin: 1.2em 0; background: rgb(232 244 252 / 50%); border-radius: 0 6px 6px 0; font-size: .95rem; }
+  .sandbox-content table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 1.2em 0; font-size: .92rem; }
+  .sandbox-content th, .sandbox-content td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+  .sandbox-content th { font-weight: 600; background: #f3f4f6; font-family: var(--font-outfit), sans-serif; }
+  .sandbox-content hr { border: 0; border-top: 1px solid #e5e7eb; margin: 2.5em 0; }
+  .sandbox-content .callout { border-left: 4px solid #3b73e6; background: #e8f4fc; padding: 16px 20px; margin: 1.4em 0; border-radius: 0 6px 6px 0; font-size: .95rem; }
+  .sandbox-content .callout strong { color: #2a6fb8; }
+  .sandbox-content summary { cursor: pointer; font-weight: 600; padding: 8px 0; }
+  .sandbox-docs :focus-visible { outline: 3px solid #2a6fb8; outline-offset: 3px; }
+  @media (max-width: 767px) {
+    .sandbox-docs { display: block; }
+    .docs-sidebar { border-right: 0; border-bottom: 1px solid #e5e7eb; }
+    .docs-sidebar details { position: static; max-height: none; padding: 12px 0; }
+    .docs-reading-pane { padding: 24px 24px 64px; }
+    .sandbox-content h1 { font-size: 1.875rem; }
+  }
+</style>

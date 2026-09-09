@@ -1,12 +1,15 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import sandboxDocsLinks from './src/plugins/sandbox-docs-links.mjs';
+import { satteri } from '@astrojs/markdown-satteri';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://ailab.gc.cuny.edu',
   base: '/',
   integrations: [sitemap()],
+  markdown: { processor: satteri({ hastPlugins: [sandboxDocsLinks] }) },
   // Fonts are downloaded at build time and served same-origin from /_astro/fonts/
   // with preload links, so the first paint already has them (no fallback flash).
   fonts: [

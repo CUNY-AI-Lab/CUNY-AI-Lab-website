@@ -114,7 +114,7 @@ jobs:
             ' >/dev/null
           echo "Cloudflare preview serves version $version for $GITHUB_SHA"
           origin='https://cail-website.ailab-452.workers.dev'
-          for path in / /tools/ /request-access/ /blog/cuny-login-sso/ /rss.xml; do
+          for path in / /tools/ /request-access/ /blog/cuny-login-sso/ /rss.xml /sandbox-docs/ /sandbox-docs/system-prompts/ /sandbox-docs/student-onboarding/; do
             status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' "$origin$path")"
             test "$status" = 200 || { echo "Preview $path returned $status" >&2; exit 1; }
           done
