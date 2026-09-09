@@ -2,6 +2,11 @@
   "updated_at": "2026-09-08",
   "models": [
     {
+      "name": "DeepSeek V4 Flash 0731",
+      "note": "Fast and inexpensive everyday model with a 1.3M-token context.",
+      "ids": ["deepseek/deepseek-v4-flash-0731", "@cf/deepseek-ai/deepseek-v4-flash-0731"]
+    },
+    {
       "name": "Kimi K3",
       "note": "Moonshot's 2.8T-parameter multimodal reasoning model with a 1M-token context; the largest open model in the catalog.",
       "ids": ["moonshotai/kimi-k3"]
@@ -10,11 +15,6 @@
       "name": "DeepSeek V4 Pro 0813",
       "note": "DeepSeek's general-availability flagship for reasoning, analysis, and coding over a 1M-token context.",
       "ids": ["deepseek/deepseek-v4-pro-0813", "@cf/deepseek-ai/deepseek-v4-pro-0813"]
-    },
-    {
-      "name": "DeepSeek V4 Flash 0731",
-      "note": "Fast and inexpensive everyday model from the same family, with a 1.3M-token context.",
-      "ids": ["deepseek/deepseek-v4-flash-0731", "@cf/deepseek-ai/deepseek-v4-flash-0731"]
     },
     {
       "name": "GLM 5.3",
