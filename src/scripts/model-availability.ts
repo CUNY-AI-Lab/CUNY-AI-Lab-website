@@ -73,6 +73,31 @@ const empty = document.querySelector<HTMLElement>('#empty-state');
 type ModelGroup = { key: string; name: string; offerings: Offering[] };
 let groups: ModelGroup[] = [];
 let loaded = false;
+const modelsPerPage = 12;
+const featuredPerPage = 3;
+let modelPage = 1;
+let featuredPage = 1;
+
+function updatePagination(section: 'all' | 'featured', page: number, total: number, pageSize: number): void {
+  const pages = Math.ceil(total / pageSize);
+  for (const nav of document.querySelectorAll<HTMLElement>(`[data-pagination="${section}"]`)) {
+    nav.hidden = pages <= 1;
+    const pageStatus = nav.querySelector<HTMLElement>('[data-page-status]');
+    if (pageStatus) pageStatus.textContent = total === 0 ? '' : `Page ${page} of ${pages} · ${(page - 1) * pageSize + 1}–${Math.min(page * pageSize, total)} of ${total} models`;
+    for (const button of nav.querySelectorAll<HTMLButtonElement>('[data-page-step]')) {
+      button.disabled = button.dataset.pageStep === '-1' ? page <= 1 : page >= pages;
+    }
+  }
+}
+
+function paginateFeatured(): void {
+  const cards = Array.from(featuredList?.querySelectorAll<HTMLElement>('.featured-card') ?? []);
+  featuredPage = Math.min(featuredPage, Math.max(1, Math.ceil(cards.length / featuredPerPage)));
+  cards.forEach((card, index) => {
+    card.hidden = index < (featuredPage - 1) * featuredPerPage || index >= featuredPage * featuredPerPage;
+  });
+  updatePagination('featured', featuredPage, cards.length, featuredPerPage);
+}
 
 function element<K extends keyof HTMLElementTagNameMap>(tag: K, text: string, className = ''): HTMLElementTagNameMap[K] {
   const node = document.createElement(tag);
@@ -287,6 +312,7 @@ function applyFilters(): void {
   if (featuredSection) featuredSection.hidden = filtering || (featuredList?.childElementCount ?? 0) === 0;
   let visibleModels = 0;
   let visibleOfferings = 0;
+  const matchingCards: HTMLElement[] = [];
   for (const [index, card] of Array.from(list.children).entries()) {
     const group = groups[index];
     if (!group || !(card instanceof HTMLElement)) continue;
@@ -301,9 +327,17 @@ function applyFilters(): void {
       if (matches) matchesInGroup++;
     }
     card.hidden = matchesInGroup === 0;
-    if (matchesInGroup > 0) visibleModels++;
+    if (matchesInGroup > 0) {
+      visibleModels++;
+      matchingCards.push(card);
+    }
     visibleOfferings += matchesInGroup;
   }
+  modelPage = Math.min(modelPage, Math.max(1, Math.ceil(visibleModels / modelsPerPage)));
+  matchingCards.forEach((card, index) => {
+    card.hidden = index < (modelPage - 1) * modelsPerPage || index >= modelPage * modelsPerPage;
+  });
+  updatePagination('all', modelPage, visibleModels, modelsPerPage);
   count.textContent = `${visibleModels} model${visibleModels === 1 ? '' : 's'} · ${visibleOfferings} provider offering${visibleOfferings === 1 ? '' : 's'}`;
   empty.hidden = visibleModels > 0;
   empty.textContent = groups.length === 0 ? 'The Gateway catalog currently contains no offerings.' : 'No models match your filters. Clear filters to see all offerings.';
@@ -322,6 +356,10 @@ async function refreshCatalog(): Promise<void> {
   refresh.disabled = true;
   loaded = false;
   groups = [];
+  modelPage = 1;
+  featuredPage = 1;
+  updatePagination('all', modelPage, 0, modelsPerPage);
+  updatePagination('featured', featuredPage, 0, featuredPerPage);
   list.replaceChildren();
   featuredList?.replaceChildren();
   if (featuredSection) featuredSection.hidden = true;
@@ -341,6 +379,7 @@ async function refreshCatalog(): Promise<void> {
     populateFilter(capabilityFilter, [...new Set(offerings.flatMap(offering => offering.capabilities))], capabilityNames, 'All capabilities');
     list.replaceChildren(...groups.map(group => modelCard(group)));
     featuredList?.replaceChildren(...featuredCards(offerings));
+    paginateFeatured();
     loaded = true;
     applyFilters();
     const checkedAt = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date());
@@ -354,14 +393,41 @@ async function refreshCatalog(): Promise<void> {
   }
 }
 
-search?.addEventListener('input', applyFilters);
-providerFilter?.addEventListener('change', applyFilters);
-capabilityFilter?.addEventListener('change', applyFilters);
+function resetFiltersPage(): void {
+  modelPage = 1;
+  featuredPage = 1;
+  paginateFeatured();
+  applyFilters();
+}
+
+for (const nav of document.querySelectorAll<HTMLElement>('[data-pagination]')) {
+  for (const button of nav.querySelectorAll<HTMLButtonElement>('[data-page-step]')) {
+    button.addEventListener('click', () => {
+      if (!loaded || button.disabled) return;
+      const step = button.dataset.pageStep === '-1' ? -1 : 1;
+      const isFeatured = nav.dataset.pagination === 'featured';
+      if (isFeatured) {
+        featuredPage = Math.max(1, featuredPage + step);
+        paginateFeatured();
+      } else {
+        modelPage = Math.max(1, modelPage + step);
+        applyFilters();
+      }
+      const heading = document.querySelector<HTMLElement>(isFeatured ? '#featured-heading' : '#all-models-heading');
+      heading?.focus({ preventScroll: true });
+      heading?.scrollIntoView({ block: 'start' });
+    });
+  }
+}
+
+search?.addEventListener('input', resetFiltersPage);
+providerFilter?.addEventListener('change', resetFiltersPage);
+capabilityFilter?.addEventListener('change', resetFiltersPage);
 document.querySelector('#clear-filters')?.addEventListener('click', () => {
   if (search) search.value = '';
   if (providerFilter) providerFilter.value = '';
   if (capabilityFilter) capabilityFilter.value = '';
-  applyFilters();
+  resetFiltersPage();
 });
 refresh?.addEventListener('click', () => void refreshCatalog());
 void refreshCatalog();

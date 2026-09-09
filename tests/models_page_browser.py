@@ -296,6 +296,130 @@ def test_guide(page: Page) -> None:
     expect_checked(page)
 
 
+def test_pagination_and_filter_resets(page: Page) -> None:
+    entries = [offering(f"model/{index:02}", name=f"Model {index:02}",
+                        model_group=f"model/{index:02}",
+                        capabilities=["text-generation"] if index < 24 else ["vision"])
+               for index in range(27)]
+    entries.append(offering("alternate/12", "workers-ai", name="Model 12",
+                            model_group="model/12"))
+    stub_catalog(page, {"object": "list", "data": entries})
+    page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
+    expect_checked(page)
+    cards = page.locator("#models-list article.model-card:visible")
+    top = page.get_by_role("navigation", name="All model pages", exact=True)
+    bottom = page.get_by_role("navigation", name="All model pages, bottom", exact=True)
+    expect(cards).to_have_count(12)
+    expect(page.locator("#results-count")).to_have_text("27 models · 28 provider offerings")
+    expect(top).to_contain_text("Page 1 of 3 · 1–12 of 27 models")
+    expect(top.get_by_role("button", name="Previous", exact=True)).to_be_disabled()
+    seen = cards.locator("h2").all_text_contents()
+    bottom.get_by_role("button", name="Next", exact=True).press("Enter")
+    expect(page.locator("#all-models-heading")).to_be_focused()
+    expect(top).to_contain_text("Page 2 of 3 · 13–24 of 27 models")
+    expect(bottom).to_contain_text("Page 2 of 3 · 13–24 of 27 models")
+    expect(cards).to_have_count(12)
+    expect(model_card(page, "model/12").locator(".provider-offering:visible")).to_have_count(2)
+    seen += cards.locator("h2").all_text_contents()
+    top.get_by_role("button", name="Next", exact=True).click()
+    expect(cards).to_have_count(3)
+    expect(top).to_contain_text("Page 3 of 3 · 25–27 of 27 models")
+    expect(top.get_by_role("button", name="Next", exact=True)).to_be_disabled()
+    expect(bottom.get_by_role("button", name="Next", exact=True)).to_be_disabled()
+    seen += cards.locator("h2").all_text_contents()
+    assert seen == [f"Model {index:02}" for index in range(27)]
+    bottom.get_by_role("button", name="Previous", exact=True).click()
+    expect(top).to_contain_text("Page 2 of 3")
+    search = page.get_by_role("searchbox", name="Search models", exact=True)
+    search.fill("Model 26")
+    expect(cards).to_have_count(1)
+    expect(model_card(page, "model/26")).to_be_visible()
+    expect(top).to_be_hidden()
+    search.fill("")
+    expect(top).to_contain_text("Page 1 of 3")
+    top.get_by_role("button", name="Next", exact=True).click()
+    page.get_by_label("Capability", exact=True).select_option("vision")
+    expect(cards).to_have_count(3)
+    expect(top).to_be_hidden()
+    page.get_by_role("button", name="Clear filters", exact=True).click()
+    expect(top).to_contain_text("Page 1 of 3")
+    top.get_by_role("button", name="Next", exact=True).click()
+    page.get_by_label("Provider", exact=True).select_option("workers-ai")
+    expect(cards).to_have_count(1)
+    expect(page.locator("#models-list .provider-offering:visible")).to_have_count(1)
+    expect(top).to_be_hidden()
+    page.get_by_role("button", name="Clear filters", exact=True).click()
+    top.get_by_role("button", name="Next", exact=True).click()
+    search.fill("missing")
+    expect(cards).to_have_count(0)
+    expect(top).to_be_hidden()
+    expect(bottom).to_be_hidden()
+    page.get_by_role("button", name="Clear filters", exact=True).click()
+    expect(top).to_contain_text("Page 1 of 3")
+    top.get_by_role("button", name="Next", exact=True).click()
+    page.get_by_role("button", name="Refresh catalog", exact=True).click()
+    expect_checked(page)
+    expect(top).to_contain_text("Page 1 of 3")
+    page.set_viewport_size({"width": 390, "height": 844})
+    top.get_by_role("button", name="Next", exact=True).click()
+    expect(top).to_contain_text("Page 2 of 3")
+    assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
+    page.add_script_tag(path=str(Path("node_modules/axe-core/axe.min.js").resolve()))
+    violations = page.evaluate("""async () => (await axe.run('#model-registry', {runOnly: {type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa']}})).violations""")
+    assert violations == [], violations
+    for payload in ({"object": "list", "data": [entries[0]]}, {"object": "list", "data": []}, None):
+        stub_catalog(page, payload, network_failure=payload is None)
+        page.get_by_role("button", name="Refresh catalog", exact=True).click()
+        if payload is None:
+            expect(page.get_by_role("status", name="Catalog status", exact=True)).to_contain_text("Couldn’t load")
+        else:
+            expect_checked(page)
+        expect(top).to_be_hidden()
+        expect(bottom).to_be_hidden()
+    page.set_viewport_size({"width": 1440, "height": 1000})
+
+
+def test_featured_pagination_and_flash_first(page: Page) -> None:
+    featured_data = json.loads(Path("src/data/featured-models.json").read_text())["models"]
+    entries = [offering(api_id, name=entry["name"], model_group=entry["ids"][0])
+               for entry in featured_data for api_id in entry["ids"]]
+    stub_catalog(page, {"object": "list", "data": entries})
+    page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
+    expect_checked(page)
+    cards = page.locator("#featured-list article.featured-card:visible")
+    nav = page.get_by_role("navigation", name="Featured model pages", exact=True)
+    expect(cards).to_have_count(3)
+    expect(cards.first.get_by_role("heading", name="DeepSeek V4 Flash 0731", exact=True)).to_be_visible()
+    expect(cards.first.locator(".provider-offering")).to_have_count(2)
+    expect(nav.get_by_role("button", name="Previous", exact=True)).to_be_disabled()
+    seen = cards.locator("h2").all_text_contents()
+    for number in (2, 3):
+        nav.get_by_role("button", name="Next", exact=True).press("Enter")
+        expect(page.locator("#featured-heading")).to_be_focused()
+        expect(nav).to_contain_text(f"Page {number} of 3")
+        expect(cards).to_have_count(3)
+        seen += cards.locator("h2").all_text_contents()
+    assert seen == [entry["name"] for entry in featured_data]
+    expect(nav.get_by_role("button", name="Next", exact=True)).to_be_disabled()
+    nav.get_by_role("button", name="Previous", exact=True).click()
+    expect(nav).to_contain_text("Page 2 of 3")
+    page.get_by_role("searchbox", name="Search models", exact=True).fill("Flash")
+    expect(page.locator("#featured-models")).to_be_hidden()
+    page.get_by_role("button", name="Clear filters", exact=True).click()
+    expect(nav).to_contain_text("Page 1 of 3")
+    nav.get_by_role("button", name="Next", exact=True).click()
+    page.get_by_role("button", name="Refresh catalog", exact=True).click()
+    expect_checked(page)
+    expect(nav).to_contain_text("Page 1 of 3")
+    stub_catalog(page, {"object": "list", "data": [offering("moonshotai/kimi-k3", name="Kimi K3")]})
+    page.get_by_role("button", name="Refresh catalog", exact=True).click()
+    expect_checked(page)
+    expect(cards).to_have_count(1)
+    expect(cards.first.get_by_role("heading", name="Kimi K3", exact=True)).to_be_visible()
+    expect(nav).to_be_hidden()
+    stub_catalog(page)
+
+
 def main() -> None:
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -307,7 +431,8 @@ def main() -> None:
             page.on("pageerror", lambda error: errors.append(str(error)))
             for test in (test_catalog_offerings_and_copy, test_search_and_combined_filters,
                          test_refresh_empty_failure_retry_and_safe_text, test_optional_metadata_and_conflicts,
-                         test_featured_models, test_guide):
+                         test_featured_models, test_pagination_and_filter_resets,
+                         test_featured_pagination_and_flash_first, test_guide):
                 test(page)
                 print(f"PASS {test.__name__}", flush=True)
             assert errors == [], errors

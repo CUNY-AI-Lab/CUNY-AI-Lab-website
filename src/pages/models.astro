@@ -31,11 +31,26 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
       <section id="featured-models" aria-labelledby="featured-heading" hidden>
-        <div class="section-head"><h2 id="featured-heading">Featured</h2><p>A short list of current models the lab suggests starting with. Each one also appears in the full registry below.</p></div>
+        <div class="section-head"><h2 id="featured-heading" tabindex="-1">Featured</h2><p>A short list of current models the lab suggests starting with. Each one also appears in the full registry below.</p></div>
+        <nav class="registry-pagination" data-pagination="featured" aria-label="Featured model pages" hidden>
+          <button class="registry-button" type="button" data-page-step="-1" aria-controls="featured-list">Previous</button>
+          <p data-page-status aria-live="polite"></p>
+          <button class="registry-button" type="button" data-page-step="1" aria-controls="featured-list">Next</button>
+        </nav>
         <div id="featured-list"></div>
       </section>
-      <div class="section-head"><h2 id="all-models-heading">All models</h2><p id="results-count" class="results-count" aria-live="polite"></p></div>
+      <div class="section-head"><h2 id="all-models-heading" tabindex="-1">All models</h2><p id="results-count" class="results-count" aria-live="polite"></p></div>
+      <nav class="registry-pagination" data-pagination="all" aria-label="All model pages" hidden>
+        <button class="registry-button" type="button" data-page-step="-1" aria-controls="models-list">Previous</button>
+        <p data-page-status aria-live="polite"></p>
+        <button class="registry-button" type="button" data-page-step="1" aria-controls="models-list">Next</button>
+      </nav>
       <div id="models-list"></div>
+      <nav class="registry-pagination" data-pagination="all" aria-label="All model pages, bottom" hidden>
+        <button class="registry-button" type="button" data-page-step="-1" aria-controls="models-list">Previous</button>
+        <p data-page-status></p>
+        <button class="registry-button" type="button" data-page-step="1" aria-controls="models-list">Next</button>
+      </nav>
       <p id="empty-state" class="empty-state" hidden></p>
       <noscript><p class="py-6">JavaScript is needed to load and filter the live registry. <a class="underline text-vibrant-600" href="https://tools.ailab.gc.cuny.edu/v1/catalog">Open the public Gateway catalog</a> or <a class="underline text-vibrant-600" href={`${base}models/guide/`}>read the registry guide</a>.</p></noscript>
     </div>
@@ -62,6 +77,11 @@ const base = import.meta.env.BASE_URL;
   #model-registry .section-head h2 { font-family: Outfit, sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--registry-ink); }
   #model-registry .section-head p { font-size: .85rem; color: var(--registry-muted); }
   #model-registry .results-count { font-weight: 600; }
+  #model-registry .registry-pagination { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin: 1rem 0; }
+  #model-registry .registry-pagination[hidden] { display: none; }
+  #model-registry .registry-pagination p { text-align: center; font-size: .8rem; color: var(--registry-muted); }
+  #model-registry .registry-pagination button:disabled { cursor: default; }
+  #model-registry :is(#featured-heading, #all-models-heading) { scroll-margin-top: 6rem; }
   #model-registry .featured-card { border-color: #b9d0ef; box-shadow: 0 2px 8px rgba(29, 58, 131, .08); }
   #model-registry .featured-note { margin-top: .35rem; font-size: .9rem; line-height: 1.5; color: #46556b; max-width: 60ch; }
   #model-registry .empty-state { padding: 3rem 1rem; text-align: center; color: var(--registry-muted); }
