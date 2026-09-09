@@ -28,7 +28,6 @@ type Specifications = z.infer<typeof specificationsSchema>;
 const offeringSchema = z.object({
   id: z.string().check(z.minLength(1), z.maxLength(512)),
   name: z.string().check(z.minLength(1)),
-  provider: z.string().check(z.minLength(1)),
   model_name: z.catch(z.optional(metadataText), undefined),
   specifications: z.catch(z.optional(specificationsSchema), undefined),
   capabilities: z.array(z.string()),
