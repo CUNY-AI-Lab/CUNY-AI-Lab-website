@@ -70,12 +70,14 @@ The docs use the shared website header, footer, fonts, and canonical URLs,
 with the original three sidebar groups plus links to the three supplementary
 articles. Relative `.md` links become website routes during rendering, and
 legacy links such as `/sandbox-docs/#student-onboarding` resolve to the article.
-The imported Markdown text is unchanged by these transformations. The landing
-page heading was subsequently renamed to **CAIL Sandbox Docs**. Student
+Each article stores its title and original heading ID in frontmatter for the
+compact shared page hero; the landing introduction also lives in frontmatter.
+The landing page uses the title **CAIL Sandbox Docs** and a short introduction
+to its teaching, research, privacy, and experimentation focus. Student
 Onboarding now foregrounds the instructor course-access checkpoint and the
 course invitation, group, and channel enrollment process. Getting Started uses
 the current lab support address, `ailab@gc.cuny.edu`. Other imported article
-text is unchanged.
+text is unchanged except for standardizing the name to **CAIL Sandbox**.
 
 ## Live model registry
 

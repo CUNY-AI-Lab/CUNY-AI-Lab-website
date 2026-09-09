@@ -1,4 +1,7 @@
-# Sandbox Basics
+---
+title: "Sandbox Basics"
+headingId: "sandbox-basics"
+---
 
 Core terminology, interface layout, and navigation.
 
@@ -6,34 +9,36 @@ Core terminology, interface layout, and navigation.
 
 ## Key Concepts
 
-**Base model:** The underlying AI (e.g., DeepSeek V3.2, Kimi K2.5). You pick one when creating a custom model.
+**Base model.** The underlying AI (e.g., DeepSeek V3.2, Kimi K2.5). You pick one when creating a custom model.
 
-**Custom model:** A configuration you build: base model + system prompt + knowledge bases + tools.
+A **custom model** combines a base model, system prompt, knowledge bases, and tools.
 
-**System prompt:** Instructions that define how a model behaves: its role, tone, boundaries, and response style.
+A **system prompt** gives the model instructions for its role, tone, boundaries, and response style.
 
-**Knowledge base:** A collection of uploaded documents (PDFs, Markdown, plain text) the model searches before responding. This is called RAG (Retrieval-Augmented Generation): responses grounded in your materials instead of general training data.
+A **knowledge base** contains uploaded documents, such as PDFs, Markdown, and plain text, that the model searches before responding. **Retrieval-augmented generation (RAG)** gives the model relevant passages from those documents to use in its response.
 
-**Tools:** Capabilities beyond text generation: Web Search, Code Interpreter, arXiv Search. Enable per-chat or per-model.
+**Tools** add capabilities such as Web Search, Code Interpreter, and arXiv Search. Enable them for an individual chat or a custom model.
 
-**Skills:** Specialized knowledge domains (e.g., Quantitative Methods, Research Ethics) you bind to models for procedural expertise.
+**Skills** are reusable Markdown instructions for tasks or procedures that you can attach to models.
 
-**Roles:**
-- **Administrators** — full platform access, configure providers, install tools
-- **Faculty/Staff** — create and share models, knowledge bases, manage groups
-- **Students** — use shared resources, create private configurations
+**Roles**
+- **Admin** — manages the platform and user access
+- **User** — uses the features and resources granted to their account and groups
+- **Pending** — awaits account activation
 
-**Visibility levels:** Private (only you), Limited (specific users/groups), Public (all Sandbox users).
+Faculty, staff, and student access depends on assigned permissions and course membership.
+
+**Resource access.** Private resources are available to you and any users or groups you add through **Add Access**. Public resources are available to all signed-in Sandbox users, where public sharing is permitted.
 
 ---
 
 ## Interface Layout
 
-Three areas on screen:
+Three areas on screen
 
 1. **Sidebar (left)** — conversation history, Workspace access, settings
-2. **Chat area (center)** — conversation thread and input box
-3. **Top bar** — model selector, profile, settings
+2. **Chat area (center)** — conversation thread
+3. **Message box** — text input, attachments, integrations, and model selector on the right
 
 ---
 
@@ -47,22 +52,22 @@ Three areas on screen:
 
 ## Chat Controls
 
-- **Model selector** (top of chat) — click to switch models mid-conversation
-- **➕** (input box) — add tools to the current chat
-- **📎** (input box) — attach files (images, PDFs, documents)
-- **Message actions** (three dots on any message) — edit, copy, delete, regenerate
+- **Model selector** (right inside the message box) — switch models mid-conversation
+- **Integrations** (beside the plus button) — choose available tools and skills
+- **➕ > Upload Files** — attach images, PDFs, or documents
+- **Message actions** (beneath a message) — copy, edit, or regenerate where available; additional actions are in the three-dot menu
 
 ---
 
 ## Workspace
 
-Where you build custom configurations (requires Workspace access):
+Where you build custom configurations (requires Workspace access)
 
 - **Workspace > Models** — create, edit, share custom AI models
 - **Workspace > Knowledge** — upload documents, build knowledge bases
-- **Workspace > Prompts** — save and share reusable system prompts
+- **Workspace > Prompts** — save and share reusable prompt templates
 - **Workspace > Tools** — browse and manage available tools
-- **Workspace > Skills** — add specialized knowledge domains to models
+- **Workspace > Skills** — create and share reusable instructions
 
 ---
 

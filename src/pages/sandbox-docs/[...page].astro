@@ -11,10 +11,9 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await render(entry);
-const title = headings.find((heading) => heading.depth === 1)?.text ?? 'Sandbox Documentation';
+const { Content } = await render(entry);
 ---
 
-<SandboxDocsLayout title={title} page={entry.id}>
+<SandboxDocsLayout {...entry.data} page={entry.id}>
   <Content />
 </SandboxDocsLayout>

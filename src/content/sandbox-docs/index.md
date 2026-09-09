@@ -1,6 +1,12 @@
-# CAIL Sandbox Docs
+---
+title: "CAIL Sandbox Docs"
+headingId: "cail-sandbox-docs"
+description: "Shared chat platform for teaching, research, and hands-on experimentation with open-weight models. See documentation below."
+---
 
-The CUNY CAIL Sandbox is an AI platform for teaching and research at CUNY. It runs on CUNY infrastructure, keeps student data private, and gives you full control over how AI tools work in your courses and projects.
+## About the Sandbox
+
+The CAIL Sandbox is hosted and maintained by the [CUNY AI Lab](https://ailab.gc.cuny.edu) at the Graduate Center. It runs [Open WebUI](https://openwebui.com), an open-source platform configured for academic use at CUNY.
 
 ## Getting Started
 
@@ -21,12 +27,10 @@ The CUNY CAIL Sandbox is an AI platform for teaching and research at CUNY. It ru
 - [Student Onboarding](student-onboarding.md) — A first-week plan for introducing AI tools.
 - [Use Cases](use-cases.md) — Semester-long workflows across disciplines.
 
-## About the Sandbox
+## Supporting Resources
 
-The CUNY CAIL Sandbox is hosted and maintained by the [CUNY AI Lab](https://ailab.gc.cuny.edu) at the Graduate Center. It runs [Open WebUI](https://openwebui.com), an open-source platform configured for academic use at CUNY.
+**Models.** Check the Sandbox’s model selector for current chat models. The [Model Registry](https://ailab.gc.cuny.edu/models/) lists Model API offerings.
 
-**Models:** The Sandbox hosts open-weight models selected for teaching and research. See the [Model Registry](https://ailab.gc.cuny.edu/models/) for the current list.
+**Support.** Questions, workshop schedules, and office hours are available through the [AI Lab website](https://ailab.gc.cuny.edu).
 
-**Support:** Questions, workshop schedules, and office hours are available through the [AI Lab website](https://ailab.gc.cuny.edu).
-
-**Teaching Resources:** Visit the [Teach@CUNY AI Toolkit](https://aitoolkit.commons.gc.cuny.edu/) for pedagogical guidance on integrating AI into your courses.
+**Teaching Resources.** Visit the [Teach@CUNY AI Toolkit](https://aitoolkit.commons.gc.cuny.edu/) for pedagogical guidance on integrating AI into your courses.
