@@ -3,23 +3,23 @@ title: "Custom Models"
 headingId: "custom-models"
 ---
 
-A custom model combines an existing base model with instructions, documents, and tools for your course. Configure what it should do, which requests it should decline, and which course materials it should reference. Creating this configuration does not train a new base model.
+Custom models combine a base model with instructions, documents, and tools for tasks such as reviewing drafts or working through course readings. You can specify which materials the model should reference, how it should respond, and which requests it should decline. Creating this configuration does not train a new base model.
 
 ## Creating a Model
 
-1. Click **Workspace** in the left sidebar
+1. Request **Workspace** access by emailing the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu). Once enabled, click **Workspace** in the left sidebar.
 2. Select **Models**
 3. Click **Create** beside the Workspace tabs
    - Enter a **Model Name**. In the editor, define its behavior, connect documents, and choose its tools.
 4. Choose a **base model** from the dropdown
-   - The available models depend on which providers your Sandbox is connected to. If you need a specific model and do not see it listed, contact the AI Lab team.
+   - Test the available models with the kinds of prompts you plan to use before choosing one. If you need a specific model and do not see it listed, contact the CUNY AI Lab team.
 5. Write a **system prompt** (see below for guidance)
 6. Attach **knowledge bases** if you want the model to draw from your documents
    - See [Knowledge Bases](knowledge-bases.md) for how to create one
 7. Select **Tools** for connected services, and configure Web Search or Code Interpreter under **Capabilities** and **Default Features** if available
    - See [Tools & Skills](tools-skills.md) for available options
 8. Add **prompt suggestions**
-   - These appear as clickable chips above the input bar when students open a new chat. They show users what the model can do and how to talk to it.
+   - These appear as clickable suggestions above the input bar when students open a new chat. Write examples of tasks or questions the model is configured to support.
 9. Open **Access**
    - Keep **Private** while building. Use **Add Access** to share with your course group or selected users.
    - Choose **Public** only if the model should be available to all signed-in Sandbox users and your account permits it.
@@ -31,7 +31,7 @@ In step 5, write a system prompt that specifies the model’s role, boundaries, 
 
 ### Prompt Suggestions
 
-Prompt suggestions are clickable chips that appear when a user opens a fresh chat. They show students what the model can do. Examples for a data analysis model
+Write short prompts that students can select to begin a task, such as choosing a statistical test or interpreting a result. Examples for a data analysis model
 
 - "What visualization works best for this data?"
 - "Help me interpret these statistical results"
@@ -62,7 +62,7 @@ You can change models during a chat by clicking the model name on the right insi
 ## Callout
 
 <div class="callout">
-  <strong>For instructors.</strong> When building models for your courses, make your expectations for AI use explicit in the system prompt. If the model should refuse to generate complete assignments, encode that boundary. If it should encourage process over product, say so directly. Explain these boundaries to students as part of the assignment.
+  <strong>For instructors.</strong> Specify which parts of an assignment the model should support and what it should do when students ask for work outside those limits. Test the configuration with likely student requests, then explain the permitted uses in the assignment instructions.
 </div>
 
 ## Additional Resources

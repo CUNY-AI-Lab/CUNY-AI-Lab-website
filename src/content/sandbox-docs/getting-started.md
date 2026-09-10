@@ -18,6 +18,8 @@ Apply for individual use or for a class using the steps below. **Students do not
 
 ### Request Individual Access
 
+Individual access lets you use resources shared by the CUNY AI Lab. It does not automatically include **Workspace** access for creating configurations; email the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu) to request it.
+
 1. Open the [individual access application](https://ailab.gc.cuny.edu/request-access/?kind=individual), select **My own access**, and sign in with **CUNY Login** if prompted.
 2. Fill in your details and intended use. Selecting tools of interest is optional; one application covers the Lab's tools.
 3. Complete the verification and select **Submit Application**. Watch your verified CUNY email for approval, then continue to [First Login](#first-login).
@@ -60,7 +62,7 @@ Apply for individual use or for a class using the steps below. **Students do not
    - Same process as accessing CUNY email or Blackboard
 
 4. **You'll land on the main chat interface**
-   - The model selector is on the right inside the message box. The left sidebar holds your chats and Workspace.
+   - The model selector is on the right inside the message box. Use the left sidebar for your chats; Workspace requires separate access.
 
 If you joined a course, confirm that its private text channel is available before continuing. If login stalls, try a private browser window or a different browser; for help, contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
 
@@ -121,12 +123,10 @@ Once you've adjusted your preferences
 
 ## What's Next?
 
-To create custom models, knowledge bases, and tool configurations, open **Workspace**. If those features are unavailable for your account, contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
-
-Once you have access, head to the **Design & Test** section to
+After the CUNY AI Lab team enables **Workspace** access, follow the **Design & Test** guides to
 - Create custom models with specific behaviors
 - Build knowledge bases from your course materials
-- Bind tools that extend what the AI can do
+- Attach tools for tasks such as web search or code execution
 
 Try different models by using the model selector in the message box, upload a document and ask questions about it, or experiment with different prompts.
 
@@ -138,15 +138,15 @@ Try different models by using the model selector in the message box, upload a do
 
 **Name chats you want to revisit.** Open the three-dot menu beside a chat in the sidebar and choose **Rename**. This makes it easier to find later when you want to revisit a useful interaction.
 
-**Experiment in your personal workspace.** Create and test private configurations as you learn how the Sandbox works.
+**Experiment in Workspace.** Once access is enabled, create and test private configurations as you learn how the Sandbox works.
 
-**Ask for help.** Contact the AI Lab team or check the community channels when you need help.
+**Ask for help.** Contact the CUNY AI Lab team or check the community channels when you need help.
 
 ---
 
 ## Privacy and Chat History
 
-Model-provider calls are configured for zero retention and prohibit use for model training. Chats may still be saved in your Sandbox account. Administrators can access stored chats; sharing a chat or posting in a course channel also makes that content available to its audience. See the [Lab’s description of the Sandbox](https://ailab.gc.cuny.edu/tools/).
+Requests to AI providers are configured for zero retention; use of prompts and responses for model training is prohibited. Chats may still be saved in your Sandbox account. Administrators can access stored chats; sharing a chat or posting in a course channel also makes that content available to its audience. See the [Lab’s description of the Sandbox](https://ailab.gc.cuny.edu/tools/).
 
 ---
 

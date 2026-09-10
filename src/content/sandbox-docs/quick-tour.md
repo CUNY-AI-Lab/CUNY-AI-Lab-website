@@ -26,7 +26,7 @@ The sidebar has several sections
 - Click a chat to reopen it
 - Hover over a chat title to see options (rename, archive, delete)
 
-**Workspace**
+**Workspace** (request access by emailing the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu))
 - Models — Create custom AI configurations
 - Knowledge — Build document collections
 - Tools — Browse available tools (if you have access)
@@ -78,7 +78,7 @@ The input box has several buttons
 
 ## Workspace. Models
 
-Go to **Workspace > Models** in the sidebar.
+With Workspace access enabled, go to **Workspace > Models** in the sidebar.
 
 You'll see
 - A list of models you've created
@@ -115,7 +115,7 @@ The model editor has several sections
 
 ## Workspace. Knowledge
 
-Go to **Workspace > Knowledge** in the sidebar.
+With Workspace access enabled, go to **Workspace > Knowledge** in the sidebar.
 
 You'll see
 - A list of knowledge bases you've created

@@ -3,7 +3,7 @@ title: "Integrated Use Cases"
 headingId: "integrated-use-cases"
 ---
 
-These course scenarios show how instructors and students might use models, knowledge bases, and tools across a semester. Adapt the configurations and workflows to your discipline, course level, and students.
+These are example configurations and semester workflows to adapt for your course. Building them requires Workspace access; follow [Student Onboarding](student-onboarding.md) to arrange course access and share the resulting resources with students.
 
 ---
 
@@ -46,7 +46,7 @@ Students develop search strings with model support
 
 **Week 6-10. Source Evaluation and Annotation**
 
-Students upload PDFs to a personal knowledge base and use the model to
+Students attach source PDFs in the chat and ask the model to
 - Summarize each source
 - Identify methodological approaches
 - Note key findings and limitations
@@ -59,7 +59,7 @@ Students submit annotated bibliographies for formative feedback.
 Students use the model to
 - Identify themes across sources
 - Outline the review structure
-- Draft sections with evidence from their knowledge base
+- Draft sections with evidence from the PDFs they attached
 - Receive feedback on argument coherence
 
 The instructor reviews drafts before students submit their final papers in Week 15.

@@ -24,8 +24,8 @@ Before the first Sandbox activity, check the roster in **My classes** and resolv
 
 ### Prepare Your Environment
 
-1. Create the models and knowledge bases students will use (see the [Design & Test section](index.md))
-2. In **Access**, keep the resources **Private** and use **Add Access** to grant your course group **Read** access
+1. Email the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu) to request **Workspace** access. Once enabled, create the models and knowledge bases students will use (see the [Design & Test section](index.md)).
+2. In **Access**, keep resources **Private** and use **Add Access** to grant your course group **Read** access. Apply these permissions to the model and any knowledge bases, tools, or skills you attach.
 3. Test each model with the kinds of questions your students will ask
 4. Write a brief AI use policy for your syllabus (see the template below)
 
@@ -108,7 +108,7 @@ Follow the course’s AI use policy and the instructions for each assignment. Us
 The model uses the current chat’s message history. If Memory is enabled or you attach another chat as context, information from outside the thread can also be included.
 
 **"Who can access my saved chats?"**
-Administrators can access stored chats and system logs. Other students see content you share with them or post in a course channel. Model-provider requests prohibit training and are configured for zero retention; saved Sandbox history is separate. See [Privacy and Chat History](getting-started.md#privacy-and-chat-history).
+Administrators can access stored chats and system logs. Other students see content you share with them or post in a course channel. Requests to AI providers are configured for zero retention; use of prompts and responses for model training is prohibited. Saved Sandbox history is separate. See [Privacy and Chat History](getting-started.md#privacy-and-chat-history).
 
 **"What if the model gives wrong information?"**
 AI models can generate plausible but inaccurate text. Check their claims against course readings and other sources before using them in your work.
