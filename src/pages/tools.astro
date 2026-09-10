@@ -182,7 +182,7 @@ const toolCategories = [
                         <div class="w-1.5 h-1.5 rounded-full bg-vibrant-600 mt-2 flex-shrink-0"></div>
                         <div>
                           <span class="font-semibold text-neutral-stone text-sm">Accessibility</span>
-                          <span class="text-gray-500 text-sm ml-1">— Speech-to-text is available through Media Processing; more accessibility tools are in development</span>
+                          <span class="text-gray-500 text-sm ml-1">— Speech-to-text is available through Media Tools; more accessibility tools are in development</span>
                         </div>
                       </div>
                 </div>
@@ -253,31 +253,22 @@ const toolCategories = [
               <!-- Media Processing tools -->
               <div class="px-8 lg:px-10 pb-8 lg:pb-10">
                 <h3 class="text-xl font-bold font-display text-neutral-stone mb-2">Media Processing</h3>
-                <p class="text-gray-500 text-sm mb-1.5">Powered by Whisper via Fireworks AI, AssemblyAI, and Qwen 3 VL via AWS Bedrock</p>
+                <p class="text-gray-500 text-sm mb-1.5">Powered by Whisper via Cloudflare Workers AI and Qwen 3 VL via AWS Bedrock. Sign in with CUNY Login; model use counts against your monthly allowance.</p>
                 <p class="text-xs text-gray-600 mb-6">Need on-premises processing for sensitive data (FERPA, IRB, HIPAA)? <a href={`${base}contact`} class="text-vibrant-600 underline underline-offset-2">Contact us</a>.</p>
 
                 <div class="grid md:grid-cols-2 gap-5 mb-8">
-                  <a href="https://tools.ailab.gc.cuny.edu/asr/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-teal-300 transition-all hover:shadow-lg group" data-slide="0">
-                    <div class="flex items-start justify-between gap-2">
-                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Multilingual Transcription Suite</h4>
+                  <div class="bg-neutral-cream rounded-xl p-5 border-2 border-teal-300 transition-all hover:shadow-lg group">
+                    <a href="https://tools.ailab.gc.cuny.edu/media/" target="_blank" rel="noopener noreferrer" class="flex items-start justify-between gap-2">
+                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Media Tools</h4>
                       <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                    </a>
+                    <p class="text-gray-600 text-xs leading-relaxed mb-3">One workspace for transcription, image description, and OCR. Transcribe audio and video up to 1 GB with optional speaker labels and export as text, SRT, VTT, or JSON; write alt-text and detailed descriptions for images; and extract searchable text from scanned documents and archival images.</p>
+                    <div class="flex flex-wrap gap-2">
+                      <a href="https://tools.ailab.gc.cuny.edu/media/#transcribe" target="_blank" rel="noopener noreferrer" class="media-mode-link inline-flex items-center rounded-full bg-white border border-gray-200 px-3 py-1 text-xs font-semibold text-neutral-stone hover:border-teal-400 hover:text-teal-700 transition-colors" data-slide="0">Transcribe</a>
+                      <a href="https://tools.ailab.gc.cuny.edu/media/#describe" target="_blank" rel="noopener noreferrer" class="media-mode-link inline-flex items-center rounded-full bg-white border border-gray-200 px-3 py-1 text-xs font-semibold text-neutral-stone hover:border-teal-400 hover:text-teal-700 transition-colors" data-slide="1">Describe Images</a>
+                      <a href="https://tools.ailab.gc.cuny.edu/media/#ocr" target="_blank" rel="noopener noreferrer" class="media-mode-link inline-flex items-center rounded-full bg-white border border-gray-200 px-3 py-1 text-xs font-semibold text-neutral-stone hover:border-teal-400 hover:text-teal-700 transition-colors" data-slide="2">OCR</a>
                     </div>
-                    <p class="text-gray-600 text-xs leading-relaxed">Generate transcripts from audio and video in dozens of languages, with optional translation and speaker identification.</p>
-                  </a>
-                  <a href="https://tools.ailab.gc.cuny.edu/alt-text/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="1">
-                    <div class="flex items-start justify-between gap-2">
-                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Image Description</h4>
-                      <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                    </div>
-                    <p class="text-gray-600 text-xs leading-relaxed">Create alt-text, captions, and detailed descriptions for images to improve accessibility and support digital publishing workflows.</p>
-                  </a>
-                  <a href="https://tools.ailab.gc.cuny.edu/ocr/" target="_blank" rel="noopener noreferrer" class="media-tool-btn block bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group" data-slide="2">
-                    <div class="flex items-start justify-between gap-2">
-                      <h4 class="font-bold text-neutral-stone text-sm mb-1">Document OCR</h4>
-                      <svg class="w-4 h-4 text-gray-400 group-hover:text-teal-600 transition-colors flex-shrink-0 mt-0.5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                    </div>
-                    <p class="text-gray-600 text-xs leading-relaxed">Use optical character recognition (OCR) to extract searchable text from PDFs, scanned documents, and archival images — even with difficult layouts or imperfect scans.</p>
-                  </a>
+                  </div>
                   <a href="https://tools.ailab.gc.cuny.edu/pdf-accessibility/" target="_blank" rel="noopener noreferrer" class="block bg-neutral-cream rounded-xl p-5 border-2 border-transparent transition-all hover:shadow-lg hover:border-gray-200 group">
                     <div class="flex items-start justify-between gap-2">
                       <h4 class="font-bold text-neutral-stone text-sm mb-1">PDF Accessibility</h4>
@@ -291,9 +282,9 @@ const toolCategories = [
                 <div class="relative">
                   <div id="media-slider" class="relative rounded-xl overflow-hidden shadow-lg border border-gray-200 bg-gray-50">
                     <div class="relative aspect-[16/10]">
-                      <img id="slide-0" src={`${base}images/tools/demo-asr.gif`} alt="Demo of Multilingual Transcription Suite - uploading audio and receiving transcript" aria-hidden="false" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-100" />
-                      <img id="slide-1" src={`${base}images/tools/tool-alt-text.png`} alt="Image Description tool interface showing alt-text generation" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
-                      <img id="slide-2" src={`${base}images/tools/tool-ocr.png`} alt="Document OCR tool interface showing text extraction" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
+                      <img id="slide-0" src={`${base}images/tools/demo-asr.gif`} alt="Demo of Media Tools transcription - uploading audio and receiving transcript" aria-hidden="false" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-100" />
+                      <img id="slide-1" src={`${base}images/tools/tool-alt-text.png`} alt="Media Tools Describe Images mode showing alt-text generation" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
+                      <img id="slide-2" src={`${base}images/tools/tool-ocr.png`} alt="Media Tools OCR mode showing text extraction" aria-hidden="true" class="absolute inset-0 w-full h-full object-contain object-top bg-white transition-opacity duration-500 opacity-0" />
                     </div>
                   </div>
                   <button id="slider-prev" aria-label="Previous screenshot" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-lg border border-gray-200 flex items-center justify-center hover:bg-white transition-colors z-10">
@@ -306,9 +297,9 @@ const toolCategories = [
                     <svg class="w-5 h-5 text-neutral-stone" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10 7v6m-3-3h6m4 0a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                   </button>
                   <div class="flex justify-center gap-2 mt-4">
-                    <button type="button" class="slider-dot" data-slide="0" aria-label="Show Multilingual Transcription Suite screenshot" aria-pressed="true"></button>
-                    <button type="button" class="slider-dot" data-slide="1" aria-label="Show Image Description screenshot" aria-pressed="false"></button>
-                    <button type="button" class="slider-dot" data-slide="2" aria-label="Show Document OCR screenshot" aria-pressed="false"></button>
+                    <button type="button" class="slider-dot" data-slide="0" aria-label="Show Transcribe screenshot" aria-pressed="true"></button>
+                    <button type="button" class="slider-dot" data-slide="1" aria-label="Show Describe Images screenshot" aria-pressed="false"></button>
+                    <button type="button" class="slider-dot" data-slide="2" aria-label="Show OCR screenshot" aria-pressed="false"></button>
                   </div>
                   <dialog id="media-lightbox" class="media-lightbox" aria-label="Enlarged screenshot">
                     <button type="button" class="media-lightbox__close" aria-label="Close enlarged screenshot">&times;</button>
@@ -586,7 +577,7 @@ const toolCategories = [
         dot.addEventListener('click', function() { goTo(parseInt(this.dataset.slide)); });
       });
 
-      document.querySelectorAll('.media-tool-btn').forEach(function(btn) {
+      document.querySelectorAll('.media-tool-btn, .media-mode-link').forEach(function(btn) {
         btn.addEventListener('mouseenter', function() { goTo(parseInt(this.dataset.slide)); });
       });
 

@@ -7,7 +7,7 @@
     "The Sandbox for working with AI models",
     "API keys you create and manage for the Lab's model endpoint",
     "Agent Studio and Site Studio for research and publishing work",
-    "Transcription, image description, and document OCR tools",
+    "Media Tools for transcription, image description, and document OCR",
     "A monthly spending limit on model use, shown on your Model Access page"
   ],
   "form_heading": "Lab Application",
@@ -111,16 +111,8 @@
         "label": "CAIL Sandbox"
       },
       {
-        "value": "transcription",
-        "label": "Multilingual Transcription Suite"
-      },
-      {
-        "value": "image-description",
-        "label": "Image Description"
-      },
-      {
-        "value": "ocr",
-        "label": "Document OCR"
+        "value": "media-tools",
+        "label": "Media Tools (transcription, image description, OCR)"
       },
       {
         "value": "pdf-accessibility",
