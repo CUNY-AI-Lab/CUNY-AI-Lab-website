@@ -1,0 +1,41 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div data-copy-code class="overflow-hidden rounded-xl bg-neutral-stone text-gray-100">
+  <div data-copy-controls hidden class="flex items-center justify-end gap-3 px-4 pt-3">
+    <span data-copy-status role="status" class="text-sm"></span>
+    <button type="button" aria-label={`Copy code: ${label}`} class="shrink-0 rounded-md border border-gray-400 px-3 py-2 text-sm font-semibold hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Copy</button>
+  </div>
+  <slot />
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-copy-code]').forEach((block) => {
+    const code = block.querySelector<HTMLElement>('pre code');
+    const controls = block.querySelector<HTMLElement>('[data-copy-controls]');
+    const button = block.querySelector<HTMLButtonElement>('button');
+    const status = block.querySelector<HTMLElement>('[data-copy-status]');
+    if (!code || !controls || !button || !status) return;
+    controls.hidden = false;
+    button.addEventListener('click', async () => {
+      status.textContent = '';
+      try {
+        if (!('clipboard' in navigator)) throw new Error('clipboard_unavailable');
+        await navigator.clipboard.writeText(code.textContent ?? '');
+        status.textContent = 'Copied';
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(code);
+        const selection = window.getSelection();
+        selection?.removeAllRanges();
+        selection?.addRange(range);
+        status.textContent = 'Couldn’t copy. Select the code and copy it manually.';
+      }
+    });
+  });
+</script>
