@@ -72,7 +72,7 @@ Walk students through the login process. Project your screen or share a link to 
 
 If CUNY Login stalls, try a private browser window or a different browser. If you still cannot enroll or see the course resources, contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu) before continuing.
 
-### Day 1. Guided First Conversation (15 minutes)
+### Day 1. Guided First Chat (15 minutes)<span id="day-1-guided-first-conversation-15-minutes" aria-hidden="true"></span>
 
 Give students a low-stakes prompt to try. This builds comfort with the interface.
 
@@ -104,10 +104,10 @@ Once students are comfortable with the interface, introduce critical engagement.
 **"Is this cheating?"**
 Follow the course’s AI use policy and the instructions for each assignment. Use the model only where AI assistance is permitted, disclose that use as directed, and do not submit AI output as your own work.
 
-**"Can the AI see my other conversations?"**
-A chat uses its own conversation history. If Memory is enabled or you attach another chat as context, information from outside the thread can also be included.
+**"Can a model access my other chats?"**
+The model uses the current chat’s message history. If Memory is enabled or you attach another chat as context, information from outside the thread can also be included.
 
-**"Is CUNY reading my conversations?"**
+**"Who can access my saved chats?"**
 Administrators can access stored chats and system logs. Other students see content you share with them or post in a course channel. Model-provider requests prohibit training and are configured for zero retention; saved Sandbox history is separate. See [Privacy and Chat History](getting-started.md#privacy-and-chat-history).
 
 **"What if the model gives wrong information?"**
@@ -148,4 +148,3 @@ AI models can generate plausible but inaccurate text. Check their claims against
 ---
 
 [← Return to Sample Activities](sample-activities.md) | [Continue to Use Cases →](use-cases.md)
-

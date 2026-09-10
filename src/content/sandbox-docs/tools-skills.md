@@ -3,7 +3,7 @@ title: "Extending Models with Tools & Skills"
 headingId: "extending-models-with-tools--skills"
 ---
 
-Tools let a model search the web, run code, query a database, or look up papers on arXiv during a conversation. Skills give it access to specialized procedural instructions without requiring you to put those instructions in the system prompt.
+Tools let a model search the web, run code, query a database, or look up papers on arXiv during a chat. Skills give it access to specialized procedural instructions without requiring you to put those instructions in the system prompt.
 
 ---
 
@@ -18,11 +18,11 @@ Tools let a model search the web, run code, query a database, or look up papers 
 
 ### Enabling Tools Per-Chat
 
-1. Open a conversation
+1. Open a chat
 2. Open **Integrations** beside the plus button in the message box
 3. Browse or search available tools
 4. Toggle on the tools you want for this session
-   - Tools enabled this way apply only to the current conversation
+   - Tools enabled this way apply only to the current chat
 
 ### Enabling Tools Per-Model
 

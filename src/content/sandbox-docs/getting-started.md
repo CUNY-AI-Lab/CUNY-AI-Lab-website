@@ -60,13 +60,13 @@ Apply for individual use or for a class using the steps below. **Students do not
    - Same process as accessing CUNY email or Blackboard
 
 4. **You'll land on the main chat interface**
-   - The model selector is on the right inside the message box. The left sidebar holds your conversations and Workspace.
+   - The model selector is on the right inside the message box. The left sidebar holds your chats and Workspace.
 
 If you joined a course, confirm that its private text channel is available before continuing. If login stalls, try a private browser window or a different browser; for help, contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
 
 ---
 
-## Your First Conversation
+## Your First Chat<span id="your-first-conversation" aria-hidden="true"></span>
 
 ### Try This
 
@@ -76,7 +76,7 @@ In the chat input at the bottom of the screen, type something simple
 
 Press Enter (or click the send button). The AI model responds.
 
-Click the model name on the right inside the message box to switch models, including during a conversation. Compare how models handle writing, reasoning, and images, as well as their response speed.
+Click the model name on the right inside the message box to switch models, including during a chat. Compare how models handle writing, reasoning, and images, as well as their response speed.
 
 ---
 
@@ -134,9 +134,9 @@ Try different models by using the model selector in the message box, upload a do
 
 ## Tips for Getting Started
 
-**Start small.** Try the default models and use what you learn from those conversations to decide which configurations to build.
+**Start small.** Try the default models and use what you learn from those chats to decide which configurations to build.
 
-**Save interesting conversations.** Open the three-dot menu beside a chat in the sidebar and choose **Rename**. This makes it easier to find later when you want to revisit a useful interaction.
+**Name chats you want to revisit.** Open the three-dot menu beside a chat in the sidebar and choose **Rename**. This makes it easier to find later when you want to revisit a useful interaction.
 
 **Experiment in your personal workspace.** Create and test private configurations as you learn how the Sandbox works.
 
@@ -146,7 +146,7 @@ Try different models by using the model selector in the message box, upload a do
 
 ## Privacy and Chat History
 
-Model-provider calls are configured for zero retention and prohibit use for model training. Conversations may still be saved in your Sandbox account. Administrators can access stored chats; sharing a chat or posting in a course channel also makes that content available to its audience. See the [Lab’s description of the Sandbox](https://ailab.gc.cuny.edu/tools/).
+Model-provider calls are configured for zero retention and prohibit use for model training. Chats may still be saved in your Sandbox account. Administrators can access stored chats; sharing a chat or posting in a course channel also makes that content available to its audience. See the [Lab’s description of the Sandbox](https://ailab.gc.cuny.edu/tools/).
 
 ---
 

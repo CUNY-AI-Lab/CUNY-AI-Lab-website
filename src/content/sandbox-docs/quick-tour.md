@@ -11,8 +11,8 @@ Find the main controls in the Sandbox interface and follow the steps to use them
 
 When you log in, you see the main chat interface. Three areas
 
-1. **Sidebar (left).** Your conversation history, workspace access, settings
-2. **Chat area (center).** The conversation thread
+1. **Sidebar (left).** Your chat history, workspace access, settings
+2. **Chat area (center).** The chat thread
 3. **Message box.** Text input, attachments, integrations, and the model selector on the right
 
 ---
@@ -22,7 +22,7 @@ When you log in, you see the main chat interface. Three areas
 The sidebar has several sections
 
 **Chats**
-- Your conversation history
+- Your chat history
 - Click a chat to reopen it
 - Hover over a chat title to see options (rename, archive, delete)
 
@@ -37,11 +37,11 @@ The sidebar has several sections
 
 ---
 
-## Starting a Conversation
+## Starting a Chat<span id="starting-a-conversation" aria-hidden="true"></span>
 
 Click the **New Chat** button at the top of the sidebar (or press `Ctrl/Cmd + Shift + O`).
 
-A new conversation opens. You'll see
+A new chat opens. You'll see
 - An empty chat area
 - The input box at the bottom
 - The current model name on the right inside the message box
@@ -54,7 +54,7 @@ Type a message and press Enter to send.
 
 Click the **model name** on the right inside the message box.
 
-Choose a model from the dropdown to switch while retaining the conversation history.
+Choose a model from the dropdown to switch while retaining the chat history.
 
 ---
 
@@ -168,7 +168,7 @@ Choose a default model from **Set as default** in the model selector when starti
 
 ---
 
-## Conversation Actions
+## Message Actions<span id="conversation-actions" aria-hidden="true"></span>
 
 Use the action buttons beneath a message to **Copy**, **Edit**, or **Regenerate**, where available. Open its **three-dot menu** for additional actions such as **Delete**.
 
@@ -184,7 +184,7 @@ Options
 - **Delete** — Permanently remove
 - **Share** — Generate a share link
 
-Renaming helps you find conversations later.
+Renaming helps you find chats later.
 
 ---
 
