@@ -10,10 +10,12 @@ The CAIL Sandbox is hosted and maintained by the [CUNY AI Lab](https://ailab.gc.
 
 ## Getting Started
 
-- [Getting Started](getting-started.md) — Log in, explore the interface, start your first chat.
+- [Getting Started](getting-started.md) — Request individual or course access, sign in, and start your first chat.
 - [Sandbox Basics](sandbox-basics.md) — Terminology, interface layout, and navigation.
 
 ## Design & Test
+
+Creating these configurations requires **Workspace** access, which is not included automatically with individual access. Email the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu) to request it.
 
 - [Custom Models](models.md) — Build custom AI configurations for your courses, including [system prompts](system-prompts.md) that shape how models interact with students.
 - [Knowledge Bases](knowledge-bases.md) — Upload your documents so models can reference them.

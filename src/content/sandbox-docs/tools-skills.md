@@ -26,7 +26,7 @@ Tools let a model search the web, run code, query a database, or look up papers 
 
 ### Enabling Tools Per-Model
 
-1. Go to **Workspace > Models**
+1. Request **Workspace** access by emailing the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu), then go to **Workspace > Models** once access is enabled.
 2. Edit the model you want to configure
 3. Scroll to the **Tools** section
 4. Select the default tools for this model
@@ -35,7 +35,7 @@ Tools let a model search the web, run code, query a database, or look up papers 
 
 ### Community Tool Library
 
-Open WebUI maintains a community library of pre-built tools. Some relevant to academic work
+The [Open WebUI community library](https://openwebui.com/tools) lists tools administrators can install. To request one for the Sandbox, send its link to the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu). Examples include
 
 - **arXiv Search** — query academic papers directly from chat. No API key required.
 - **Perplexica Search** — web search with inline citations.
@@ -52,7 +52,7 @@ Use a model that supports tool calling and check its **Function Calling** settin
 
 ## Skills
 
-Skills are reusable Markdown instructions for tasks or procedures. Attach them to a model when it needs guidance beyond its general system prompt.
+Skills are reusable Markdown instructions for tasks or procedures. With Workspace access enabled, create a skill in **Workspace > Skills** or choose one shared with you, then attach it to a model using the steps below.
 
 ### Binding Skills
 
@@ -62,7 +62,7 @@ Skills are reusable Markdown instructions for tasks or procedures. Attach them t
 4. Select the skills you want to bind
 5. Click **Save & Update**
 
-Share attached skills with the intended users or course group as well as sharing the model. Skills can be loaded on demand, depending on the model’s tool support and configuration; test them with the intended task.
+Share attached skills with the intended users or course group as well as sharing the model. For skills attached to a model, set **Function Calling** to **Native** in the model's **Advanced Parameters** so it can load the instructions. Test a request that uses the skill before sharing the model.
 
 ### Example Skills for CUNY
 
@@ -82,11 +82,11 @@ Share attached skills with the intended users or course group as well as sharing
 
 If the community library does not have what you need, administrators can write custom tools. Each tool requires a name, description, and Python function body. The function runs on the server when the model invokes it.
 
-Open **Workspace > Tools** and choose **Create** to get started, if your account has permission. Consult with the AI Lab team if you are unsure about security implications.
+Open **Workspace > Tools** and choose **Create** to get started, if your account has permission. Consult with the CUNY AI Lab team if you are unsure about security implications.
 
 ### Tool Security
 
-Tools are Python scripts that execute on the server. A poorly written or malicious tool can access system resources, exfiltrate data, or disrupt service. Only install tools from trusted sources. Contact the AI Lab team before adding community tools to the instance.
+Tools are Python scripts that execute on the server. A poorly written or malicious tool can access system resources, exfiltrate data, or disrupt service. Only install tools from trusted sources. Contact the CUNY AI Lab team before adding community tools to the instance.
 
 </details>
 
@@ -95,7 +95,7 @@ Tools are Python scripts that execute on the server. A poorly written or malicio
 ## Callout
 
 <div class="callout">
-  <strong>Security reminder.</strong> Review any community tool's code before installing it. Tools run with server-level access. If you are not comfortable evaluating Python code, ask the AI Lab team to review it for you.
+  <strong>Security reminder.</strong> Review any community tool's code before installing it. Tools run with server-level access. If you are not comfortable evaluating Python code, ask the CUNY AI Lab team to review it for you.
 </div>
 
 ---

@@ -3,7 +3,7 @@ title: "Sample Activities"
 headingId: "sample-activities"
 ---
 
-Each activity includes a learning objective, model configuration, student instructions, and notes for instructors. Adapt the examples to your course.
+Each activity includes a learning objective, model configuration, student instructions, and notes for instructors. Instructors need Workspace access to build and test these configurations; students use the models shared with their course group. Follow [Student Onboarding](student-onboarding.md) to arrange access and prepare the resources.
 
 ---
 
@@ -14,7 +14,7 @@ Each activity includes a learning objective, model configuration, student instru
 **Model Configuration**
 - Base model. Any Sandbox model (DeepSeek V3.2, Kimi K2.5, GLM 5)
 - Tools. Web Search enabled
-- Knowledge Base. None (intentional; students evaluate ungrounded responses)
+- Knowledge Base. None; do not attach course documents for this exercise.
 - System prompt
 
 ```
@@ -187,7 +187,7 @@ You can adapt any of these activities by changing the system prompt, swapping th
 ## Callout
 
 <div class="callout">
-  <strong>Share what works.</strong> Send successful adaptations to the AI Lab team at ailab@gc.cuny.edu. With your permission, the team may include them on this page.</div>
+  <strong>Share what works.</strong> Send successful adaptations to the CUNY AI Lab team at ailab@gc.cuny.edu. With your permission, the team may include them on this page.</div>
 
 ---
 

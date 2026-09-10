@@ -13,7 +13,7 @@ A **model** generates the responses you receive when you enter prompts in the Sa
 
 The Sandbox connects to multiple models. Some are better at reasoning, some at writing, some at multilingual tasks. You can switch between them mid-chat or create custom configurations that combine a base model with your own instructions.
 
-**Base model.** The underlying AI (e.g., DeepSeek V3.2, Kimi K2.5). You pick one when creating a custom model.
+A **base model** generates responses from the instructions and content in a chat. When creating a custom model, choose which base model it will use.
 
 **Custom model.** A configuration you build. It includes a base model, system prompt (instructions on how to behave), knowledge bases (documents to reference), and tools (capabilities like web search).
 
@@ -34,7 +34,7 @@ System prompts define tone, boundaries, and role. You write them when creating a
 
 A **knowledge base** is a collection of documents the model can search before responding.
 
-You upload files (PDFs, Markdown, plain text). When a user asks a question, the model retrieves relevant passages from your documents and uses them to answer.
+After uploading files (PDFs, Markdown, plain text) to a knowledge collection, custom models can retrieve relevant passages from those documents in response to situated tasks or course-specific questions.
 
 This process, **retrieval-augmented generation (RAG)**, gives the model passages from your materials to use when generating a response.
 
@@ -49,7 +49,7 @@ Examples
 - **Code Interpreter.** Model runs Python code and returns results
 - **arXiv Search.** Model queries academic papers
 
-You enable tools per-chat (just for one chat) or per-model (always available with that custom model).
+You can enable tools for a single chat or make them available whenever you use a custom model.
 
 ---
 
@@ -64,7 +64,7 @@ Example skills
 - Academic Writing (citation practices, genre conventions)
 - Research Ethics (IRB compliance)
 
-You bind skills to models when you want them to have access to detailed domain knowledge without writing it all into the system prompt.
+Attach a skill to a custom model to make those instructions available when it responds to the tasks you specify.
 
 ---
 
@@ -80,7 +80,7 @@ You bind skills to models when you want them to have access to detailed domain k
 
 ## Workspace
 
-The **Workspace** is where you build
+Individual access lets you use resources shared by the CUNY AI Lab, but does not automatically include **Workspace**. Email the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu) to request Workspace access for creating configurations in these sections.
 - Go to **Workspace > Models** to create custom models
 - Go to **Workspace > Knowledge** to create knowledge bases
 - Go to **Workspace > Prompts** to save and share reusable prompt templates
@@ -105,7 +105,7 @@ Chats are private by default. Sharing requires generating a share link.
 
 A **provider** is the service that hosts the base models.
 
-The Sandbox connects to multiple providers to offer a range of models. Administrators configure those connections in the instance-wide settings.
+The Sandbox connects to multiple providers to offer a range of models. Administrators configure those connections in the settings for the Sandbox.
 
 ---
 

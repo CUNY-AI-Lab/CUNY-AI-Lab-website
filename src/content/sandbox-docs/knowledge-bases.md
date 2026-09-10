@@ -3,7 +3,7 @@ title: "Grounding AI with Knowledge Collections"
 headingId: "grounding-ai-with-knowledge-collections"
 ---
 
-A **knowledge base** contains documents the model can search before responding. Through **retrieval-augmented generation (RAG)**, the model receives relevant passages from those files as context for its response.
+After uploading files (PDFs, Markdown, plain text) to a knowledge collection, custom models can retrieve relevant passages from those documents in response to situated tasks or course-specific questions.
 
 When a student asks, "What does the syllabus say about late submissions?", an uploaded syllabus gives the model a document to search and cite. Without that document, the model may generate a confident but incorrect response. Test whether it retrieves the relevant passage and represents your policy accurately before students rely on it.
 
@@ -11,14 +11,14 @@ When a student asks, "What does the syllabus say about late submissions?", an up
 
 ## Creating a Knowledge Base<span id="creating-a-knowledge-base-1" aria-hidden="true"></span>
 
-1. Click **Workspace** in the left sidebar
+1. Request **Workspace** access by emailing the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu). Once enabled, click **Workspace** in the left sidebar.
 2. Select **Knowledge**
 3. Click **Create** beside the Workspace tabs
    - A dialog opens asking you to describe what you are building
 4. Give it a **name**
    - Use a name your students or colleagues will recognize, such as "ENG 2100 Fall 2026 Readings" or "IRB Protocol Archive"
 5. Describe its **purpose**
-   - A sentence or two about what you are trying to achieve. This helps you stay organized as you build more knowledge bases over time.
+   - Name the materials the collection contains and the tasks it should support, such as checking course policies or comparing research methods.
 6. Set access
    - Keep **Private** while building. Use **Add Access** to grant your course group **Read** access.
    - Choose **Public** only for materials intended for all signed-in Sandbox users, where permitted.
@@ -32,7 +32,7 @@ When a student asks, "What does the syllabus say about late submissions?", an up
 9. Wait for processing to complete
    - The system splits your documents into chunks and creates searchable embeddings. Processing time depends on file size and the configured services.
 
-Once processing finishes, your documents are searchable.
+After processing finishes, attach the collection to the custom model that should use it.
 
 ### Connecting to a Model
 
@@ -55,7 +55,7 @@ The knowledge base is now attached to the model. Grant its intended users access
 
 ### What Happens Under the Hood
 
-When you upload a document, the Sandbox splits it into chunks and converts each chunk into a numerical representation called an embedding. Embeddings capture the meaning of the text, including synonyms and related concepts. This means a question about "thesis committee requirements" can surface a passage about "dissertation advisory boards" because the concepts are semantically related.
+When you upload a document, the Sandbox splits it into chunks and converts each chunk into a numerical representation called an embedding. These representations help it find related passages even when a question uses different words. A question about "thesis committee requirements" may retrieve a passage about "dissertation advisory boards"; check that the passage addresses the question you asked.
 
 Retrieval depends on the model’s configuration. In native tool-calling mode, the model can use knowledge tools to fetch passages; other modes add retrieved context automatically. Check that it retrieves the relevant material when testing.
 
@@ -74,7 +74,7 @@ Use clean, well-structured text so the system can divide it into usable passages
 - Scanned documents without OCR
 - Slide decks (convert to text or PDF with notes first)
 
-If a PDF produces poor results, try converting it to Markdown first. The retrieval quality depends on how cleanly the text chunks.
+If a PDF produces poor results, convert it to Markdown and check that headings and paragraphs remain in the intended order before uploading it again.
 
 ### Managing Your Files
 
@@ -82,7 +82,7 @@ Access all uploaded files through **Settings > Data Controls > Manage Files**. T
 
 ### RAG Template (Admin)
 
-Administrators can customize how retrieved passages are presented to the model via **Settings > Admin > Documents > RAG Template**. A good template tells the model to cite sources, acknowledge gaps, and prioritize retrieved content over general knowledge.
+Administrators can customize the template for **retrieval-augmented generation (RAG)** via **Settings > Admin > Documents > RAG Template**. Use it to tell the model how to cite retrieved passages and respond when those passages do not address the question.
 
 Example for CUNY
 
@@ -105,7 +105,7 @@ Administrators can check or change the embedding model in **Settings > Admin > D
 ## Callout
 
 <div class="callout">
-  <strong>For researchers.</strong> Consider building knowledge bases around your methodological frameworks and foundational literature. A model grounded in your curated sources can help with literature review, source comparison, and gap identification while citing the documents you actually trust.
+  <strong>For researchers.</strong> Build a knowledge collection from the studies or methods you want to compare, then attach it to a custom model. Ask the model to compare specific claims or methods and check its citations against the uploaded documents.
 </div>
 
 ---

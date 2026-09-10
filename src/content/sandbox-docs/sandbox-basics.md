@@ -9,13 +9,13 @@ Core terminology, interface layout, and navigation.
 
 ## Key Concepts
 
-**Base model.** The underlying AI (e.g., DeepSeek V3.2, Kimi K2.5). You pick one when creating a custom model.
+A **base model** generates responses from the instructions and content in a chat. When creating a custom model, choose which base model it will use.
 
 A **custom model** combines a base model, system prompt, knowledge bases, and tools.
 
 A **system prompt** gives the model instructions for its role, tone, boundaries, and response style.
 
-A **knowledge base** contains uploaded documents, such as PDFs, Markdown, and plain text, that the model searches before responding. **Retrieval-augmented generation (RAG)** gives the model relevant passages from those documents to use in its response.
+A **knowledge base** contains files you upload, such as PDFs, Markdown, and plain text. Through **retrieval-augmented generation (RAG)**, custom models can retrieve passages from these documents when responding to tasks or questions about course materials.
 
 **Tools** add capabilities such as Web Search, Code Interpreter, and arXiv Search. Enable them for an individual chat or a custom model.
 
@@ -61,7 +61,7 @@ Three areas on screen
 
 ## Workspace
 
-Where you build custom configurations (requires Workspace access)
+Individual access lets you use resources shared by the CUNY AI Lab, but does not automatically include **Workspace**. Email the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu) to request access for creating custom configurations.
 
 - **Workspace > Models** — create, edit, share custom AI models
 - **Workspace > Knowledge** — upload documents, build knowledge bases

@@ -5,7 +5,7 @@ headingId: "system-prompts-as-instructional-design"
 
 A system prompt gives the model instructions for its role, behavior, and focus. Instructors can use it to specify when the model should explain, ask questions, provide scaffolding, or wait for a student’s response.
 
-This page collects prompt patterns organized by instructional purpose. Each pattern includes a complete example, an explanation of its design, and notes on adapting it to your context.
+Choose an example that fits the task students will work on, then replace course placeholders such as `{{COURSE_TITLE}}` and `{{DISCIPLINE}}` with your own details. With Workspace access enabled, open or create a model in **Workspace > Models**, paste the instructions into **System Prompt**, save, and test them with prompts students are likely to use.
 
 ---
 
@@ -227,17 +227,17 @@ Test the prompt with likely student questions, including incomplete questions, m
 <details>
 <summary>View details</summary>
 
-Open WebUI supports variables you can embed in system prompts for use in chats.
+Open WebUI replaces supported variables with values such as the user's name or the current date. The course placeholders in the examples above require manual replacement before you save the system prompt.
 
 | Variable | Resolves To |
 |---|---|
 | `{{USER_NAME}}` | The logged-in user's display name |
 | `{{CURRENT_DATE}}` | Today's date |
 | `{{CURRENT_TIME}}` | Current time |
-| `{{COURSE_TITLE}}` | Custom variable (set in model metadata) |
+| `{{COURSE_TITLE}}` | Replace manually with your course title |
 | `{{USER_LANGUAGE}}` | User's configured language preference |
 
-For implementation details, see [Custom Models](models.md).
+See [Custom Models](models.md) for editing instructions and [Open WebUI's variable reference](https://docs.openwebui.com/features/workspace/prompts/#system-variables) for supported variables.
 
 </details>
 
@@ -246,7 +246,7 @@ For implementation details, see [Custom Models](models.md).
 ## Callout
 
 <div class="callout">
-  <strong>Share your prompts.</strong> If you develop a system prompt that works well for your course, share it with the AI Lab team. Other instructors may be able to adapt the pattern for their courses.
+  <strong>Share your prompts.</strong> If you develop a system prompt that works well for your course, share it with the CUNY AI Lab team. Other instructors may be able to adapt the pattern for their courses.
 </div>
 
 ---

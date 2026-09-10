@@ -11,7 +11,7 @@ Many CUNY undergraduates balance jobs, family obligations, and coursework; some 
 
 **Principle.** Start with what (skills) students should learn, not with what AI can do.
 
-A tool-first activity begins with "This tool can do X, so let’s assign Y." Begin with the course or assignment’s learning objectives, then decide whether AI can help students meet them.
+Choosing a tool before defining the learning objective can lead to "This tool can do X, so let’s assign Y." Begin with the course or assignment’s learning objectives, then decide whether AI can help students meet them.
 
 **Example**
 
@@ -65,7 +65,7 @@ Teach students to judge whether their use of AI supports the work the assignment
 **Framework**
 
 Ask students to reflect on three questions
-1. **What did I learn from using this tool?** If the answer is "nothing," the use likely shortcuts the learning.
+1. **What did I learn from using this tool?** Point to a claim you checked, a decision you reconsidered, or a question you still need to resolve.
 2. **How did I evaluate the output?** Ask students to identify claims they accepted, rejected, or checked against other sources.
 3. **Does this use align with the assignment's learning objectives?** If the answer is unclear, the student should be encouraged to ask you as their instructor and bring the question to their peers as a learning opportunity.
 
@@ -174,7 +174,7 @@ Critical AI literacy asks students to evaluate
 
 - **Compare sources.** Have students ask a model for information on a topic, then compare its response to several reliable sources. Where do they align? Where do they diverge? Why?
 - **Bias audit.** Ask students to prompt the model on a culturally sensitive topic (e.g., immigration policy, religious practices). Analyze the response for bias or omission.
-- **Reverse engineering.** Have students try to figure out what instructions or training data would produce a given AI output.
+- **Compare instructions.** Change one instruction in a prompt, repeat the same task, and compare the outputs. Record which differences persist across repeated attempts.
 - **Failure modes.** Task students with finding cases where the model fails, hallucinates, or produces nonsense. What patterns do they notice?
 
 **CUNY Context**
@@ -200,7 +200,7 @@ AI tools can support or marginalize these students depending on how you deploy t
 
 - **Multilingual support.** Configure models to help students work in their home languages and translate to English when needed.
 - **Flexible pacing.** Allow students to use AI for time-intensive tasks (e.g., literature search) so they can focus cognitive effort on higher-order thinking.
-- **Accessibility.** Ensure models support screen readers and other assistive technologies.
+- **Accessibility.** Test the chat interface and course materials with the assistive technologies students use. Report barriers to the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu).
 - **Cultural responsiveness.** Acknowledge that students' prior knowledge and lived experiences are valid sources of authority. AI models should supplement, not replace, those perspectives.
 
 ---

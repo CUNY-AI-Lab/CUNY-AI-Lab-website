@@ -9,13 +9,13 @@ Set permissions when sharing models, knowledge bases, or prompts so the intended
 
 ## How Roles Work
 
-Open WebUI has three account roles — **Admin**, **User**, and **Pending**. Faculty, staff, and students receive access through their account permissions and groups.
+Open WebUI has three account roles — **Admin**, **User**, and **Pending**. Individual access lets you use resources shared by the CUNY AI Lab; it does not automatically include **Workspace** access for creating configurations.
 
 ### Administrators
-Administrators configure providers, manage users and groups, install tools, and set instance-wide defaults.
+Administrators configure providers, manage users and groups, install tools, and set defaults for the Sandbox.
 
 ### Faculty / Staff
-Faculty and staff with Workspace permissions can create and share models, knowledge bases, and prompts. Approved courses receive a group automatically; contact the Lab if its membership or permissions need attention.
+Faculty and staff can request **Workspace** access by emailing the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu) to create and share models, knowledge bases, and prompts. Approved courses receive a group automatically; contact the Lab if its membership or permissions need attention.
 
 ### Students
 Students join through their instructor’s invitation and use resources shared with their course group. Creating private configurations and editing shared resources require the corresponding permissions.
