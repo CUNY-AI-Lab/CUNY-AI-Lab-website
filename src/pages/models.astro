@@ -3,13 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title="Model Registry - CUNY AI Lab" description="Open-weight models available through the CAIL Model API, with provider capabilities, context limits, and token prices.">
+<BaseLayout title="Model Registry - CUNY AI Lab" description="Open-weight models available through the CAIL Model API, with capabilities, context limits, and token prices.">
   <section class="relative pt-24 pb-12 lg:pt-28 lg:pb-14 bg-cuny-blue text-white overflow-hidden">
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="background: radial-gradient(ellipse at 85% 10%, rgba(47, 184, 214, 0.22) 0%, transparent 55%);"></div>
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <p class="text-xs font-semibold tracking-[0.2em] uppercase mb-3 text-blue-200">Model API</p>
       <h1 class="font-display text-4xl sm:text-5xl font-bold tracking-tight">Model Registry</h1>
-      <p class="mt-4 max-w-2xl text-lg text-blue-100">Open-weight models served through non-retaining provider routes. Compare context limits and token prices, then copy the exact API ID.</p>
+      <p class="mt-4 max-w-2xl text-lg text-blue-100">Open-weight models served with zero data retention. Compare context limits and token prices, then copy the exact API ID.</p>
       <div class="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm font-semibold">
         <a class="underline underline-offset-4 decoration-blue-300 hover:decoration-white" href={`${base}models/guide/`}>How to read the registry</a>
         <a class="underline underline-offset-4 decoration-blue-300 hover:decoration-white" href={`${base}docs/api-keys/`}>Model API documentation</a>

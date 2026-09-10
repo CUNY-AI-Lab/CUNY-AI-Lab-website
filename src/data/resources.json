@@ -3,7 +3,7 @@
   "cards": [
     {
       "title": "Model Registry",
-      "description": "Search the live Model API catalog and compare provider offerings, capabilities, context limits, and prices.",
+      "description": "Search the live Model API catalog and compare models by capability, context limit, and token price.",
       "url": "/models",
       "external": false,
       "link_text": "Browse models",

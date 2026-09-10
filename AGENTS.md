@@ -58,7 +58,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 - `src/pages/models.astro` - Live Model API catalog with search and capability filters
 - `src/data/featured-models.json` - The registry page's Featured shortlist: `name`, a one-line `note`, and the exact canonical Gateway API `id` for that model. An entry shows only while its ID is in the live catalog, so a retired ID drops out on its own. Update `updated_at` when editing. All other model data comes from Gateway at load time.
 - `src/scripts/model-availability.ts` - Public Gateway catalog parsing, filtering, rendering, and API ID copying; render each canonical row once with its exact API ID, preserve specifications and unknown prices
-- `src/pages/models/guide.astro` - Guide to the live registry, factual specifications, and provider token prices
+- `src/pages/models/guide.astro` - Guide to the live registry, factual specifications, and token prices; it never names the provider serving a model
 - Gateway owns optional sourced `model_name` and `specifications`; render available facts directly from the catalog, without static identity matching or an allowlist. Malformed optional metadata must not remove valid models. Gateway owns canonical identity; do not group rows, normalize IDs, or display native alternatives.
 - `tailwind.config.mjs` - Color palette and theme configuration
 
