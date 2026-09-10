@@ -10,7 +10,7 @@ The CAIL Sandbox is hosted and maintained by the [CUNY AI Lab](https://ailab.gc.
 
 ## Getting Started
 
-- [Getting Started](getting-started.md) — Log in, explore the interface, have your first conversation.
+- [Getting Started](getting-started.md) — Log in, explore the interface, start your first chat.
 - [Sandbox Basics](sandbox-basics.md) — Terminology, interface layout, and navigation.
 
 ## Design & Test

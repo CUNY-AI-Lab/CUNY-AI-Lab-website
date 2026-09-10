@@ -11,7 +11,7 @@ Use these definitions when building custom configurations or navigating the Sand
 
 A **model** generates the responses you receive when you enter prompts in the Sandbox.
 
-The Sandbox connects to multiple models. Some are better at reasoning, some at writing, some at multilingual tasks. You can switch between them mid-conversation or create custom configurations that combine a base model with your own instructions.
+The Sandbox connects to multiple models. Some are better at reasoning, some at writing, some at multilingual tasks. You can switch between them mid-chat or create custom configurations that combine a base model with your own instructions.
 
 **Base model.** The underlying AI (e.g., DeepSeek V3.2, Kimi K2.5). You pick one when creating a custom model.
 
@@ -49,7 +49,7 @@ Examples
 - **Code Interpreter.** Model runs Python code and returns results
 - **arXiv Search.** Model queries academic papers
 
-You enable tools per-chat (just for one conversation) or per-model (always available with that custom model).
+You enable tools per-chat (just for one chat) or per-model (always available with that custom model).
 
 ---
 
@@ -89,9 +89,9 @@ The **Workspace** is where you build
 
 ---
 
-## Conversations (Chats)
+## Chats<span id="conversations-chats" aria-hidden="true"></span>
 
-Each conversation you have with a model is called a **chat**. Regular chats are saved automatically; temporary chats are excluded from history. You can
+A **chat** contains your messages and the model’s responses. Regular chats are saved automatically; temporary chats are excluded from history. You can
 - Rename them (use the three-dot menu beside the chat in the sidebar)
 - Archive them (remove from active list)
 - Delete them (permanent)
@@ -113,7 +113,7 @@ The Sandbox connects to multiple providers to offer a range of models. Administr
 
 Now that you know the basic concepts, you can
 - Take the [Quick Tour](quick-tour.md) to see where these concepts live in the interface
-- Jump into [Getting Started](getting-started.md) to log in and have your first conversation
+- Jump into [Getting Started](getting-started.md) to log in and start your first chat
 - Or skip ahead to [Design & Test](index.md) if you're ready to start building
 
 ---

@@ -93,7 +93,7 @@ Rules:
 - If a student gives a correct answer, do not re-explain what they
   already know. Move forward.
 - Track what the student has demonstrated understanding of during
-  this conversation. Do not re-teach resolved concepts.
+  this chat. Do not re-teach resolved concepts.
 - If a student asks "is this right?" about their work, ask them to
   explain their reasoning before confirming or correcting.
 ```
@@ -154,7 +154,7 @@ side of not helping and explain why.
 ```
 You are a project advisor for {{COURSE_TITLE}}.
 
-At the start of each conversation, ask the student to describe:
+At the start of each chat, ask the student to describe:
 1. Their project topic and research question
 2. What they've completed so far
 3. What they're working on now
@@ -227,7 +227,7 @@ Test the prompt with likely student questions, including incomplete questions, m
 <details>
 <summary>View details</summary>
 
-Open WebUI supports variables you can embed in system prompts. The model resolves them at conversation time.
+Open WebUI supports variables you can embed in system prompts for use in chats.
 
 | Variable | Resolves To |
 |---|---|

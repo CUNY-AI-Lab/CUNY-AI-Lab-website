@@ -37,7 +37,7 @@
         {
           "date": "September 17, 2:30–4:00 pm",
           "title": "Getting Started with the CUNY AI Lab Sandbox",
-          "description": "This workshop introduces the CUNY AI Lab Sandbox and the possibilities it offers for experimenting with generative AI in teaching and research. We'll explore the models available in the Sandbox, compare their affordances, and introduce system prompts to shape how a model behaves throughout a conversation. Participants will then design and test a system prompt for a specific teaching, research, or scholarly workflow, considering the model's role, procedure, constraints, tone, and expected output.",
+          "description": "This workshop introduces the CUNY AI Lab Sandbox and the possibilities it offers for experimenting with generative AI in teaching and research. We'll explore the models available in the Sandbox, compare their affordances, and introduce system prompts to shape how a model behaves throughout a chat. Participants will then design and test a system prompt for a specific teaching, research, or scholarly workflow, considering the model's role, procedure, constraints, tone, and expected output.",
           "prerequisite": "No prior experience with the Sandbox is required."
         },
         {

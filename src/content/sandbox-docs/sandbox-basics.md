@@ -36,15 +36,15 @@ Faculty, staff, and student access depends on assigned permissions and course me
 
 Three areas on screen
 
-1. **Sidebar (left)** — conversation history, Workspace access, settings
-2. **Chat area (center)** — conversation thread
+1. **Sidebar (left)** — chat history, Workspace access, settings
+2. **Chat area (center)** — chat thread
 3. **Message box** — text input, attachments, integrations, and model selector on the right
 
 ---
 
 ## Sidebar
 
-- **Chats** — conversation history. Click to reopen. Hover for rename/archive/delete.
+- **Chats** — chat history. Click to reopen. Hover for rename/archive/delete.
 - **Workspace** — Models, Knowledge, Tools (requires Workspace access)
 - **Settings** — preferences, defaults, profile
 
@@ -52,7 +52,7 @@ Three areas on screen
 
 ## Chat Controls
 
-- **Model selector** (right inside the message box) — switch models mid-conversation
+- **Model selector** (right inside the message box) — switch models mid-chat
 - **Integrations** (beside the plus button) — choose available tools and skills
 - **➕ > Upload Files** — attach images, PDFs, or documents
 - **Message actions** (beneath a message) — copy, edit, or regenerate where available; additional actions are in the three-dot menu
@@ -73,7 +73,7 @@ Where you build custom configurations (requires Workspace access)
 
 ## Next Steps
 
-- [Getting Started](getting-started.md) — log in and have your first conversation
+- [Getting Started](getting-started.md) — log in and start your first chat
 - [Custom Models](models.md) — build your first custom configuration
 
 ---

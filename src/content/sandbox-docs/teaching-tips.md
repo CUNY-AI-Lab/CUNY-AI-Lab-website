@@ -28,7 +28,7 @@ When designing an AI-integrated activity
 1. State the learning objective explicitly.
 2. Map the cognitive tasks required to meet that objective.
 3. Identify which tasks AI can assist with and which students should complete themselves.
-4. Build constraints into the model or the assignment that prevent AI from doing the learning for the student.
+4. Write those limits into the system prompt and test the model with likely student requests.
 
 ---
 

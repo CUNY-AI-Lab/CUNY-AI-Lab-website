@@ -4,7 +4,7 @@
   "intro_description": "CUNY faculty, staff, and students can apply here for access to the Lab's tools, or ask for help with an existing account. One application covers the chat sandbox, API keys, and the studios.",
   "features_heading": "Available services",
   "features": [
-    "The chat sandbox for conversations with AI models",
+    "The Sandbox for working with AI models",
     "API keys you create and manage for the Lab's model endpoint",
     "Agent Studio and Site Studio for research and publishing work",
     "Transcription, image description, and document OCR tools",
