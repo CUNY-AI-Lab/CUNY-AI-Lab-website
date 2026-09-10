@@ -30,7 +30,7 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
       <section id="featured-models" aria-labelledby="featured-heading" hidden>
-        <div class="section-head"><h2 id="featured-heading">Featured</h2><p>A short list of current models the lab suggests starting with. Choose a name to jump to its model card.</p></div>
+        <div class="section-head"><h2 id="featured-heading">Featured</h2><p>A short list of current models the lab suggests starting with. Each one also appears in the full registry below.</p></div>
         <div id="featured-list"></div>
       </section>
       <div class="section-head"><h2 id="all-models-heading" tabindex="-1">All models</h2><p id="results-count" class="results-count" aria-live="polite"></p></div>
@@ -76,8 +76,8 @@ const base = import.meta.env.BASE_URL;
   #model-registry .registry-pagination p { text-align: center; font-size: .8rem; color: var(--registry-muted); }
   #model-registry .registry-pagination button:disabled { cursor: default; }
   #model-registry :is(#featured-heading, #all-models-heading) { scroll-margin-top: 6rem; }
-  #featured-list { display: flex; flex-wrap: wrap; gap: .6rem 1.25rem; }
-  #featured-list a { color: var(--registry-ink); text-decoration: underline; text-underline-offset: 3px; }
+  #featured-list { display: grid; gap: 1rem; }
+  #featured-list .model-card { margin-bottom: 0; }
   #model-registry .model-card { scroll-margin-top: 6rem; }
   #model-registry .featured-card { border-color: #b9d0ef; box-shadow: 0 2px 8px rgba(29, 58, 131, .08); }
   #model-registry .featured-note { margin-top: .35rem; font-size: .9rem; line-height: 1.5; color: #46556b; max-width: 60ch; }
