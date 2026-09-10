@@ -94,7 +94,7 @@ Once students are comfortable with the interface, introduce critical engagement.
 
 **Why this exercise.** Students practice checking AI output against course readings and library sources, establishing a process they can use in later assignments.
 
-> **Tip.** Save 5 minutes at the end for a whole-class debrief. Ask, "What surprised you?" The answers usually surface the key lesson on their own.
+> **Tip.** Save 5 minutes at the end for a whole-class debrief. Ask, "What surprised you?" Compare the claims students could verify with those they could not.
 
 ---
 

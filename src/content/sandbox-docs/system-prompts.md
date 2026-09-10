@@ -11,7 +11,7 @@ This page collects prompt patterns organized by instructional purpose. Each patt
 
 ## The Anatomy of an Instructional Prompt
 
-When writing an instructional prompt, specify the model’s role, actions, boundaries, and response to different inputs. Define the expertise and instructional stance it should take, such as tutor, critic, or collaborator, then describe what it should do when a student submits a draft, asks a question, or shares data. State which tasks remain the student’s responsibility and how the model should adapt when a response shows confusion or prior understanding. Test these instructions together so the model’s role is supported by concrete behaviors and limits.
+When writing an instructional prompt, specify the model’s role, actions, boundaries, and response to different inputs. Describe the instructional stance it should take, such as tutor, critic, or collaborator, then describe what it should do when a student submits a draft, asks a question, or shares data. State which tasks remain the student’s responsibility and how the model should adapt when a response shows confusion or prior understanding. Test these instructions together so the model’s role is supported by concrete behaviors and limits.
 
 ---
 
@@ -111,7 +111,7 @@ Rules:
 <details>
 <summary>View example</summary>
 
-**Purpose.** Provide help within strict boundaries you define. Works well for exams, timed exercises, and assignments where you want AI support on some tasks and not others.
+**Purpose.** Specify which tasks the model should assist with and which requests it should decline.
 
 ```
 You provide research support for {{COURSE_TITLE}}.
