@@ -57,7 +57,7 @@ import PageHero from '../components/PageHero.astro';
         <article class="research-entry border-t border-gray-200 pt-10" aria-labelledby="tinkering-title">
           <p class="text-sm font-medium text-gray-600 mb-3">April 21, 2026 · Conference presentation</p>
           <h3 id="tinkering-title" class="text-2xl font-semibold font-display leading-snug text-cuny-blue">Tinkering as Critical AI Literacy: Teaching Infrastructure through Breakdown &amp; (Re)Configuration</h3>
-          <p class="mt-4 font-medium">Zachary Muhlbauer</p>
+          <p class="mt-4 font-medium">Zach Muhlbauer</p>
           <p class="mt-1 text-gray-600">NARST 2026 Annual International Conference.</p>
           <p class="mt-5 text-lg leading-relaxed text-gray-600">
             Examines how changing model settings and system prompts can help faculty
@@ -71,6 +71,23 @@ import PageHero from '../components/PageHero.astro';
           </div>
         </article>
       </div>
+    </div>
+  </section>
+  <section class="py-12 md:py-16 bg-white" aria-labelledby="ongoing-heading">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="ongoing-heading" class="text-2xl md:text-3xl font-bold font-display text-neutral-stone mb-8">Ongoing Research</h2>
+      <article class="research-entry" aria-labelledby="misalignment-title">
+        <h3 id="misalignment-title" class="text-2xl font-semibold font-display leading-snug text-cuny-blue">Emergent Misalignment</h3>
+        <p class="mt-4 font-medium">Zach Muhlbauer</p>
+        <p class="mt-5 text-lg leading-relaxed text-gray-600">
+          Drawing on Betley et al. (2025) and subsequent studies of emergent
+          misalignment, this collection of Python testbeds examines how
+          language models produce harmful or deceptive responses independent
+          of their assigned task, using a shared evaluation harness to test
+          and score differential outputs for misalignment.
+        </p>
+        <p class="mt-5"><a class="research-link" href="https://github.com/zmuhls/em-model-organisms">Project and references</a></p>
+      </article>
     </div>
   </section>
 </BaseLayout>
