@@ -12,7 +12,7 @@ Set permissions when sharing models, knowledge bases, or prompts so the intended
 Open WebUI has three account roles — **Admin**, **User**, and **Pending**. Individual access lets you use resources shared by the CUNY AI Lab; it does not automatically include **Workspace** access for creating configurations.
 
 ### Administrators
-Administrators configure providers, manage users and groups, install tools, and set defaults for the Sandbox.
+Administrators configure the model connection, manage users and groups, install tools, and set defaults for the Sandbox.
 
 ### Faculty / Staff
 Faculty and staff can request **Workspace** access by emailing the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu) to create and share models, knowledge bases, and prompts. Approved courses receive a group automatically; contact the Lab if its membership or permissions need attention.
