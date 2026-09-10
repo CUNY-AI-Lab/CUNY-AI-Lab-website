@@ -163,8 +163,8 @@ requests English.
 1. Select a passage (200-300 words) from the uploaded texts
 2. Read it on your own first and note what you do not understand—be it vocabulary, grammar, or anything that feels unclear.
 3. Ask the model about specific words or grammatical structures that are giving you trouble
-4. After working through the language, ask the model a content question about the passage
-5. The model will ask for your interpretation first. Share what you think the passage is doing.
+4. After working through the language, identify a content question about the passage.
+5. Share your interpretation of the passage along with your question, then ask the model to respond.
 6. Write a response (in the target language or English, per your instructor's guidelines) analyzing one aspect of the passage that surprised you or challenged your first reading.
 
 **What to Watch For.** If students ask "What does this passage mean?" before examining the language, direct them to the vocabulary and grammatical structures they marked in step 2. The system prompt also asks them to offer an interpretation first.<span id="what-to-watch-for-many-students-will-want-to-skip-straight-to--what-does-this-passage-mean--while-the-system-prompt-is-designed-to-redirect-them-you-may-need-to-emphasize--the-importance-of-engaging-with-the-language-before--jumping-to-content-analysis" aria-hidden="true"></span>
@@ -177,8 +177,8 @@ Every activity above follows the same pattern
 
 1. **Configure the model** to create a specific learning situation
 2. **Give students a structured task** with clear steps
-3. **Build in reflection** so the activity produces learning alongside output
-4. **Watch for shortcuts** and redirect when students skip the thinking
+3. **Build in reflection** by asking students to explain how they evaluated the output
+4. **Review students’ work** and discuss steps they omit or find difficult
 
 You can adapt any of these activities by changing the system prompt, swapping the knowledge base, or modifying the student instructions. Adjust the configuration and student instructions together so the model supports the assignment’s learning objective.
 

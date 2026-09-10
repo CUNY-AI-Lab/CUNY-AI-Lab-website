@@ -55,7 +55,7 @@ These parameters control response generation; adjust them when the default setti
 
 You can change models during a chat by clicking the model name on the right inside the message box. The chat context carries across the switch. This lets you use different models for different stages of a task.
 
-> **Tip.** Encourage students to experiment with model switching. Different models have different strengths.
+> **Tip.** Ask students to compare how two models respond to the same prompt.
 
 </details>
 

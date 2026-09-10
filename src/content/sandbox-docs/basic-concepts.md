@@ -57,7 +57,7 @@ You enable tools per-chat (just for one chat) or per-model (always available wit
 
 **Skills** are reusable Markdown instructions you can attach to models.
 
-Where system prompts define general behavior and knowledge bases provide specific documents, skills offer procedural expertise. Think of them as reference manuals the model can consult.
+Skills can hold detailed procedures, such as a feedback protocol, that you attach to a model without including them in its general system prompt.
 
 Example skills
 - Quantitative Methods (statistical analysis)

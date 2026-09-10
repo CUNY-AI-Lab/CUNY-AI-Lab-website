@@ -66,13 +66,13 @@ The instructor reviews drafts before students submit their final papers in Week 
 
 **What to Watch For**
 
-- Students may over-rely on model summaries without reading original sources. Require direct quotes or page-specific citations to ensure engagement.
+- Ask students to support their evaluations with passages from the original sources.
 - Model may hallucinate citations when prompted for additional sources. Remind students to verify every reference.
 - Some students will struggle with prompt specificity. Provide example prompts and workshop effective questioning.
 
 **Student-Facing Instructions**
 
-> Use the model to support your literature review process. It can help you refine your topic, develop search strategies, and synthesize findings. It cannot replace reading the sources yourself. You are expected to read each article, evaluate its methods, and determine its relevance to your research question. Use the model to organize your thinking, not to do your thinking for you.
+> Use the model to support your literature review process. It can help you refine your topic, develop search strategies, and synthesize findings. Read each article, evaluate its methods, and determine its relevance to your research question.
 
 ---
 
@@ -126,13 +126,13 @@ Students integrate 5-7 sources into an argument
 
 **What to Watch For**
 
-- Some students will submit AI-generated essays unchanged. Process documentation (outlines, reflections) makes this visible.
+- Review outlines and reflections alongside drafts, and ask students to explain how they developed their arguments.
 - Model feedback may be too generic if students submit incomplete drafts. Require full drafts for substantive feedback.
 - Multilingual students benefit from the model explaining grammar patterns. Encourage them to ask follow-up questions.
 
 **Student-Facing Instructions**
 
-> The model is available to help you develop your essays. It will not write essays for you. Instead, it asks questions about your drafts to help you clarify your thinking and strengthen your arguments. You can submit outlines, rough drafts, and revised drafts for feedback. Include your revision reflections in your final submission to show how you used feedback from the model, peers, and me.
+> The model is configured to respond to your drafts with questions about their claims, evidence, and organization. You can submit outlines, rough drafts, and revised drafts for feedback. Include your revision reflections in your final submission to show how you used feedback from the model, peers, and me.
 
 ---
 
@@ -332,8 +332,8 @@ Students present projects to peers and faculty
 These use cases share common principles
 
 1. **Course integration.** Connect model use to the course’s assignments and learning goals.
-2. **Iterative processes.** Students submit drafts, get feedback, and revise. Learning happens through iteration.
-3. **Documentation and reflection.** Students document their AI use to build metacognitive awareness and demonstrate learning.
+2. **Iterative processes.** Students submit drafts, get feedback, and revise.
+3. **Documentation and reflection.** Students record which suggestions they used or rejected and explain their decisions.
 4. **Human oversight.** Instructors review critical work (proposals, final papers) and provide targeted feedback.
 5. **CUNY context.** Adapt model use to students’ circumstances and examine whether the activity provides the support they need.
 

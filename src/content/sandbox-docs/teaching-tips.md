@@ -18,7 +18,7 @@ A tool-first activity begins with "This tool can do X, so let’s assign Y." Beg
 The learning objective is "Students will develop the ability to construct evidence-based arguments in response to scholarly sources."
 
 Does AI support this objective?
-- If AI generates the argument, the student bypasses the learning.
+- Ask students to compare a generated argument with the assigned sources and identify unsupported claims.
 - If AI helps students locate relevant sources and identify counterarguments, it may support the objective while the student still constructs the argument.
 - If AI critiques a student's draft argument for logical gaps, its feedback can support the student's revision.
 
@@ -50,7 +50,7 @@ Students may avoid unfamiliar AI tools or accept their outputs without scrutiny.
 
 **Application at CUNY**
 
-Many CUNY students are first-generation college students. They may not have tacit knowledge about academic research workflows or scholarly writing conventions. Progressive disclosure makes these processes visible while building AI literacy alongside disciplinary knowledge.
+Demonstrate the research and writing procedures an activity requires, then adjust the guidance as students show which steps they can complete independently.
 
 ---
 
@@ -66,7 +66,7 @@ Teach students to judge whether their use of AI supports the work the assignment
 
 Ask students to reflect on three questions
 1. **What did I learn from using this tool?** If the answer is "nothing," the use likely shortcuts the learning.
-2. **Could I explain or defend the output?** If not, the student has not engaged with it critically.
+2. **How did I evaluate the output?** Ask students to identify claims they accepted, rejected, or checked against other sources.
 3. **Does this use align with the assignment's learning objectives?** If the answer is unclear, the student should be encouraged to ask you as their instructor and bring the question to their peers as a learning opportunity.
 
 **Practical Implementation**
@@ -131,8 +131,6 @@ Ask students to document how they used AI tools and what they learned from the i
 - "How did you evaluate the model's response? What made you trust or distrust it?"
 - "What did the model help you understand? Where did it mislead or confuse you?"
 
-These questions build students' capacity to monitor and regulate their own learning.
-
 ---
 
 ## Tip #6. Formative Over Summative<span id="tip-6-formative-over-summative-1" aria-hidden="true"></span>
@@ -170,7 +168,7 @@ Critical AI literacy asks students to evaluate
 - **What the model knows and doesn't know.** The training data is frozen in a particular time, meaning that the model often cannot access current events or recent research.
 - **Whose perspectives are represented.** AI training data overrepresents English-language, Western, affluent voices.
 - **How the model was incentivized.** What outputs were rewarded during training? Fluency? Confidence? Compliance?
-- **What the model cannot do.** AI cannot fact-check itself. It is also considered amoral, as it cannot weigh ethical considerations. And while it can recognize patterns in language and media, it does not contextualize information in the socially situated way humans do.
+- **Evaluating recommendations.** Ask students which evidence supports a model’s recommendation and whose interests it serves.
 
 **Activities**
 
@@ -192,9 +190,9 @@ CUNY students bring diverse linguistic, cultural, and epistemological perspectiv
 CUNY students include
 - Multilingual learners navigating academic English
 - Working adults balancing study with jobs and caregiving
-- First-generation students without tacit knowledge of academic conventions
+- First-generation college students
 - Students with disabilities who benefit from adaptive technologies
-- Immigrants and international students unfamiliar with U.S. educational norms
+- Immigrant and international students
 
 AI tools can support or marginalize these students depending on how you deploy them.
 
