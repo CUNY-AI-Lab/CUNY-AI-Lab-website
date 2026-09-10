@@ -238,27 +238,21 @@ function figure(label: string, value: string): HTMLElement {
   return node;
 }
 
-function modelCard(model: Offering): HTMLElement {
+function modelCard(model: Offering, placement: 'registry' | 'featured' = 'registry'): HTMLElement {
   const note = featured.models.find(entry => entry.id === model.id)?.note;
   const card = element('article', '', note === undefined ? 'model-card' : 'model-card featured-card');
-  card.id = `model-${model.id}`;
+  card.id = `${placement === 'featured' ? 'featured-model' : 'model'}-${model.id}`;
   card.append(element('h2', model.model_name ?? model.name));
   if (note !== undefined) card.append(element('p', note, 'featured-note'));
   card.append(apiIdentity(model), modelSummary(model), offeringRow(model));
   return card;
 }
 
-function featuredLinks(): HTMLElement[] {
+function featuredCards(): HTMLElement[] {
   return featured.models.flatMap(entry => {
     const model = models.find(model => model.id === entry.id);
     if (!model) return [];
-    const link = element('a', model.model_name ?? model.name);
-    link.href = `#model-${model.id}`;
-    link.addEventListener('click', () => {
-      modelPage = Math.floor(models.indexOf(model) / modelsPerPage) + 1;
-      applyFilters();
-    });
-    return [link];
+    return [modelCard(model, 'featured')];
   });
 }
 
@@ -317,8 +311,8 @@ async function refreshCatalog(): Promise<void> {
     if (new Set(catalog.data.map(offering => offering.id)).size !== catalog.data.length) throw new Error('ambiguous_catalog');
     models = catalog.data.toSorted((a, b) => (a.model_name ?? a.name).localeCompare(b.model_name ?? b.name) || a.id.localeCompare(b.id));
     populateFilter(capabilityFilter, [...new Set(models.flatMap(model => model.capabilities))], capabilityNames, 'All capabilities');
-    list.replaceChildren(...models.map(modelCard));
-    featuredList?.replaceChildren(...featuredLinks());
+    list.replaceChildren(...models.map(model => modelCard(model)));
+    featuredList?.replaceChildren(...featuredCards());
     loaded = true;
     applyFilters();
     const checkedAt = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date());

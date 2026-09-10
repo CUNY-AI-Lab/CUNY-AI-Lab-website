@@ -70,9 +70,9 @@ def test_canonical_models_and_copy(page: Page) -> None:
     stub_catalog(page)
     page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
     expect_checked(page)
-    expect(page.locator("article.model-card")).to_have_count(MODEL_COUNT)
+    expect(page.locator("#models-list article.model-card")).to_have_count(MODEL_COUNT)
     expect(page.get_by_label("Provider", exact=True)).to_have_count(0)
-    expect(page.locator("article.model-card code")).to_have_count(MODEL_COUNT)
+    expect(page.locator("#models-list article.model-card code")).to_have_count(MODEL_COUNT)
     expect(page.locator("#results-count")).to_have_text(f"{MODEL_COUNT} models")
     for model in CATALOG["data"]:
         card = model_card(page, model["id"])
@@ -92,27 +92,30 @@ def test_canonical_models_and_copy(page: Page) -> None:
     expect(summary.get_by_role("link", name="MoE", exact=True)).to_have_attribute("href", SPECS["architecture"]["source_url"])
     expect(summary).to_contain_text("Checkpoint parameter count")
     featured = page.locator("#featured-models")
-    expect(featured.locator("a")).to_have_count(2)
-    featured.get_by_role("link", name="GPT OSS 120B", exact=True).click()
+    expect(featured.locator("article.featured-card")).to_have_count(2)
+    featured_gpt = featured.locator("#featured-model-gpt-oss-120b")
+    expect(featured_gpt.get_by_role("heading", name="GPT OSS 120B", exact=True)).to_be_visible()
+    expect(featured_gpt).to_contain_text("OpenAI's open-weight reasoning model")
+    expect(featured_gpt.locator("code")).to_have_text("gpt-oss-120b")
     expect(model_card(page, "gpt-oss-120b")).to_be_visible()
-    expect(page.locator("article.model-card")).to_have_count(MODEL_COUNT)
+    expect(page.locator("#models-list article.model-card")).to_have_count(MODEL_COUNT)
 
 
 def test_search_and_combined_filters(page: Page) -> None:
     search = page.get_by_role("searchbox", name="Search models", exact=True)
     search.fill("deepseek")
-    expect(page.locator("article.model-card:visible")).to_have_count(3)
+    expect(page.locator("#models-list article.model-card:visible")).to_have_count(3)
     expect(page.locator("#featured-models")).to_be_hidden()
     page.get_by_label("Capability", exact=True).select_option("embeddings")
-    expect(page.locator("article.model-card:visible")).to_have_count(1)
+    expect(page.locator("#models-list article.model-card:visible")).to_have_count(1)
     expect(model_card(page, "deepseek-embedding")).to_be_visible()
     search.fill("speciale")
-    expect(page.locator("article.model-card:visible")).to_have_count(0)
+    expect(page.locator("#models-list article.model-card:visible")).to_have_count(0)
     expect(page.get_by_text("No models match your filters. Clear filters to see all models.", exact=True)).to_be_visible()
     page.get_by_role("button", name="Clear filters", exact=True).press("Enter")
     expect(search).to_have_value("")
     expect(page.get_by_label("Capability", exact=True)).to_have_value("")
-    expect(page.locator("article.model-card:visible")).to_have_count(MODEL_COUNT)
+    expect(page.locator("#models-list article.model-card:visible")).to_have_count(MODEL_COUNT)
     expect(page.locator("#featured-models")).to_be_visible()
 
 
@@ -282,16 +285,18 @@ def test_pagination_and_filter_resets(page: Page) -> None:
     page.set_viewport_size({"width": 1440, "height": 1000})
 
 
-def test_featured_jump_across_pages(page: Page) -> None:
+def test_featured_cards_remain_visible_across_pages(page: Page) -> None:
     entries = [offering(f"model-{i:02}", name=f"AAA {i:02}") for i in range(26)]
     entries.append(offering("gpt-oss-120b", name="GPT OSS 120B"))
     stub_catalog(page, {"object": "list", "data": entries})
     page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
     expect_checked(page)
-    page.locator("#featured-list").get_by_role("link", name="GPT OSS 120B", exact=True).click()
-    expect(model_card(page, "gpt-oss-120b")).to_be_visible()
-    expect(page.get_by_role("navigation", name="All model pages", exact=True)).to_contain_text("Page 3 of 3")
-    expect(page.locator("article.model-card")).to_have_count(27)
+    featured = page.locator("#featured-model-gpt-oss-120b")
+    expect(featured.get_by_role("heading", name="GPT OSS 120B", exact=True)).to_be_visible()
+    expect(featured.locator("code")).to_have_text("gpt-oss-120b")
+    expect(model_card(page, "gpt-oss-120b")).to_be_hidden()
+    expect(page.get_by_role("navigation", name="All model pages", exact=True)).to_contain_text("Page 1 of 3")
+    expect(page.locator("#models-list article.model-card")).to_have_count(27)
     stub_catalog(page, {"object": "list", "data": [offering("unfeatured")]})
     page.get_by_role("button", name="Refresh catalog", exact=True).click()
     expect_checked(page)
@@ -310,7 +315,8 @@ def main() -> None:
             page.on("pageerror", lambda error: errors.append(str(error)))
             for test in (test_canonical_models_and_copy, test_search_and_combined_filters,
                          test_refresh_empty_failure_retry_and_safe_text, test_optional_metadata,
-                         test_pagination_and_filter_resets, test_featured_jump_across_pages, test_guide):
+                         test_pagination_and_filter_resets,
+                         test_featured_cards_remain_visible_across_pages, test_guide):
                 test(page)
                 print(f"PASS {test.__name__}", flush=True)
             assert errors == [], errors
