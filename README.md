@@ -85,7 +85,7 @@ The registry loads the public Gateway `/v1/catalog` without credentials on page
 load and **Refresh catalog**. Each canonical catalog row renders once, with one
 exact API ID and copy control. IDs preserve the complete model variant, such as
 `gpt-oss-20b`. Gateway owns identity and routing; the website does not group,
-strip prefixes, or display alternate provider IDs. Featured links jump to those
+strip prefixes, display alternate IDs, or name the provider serving a model. Featured links jump to those
 same cards. Search and capability filters operate on the canonical rows.
 
 Capabilities reflect Gateway's eligible-route union. A request still requires a
@@ -116,7 +116,8 @@ the catalog reports zero. Workers AI and Mantle expose standard token rates.
 OpenRouter reports independently lowest input/output rates from the healthy
 ZDR endpoint inventory, labeled **from**; those minima need not come from the
 same endpoint. The selected route can cost more, and additional provider fees
-are outside these token rates. These are provider prices, not personal spending,
+are outside these token rates. The page presents them as list rates for the
+model without naming a provider. They are not personal spending,
 quota balances, or estimates of a particular request's cost.
 
 The website is the caller and the existing public Gateway catalog is the receiver;

@@ -18,30 +18,30 @@ const base = import.meta.env.BASE_URL;
         <h2 id="find-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Find a model</h2>
         <p><strong>Featured</strong> is a short list of current models the lab suggests starting with, each with a one-line note. Featured links lead to the model’s card in the full registry, and searching or filtering searches the full registry.</p>
         <p class="mt-3">Search by model name or API ID, or narrow the list by capability. Filters work together and show the models that match; choose <strong>Clear filters</strong> to return to the full catalog. The registry includes text and speech offerings, so check the capabilities before choosing a model for your task.</p>
-        <p class="mt-3">The registry loads its catalog directly from Gateway. Eligible offerings must use open-weight models and non-retaining or zero-data-retention (ZDR) provider routes. Gateway enforces both requirements for API requests as well as catalog listings. Closed-weight models are currently unavailable; a ZDR route alone does not make a model eligible.</p>
+        <p class="mt-3">The registry loads its catalog directly from Gateway. Every listed model has open weights and is served with zero data retention (ZDR). Gateway enforces both requirements for API requests as well as catalog listings. Closed-weight models are currently unavailable.</p>
         <p class="mt-3">The catalog loads when you open the page. Choose <strong>Refresh catalog</strong> to check again. If the catalog cannot be loaded, try refreshing; the page clears earlier results so they are not mistaken for current availability.</p>
       </section>
-      <section aria-labelledby="providers-heading">
-        <h2 id="providers-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Compare models</h2>
-        <p>Each model appears once with one API ID, preserving its complete version and variant. Gateway chooses an eligible provider for each request. The registry does not offer provider-specific alternatives.</p>
-        <p class="mt-3">Context is measured in tokens. The displayed context and prices describe the preferred offering and can differ from the route used for a request. A missing context limit means it has not been published. Capabilities reflect the eligible routes available for the model; a request still needs one route supporting all of its requirements.</p>
-        <p class="mt-3">A catalog listing does not guarantee provider capacity for every request. Capabilities do not establish model quality or licensing terms.</p>
+      <section aria-labelledby="compare-heading">
+        <h2 id="compare-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Compare models</h2>
+        <p>Each model appears once with one API ID, preserving its complete version and variant. Gateway decides how each request is served. The registry does not offer alternative IDs for the same model.</p>
+        <p class="mt-3">Context is measured in tokens. The displayed context and prices describe the usual way the model is served and can differ for a particular request. A missing context limit means it has not been published. Capabilities are everything the model can offer; a request still needs all of its requirements available at once.</p>
+        <p class="mt-3">A catalog listing does not guarantee capacity for every request. Capabilities do not establish model quality or licensing terms.</p>
       </section>
       <section aria-labelledby="specifications-heading">
         <h2 id="specifications-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Read model specifications</h2>
         <p>Model size is usually reported in billions of parameters (B). An advertised size follows the publisher’s label; a checkpoint parameter count measures the published weights and may differ from that label. Size alone does not measure quality or speed.</p>
         <p class="mt-3">Gateway supplies reference specifications from published sources. Expand <strong>Details and sources</strong> to see the architecture, evidence links, and individual check dates. The summary keeps size, weights, and license information together. <strong>Open weights</strong> means model weights are available to download; consult the linked license for the terms. Unpublished facts are omitted. A missing weights label does not establish whether weights are available.</p>
-        <p class="mt-3">These reference specifications have their own verification date. The catalog check time covers live provider details. Capability icons accompany text labels in each model card; the long-context label means the preferred offering reports a context limit of at least 100,000 tokens.</p>
+        <p class="mt-3">These reference specifications have their own verification date. The catalog check time covers live availability, context limits, and prices. Capability icons accompany text labels in each model card; the long-context label means the model reports a context limit of at least 100,000 tokens.</p>
       </section>
       <section aria-labelledby="prices-heading">
         <h2 id="prices-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Read token prices</h2>
         <p>Input and output prices are shown in <strong>USD per million tokens</strong>. Input is what you send to the model; output is what it generates. An unpublished price is unknown. A displayed zero means the catalog explicitly reports zero for that token rate.</p>
-        <p class="mt-3">OpenRouter prices labeled <strong>from</strong> are the lowest input and output rates among its currently eligible endpoints. Those two rates can come from different endpoints, and the endpoint used for a request can cost more. Additional provider fees are outside the displayed token rates.</p>
-        <p class="mt-3">These are provider rates. They do not show your quota balance or the final cost of a request. Prices and availability can change after the displayed check time.</p>
+        <p class="mt-3">Prices labeled <strong>from</strong> are the lowest input and output rates currently available for that model. The two rates need not come from the same place, and a particular request can cost more. Fees outside the token rates are not shown.</p>
+        <p class="mt-3">These are list rates for the model. They do not show your quota balance or the final cost of a request. Prices and availability can change after the displayed check time.</p>
       </section>
       <section aria-labelledby="api-heading">
         <h2 id="api-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Use an API ID</h2>
-        <p>Choose <strong>Copy API ID</strong> on the model card. Gateway handles provider routing. Use that exact ID with the appropriate API endpoint for its capabilities. Text generation and speech recognition use different request formats.</p>
+        <p>Choose <strong>Copy API ID</strong> on the model card. Gateway handles routing. Use that exact ID with the appropriate API endpoint for its capabilities. Text generation and speech recognition use different request formats.</p>
         <p class="mt-3">The <a href={`${base}docs/api-keys/`} class="text-vibrant-700 underline underline-offset-2">API key guide</a> explains how to create a personal key and send a chat request. Browsing the registry does not require a key.</p>
       </section>
       <p><a href={`${base}models/`} class="text-vibrant-700 underline underline-offset-2 font-semibold">Browse the model registry</a></p>
