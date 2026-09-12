@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-10",
+  "updated_at": "2026-09-12",
   "models": [
     {
       "name": "DeepSeek V4.1 Flash",
@@ -18,7 +18,7 @@
     },
     {
       "name": "Qwen3.8 27B",
-      "note": "Dense 27B vision-language model from Qwen with a 1M-token context; a strong mid-size choice.",
+      "note": "Dense 27B vision-language model from Qwen; a strong mid-size choice.",
       "id": "qwen3.8-27b"
     },
     {

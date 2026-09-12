@@ -105,7 +105,7 @@ Chats are private by default. Sharing requires generating a share link.
 
 In Open WebUI, a **provider** is a service that hosts models.
 
-The Sandbox uses one connection, the CAIL Model API, which serves the models listed in the [Model Registry](https://ailab.gc.cuny.edu/models/). Administrators configure that connection in the settings for the Sandbox.
+The Sandbox uses several model connections. One is the CAIL Model API, which serves the models listed in the [Model Registry](https://ailab.gc.cuny.edu/models/). Administrators configure these connections in the settings for the Sandbox.
 
 ---
 
