@@ -85,8 +85,9 @@ The registry loads the public Gateway `/v1/catalog` without credentials on page
 load and **Refresh catalog**. Each canonical catalog row renders once, with one
 exact API ID and copy control. IDs preserve the complete model variant, such as
 `gpt-oss-20b`. Gateway owns identity and routing; the website does not group,
-strip prefixes, display alternate IDs, or name the provider serving a model. Featured links jump to those
-same cards. Search and capability filters operate on the canonical rows.
+strip prefixes, display alternate IDs, or name the provider serving a model. Featured models render as
+separate cards above the full registry and also appear in the canonical rows below. Search and capability
+filters operate on the full registry.
 
 Capabilities reflect Gateway's eligible-route union. A request still requires a
 route supporting its complete capability combination. Context and comparative
