@@ -2,6 +2,7 @@
   "title": "Request Access",
   "intro_heading": "Apply for Lab access",
   "intro_description": "CUNY faculty, staff, and students can apply here for access to the Lab's tools, or ask for help with an existing account. One application covers the chat sandbox, API keys, and the studios.",
+  "eligibility_note": "The Lab is still in a pilot phase. Because resources are limited, access is open to all Graduate Center students, faculty, and staff, and to selected faculty and staff from other CUNY campuses whose work aligns with the Lab's research and pedagogical framework. Students at other CUNY campuses, graduate and undergraduate, are eligible only as part of a pilot class or project.",
   "features_heading": "Available services",
   "features": [
     "The Sandbox for working with AI models",

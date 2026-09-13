@@ -11,7 +11,7 @@ principles:
     description: AI literacy over AI dependency
 cta:
   heading: Get Involved
-  description: Interested in participating in the CUNY AI Lab initiative? We welcome collaboration from faculty, researchers, and students across CUNY.
+  description: Interested in participating in the CUNY AI Lab initiative? We welcome collaboration from faculty, researchers, and students across CUNY. While the Lab is in its pilot phase, access is open to everyone at the Graduate Center and to selected faculty and staff from other campuses; students elsewhere at CUNY join through a pilot class or project.
   primary:
     text: Contact Us
     url: /contact
