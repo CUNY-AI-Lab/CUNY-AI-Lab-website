@@ -35,9 +35,9 @@ const offeringSchema = z.object({
   order: z.catch(z.optional(recommendationOrder), undefined),
   capabilities: z.array(z.string()),
   context_length: z.nullable(z.int().check(z.positive())),
-  pricing: z.optional(pricingSchema),
+  pricing: z.catch(z.optional(pricingSchema), undefined),
 });
-const catalogSchema = z.object({ object: z.literal('list'), data: z.array(offeringSchema) });
+const catalogSchema = z.object({ object: z.literal('list'), data: z.array(z.unknown()) });
 type Offering = z.infer<typeof offeringSchema>;
 const capabilityNames = new Map([
   ['text-generation', 'Text generation'],
@@ -302,15 +302,22 @@ async function refreshCatalog(): Promise<void> {
     });
     if (!response.ok) throw new Error('catalog_unavailable');
     const catalog = catalogSchema.parse(await response.json());
-    if (new Set(catalog.data.map(offering => offering.id)).size !== catalog.data.length) throw new Error('ambiguous_catalog');
-    models = catalog.data.toSorted((a, b) => (a.model_name ?? a.name).localeCompare(b.model_name ?? b.name) || a.id.localeCompare(b.id));
+    const parsed = catalog.data.map(entry => offeringSchema.safeParse(entry));
+    const valid = parsed.flatMap(result => result.success ? [result.data] : []);
+    const idCounts = new Map<string, number>();
+    for (const offering of valid) idCounts.set(offering.id, (idCounts.get(offering.id) ?? 0) + 1);
+    const unambiguous = valid.filter(offering => idCounts.get(offering.id) === 1);
+    const omitted = catalog.data.length - unambiguous.length;
+    if (catalog.data.length > 0 && unambiguous.length === 0) throw new Error('catalog_has_no_usable_rows');
+    models = unambiguous.toSorted((a, b) => (a.model_name ?? a.name).localeCompare(b.model_name ?? b.name) || a.id.localeCompare(b.id));
     populateFilter(capabilityFilter, [...new Set(models.flatMap(model => model.capabilities))], capabilityNames, 'All capabilities');
     list.replaceChildren(...models.map(model => modelCard(model)));
     featuredList?.replaceChildren(...featuredCards());
     loaded = true;
     applyFilters();
     const checkedAt = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date());
-    status.textContent = `Catalog checked at ${checkedAt}. Availability and prices can change.`;
+    const omittedMessage = omitted === 0 ? '' : ` ${omitted} invalid or ambiguous ${omitted === 1 ? 'entry was' : 'entries were'} omitted.`;
+    status.textContent = `Catalog checked at ${checkedAt}.${omittedMessage} Availability and prices can change.`;
   } catch {
     empty.hidden = false;
     empty.textContent = 'The live catalog is unavailable. Refresh catalog to try again.';
