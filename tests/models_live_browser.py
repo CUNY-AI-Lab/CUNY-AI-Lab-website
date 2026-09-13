@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 from urllib.parse import urlsplit
 
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import expect, sync_playwright
 
 BASE_URL = os.environ["CAIL_TEST_BASE"].rstrip("/")
@@ -18,11 +19,18 @@ def main() -> None:
             page = browser.new_page()
             page_errors: list[str] = []
             page.on("pageerror", lambda error: page_errors.append(str(error)))
-            with page.expect_response(
-                lambda response: response.url == CATALOG_URL,
-                timeout=20_000,
-            ) as response_info:
-                page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
+            for attempt in range(2):
+                try:
+                    with page.expect_response(
+                        lambda response: response.url == CATALOG_URL,
+                        timeout=20_000,
+                    ) as response_info:
+                        page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
+                    break
+                except PlaywrightTimeoutError:
+                    if attempt == 1:
+                        raise
+                    page.wait_for_timeout(2_000)
             response = response_info.value
             expect(page.get_by_role("status", name="Catalog status", exact=True)).to_contain_text(
                 "Catalog checked at", timeout=20_000
