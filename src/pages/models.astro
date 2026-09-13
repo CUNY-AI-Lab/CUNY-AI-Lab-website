@@ -30,7 +30,7 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
       <section id="featured-models" aria-labelledby="featured-heading" hidden>
-        <div class="section-head"><h2 id="featured-heading">Featured</h2><p>A short list of current models the lab suggests starting with. Each one also appears in the full registry below.</p></div>
+        <div class="section-head"><h2 id="featured-heading">Featured</h2><p>Models Gateway recommends starting with, in its configured order. Featured status affects prominence only; each model also appears in the full registry below.</p></div>
         <div id="featured-list"></div>
       </section>
       <div class="section-head"><h2 id="all-models-heading" tabindex="-1">All models</h2><p id="results-count" class="results-count" aria-live="polite"></p></div>
@@ -80,7 +80,6 @@ const base = import.meta.env.BASE_URL;
   #featured-list .model-card { margin-bottom: 0; }
   #model-registry .model-card { scroll-margin-top: 6rem; }
   #model-registry .featured-card { border-color: #b9d0ef; box-shadow: 0 2px 8px rgba(29, 58, 131, .08); }
-  #model-registry .featured-note { margin-top: .35rem; font-size: .9rem; line-height: 1.5; color: #46556b; max-width: 60ch; }
   #model-registry .empty-state { padding: 3rem 1rem; text-align: center; color: var(--registry-muted); }
   #model-registry .model-card { padding: 1.5rem 1.75rem 1.25rem; border: 1px solid var(--registry-line); border-radius: 1rem; background: white; margin-bottom: 1rem; box-shadow: 0 1px 2px rgba(29, 58, 131, .05); }
   #model-registry .model-card[hidden] { display: none; }

@@ -16,6 +16,7 @@ CATALOG_URL = "https://tools.ailab.gc.cuny.edu/v1/catalog"
 
 def offering(api_id: str, provider: str = "openrouter", **fields: Any) -> dict:
     return {"id": api_id, "name": api_id, "provider": provider,
+            "recommended": False, "tier": "advanced", "order": 100,
             "capabilities": ["text-generation", "reasoning", "function-calling"],
             "context_length": 163840, **fields}
 
@@ -35,8 +36,10 @@ SPECS = {
 }
 
 CATALOG = {"object": "list", "data": [
-    offering("deepseek-v3.2", name="DeepSeek V3.2", pricing=pricing(0.2, 0.3)),
-    offering("gpt-oss-120b", "workers-ai", name="GPT OSS 120B", specifications=SPECS, pricing=pricing(0, 0.000001)),
+    offering("deepseek-v3.2", name="DeepSeek V3.2", recommended=True,
+             tier="recommended", order=2, pricing=pricing(0.2, 0.3)),
+    offering("gpt-oss-120b", "workers-ai", name="GPT OSS 120B", recommended=True,
+             tier="recommended", order=1, specifications=SPECS, pricing=pricing(0, 0.000001)),
     offering("gemma-4-31b-it", name="Gemma 4 31B", capabilities=["text-generation", "vision"]),
     offering("deepseek-v3.2-speciale", name="DeepSeek V3.2 Speciale", pricing=pricing(0.04, 0.15, "starting_at")),
     offering("new-release-2099", name="Previously unseen release"),
@@ -93,9 +96,10 @@ def test_canonical_models_and_copy(page: Page) -> None:
     expect(summary).to_contain_text("Checkpoint parameter count")
     featured = page.locator("#featured-models")
     expect(featured.locator("article.featured-card")).to_have_count(2)
+    expect(featured.locator("article.featured-card code")).to_have_text(
+        ["gpt-oss-120b", "deepseek-v3.2"])
     featured_gpt = featured.locator("#featured-model-gpt-oss-120b")
     expect(featured_gpt.get_by_role("heading", name="GPT OSS 120B", exact=True)).to_be_visible()
-    expect(featured_gpt).to_contain_text("OpenAI's open-weight reasoning model")
     expect(featured_gpt.locator("code")).to_have_text("gpt-oss-120b")
     expect(model_card(page, "gpt-oss-120b")).to_be_visible()
     expect(page.locator("#models-list article.model-card")).to_have_count(MODEL_COUNT)
@@ -285,18 +289,26 @@ def test_pagination_and_filter_resets(page: Page) -> None:
     page.set_viewport_size({"width": 1440, "height": 1000})
 
 
-def test_featured_cards_remain_visible_across_pages(page: Page) -> None:
-    entries = [offering(f"model-{i:02}", name=f"AAA {i:02}") for i in range(26)]
-    entries.append(offering("gpt-oss-120b", name="GPT OSS 120B"))
+def test_featured_order_and_full_catalog_retention(page: Page) -> None:
+    entries = [
+        offering("recommended-later", name="Recommended later", recommended=True,
+                 tier="recommended", order=8),
+        offering("bad-recommended", recommended="yes", tier="recommended", order=1),
+        offering("bad-tier", recommended=True, tier="featured", order=2),
+        offering("bad-order", recommended=True, tier="recommended", order="first"),
+        offering("missing-metadata", recommended=None, tier=None, order=None),
+        offering("recommended-first", name="Recommended first", recommended=True,
+                 tier="recommended", order=3),
+        offering("advanced", recommended=False, tier="advanced", order=9),
+    ]
     stub_catalog(page, {"object": "list", "data": entries})
     page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
     expect_checked(page)
-    featured = page.locator("#featured-model-gpt-oss-120b")
-    expect(featured.get_by_role("heading", name="GPT OSS 120B", exact=True)).to_be_visible()
-    expect(featured.locator("code")).to_have_text("gpt-oss-120b")
-    expect(model_card(page, "gpt-oss-120b")).to_be_hidden()
-    expect(page.get_by_role("navigation", name="All model pages", exact=True)).to_contain_text("Page 1 of 3")
-    expect(page.locator("#models-list article.model-card")).to_have_count(27)
+    expect(page.locator("#featured-list article.featured-card code")).to_have_text(
+        ["recommended-first", "recommended-later"])
+    expect(page.locator("#models-list article.model-card")).to_have_count(len(entries))
+    for entry in entries:
+        expect(model_card(page, entry["id"])).to_have_count(1)
     stub_catalog(page, {"object": "list", "data": [offering("unfeatured")]})
     page.get_by_role("button", name="Refresh catalog", exact=True).click()
     expect_checked(page)
@@ -316,7 +328,7 @@ def main() -> None:
             for test in (test_canonical_models_and_copy, test_search_and_combined_filters,
                          test_refresh_empty_failure_retry_and_safe_text, test_optional_metadata,
                          test_pagination_and_filter_resets,
-                         test_featured_cards_remain_visible_across_pages, test_guide):
+                         test_featured_order_and_full_catalog_retention, test_guide):
                 test(page)
                 print(f"PASS {test.__name__}", flush=True)
             assert errors == [], errors

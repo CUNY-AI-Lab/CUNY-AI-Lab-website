@@ -1,5 +1,4 @@
 import * as z from 'zod/mini';
-import featuredData from '../data/featured-models.json';
 
 const catalogUrl = 'https://tools.ailab.gc.cuny.edu/v1/catalog';
 const price = z.number().check(z.nonnegative());
@@ -25,21 +24,20 @@ const specificationsSchema = z.object({
   size: z.catch(z.optional(z.object({ label: metadataText, basis: z.enum(['advertised', 'checkpoint']), source_url: sourceUrl })), undefined),
 });
 type Specifications = z.infer<typeof specificationsSchema>;
+const recommendationOrder = z.number().check(z.refine(value => Number.isSafeInteger(value) && value > 0));
 const offeringSchema = z.object({
   id: z.string().check(z.minLength(1), z.maxLength(512)),
   name: z.string().check(z.minLength(1)),
   model_name: z.catch(z.optional(metadataText), undefined),
   specifications: z.catch(z.optional(specificationsSchema), undefined),
+  recommended: z.catch(z.optional(z.boolean()), undefined),
+  tier: z.catch(z.optional(z.enum(['recommended', 'advanced'])), undefined),
+  order: z.catch(z.optional(recommendationOrder), undefined),
   capabilities: z.array(z.string()),
   context_length: z.nullable(z.int().check(z.positive())),
   pricing: z.optional(pricingSchema),
 });
 const catalogSchema = z.object({ object: z.literal('list'), data: z.array(offeringSchema) });
-const featuredSchema = z.object({
-  updated_at: z.string(),
-  models: z.array(z.object({ name: metadataText, note: metadataText, id: z.string().check(z.minLength(1)) })),
-});
-const featured = featuredSchema.parse(featuredData);
 type Offering = z.infer<typeof offeringSchema>;
 const capabilityNames = new Map([
   ['text-generation', 'Text generation'],
@@ -238,21 +236,18 @@ function figure(label: string, value: string): HTMLElement {
 }
 
 function modelCard(model: Offering, placement: 'registry' | 'featured' = 'registry'): HTMLElement {
-  const note = featured.models.find(entry => entry.id === model.id)?.note;
-  const card = element('article', '', note === undefined ? 'model-card' : 'model-card featured-card');
+  const card = element('article', '', placement === 'featured' ? 'model-card featured-card' : 'model-card');
   card.id = `${placement === 'featured' ? 'featured-model' : 'model'}-${model.id}`;
   card.append(element('h2', model.model_name ?? model.name));
-  if (note !== undefined) card.append(element('p', note, 'featured-note'));
   card.append(apiIdentity(model), modelSummary(model), offeringRow(model));
   return card;
 }
 
 function featuredCards(): HTMLElement[] {
-  return featured.models.flatMap(entry => {
-    const model = models.find(model => model.id === entry.id);
-    if (!model) return [];
-    return [modelCard(model, 'featured')];
-  });
+  return models
+    .filter(model => model.recommended === true && model.tier === 'recommended' && model.order !== undefined)
+    .toSorted((a, b) => (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER) || a.id.localeCompare(b.id))
+    .map(model => modelCard(model, 'featured'));
 }
 
 function applyFilters(): void {
