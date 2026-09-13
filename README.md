@@ -86,8 +86,11 @@ load and **Refresh catalog**. Each canonical catalog row renders once, with one
 exact API ID and copy control. IDs preserve the complete model variant, such as
 `gpt-oss-20b`. Gateway owns identity and routing; the website does not group,
 strip prefixes, display alternate IDs, or name the provider serving a model. Featured models render as
-separate cards above the full registry and also appear in the canonical rows below. Search and capability
-filters operate on the full registry.
+separate cards above the full registry in Gateway's numeric recommendation order and also appear in the
+canonical rows below. Gateway owns `recommended`, `tier`, and `order`; the website has no static Featured
+list. Featured status changes prominence, not availability. Search and capability filters operate on the
+full registry. Malformed recommendation metadata makes a model nonfeatured without removing its valid
+canonical row.
 
 Capabilities reflect Gateway's eligible-route union. A request still requires a
 route supporting its complete capability combination. Context and comparative
