@@ -109,26 +109,30 @@ long-context indicator come from the canonical model.
 New catalog models appear automatically, including non-text routes.
 
 The check time applies to catalog availability, route capabilities, context, and
-prices. Failed or malformed discovery clears previous results and offers retry.
+prices. A malformed row is omitted without hiding valid rows; malformed optional
+pricing stays unpublished. A malformed envelope or a response with no usable,
+unambiguous rows clears previous results and offers retry.
 An empty catalog and a search with no matches have separate messages. JavaScript
 is required for the interactive list; a public JSON catalog link remains usable
 without it. No inference request is sent by browsing, filtering, or copying IDs.
 
 Prices come only from Gateway's optional `pricing` field, in USD per million
-input/output tokens. Missing prices stay unknown; zero is displayed only when
-the catalog reports zero. Workers AI and Mantle expose standard token rates.
-OpenRouter reports independently lowest input/output rates from the healthy
-ZDR endpoint inventory, labeled **from**; those minima need not come from the
-same endpoint. The selected route can cost more, and additional provider fees
-are outside these token rates. The page presents them as list rates for the
-model without naming a provider. They are not personal spending,
+input/output tokens. Missing or malformed prices stay unknown; zero is displayed
+only when the catalog reports zero. Gateway labels a price as a standard rate or
+as **from** when it is a starting rate. The selected route can cost more, and
+additional fees may fall outside these token rates. The page presents prices for
+the model without inferring or naming a provider. They are not personal spending,
 quota balances, or estimates of a particular request's cost.
 
 The website is the caller and the existing public Gateway catalog is the receiver;
 Gateway must supply sourced metadata for the reference facts to appear. Browser tests
 substitute catalogs for deterministic filtering, failure, and identity cases.
 Rollout verification also loads the deployed page against the real public Gateway
-without intercepting that request. No API key or paid inference is needed.
+without intercepting that request, compares its usable IDs and recommendation
+order with that response, and does not freeze an expected model count. No API key
+or paid inference is needed. Gateway does not currently publish snapshot or
+completeness metadata, so this check cannot prove that the returned response is a
+complete registry snapshot.
 
 ## Accessibility checks
 

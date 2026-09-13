@@ -132,8 +132,7 @@ def test_refresh_empty_failure_retry_and_safe_text(page: Page) -> None:
     expect(page.locator("#models-list article.model-card")).to_have_count(0)
     expect(page.locator("#results-count")).to_contain_text("0")
     expect(page.get_by_text("The Gateway catalog currently contains no models.", exact=True)).to_be_visible()
-    invalid_price = offering("bad-price", pricing=pricing(-1, 0.3))
-    for invalid in ({"object": "list"}, {"object": "list", "data": [invalid_price]},
+    for invalid in ({"object": "list"}, {"object": "list", "data": [{"id": "missing-fields"}]},
                     {"object": "list", "data": [CATALOG["data"][0], CATALOG["data"][0]]}, None):
         stub_catalog(page)
         refresh.click()
@@ -160,6 +159,32 @@ def test_refresh_empty_failure_retry_and_safe_text(page: Page) -> None:
     bounds = page.locator("#models-list article.model-card > .identity code").bounding_box()
     assert bounds and bounds["x"] >= 0 and bounds["x"] + bounds["width"] <= 390
     page.set_viewport_size({"width": 1440, "height": 1000})
+
+
+def test_malformed_rows_and_pricing_are_isolated(page: Page) -> None:
+    valid = offering("valid", name="Valid model", recommended=True,
+                     tier="recommended", order=2, pricing=pricing(0.1, 0.2))
+    bad_price = offering("bad-price", name="Bad price", recommended=True,
+                         tier="recommended", order=1, pricing=pricing(-1, 0.3))
+    duplicate = offering("duplicate", name="Duplicate")
+    payload = {"object": "list", "data": [
+        valid,
+        {"id": "missing-required-fields"},
+        bad_price,
+        duplicate,
+        {**duplicate, "name": "Conflicting duplicate"},
+    ]}
+    stub_catalog(page, payload)
+    page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
+    expect_checked(page)
+    expect(page.locator("#models-list article.model-card code")).to_have_text(
+        ["bad-price", "valid"])
+    expect(model_card(page, "bad-price")).to_contain_text("Token prices not published")
+    expect(model_card(page, "valid")).to_contain_text("Input $0.10")
+    expect(page.locator("#featured-list article.featured-card code")).to_have_text(
+        ["bad-price", "valid"])
+    expect(page.get_by_role("status", name="Catalog status", exact=True)).to_contain_text(
+        "3 invalid or ambiguous entries were omitted")
 
 
 def test_optional_metadata(page: Page) -> None:
@@ -313,6 +338,20 @@ def test_featured_order_and_full_catalog_retention(page: Page) -> None:
     page.get_by_role("button", name="Refresh catalog", exact=True).click()
     expect_checked(page)
     expect(page.locator("#featured-models")).to_be_hidden()
+    dynamic = offering("dynamic-addition", name="Dynamic addition", recommended=True,
+                       tier="recommended", order=1)
+    stub_catalog(page, {"object": "list", "data": [offering("unfeatured"), dynamic]})
+    page.get_by_role("button", name="Refresh catalog", exact=True).click()
+    expect_checked(page)
+    expect(page.locator("#models-list article.model-card code")).to_have_text(
+        ["dynamic-addition", "unfeatured"])
+    expect(page.locator("#featured-list article.featured-card code")).to_have_text(
+        ["dynamic-addition"])
+    stub_catalog(page, {"object": "list", "data": [offering("unfeatured")]})
+    page.get_by_role("button", name="Refresh catalog", exact=True).click()
+    expect_checked(page)
+    expect(model_card(page, "dynamic-addition")).to_have_count(0)
+    expect(page.locator("#featured-models")).to_be_hidden()
     stub_catalog(page)
 
 
@@ -327,6 +366,7 @@ def main() -> None:
             page.on("pageerror", lambda error: errors.append(str(error)))
             for test in (test_canonical_models_and_copy, test_search_and_combined_filters,
                          test_refresh_empty_failure_retry_and_safe_text, test_optional_metadata,
+                         test_malformed_rows_and_pricing_are_isolated,
                          test_pagination_and_filter_resets,
                          test_featured_order_and_full_catalog_retention, test_guide):
                 test(page)

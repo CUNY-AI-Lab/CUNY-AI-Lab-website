@@ -108,6 +108,12 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Set up uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+
+      - name: Install deployed-browser dependencies
+        run: uv run --with playwright python -m playwright install --with-deps chromium
+
       - name: Build site
         run: bun run build
 
@@ -153,3 +159,8 @@ jobs:
           done
           status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' "$origin/not-a-real-cail-page")"
           test "$status" = 404
+
+      - name: Verify deployed model registry against Gateway
+        env:
+          CAIL_TEST_BASE: https://cail-website.ailab-452.workers.dev
+        run: uv run --with playwright python tests/models_live_browser.py
