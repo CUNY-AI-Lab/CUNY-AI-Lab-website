@@ -53,4 +53,4 @@ There is no benchmark yet that tells us whether an open-weight model is as usefu
 
 The scatter plot in Figure 3 represents capability on the vertical axis and price on the horizontal axis. The open-weight models cluster in the lower left, as they are both capable and cheap to run. The proprietary models sit to the right. Their few extra benchmark points cost several times as much per token.
 
-[^1]: The Studios are the only exception that still runs on Claude and will move to open weights when we finalize our procurement process.
+[^1]: The Studios ran on Claude at first and now use open-weight models through the Lab's gateway.

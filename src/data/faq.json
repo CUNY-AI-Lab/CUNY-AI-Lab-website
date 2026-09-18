@@ -1,0 +1,126 @@
+{
+  "title": "FAQ",
+  "intro": "Answers to common questions about who can use the CUNY AI Lab, how to sign in, what it costs, and what happens to your data. Can't find what you need? Email <a href=\"mailto:ailab@gc.cuny.edu\">ailab@gc.cuny.edu</a>.",
+  "sections": [
+    {
+      "id": "access",
+      "heading": "Access",
+      "items": [
+        {
+          "id": "who-can-use",
+          "q": "Who can use the Lab right now?",
+          "a": "<p>The Lab is in a pilot phase with limited resources. Access is open to all Graduate Center students, faculty, and staff, and to selected faculty and staff from other CUNY campuses whose work aligns with the Lab's research and pedagogical framework. Students at other CUNY campuses, graduate and undergraduate, can only join if part of a class pilot or project.</p><p>Eligibility does not guarantee approval. <a href=\"/request-access\">Apply for access</a>.</p>"
+        },
+        {
+          "id": "sign-in",
+          "q": "How do I sign in?",
+          "a": "<p>Every Lab tool uses CUNY Login. Open the tool and you will be sent to the CUNY sign-in page. In the CAIL Sandbox, choose <strong>Continue with CUNY Login</strong> and leave the email and password fields blank.</p><p>Signing in confirms who you are; it does not grant access on its own. Your application or class invitation must be approved first. See <a href=\"/blog/cuny-login-sso/\">How to Sign In to the CUNY AI Lab</a>.</p>"
+        },
+        {
+          "id": "white-screen",
+          "q": "The sign-in page is blank, white, or stuck on an Oracle screen. What do I do?",
+          "a": "<p>This is caused by saved data for CUNY's sign-in site (<code>ssologin.cuny.edu</code>) in your browser. The Lab and your class invitation are unaffected.</p><ol><li>Close the stalled tab.</li><li>Open the tool, or your class invitation link, in a private or incognito window, or in a different browser, and sign in there.</li><li>If that works, clear cookies and site data for <code>ssologin.cuny.edu</code> only in your regular browser, then sign in again. You do not need to clear anything else.</li></ol><p>How to clear data for just that site:</p><ul><li><strong>Chrome:</strong> open <code>chrome://settings/content/all</code> (Settings &rarr; Privacy and security &rarr; Third-party cookies &rarr; See all site data and permissions), search for <code>cuny.edu</code>, and choose the trash icon next to <code>ssologin.cuny.edu</code>. <a href=\"https://support.google.com/chrome/answer/95647\" target=\"_blank\" rel=\"noopener noreferrer\">Chrome help</a>.</li><li><strong>Firefox:</strong> Settings &rarr; Privacy &amp; Security &rarr; Cookies and Site Data &rarr; Manage Data, search for <code>cuny.edu</code>, select <code>ssologin.cuny.edu</code>, and choose Remove Selected. <a href=\"https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox\" target=\"_blank\" rel=\"noopener noreferrer\">Firefox help</a>.</li><li><strong>Safari on Mac:</strong> Safari &rarr; Settings &rarr; Privacy &rarr; Manage Website Data, search for <code>cuny.edu</code>, select the entry, and choose Remove. <a href=\"https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac\" target=\"_blank\" rel=\"noopener noreferrer\">Safari help</a>. On iPhone or iPad: Settings &rarr; Safari &rarr; Advanced &rarr; Website Data. <a href=\"https://support.apple.com/105082\" target=\"_blank\" rel=\"noopener noreferrer\">iOS help</a>.</li></ul><p>If CUNY Login completes but the Lab says your access is pending or not active, clearing browser data will not help. Your application or class invitation still needs approval.</p>"
+        },
+        {
+          "id": "one-approval",
+          "q": "What does one approval cover?",
+          "a": "<p>One application covers the CAIL Sandbox, personal API keys for the Lab's model endpoint, Agent Studio, Site Studio, and Media Tools. You do not need to apply separately for each tool.</p>"
+        },
+        {
+          "id": "how-long",
+          "q": "How long does my access last?",
+          "a": "<p>An active account lasts one semester by default. That can be changed: if your project runs longer, email <a href=\"mailto:ailab@gc.cuny.edu\">ailab@gc.cuny.edu</a> to ask for an extension. Class access follows the approved course dates.</p>"
+        },
+        {
+          "id": "class-access",
+          "q": "I teach a class. How do my students get access?",
+          "a": "<p>Apply for a class on the <a href=\"/request-access\">Request Access</a> page. You do not need existing Lab access to apply. Once the class is approved, you receive an invitation link to share with your students. Each student opens the link, signs in with CUNY Login, and their class access is active immediately. Students in a class pilot do not submit individual applications.</p><p>Class access lasts for the approved course dates.</p>"
+        }
+      ]
+    },
+    {
+      "id": "cost",
+      "heading": "Cost and limits",
+      "items": [
+        {
+          "id": "is-it-free",
+          "q": "Is it free?",
+          "a": "<p>Yes. Each person receives a $5 monthly allowance for model use, drawn from the Lab's own budget.</p><p>We welcome opportunities to raise that allowance. If you or your program have funding you would like to allocate to Lab use, please <a href=\"/contact\">contact us</a> to explore a collaboration.</p>"
+        },
+        {
+          "id": "check-balance",
+          "q": "How do I check my balance?",
+          "a": "<p>Sign in and open your <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Model Access</a> page. It shows the current 30-day period, how much you have used, your limit, and an estimate of what remains. The estimate comes from provider analytics and can lag a short while behind your most recent requests.</p>"
+        },
+        {
+          "id": "allowance-exhausted",
+          "q": "What happens when I use up my allowance?",
+          "a": "<p>Model requests pause until your 30-day window resets. If you need more for a specific project or course, email <a href=\"mailto:ailab@gc.cuny.edu\">ailab@gc.cuny.edu</a> to ask about an exception.</p>"
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "heading": "Models",
+      "items": [
+        {
+          "id": "which-models",
+          "q": "Which models are available?",
+          "a": "<p>The <a href=\"/models\">Model Registry</a> lists every model currently available through the Lab, with its capabilities and the exact API ID to use. The list is read live from the Lab's gateway, so it is always current.</p>"
+        },
+        {
+          "id": "why-open-weights",
+          "q": "Why open-weight models?",
+          "a": "<p>The Lab runs on open-weight models: models whose weights are published, so they can be inspected, hosted by different providers, and audited. They cost far less to run than proprietary models and now perform close to them on most academic tasks. Read <a href=\"/blog/running-on-open-weights/\">Running on Open Weights</a>.</p>"
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "heading": "Data and privacy",
+      "items": [
+        {
+          "id": "user-data",
+          "q": "What happens to my data?",
+          "a": "<p><strong>Where it lives.</strong> The CAIL Sandbox runs on Amazon Web Services in the US East (N. Virginia) region. The Tools Portal apps (Media Tools, Agent Studio, Site Studio, and sign-in) run on Cloudflare Workers, with files stored in Cloudflare R2.</p><p><strong>What is stored.</strong></p><ul><li><strong>Sandbox chats and uploads</strong> are saved to your account until you delete them. There is no automatic expiry. A Temporary Chat is never saved.</li><li><strong>Media Tools</strong> deletes uploaded audio, video, and images within one day. Finished transcripts stay in your account until you delete them, with word-level timings stripped before storage.</li><li><strong>Agent Studio and Site Studio</strong> keep your workspaces, projects, and files until you delete them.</li><li><strong>API keys</strong> are shown once and stored only as a hash.</li><li><strong>Sign-in data.</strong> Your CUNY Login identity stays in the Lab's sign-in service. Individual tools receive an opaque ID rather than your CUNY username.</li><li><strong>Logs</strong> record events, not content. The Lab's model gateway stores no prompts or responses.</li></ul><p><strong>What model providers see.</strong> Prompts and files are sent to a model provider only for the time it takes to generate a response. The Lab uses two providers, both configured for zero data retention, and only enables models that permit it.</p><ul><li><strong>Cloudflare Workers AI.</strong> Cloudflare does not use customer content to train AI models or to improve its services, and does not make it available to other customers. See the <a href=\"https://developers.cloudflare.com/workers-ai/platform/data-usage\" target=\"_blank\" rel=\"noopener noreferrer\">Workers AI data usage page</a>, the <a href=\"https://www.cloudflare.com/service-specific-terms-developer-platform/\" target=\"_blank\" rel=\"noopener noreferrer\">Developer Platform terms</a>, and the <a href=\"https://www.cloudflare.com/enterpriseterms\" target=\"_blank\" rel=\"noopener noreferrer\">Enterprise Subscription Agreement</a>.</li><li><strong>Amazon Bedrock.</strong> By default, Bedrock does not store model inputs or outputs, no AWS operator can access them, and they are not shared with model providers or used to train models. Content stays in the AWS region where it is processed. See <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html\" target=\"_blank\" rel=\"noopener noreferrer\">Data protection</a>, <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html\" target=\"_blank\" rel=\"noopener noreferrer\">Data retention</a>, <a href=\"https://docs.aws.amazon.com/bedrock/latest/userguide/abuse-detection.html\" target=\"_blank\" rel=\"noopener noreferrer\">Abuse detection</a>, the <a href=\"https://aws.amazon.com/bedrock/faqs/\" target=\"_blank\" rel=\"noopener noreferrer\">Bedrock FAQs</a>, and the <a href=\"https://aws.amazon.com/compliance/data-privacy-faq/\" target=\"_blank\" rel=\"noopener noreferrer\">AWS Data Privacy FAQ</a>.</li></ul><p><strong>What you should not upload.</strong> Confidential, FERPA-protected, HIPAA-regulated, or personally identifying information. Zero retention is a provider control, not a promise that the Sandbox itself keeps nothing.</p><p>The Lab's Terms of Use and Privacy Policy are under review and will be published here soon.</p>"
+        },
+        {
+          "id": "sensitive-data",
+          "q": "Can I use the Lab with FERPA, HIPAA, or IRB-protected data?",
+          "a": "<p>No. Do not enter confidential, FERPA-protected, HIPAA-regulated, proprietary, or personally identifying information into any Lab tool.</p><p>If your research involves audio, images, interviews, archives, or institutional data that should not leave the Graduate Center, <a href=\"/contact\">contact us</a> about on-premises processing. We handle those requests by consultation.</p>"
+        },
+        {
+          "id": "terms",
+          "q": "Where are the Terms of Use and Privacy Policy?",
+          "a": "<p>They are under review and will be published here soon.</p>"
+        }
+      ]
+    },
+    {
+      "id": "support",
+      "heading": "Support",
+      "items": [
+        {
+          "id": "get-help",
+          "q": "How do I get help?",
+          "a": "<p>Email <a href=\"mailto:ailab@gc.cuny.edu\">ailab@gc.cuny.edu</a>, or use the consultation and bug-report forms on the <a href=\"/contact\">Contact page</a>. The <a href=\"/sandbox-docs/\">Sandbox documentation</a> answers most questions about the chat platform, and the <a href=\"/events\">Events page</a> lists upcoming workshops.</p>"
+        },
+        {
+          "id": "class-support",
+          "q": "I'm an instructor. What support can my class expect?",
+          "a": "<p>Given our limited capacity, the Lab cannot provide direct support to classes beyond very specific cases. When you sign up for class access, you also sign up to provide technical support for your students.</p><p>We expect instructors to be the first layer of troubleshooting, for example the blank sign-in screen described above, and to contact the Lab only after those options have been exhausted.</p>"
+        },
+        {
+          "id": "ai-disclosure",
+          "q": "What is the AI Use Disclosure tool?",
+          "a": "<p>A free page at <a href=\"https://tools.ailab.gc.cuny.edu/ai-disclosure/\" target=\"_blank\" rel=\"noopener noreferrer\">tools.ailab.gc.cuny.edu/ai-disclosure</a> that helps you write a statement describing how AI was used in a piece of work, following the GAIDeT taxonomy. The statement is generated in your browser; nothing you type is uploaded or stored.</p>"
+        },
+        {
+          "id": "fellows",
+          "q": "What is the CAIL Fellows program?",
+          "a": "<p>A yearly fellowship for Graduate Center master's and Ph.D. students to work with the Lab. Calls are announced on the <a href=\"/blog/\">blog</a>; see the <a href=\"/blog/cail-fellows-2026-27/\">2026–27 call</a>.</p>"
+        }
+      ]
+    }
+  ]
+}

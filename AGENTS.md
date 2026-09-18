@@ -44,7 +44,7 @@ Because a bypassed push skips CI, run `bun run build` locally before pushing to 
 **Data Layer:**
 Pages pull content from two sources:
 - `src/content/pages/*.md` — Astro content collections for prose-heavy pages (about, contact). Loaded via `getEntry('pages', 'slug')` with `.render()` for markdown body and `.data` for frontmatter fields.
-- `src/data/*.json` — JSON files for structured/list data (team, events, resources, homepage, request-access). Loaded via `fs.readFileSync` in Astro frontmatter:
+- `src/data/*.json` — JSON files for structured/list data (team, events, resources, homepage, request-access, faq). Loaded via `fs.readFileSync` in Astro frontmatter:
 ```javascript
 import fs from 'node:fs';
 import path from 'node:path';
