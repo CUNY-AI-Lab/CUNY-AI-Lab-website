@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CopyCode from '../../components/CopyCode.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="CAIL Pi - CUNY AI Lab"
+  description="CAIL Pi is the Lab's setup package for Pi, a terminal coding agent, configured to use CUNY AI Lab models."
+>
+  <section class="relative pt-24 pb-10 lg:pt-28 lg:pb-12">
+    <div class="absolute inset-0 bg-gradient-to-br from-cuny-blue via-cuny-blue to-vibrant-800"></div>
+    <div class="absolute inset-0 opacity-[0.04]" aria-hidden="true" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;40&quot; height=&quot;40&quot; viewBox=&quot;0 0 40 40&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cpath d=&quot;M20 20.5V18H0v-2h20v-2.5L25 18l-5 2.5z&quot; fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;/%3E%3C/svg%3E');"></div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <a href={`${base}resources/`} class="inline-flex items-center gap-2 text-vibrant-300 hover:text-white text-sm font-medium mb-4 transition-colors">
+        <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Resources
+      </a>
+      <h1 class="text-3xl md:text-4xl font-bold font-display text-white tracking-tight">CAIL Pi</h1>
+      <p class="mt-3 text-vibrant-200 text-lg max-w-2xl">CAIL Pi is the Lab's setup package for Pi, an open-source coding agent that runs in your terminal. It installs Pi and configures it to use CUNY AI Lab models with your personal API key.</p>
+    </div>
+  </section>
+
+  <section class="bg-neutral-cream">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+      <div class="grid lg:grid-cols-[minmax(0,1fr)_15rem] gap-8 items-start">
+        <article class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <div class="p-6 md:p-9 space-y-10">
+            <section aria-labelledby="what-heading">
+              <p class="text-sm font-semibold uppercase tracking-wider text-vibrant-600 mb-2">Start here</p>
+              <h2 id="what-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">CAIL Pi</h2>
+              <p class="text-gray-600 leading-relaxed mb-3">
+                CAIL Pi is the Lab's setup package for <a href="https://pi.dev" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">Pi</a>, an open-source coding agent that runs in your terminal. You can think of it as an open-source version of Claude Code that uses the CUNY AI Lab as a model provider, and stores your personal CAIL API key so that you can use the models served through our gateway under your monthly allowance. The model list comes live from the Lab's gateway each time Pi starts.
+              </p>
+              <p class="text-gray-600 leading-relaxed">
+                The package is available ong <a href="https://github.com/CUNY-AI-Lab/cail-pi" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">GitHub</a> and published on <a href="https://www.npmjs.com/package/@cuny-ai-lab/cail-pi" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">npm</a>.
+              </p>
+            </section>
+
+            <section aria-labelledby="prereq-heading">
+              <h2 id="prereq-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">What you need to use CAIL Pi</h2>
+              <ul class="list-disc pl-5 space-y-2 text-gray-600 leading-relaxed">
+                <li>A personal CAIL API key, which you can create in <a href="https://tools.ailab.gc.cuny.edu/model-access" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">your dashboard</a> after your Lab application is approved; see the <a href={`${base}docs/api-keys`} class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">API key guide</a>.</li>
+                <li>Node.js 22.19 or newer. Check with <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">node --version</code>. On Windows, install it with <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">winget install OpenJS.NodeJS.LTS</code>, then close PowerShell and open a new window. On macOS, install from <a href="https://nodejs.org" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">nodejs.org</a> or with Homebrew or nvm. On Linux, use your package manager, nvm, or the official binaries.</li>
+              </ul>
+            </section>
+
+            <section aria-labelledby="install-heading">
+              <h2 id="install-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Install</h2>
+              <p class="text-gray-600 leading-relaxed mb-4">Open a terminal and run one of these commands for your system.</p>
+              <CopyCode label="Install on macOS or Linux">
+              <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>npx @cuny-ai-lab/cail-pi</code></pre>
+              </CopyCode>
+              <div class="h-4"></div>
+              <CopyCode label="Install on Windows PowerShell">
+              <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>npx.cmd @cuny-ai-lab/cail-pi</code></pre>
+              </CopyCode>
+              <p class="text-gray-600 leading-relaxed mt-4 mb-2">The installer will:</p>
+              <ol class="list-decimal pl-5 space-y-1.5 text-gray-600 leading-relaxed">
+                <li>Install Pi and a curated set of Pi packages through LazyPi, a community installer by Rob Zolkos that sets Pi up with a curated set of add-on packages.</li>
+                <li>Add the CUNY AI Lab provider to Pi.</li>
+                <li>Ask for your CAIL API key.</li>
+                <li>Verify the key with the Lab's gateway and store it in Pi's credential store on your computer.</li>
+                <li>Load the CUNY AI Lab model list.</li>
+              </ol>
+              <p class="text-gray-600 leading-relaxed mt-4">If you press Enter without a key, setup still completes. Run <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/login</code> inside Pi later and choose CUNY AI Lab.</p>
+            </section>
+
+            <section aria-labelledby="start-heading">
+              <h2 id="start-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Start Pi and pick a model</h2>
+              <p class="text-gray-600 leading-relaxed mb-4">Start Pi from the folder you want to work in. On Windows, open a new PowerShell window first so it picks up the updated PATH.</p>
+              <CopyCode label="Start Pi on macOS or Linux">
+              <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>pi</code></pre>
+              </CopyCode>
+              <div class="h-4"></div>
+              <CopyCode label="Start Pi on Windows PowerShell">
+              <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>pi.cmd</code></pre>
+              </CopyCode>
+              <p class="text-gray-600 leading-relaxed mt-4">Inside Pi, type <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/model</code> and choose a CUNY AI Lab model. Every request counts against your monthly allowance. You can check your balance on <a href="https://tools.ailab.gc.cuny.edu/model-access" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">Model Access</a>.</p>
+            </section>
+
+            <section aria-labelledby="trouble-heading">
+              <h2 id="trouble-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Troubleshooting</h2>
+              <p class="text-gray-600 leading-relaxed mb-4">Run the health check first. It reports Node, npm, Pi, the CUNY AI Lab extension, whether a key is saved and accepted, and how many models are available. It never prints the key.</p>
+              <CopyCode label="Health check">
+              <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>npx @cuny-ai-lab/cail-pi --doctor       # macOS / Linux
+npx.cmd @cuny-ai-lab/cail-pi --doctor   # Windows</code></pre>
+              </CopyCode>
+              <dl class="mt-5 space-y-4 text-gray-600 leading-relaxed">
+                <div><dt class="font-semibold text-neutral-stone">"requires Node.js 22.19.0 or newer"</dt><dd>The message names the <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">node</code> that ran. If you have several (nvm, Homebrew, conda, winget), switch to a current one and run the installer again.</dd></div>
+                <div><dt class="font-semibold text-neutral-stone">"That API key was not accepted"</dt><dd>Check for missing or extra characters and paste it again. Keys are individual; use the one issued to you.</dd></div>
+                <div><dt class="font-semibold text-neutral-stone">"The CUNY AI Lab service could not be reached"</dt><dd>Your key was not saved. Check your network (VPN, captive portal, firewall) and choose Retry.</dd></div>
+                <div><dt class="font-semibold text-neutral-stone">No CUNY AI Lab models in /model</dt><dd>Pi refreshes the catalog when it starts. If the list stays empty, run the health check. If it says no credential is configured, run <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/login</code> inside Pi and choose CUNY AI Lab.</dd></div>
+                <div><dt class="font-semibold text-neutral-stone">PowerShell says scripts are disabled</dt><dd>Use the <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">.cmd</code> forms: <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">npx.cmd</code>, <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">npm.cmd</code>, <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">pi.cmd</code>. You do not need to change the execution policy.</dd></div>
+                <div><dt class="font-semibold text-neutral-stone">Windows: "pi is not recognized" after install</dt><dd>Close the window, open a new PowerShell window, and run <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">pi.cmd</code>.</dd></div>
+                <div><dt class="font-semibold text-neutral-stone">You installed the earlier pi-workshop package</dt><dd>Run the installer above once. It installs CAIL Pi, removes the old package so the provider is not loaded twice, and keeps your saved key.</dd></div>
+              </dl>
+            </section>
+
+            <section aria-labelledby="update-heading">
+              <h2 id="update-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Update or remove</h2>
+              <p class="text-gray-600 leading-relaxed mb-4">Running the installer again is safe: it updates the package and asks whether to keep the key you already saved. To update from inside Pi:</p>
+              <CopyCode label="Update the package">
+              <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>pi update npm:@cuny-ai-lab/cail-pi</code></pre>
+              </CopyCode>
+              <p class="text-gray-600 leading-relaxed mt-4 mb-4">To remove the package but keep your saved key:</p>
+              <CopyCode label="Remove the package">
+              <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>pi remove npm:@cuny-ai-lab/cail-pi</code></pre>
+              </CopyCode>
+              <p class="text-gray-600 leading-relaxed mt-4">To remove the saved key as well, run the installer with <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--uninstall</code>; it asks before deleting the key. Other useful flags: <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--skip-lazypi</code> when Pi is already installed, <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--replace-key</code> to enter a new key, and <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--skip-auth</code> to install without a key.</p>
+            </section>
+
+            <section aria-labelledby="privacy-heading">
+              <h2 id="privacy-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Privacy and security</h2>
+              <ul class="list-disc pl-5 space-y-2 text-gray-600 leading-relaxed">
+                <li>Your key is entered only at a hidden prompt and is never accepted on the command line, so it never lands in shell history.</li>
+                <li>The key is sent to the Lab's gateway, to verify it, and Pi's credential store on your computer.</li>
+                <li>The key is never written to settings files, shell profiles, logs, or error messages, and the health check never shows it.</li>
+                <li>The package sends no telemetry.</li>
+                <li>Do not share your key under any circumstances.</li>
+              </ul>
+            </section>
+          </div>
+        </article>
+
+        <aside class="lg:sticky lg:top-24 bg-white rounded-2xl border border-gray-100 shadow-sm p-5" aria-label="Guide sections">
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-neutral-stone mb-4">On this page</h2>
+          <nav>
+            <ul class="space-y-2 text-sm">
+              <li><a href="#what-heading" class="text-gray-600 hover:text-vibrant-700">CAIL Pi</a></li>
+              <li><a href="#prereq-heading" class="text-gray-600 hover:text-vibrant-700">What you need to use CAIL Pi</a></li>
+              <li><a href="#install-heading" class="text-gray-600 hover:text-vibrant-700">Install</a></li>
+              <li><a href="#start-heading" class="text-gray-600 hover:text-vibrant-700">Start Pi</a></li>
+              <li><a href="#trouble-heading" class="text-gray-600 hover:text-vibrant-700">Troubleshooting</a></li>
+              <li><a href="#update-heading" class="text-gray-600 hover:text-vibrant-700">Update or remove</a></li>
+              <li><a href="#privacy-heading" class="text-gray-600 hover:text-vibrant-700">Privacy and security</a></li>
+            </ul>
+          </nav>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

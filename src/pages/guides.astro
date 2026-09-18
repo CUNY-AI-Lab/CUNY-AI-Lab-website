@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title="Guides & Tutorials - CUNY AI Lab">
@@ -67,6 +69,14 @@ import PageHero from '../components/PageHero.astro';
             </div>
             <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-vibrant-600 transition-colors">Vibe-Coding Prototypes</h4>
             <p class="text-gray-600 text-sm leading-relaxed">Building prototypes with AI coding assistants, including prompting strategies, project design, and troubleshooting.</p>
+          </a>
+          <a href={`${base}docs/cail-pi`} class="group block bg-white rounded-xl border border-transparent hover:border-vibrant-300 hover:shadow-lg transition-all p-6">
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <span class="inline-flex items-center px-2.5 py-0.5 bg-vibrant-50 text-vibrant-700 text-xs font-medium rounded-full">Setup</span>
+              <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </div>
+            <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-vibrant-600 transition-colors">CAIL Pi</h4>
+            <p class="text-gray-600 text-sm leading-relaxed">Install Pi, the terminal coding agent used in the workshops, and connect it to CUNY AI Lab models in one command.</p>
           </a>
         </div>
       </div>
