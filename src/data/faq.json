@@ -61,7 +61,7 @@
     },
     {
       "id": "models",
-      "heading": "Models",
+      "heading": "Models and tools",
       "items": [
         {
           "id": "which-models",
@@ -72,6 +72,11 @@
           "id": "why-open-weights",
           "q": "Why open-weight models?",
           "a": "<p>The Lab runs on open-weight models: models whose weights are published, so they can be inspected, hosted by different providers, and audited. They cost far less to run than proprietary models and now perform close to them on most academic tasks. Read <a href=\"/blog/running-on-open-weights/\">Running on Open Weights</a>.</p>"
+        },
+        {
+          "id": "ai-disclosure",
+          "q": "What is the AI Use Disclosure tool?",
+          "a": "<p>A free page at <a href=\"https://tools.ailab.gc.cuny.edu/ai-disclosure/\" target=\"_blank\" rel=\"noopener noreferrer\">tools.ailab.gc.cuny.edu/ai-disclosure</a> that helps you write a statement describing how AI was used in a piece of work, following the GAIDeT taxonomy. The statement is generated in your browser; nothing you type is uploaded or stored.</p>"
         }
       ]
     },
@@ -109,12 +114,13 @@
           "id": "class-support",
           "q": "I'm an instructor. What support can my class expect?",
           "a": "<p>Given our limited capacity, the Lab cannot provide direct support to classes beyond very specific cases. When you sign up for class access, you also sign up to provide technical support for your students.</p><p>We expect instructors to be the first layer of troubleshooting, for example the blank sign-in screen described above, and to contact the Lab only after those options have been exhausted.</p>"
-        },
-        {
-          "id": "ai-disclosure",
-          "q": "What is the AI Use Disclosure tool?",
-          "a": "<p>A free page at <a href=\"https://tools.ailab.gc.cuny.edu/ai-disclosure/\" target=\"_blank\" rel=\"noopener noreferrer\">tools.ailab.gc.cuny.edu/ai-disclosure</a> that helps you write a statement describing how AI was used in a piece of work, following the GAIDeT taxonomy. The statement is generated in your browser; nothing you type is uploaded or stored.</p>"
-        },
+        }
+      ]
+    },
+    {
+      "id": "programs",
+      "heading": "Programs",
+      "items": [
         {
           "id": "fellows",
           "q": "What is the CAIL Fellows program?",
