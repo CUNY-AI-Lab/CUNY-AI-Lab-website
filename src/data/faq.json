@@ -113,7 +113,7 @@
         {
           "id": "class-support",
           "q": "I'm an instructor. What support can my class expect?",
-          "a": "<p>Given our limited capacity, the Lab cannot provide direct support to classes beyond very specific cases. When you sign up for class access, you also sign up to provide technical support for your students.</p><p>We expect instructors to be the first layer of troubleshooting, for example the blank sign-in screen described above, and to contact the Lab only after those options have been exhausted.</p>"
+          "a": "<p>Given our limited capacity, the Lab cannot provide direct support to classes beyond very specific cases. When you sign up for class access, you also sign up to provide technical support for your students.</p><p>We expect instructors to be the first layer of troubleshooting, for example the blank sign-in screen described above, and to contact the Lab only after those options have been exhausted.</p><p>Instructors are also responsible for helping students manage their monthly allowance, so that no one burns through their tokens early in the term and is then unable to complete classroom assignments. Plan assignments with the $5 allowance in mind, and remind students to check their balance on the Model Access page.</p>"
         }
       ]
     },
