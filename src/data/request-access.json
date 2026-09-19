@@ -16,6 +16,9 @@
   "sign_in_url": "https://tools.ailab.gc.cuny.edu/request-access/sign-in",
   "intake_url": "https://tools.ailab.gc.cuny.edu/request-access/api",
   "class_intake_url": "https://tools.ailab.gc.cuny.edu/request-access/class-api",
+  "terms_version": "2026-09-19-interim",
+  "privacy_version": "2026-09-19-interim",
+  "organizer_responsibilities_version": "2026-09-19-interim",
   "turnstile_site_key": "0x4AAAAAAEOj271NcseuTrir",
   "application_kind": {
     "legend": "What are you applying for?",
@@ -138,7 +141,7 @@
     ]
   },
   "submit_text": "Submit Application",
-  "privacy_note": "The Lab stores this information to review your request, manage access, and contact you about CAIL services.",
+  "privacy_note": "The Lab stores this information to review your request, manage access, and contact you about CAIL services. See the Privacy Notice for details.",
   "next_steps_heading": "What Happens Next?",
   "next_steps": [
     {

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout title="Privacy Notice - CUNY AI Lab">
+  <PageHero containerClass="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="text-sm font-semibold uppercase tracking-wider text-blue-200">Interim notice · Version 2026-09-19-interim</p>
+    <h1 class="mt-3 text-4xl md:text-5xl font-bold font-display text-white tracking-tight">CUNY AI Lab Privacy Notice</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-white/90">This notice describes the Lab’s current services while institutional and legal review continues.</p>
+  </PageHero>
+
+  <main class="bg-white py-14">
+    <article class="policy max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p><strong>Effective September 19, 2026.</strong> This notice applies to the CUNY AI Lab website and the Lab services covered by the <a href="/terms/">Interim Terms of Use</a>.</p>
+
+      <h2>Information the Lab receives</h2>
+      <p>When you sign in, the Lab receives the identity information needed to connect your CUNY Login to your Lab account. Access applications include the information you submit about your affiliation, campus, intended use, or class. The Lab also records access decisions, class membership, assigned allowances, API-key metadata, service events, and estimated model usage.</p>
+      <p>The public website uses Google Analytics. The access form uses Cloudflare Turnstile to check that a submission is made by a person. These services receive ordinary web-request information under their own terms.</p>
+
+      <h2>Content stored in CAIL services</h2>
+      <p>Sandbox chats and uploads are saved in your account until you delete them; Temporary Chats are not saved. Agent Studio and Site Studio retain workspaces, projects, and files until you delete them. Media Tools deletes uploaded audio, video, and images within one day, while finished transcripts remain in your account until you delete them. API keys are displayed once and stored only as hashes.</p>
+      <p>Administrators can access stored content when needed to operate, secure, or support the services. People can also see content you deliberately share with them or post to a class space. Do not place sensitive personal or institutional data in the services unless CUNY has approved that specific use.</p>
+
+      <h2>Model requests</h2>
+      <p>Prompts, files, and model output pass through the Lab’s model gateway and are sent to a model provider to generate a response. Provider handling depends on the model and service; the Lab publishes current model and provider information where it is available. The gateway does not store prompts or responses. Provider handling does not control copies saved in a CAIL application, such as Sandbox chat history.</p>
+
+      <h2>How information is used</h2>
+      <p>The Lab uses this information to authenticate users, review requests, operate accounts and classes, enforce access and model-use limits, provide support, secure the services, and understand service reliability and aggregate use. The Lab does not sell personal information.</p>
+
+      <h2>Retention and choices</h2>
+      <p>Retention depends on the service and the kind of record. The descriptions above state the current product behavior where a user controls deletion or an automatic deletion period is established. Application, access, security, accounting, and audit records may need to be retained under CUNY requirements. The Lab will not promise a deletion period that has not been formally established.</p>
+      <p>You can delete supported content from the service where it is stored. Contact <a href="mailto:ailab@gc.cuny.edu">ailab@gc.cuny.edu</a> with a privacy question or account request. Some records may have to be retained for security, financial, legal, or institutional purposes.</p>
+
+      <h2>Updates</h2>
+      <p>The version shown at the top identifies this notice. The Lab will update the page when its services or reviewed policy changes and will request a new acknowledgement when a material change requires one.</p>
+    </article>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  .policy { color: #374151; font-size: 1.05rem; line-height: 1.75; }
+  .policy h2 { margin-top: 2.25rem; margin-bottom: .65rem; color: #1D3A83; font-family: Outfit, sans-serif; font-size: 1.55rem; font-weight: 700; }
+  .policy p + p { margin-top: 1rem; }
+  .policy a { color: #2A6FB8; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+</style>

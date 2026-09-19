@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<BaseLayout title="Interim Terms of Use - CUNY AI Lab">
+  <PageHero containerClass="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="text-sm font-semibold uppercase tracking-wider text-blue-200">Interim policy · Version 2026-09-19-interim</p>
+    <h1 class="mt-3 text-4xl md:text-5xl font-bold font-display text-white tracking-tight">CUNY AI Lab Terms of Use</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-relaxed text-white/90">These interim terms are in effect while the Lab completes institutional and legal review.</p>
+  </PageHero>
+
+  <main class="bg-white py-14">
+    <article class="policy max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p><strong>Effective September 19, 2026.</strong> These terms apply to the CUNY AI Lab website, Sandbox, Model Access, API keys, Media Tools, Agent Studio, Site Studio, and other services presented as part of the Lab.</p>
+
+      <h2>Purpose and access</h2>
+      <p>CAIL is an experimental environment for teaching, research, and academic work. Features, models, limits, and availability may change as the Lab develops the services.</p>
+      <p>Access is tied to your verified CUNY identity. Do not share your account, session, class invitation, or API keys outside the people and purposes for which they were issued. Your access may have an end date and an assigned model-use allowance. <a href="https://tools.ailab.gc.cuny.edu/model-access/">Model Access</a> shows the allowance and reporting period assigned to you.</p>
+
+      <h2>Responsible use</h2>
+      <p>Use the services in accordance with applicable law, CUNY policy, your campus rules, and instructions from your instructor or program. The current <a href="https://www.cuny.edu/about/administration/offices/cis/it-policies/" target="_blank" rel="noopener noreferrer">CUNY IT policy page</a> includes the Policy on Acceptable Use of Digital Assets and Resources and the Data Classification Standard.</p>
+      <p>Do not use the services to gain unauthorized access, disrupt systems, impersonate another person, distribute malware or spam, harass people, or create or share unlawful material. Do not use CAIL as the sole basis for medical, legal, financial, safety, disciplinary, or other consequential decisions.</p>
+
+      <h2>AI output and academic work</h2>
+      <p>Models can produce inaccurate, incomplete, biased, or fabricated output. You are responsible for checking the work before relying on or sharing it. Course use must follow the instructor’s directions and the <a href="https://policy.cuny.edu/general-policy/article-i/#policy-1.03" target="_blank" rel="noopener noreferrer">CUNY Academic Integrity Policy</a>.</p>
+      <p>You remain responsible for material you submit and for reviewing output for copyright, privacy, attribution, and other obligations. Similar or identical output may be produced for other users.</p>
+
+      <h2>Data and privacy</h2>
+      <p>Do not submit confidential data, FERPA-protected education records, HIPAA-regulated information, government identifiers, private personnel information, or other sensitive personal data unless CUNY has specifically approved the service and use. The <a href="/privacy/">Privacy Notice</a> explains what the Lab stores and what is sent to model providers.</p>
+
+      <h2>Classes and instructor responsibilities</h2>
+      <p>An instructor or class organizer who applies for class access is responsible for giving students the approved class invitation link and telling them to use that link rather than submit individual applications. The instructor provides first-level help with access and usage and gives students basic guidance on Sandbox use, course rules, and responsible AI practice. This includes keeping unrelated work in separate chats, checking model output, and not entering sensitive personal information.</p>
+      <p>Each student accepts these terms for their own use when joining a class. An instructor does not accept them on a student’s behalf. Students who have trouble with class access or usage should contact their instructor first.</p>
+
+      <h2>Allowances, suspension, and service changes</h2>
+      <p>CAIL may assign different model-use allowances, reporting periods, tools, or access dates to different users and classes. Separate written or funded arrangements may apply. Reaching a limit may pause model requests until the displayed reporting period resets or the assignment changes.</p>
+      <p>The Lab may restrict or suspend access to protect users and systems, enforce these terms, comply with CUNY requirements, or respond to resource limits. Experimental services may be changed or discontinued. Do not rely on CAIL as the only copy of important work.</p>
+
+      <h2>Updates and questions</h2>
+      <p>The version shown at the top identifies the terms you accepted. If a later change requires a new acknowledgement, the Lab will present the new version before continued use. Questions may be sent to <a href="mailto:ailab@gc.cuny.edu">ailab@gc.cuny.edu</a>.</p>
+    </article>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  .policy { color: #374151; font-size: 1.05rem; line-height: 1.75; }
+  .policy h2 { margin-top: 2.25rem; margin-bottom: .65rem; color: #1D3A83; font-family: Outfit, sans-serif; font-size: 1.55rem; font-weight: 700; }
+  .policy p + p { margin-top: 1rem; }
+  .policy a { color: #2A6FB8; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+</style>

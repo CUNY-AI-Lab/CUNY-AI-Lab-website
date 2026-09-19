@@ -12,6 +12,10 @@ const base = import.meta.env.BASE_URL;
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
       <div class="flex flex-col sm:flex-row sm:items-center gap-4">
         <p class="text-xs text-gray-400">&copy; {new Date().getFullYear()} CUNY AI Lab</p>
+        <nav class="flex items-center gap-4 text-xs" aria-label="Policies">
+          <a href={`${base}terms/`} class="text-gray-400 hover:text-white transition-colors">Terms</a>
+          <a href={`${base}privacy/`} class="text-gray-400 hover:text-white transition-colors">Privacy</a>
+        </nav>
         <div class="flex items-center gap-4">
           {socials.map((social) => (
             <a

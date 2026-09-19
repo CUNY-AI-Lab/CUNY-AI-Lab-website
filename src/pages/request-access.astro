@@ -58,6 +58,9 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
           data-sign-in-url={data.sign_in_url}
           data-intake-url={data.intake_url}
           data-class-intake-url={data.class_intake_url}
+          data-terms-version={data.terms_version}
+          data-privacy-version={data.privacy_version}
+          data-organizer-responsibilities-version={data.organizer_responsibilities_version}
           class="space-y-6"
           aria-describedby="form-status"
         >
@@ -323,17 +326,32 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
                 />
               </div>
             </div>
-            <label for="class-leader" class="mt-5 flex items-center gap-3 text-sm font-semibold text-gray-700">
+            <div class="mt-6 rounded-xl border border-gray-200 bg-gray-50 p-5 text-sm text-gray-700">
+              <p class="font-semibold text-neutral-stone">Class organizer responsibilities</p>
+              <p class="mt-2 leading-relaxed">You will give students the class invitation link, provide first-level help with access and usage, and explain the course rules and responsible-use basics. Students with class access problems should contact you first.</p>
+            </div>
+            <label for="class-leader" class="mt-5 flex items-start gap-3 text-sm font-semibold text-gray-700">
               <input
                 type="checkbox"
                 id="class-leader"
-                name="classLeader"
+                name="organizerResponsibilitiesAccepted"
                 data-required
                 class="h-5 w-5 rounded border-gray-300 text-vibrant-600 focus:ring-vibrant-500"
               />
-              <span>I teach or lead this class</span>
+              <span>I teach or lead this class and accept the class organizer responsibilities in the <a href={`${base}terms/`} target="_blank" class="text-vibrant-700 underline underline-offset-2">Interim Terms of Use</a>.</span>
             </label>
           </fieldset>
+
+          <label for="policy-acceptance" class="flex items-start gap-3 rounded-xl border border-gray-200 bg-gray-50 p-5 text-sm font-semibold text-gray-700">
+            <input
+              type="checkbox"
+              id="policy-acceptance"
+              name="policyAcceptance"
+              required
+              class="mt-0.5 h-5 w-5 rounded border-gray-300 text-vibrant-600 focus:ring-vibrant-500"
+            />
+            <span>I have read and accept the <a href={`${base}terms/`} target="_blank" class="text-vibrant-700 underline underline-offset-2">Interim Terms of Use</a> and acknowledge the <a href={`${base}privacy/`} target="_blank" class="text-vibrant-700 underline underline-offset-2">Privacy Notice</a>.</span>
+          </label>
 
           <div>
             <div
@@ -361,7 +379,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
           <!-- Privacy Note -->
           <p class="text-xs text-gray-500 mt-6 text-center">
-            {data.privacy_note}
+            {data.privacy_note} <a href={`${base}privacy/`} class="text-vibrant-700 underline underline-offset-2">Read the Privacy Notice.</a>
           </p>
         </form>
 
@@ -455,8 +473,16 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
       startsOn: string;
       endsOn: string;
       estimatedSeats: number;
+      policyAcceptance: {
+        termsVersion: string;
+        privacyVersion: string;
+        organizerResponsibilitiesVersion: string;
+      };
     };
-    type IndividualApplicationFields = CommonApplicationFields & { tools: string[] };
+    type IndividualApplicationFields = CommonApplicationFields & {
+      tools: string[];
+      policyAcceptance: { termsVersion: string; privacyVersion: string };
+    };
 
     function textField(fields: FormData, name: string): string {
       const value = fields.get(name);
@@ -624,6 +650,13 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
       if (status) status.hidden = true;
 
       try {
+        const termsVersion = form.dataset.termsVersion ?? '';
+        const privacyVersion = form.dataset.privacyVersion ?? '';
+        const organizerResponsibilitiesVersion = form.dataset.organizerResponsibilitiesVersion ?? '';
+        if (!termsVersion || !privacyVersion || (kind === 'class' && !organizerResponsibilitiesVersion)) {
+          showStatus('The current terms could not be loaded. Refresh the page and try again.', 'error');
+          return;
+        }
         const common = {
           name: textField(fields, 'name'),
           affiliation: textField(fields, 'affiliation'),
@@ -661,11 +694,17 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
             startsOn,
             endsOn,
             estimatedSeats,
+            policyAcceptance: {
+              termsVersion,
+              privacyVersion,
+              organizerResponsibilitiesVersion,
+            },
           };
         } else {
           applicationFields = {
             ...common,
             tools: textFields(fields, 'tools[]'),
+            policyAcceptance: { termsVersion, privacyVersion },
           };
         }
 
