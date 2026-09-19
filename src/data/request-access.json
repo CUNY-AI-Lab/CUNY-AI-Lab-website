@@ -9,7 +9,7 @@
     "API keys you create and manage for the Lab's model endpoint",
     "Agent Studio and Site Studio for research and publishing work",
     "Media Tools for transcription, image description, and document OCR",
-    "A monthly spending limit on model use, shown on your Model Access page"
+    "A monthly spending limit on model use, shown on your Dashboard"
   ],
   "form_heading": "Lab Application",
   "identity_url": "https://tools.ailab.gc.cuny.edu/request-access/identity",
@@ -129,7 +129,7 @@
       },
       {
         "value": "model-access",
-        "label": "Model Access and API keys"
+        "label": "Dashboard and API keys"
       },
       {
         "value": "support",

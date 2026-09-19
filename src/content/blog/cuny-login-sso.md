@@ -28,7 +28,7 @@ Most tools send you straight to CUNY Login. The [CAIL Sandbox](https://chat.aila
 
 If you do not have access yet, submit the [CAIL access application](/request-access/). The application asks you to sign in with CUNY Login so the request is attached to the CUNY identity you will use with the Lab.
 
-When the Lab approves your application, you will receive an email with a sign-in link. After that, CUNY Login works on every Lab tool. One approval covers all of them, including personal API keys and quota under [Model Access](https://tools.ailab.gc.cuny.edu/model-access).
+When the Lab approves your application, you will receive an email with a sign-in link. After that, CUNY Login works on every Lab tool. One approval covers all of them, including personal API keys and quota on your [Dashboard](https://tools.ailab.gc.cuny.edu/model-access).
 
 ## Joining a class
 
