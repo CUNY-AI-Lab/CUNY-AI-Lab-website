@@ -211,7 +211,7 @@ def test_individual_mode(page: Page) -> None:
 
     common = fill_common(page)
     page.get_by_label("CAIL Sandbox").check()
-    page.get_by_label("Model Access and API keys").check()
+    page.locator('input[name="tools[]"][value="model-access"]').check()
 
     # Values retained in the inactive mode must not leak into the individual payload.
     class_choice(page).check()
