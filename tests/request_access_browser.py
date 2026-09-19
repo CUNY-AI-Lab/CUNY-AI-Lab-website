@@ -167,6 +167,10 @@ def class_choice(page: Page):
     return page.locator('input[name="application-kind"][value="class"]')
 
 
+def accept_policy(page: Page) -> None:
+    page.locator("#policy-acceptance").check()
+
+
 def assert_request_id(value: Any) -> None:
     assert isinstance(value, str)
     assert re.fullmatch(
@@ -213,7 +217,7 @@ def test_individual_mode(page: Page) -> None:
     class_choice(page).check()
     assert_equal(form.get_attribute("action"), CLASS_INTAKE_URL)
     page.get_by_label("Class Name").fill("Introduction to Digital Humanities")
-    page.get_by_label("Term").fill("Fall 2026")
+    page.locator("#term").fill("Fall 2026")
     page.get_by_label("Section").fill("01")
     page.get_by_label("Start Date").fill("2026-08-25")
     page.get_by_label("End Date").fill("2026-12-20")
@@ -225,6 +229,7 @@ def test_individual_mode(page: Page) -> None:
     assert page.get_by_label("I teach or lead this class").is_disabled()
 
     add_turnstile_token(page)
+    accept_policy(page)
     request_headers: list[dict[str, str]] = []
     payloads, unexpected_urls = capture_success(
         page,
@@ -252,6 +257,7 @@ def test_individual_mode(page: Page) -> None:
             "campus",
             "intendedUse",
             "tools",
+            "policyAcceptance",
         },
     )
     assert_request_id(payload.pop("clientRequestId"))
@@ -261,6 +267,10 @@ def test_individual_mode(page: Page) -> None:
             "turnstileToken": "test-turnstile-token",
             **common,
             "tools": ["sandbox", "model-access"],
+            "policyAcceptance": {
+                "termsVersion": "2026-09-19-interim",
+                "privacyVersion": "2026-09-19-interim",
+            },
         },
     )
     assert page.get_by_text(
@@ -319,6 +329,7 @@ def test_post_session_expiry_requires_reauth_and_keeps_retry_id(page: Page) -> N
     wait_for_identity(page)
     fill_common(page)
     add_turnstile_token(page)
+    accept_policy(page)
 
     page.get_by_role("button", name="Submit Application").click()
     page.get_by_text("Your CUNY sign-in expired. Sign in again before resending this request.").wait_for()
@@ -383,6 +394,7 @@ def test_reauth_as_different_identity_gets_new_retry_id(page: Page) -> None:
     wait_for_identity(page)
     fill_common(page)
     add_turnstile_token(page)
+    accept_policy(page)
 
     page.get_by_role("button", name="Submit Application").click()
     page.get_by_text("Your CUNY sign-in expired. Sign in again before resending this request.").wait_for()
@@ -433,17 +445,22 @@ def test_class_mode(page: Page) -> None:
     assert_equal(page.evaluate("document.activeElement?.id"), "class-name")
 
     page.get_by_label("Class Name").fill("Introduction to Digital Humanities")
-    page.get_by_label("Term").fill("Fall 2026")
+    page.locator("#term").fill("Fall 2026")
     page.get_by_label("Section").fill("01")
     page.get_by_label("Start Date").fill("2026-08-25")
     page.get_by_label("End Date").fill("2026-12-20")
     page.get_by_label("Estimated Enrollment").fill("30")
 
-    # The checkbox gates submission locally; Admission accepts no classLeader field.
+    # The organizer acknowledgement gates submission locally.
     page.get_by_role("button", name="Submit Application").click()
     assert_equal(len(payloads), 0)
     assert_equal(page.evaluate("document.activeElement?.id"), "class-leader")
     page.get_by_label("I teach or lead this class").check()
+
+    page.get_by_role("button", name="Submit Application").click()
+    assert_equal(len(payloads), 0)
+    assert_equal(page.evaluate("document.activeElement?.id"), "policy-acceptance")
+    accept_policy(page)
 
     # Fallback browsers that treat date inputs as text still cannot send non-ISO dates.
     page.get_by_label("Start Date").evaluate("input => input.type = 'text'")
@@ -493,6 +510,7 @@ def test_class_mode(page: Page) -> None:
             "startsOn",
             "endsOn",
             "estimatedSeats",
+            "policyAcceptance",
         },
     )
     assert_request_id(payload.pop("clientRequestId"))
@@ -507,6 +525,11 @@ def test_class_mode(page: Page) -> None:
             "startsOn": "2026-08-25",
             "endsOn": "2026-08-25",
             "estimatedSeats": 30,
+            "policyAcceptance": {
+                "termsVersion": "2026-09-19-interim",
+                "privacyVersion": "2026-09-19-interim",
+                "organizerResponsibilitiesVersion": "2026-09-19-interim",
+            },
         },
     )
 
@@ -526,6 +549,7 @@ def test_keyboard_navigation_and_safe_error_retry(page: Page) -> None:
 
     fill_common(page)
     add_turnstile_token(page)
+    accept_policy(page)
     attempts = 0
 
     def fail_once_then_succeed(route: Route) -> None:
@@ -568,6 +592,7 @@ def test_ambiguous_retry_reuses_client_request_id(page: Page) -> None:
     wait_for_identity(page)
     fill_common(page)
     add_turnstile_token(page)
+    accept_policy(page)
     payloads: list[dict[str, Any]] = []
     attempts = 0
 
@@ -606,6 +631,7 @@ def test_changed_payload_gets_new_client_request_id(page: Page) -> None:
     wait_for_identity(page)
     fill_common(page)
     add_turnstile_token(page)
+    accept_policy(page)
     payloads: list[dict[str, Any]] = []
     attempts = 0
 
