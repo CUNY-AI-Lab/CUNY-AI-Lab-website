@@ -44,8 +44,8 @@
       "items": [
         {
           "id": "is-it-free",
-          "q": "What is the standard model-use allowance?",
-          "a": "<p>The standard model-use allowance is $5 per month. Your <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Model Access</a> page shows the allowance and reporting period currently assigned to your account.</p><p>We welcome opportunities to raise that allowance. If you or your program have funding you would like to allocate to Lab use, please <a href=\"/contact\">contact us</a> to explore a collaboration.</p>"
+          "q": "How much usage do I get?",
+          "a": "<p>The standard allowance is $5 per month of model use. Your <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Model Access</a> page shows the allowance and reporting period currently assigned to your account.</p><p>We welcome opportunities to raise that allowance. If you or your program have funding you would like to allocate to Lab use, please <a href=\"/contact\">contact us</a> to explore a collaboration.</p>"
         },
         {
           "id": "check-balance",
@@ -113,7 +113,7 @@
         {
           "id": "class-support",
           "q": "I'm an instructor. What support can my class expect?",
-          "a": "<p>Given our limited capacity, the Lab cannot provide direct support to classes beyond very specific cases. When you sign up for class access, you also sign up to provide technical support for your students.</p><p>We expect instructors to be the first layer of troubleshooting, for example the blank sign-in screen described above, and to contact the Lab only after those options have been exhausted.</p><p>Instructors are also responsible for helping students manage their model-use allowance so that no one reaches their limit before completing classroom assignments. The standard allowance is $5 per month, but each student should check the allowance and reporting period shown on their <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Model Access</a> page. Plan assignments accordingly.</p>"
+          "a": "<p>Given our limited capacity, the Lab cannot provide direct support to classes beyond very specific cases. When you sign up for class access, you also sign up to provide technical support for your students.</p><p>We expect instructors to be the first layer of troubleshooting, for example the blank sign-in screen described above, and to contact the Lab only after those options have been exhausted.</p><p>Instructors are also responsible for helping students manage their allowance so that no one reaches their limit before completing classroom assignments. The standard allowance is $5 per month, but each student should check the allowance and reporting period shown on their <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Model Access</a> page. Plan assignments accordingly.</p>"
         }
       ]
     },
