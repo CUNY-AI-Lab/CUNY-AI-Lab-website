@@ -44,18 +44,18 @@
       "items": [
         {
           "id": "is-it-free",
-          "q": "Is it free?",
-          "a": "<p>Yes. Each person receives a $5 monthly allowance for model use, drawn from the Lab's own budget.</p><p>We welcome opportunities to raise that allowance. If you or your program have funding you would like to allocate to Lab use, please <a href=\"/contact\">contact us</a> to explore a collaboration.</p>"
+          "q": "How much usage do I get?",
+          "a": "<p>The standard allowance is $5 per month of model use. Your <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Dashboard</a> shows the allowance and reporting period currently assigned to your account.</p><p>We welcome opportunities to raise that allowance. If you or your program have funding you would like to allocate to Lab use, please <a href=\"/contact\">contact us</a> to explore a collaboration.</p>"
         },
         {
           "id": "check-balance",
           "q": "How do I check my balance?",
-          "a": "<p>Sign in and open your <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Model Access</a> page. It shows the current 30-day period, how much you have used, your limit, and an estimate of what remains. The estimate comes from provider analytics and can lag a short while behind your most recent requests.</p>"
+          "a": "<p>Sign in and open your <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Dashboard</a>. It shows your current reporting period, how much you have used, your limit, and an estimate of what remains. The estimate comes from provider analytics and can lag a short while behind your most recent requests.</p>"
         },
         {
           "id": "allowance-exhausted",
           "q": "What happens when I use up my allowance?",
-          "a": "<p>Model requests pause until your 30-day window resets. If you need more for a specific project or course, email <a href=\"mailto:ailab@gc.cuny.edu\">ailab@gc.cuny.edu</a> to ask about an exception.</p>"
+          "a": "<p>Model requests pause when you reach your limit. Your <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Dashboard</a> shows your current reporting period. If you need more for a specific project or course, email <a href=\"mailto:ailab@gc.cuny.edu\">ailab@gc.cuny.edu</a> to ask about an exception.</p>"
         }
       ]
     },
@@ -113,7 +113,7 @@
         {
           "id": "class-support",
           "q": "I'm an instructor. What support can my class expect?",
-          "a": "<p>Given our limited capacity, the Lab cannot provide direct support to classes beyond very specific cases. When you sign up for class access, you also sign up to provide technical support for your students.</p><p>We expect instructors to be the first layer of troubleshooting, for example the blank sign-in screen described above, and to contact the Lab only after those options have been exhausted.</p><p>Instructors are also responsible for helping students manage their monthly allowance, so that no one burns through their tokens early in the term and is then unable to complete classroom assignments. Plan assignments with the $5 allowance in mind, and remind students to check their balance on the Model Access page.</p>"
+          "a": "<p>Given our limited capacity, the Lab cannot provide direct support to classes beyond very specific cases. When you sign up for class access, you also sign up to provide technical support for your students.</p><p>We expect instructors to be the first layer of troubleshooting, for example the blank sign-in screen described above, and to contact the Lab only after those options have been exhausted.</p><p>Instructors are also responsible for helping students manage their allowance so that no one reaches their limit before completing classroom assignments. The standard allowance is $5 per month, but each student should check the allowance and reporting period shown on their <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Dashboard</a>. Plan assignments accordingly.</p>"
         }
       ]
     },
