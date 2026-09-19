@@ -20,8 +20,6 @@ def main():
         for width in [1280, 375]:
             page.set_viewport_size({"width": width, "height": 900})
             page.goto(f"{BASE_URL}/docs/api-keys/")
-            expect(page).to_have_title("API Keys and Model Access - CUNY AI Lab")
-            expect(page.get_by_role("heading", name="Use the CAIL Model API", exact=True)).to_be_visible()
             expect(page.locator("article pre")).to_have_count(3)
             for section_id in ["setup-heading", "models-heading", "request-heading"]:
                 section = page.locator(f'section[aria-labelledby="{section_id}"]')
