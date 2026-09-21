@@ -337,12 +337,11 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
           <div>
             <div
-              class="cf-turnstile"
+              id="access-verification"
               data-sitekey={data.turnstile_site_key}
-              data-theme="auto"
-              data-size="flexible"
             ></div>
-            <p class="text-xs text-gray-500 mt-2">Complete the verification before sending your request.</p>
+            <p id="verification-status" class="text-sm text-gray-700 mt-2" role="status" aria-live="polite">Loading verification…</p>
+            <button id="verification-retry" type="button" class="mt-2 text-sm font-semibold text-vibrant-700 underline" hidden>Retry verification</button>
           </div>
 
           <!-- Submit Button -->
@@ -409,7 +408,6 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     </div>
   </section>
 
-  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script>
     import * as z from 'zod/mini';
 
@@ -420,6 +418,10 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     const identityMessage = document.querySelector<HTMLElement>('#identity-message');
     const identitySignIn = document.querySelector<HTMLAnchorElement>('#identity-sign-in');
     const identityRetry = document.querySelector<HTMLButtonElement>('#identity-retry');
+    const verification = document.querySelector<HTMLElement>('#access-verification');
+    const verificationStatus = document.querySelector<HTMLElement>('#verification-status');
+    const verificationRetry = document.querySelector<HTMLButtonElement>('#verification-retry');
+    const intendedUse = document.querySelector<HTMLTextAreaElement>('#intended-use');
     const emailDisplay = document.querySelector<HTMLElement>('#verified-email');
     const confirmation = document.querySelector<HTMLElement>('#submission-confirmation');
     const confirmationMessage = document.querySelector<HTMLElement>('#confirmation-message');
@@ -431,9 +433,23 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     let pendingApplication: { clientRequestId: string; fingerprint: string } | null = null;
     let verifiedEmail: string | null = null;
     let identityReady = false;
+    let verificationReady = false;
+    let submitting = false;
 
     type TurnstileWindow = Window & {
-      turnstile?: { reset: () => void };
+      turnstile?: {
+        render: (container: HTMLElement, options: {
+          sitekey: string;
+          theme: 'auto';
+          size: 'flexible';
+          callback: (token: string) => void;
+          'expired-callback': () => void;
+          'error-callback': () => void;
+          'timeout-callback': () => void;
+          'unsupported-callback': () => void;
+        }) => string;
+        reset: (container: HTMLElement) => void;
+      };
     };
     const identitySchema = z.object({ email: z.string() });
     const intakeOutcomeSchema = z.object({
@@ -478,9 +494,55 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
       status.focus();
     }
 
+    function updateSubmit() {
+      if (submit) submit.disabled = !identityReady || !verificationReady || submitting;
+    }
+
+    function setVerification(message: string, ready: boolean, retry = false) {
+      verificationReady = ready;
+      if (verificationStatus) verificationStatus.textContent = message;
+      if (verificationRetry) verificationRetry.hidden = !retry;
+      updateSubmit();
+    }
+
     function resetTurnstile() {
-      // SAFETY: the Turnstile script installs `window.turnstile` when it loads; optional chaining covers its absence.
-      (window as TurnstileWindow).turnstile?.reset();
+      setVerification('Verification is refreshing. Your entries have been kept.', false);
+      // SAFETY: the external script installs this API; it may be absent if loading failed.
+      const api = (window as TurnstileWindow).turnstile;
+      if (api && verification) api.reset(verification);
+    }
+
+    function loadVerification() {
+      if (!verification) return;
+      setVerification('Loading verification…', false);
+      const script = document.createElement('script');
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      script.async = true;
+      script.addEventListener('error', () => {
+        script.remove();
+        setVerification('Verification could not load. Check your connection or browser blocking settings, then retry.', false, true);
+      });
+      script.addEventListener('load', () => {
+        // SAFETY: the loaded Cloudflare script provides the documented Turnstile API.
+        const api = (window as TurnstileWindow).turnstile;
+        if (!api) {
+          script.remove();
+          setVerification('Verification could not load. Please retry.', false, true);
+          return;
+        }
+        setVerification('Complete the verification before sending your request.', false);
+        api.render(verification, {
+          sitekey: verification.dataset.sitekey ?? '',
+          theme: 'auto',
+          size: 'flexible',
+          callback: (token) => setVerification('Verification complete.', token.length > 0),
+          'expired-callback': () => setVerification('Verification expired and is refreshing. Your entries have been kept.', false, true),
+          'error-callback': () => setVerification('Verification could not be completed. Please retry. Your entries have been kept.', false, true),
+          'timeout-callback': () => setVerification('Verification timed out. Please retry. Your entries have been kept.', false, true),
+          'unsupported-callback': () => setVerification('Verification does not support this browser. Try an updated browser.', false),
+        });
+      });
+      document.head.append(script);
     }
 
     function setIdentityStatus(
@@ -547,7 +609,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         identityReady = true;
         if (emailDisplay) emailDisplay.textContent = email;
         setIdentityStatus('Signed in with CUNY Login. We will use this verified email for your request.', 'ready');
-        if (submit) submit.disabled = false;
+        updateSubmit();
       } catch {
         setIdentityStatus('We could not verify your CUNY sign-in. Try again shortly.', 'error');
       }
@@ -599,11 +661,33 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     const initialKind = new URLSearchParams(window.location.search).get('kind') === 'class' ? 'class' : 'individual';
     setApplicationKind(initialKind, false);
     identityRetry?.addEventListener('click', () => void loadIdentity());
+    verificationRetry?.addEventListener('click', () => {
+      // SAFETY: the optional API is installed only after the external script loads.
+      if ((window as TurnstileWindow).turnstile) resetTurnstile();
+      else loadVerification();
+    });
+    intendedUse?.addEventListener('input', () => intendedUse.setCustomValidity(''));
     void loadIdentity();
+    loadVerification();
 
     form?.addEventListener('submit', async (event) => {
       event.preventDefault();
-      if (!submit || !form.reportValidity()) return;
+      if (!submit || submitting) return;
+      if (intendedUse) {
+        const text = intendedUse.value.replace(/\r\n?/g, '\n');
+        const hasControlCharacter = Array.from(text).some((character) => {
+          const code = character.charCodeAt(0);
+          return (code < 32 && code !== 9 && code !== 10) || code === 127;
+        });
+        intendedUse.setCustomValidity(!text.trim()
+          ? 'Describe your intended use or support request.'
+          : Array.from(text).length > 4000
+            ? 'Keep your intended use or support request to 4,000 characters or fewer.'
+            : hasControlCharacter
+              ? 'Remove unsupported control characters from your intended use or support request.'
+              : '');
+      }
+      if (!form.reportValidity()) return;
 
       if (!identityReady || verifiedEmail === null) {
         requireSignIn('Sign in with CUNY Login before submitting an access request.');
@@ -614,12 +698,13 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
       const fields = new FormData(form);
       const kind = fields.get('application-kind') === 'class' ? 'class' : 'individual';
       const turnstileToken = textField(fields, 'cf-turnstile-response');
-      if (turnstileToken.length === 0) {
-        showStatus('Complete the verification before sending your request.', 'error');
+      if (!verificationReady || turnstileToken.length === 0) {
+        if (verificationReady) resetTurnstile();
         return;
       }
 
-      submit.disabled = true;
+      submitting = true;
+      updateSubmit();
       submit.textContent = 'Sending request…';
       if (status) status.hidden = true;
 
@@ -716,7 +801,8 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         resetTurnstile();
         showStatus('The access service could not be reached. Check your connection and try again.', 'error');
       } finally {
-        submit.disabled = !identityReady;
+        submitting = false;
+        updateSubmit();
         submit.textContent = submitLabel;
       }
     });
