@@ -11,7 +11,7 @@ import os
 import re
 from typing import Any
 
-from playwright.sync_api import Page, Route, sync_playwright
+from playwright.sync_api import Page, Route, expect, sync_playwright
 
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
@@ -19,6 +19,26 @@ IDENTITY_URL = "https://tools.ailab.gc.cuny.edu/request-access/identity"
 SIGN_IN_URL = "https://tools.ailab.gc.cuny.edu/request-access/sign-in"
 INDIVIDUAL_INTAKE_URL = "https://tools.ailab.gc.cuny.edu/request-access/api"
 CLASS_INTAKE_URL = "https://tools.ailab.gc.cuny.edu/request-access/class-api"
+
+# Model the external widget lifecycle, including a reset that invalidates the token.
+# Tests deliver the next completion explicitly, rather than assuming immediate refresh.
+TURNSTILE_SCRIPT = """
+window.turnstile = {
+  render(container, options) {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'cf-turnstile-response';
+    container.append(input);
+    window.testTurnstile = {
+      solve(token) { input.value = token; options.callback(token); },
+      notify(name) { input.value = ''; options[name](); },
+      clear() { input.value = ''; }
+    };
+    return 'test-widget';
+  },
+  reset() { window.testTurnstile.clear(); }
+};
+"""
 
 
 def cors_headers() -> dict[str, str]:
@@ -36,24 +56,16 @@ def assert_equal(actual: Any, expected: Any) -> None:
     assert actual == expected, f"expected {expected!r}, got {actual!r}"
 
 
-def block_turnstile(page: Page) -> None:
+def mock_turnstile(page: Page) -> None:
     page.route(
         "https://challenges.cloudflare.com/**",
-        lambda route: route.fulfill(status=200, content_type="application/javascript", body=""),
+        lambda route: route.fulfill(status=200, content_type="application/javascript", body=TURNSTILE_SCRIPT),
     )
 
 
 def add_turnstile_token(page: Page, value: str = "test-turnstile-token") -> None:
-    page.locator("form").evaluate(
-        """(form, token) => {
-          const input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = 'cf-turnstile-response';
-          input.value = token;
-          form.append(input);
-        }""",
-        value,
-    )
+    page.wait_for_function("window.testTurnstile !== undefined")
+    page.evaluate("token => window.testTurnstile.solve(token)", value)
 
 
 def add_test_cookie(page: Page) -> None:
@@ -207,7 +219,7 @@ def test_individual_mode(page: Page) -> None:
 
     common = fill_common(page)
     page.get_by_label("CAIL Sandbox").check()
-    page.get_by_label("Model Access and API keys").check()
+    page.get_by_label("Dashboard and API keys").check()
 
     # Values retained in the inactive mode must not leak into the individual payload.
     class_choice(page).check()
@@ -329,6 +341,8 @@ def test_post_session_expiry_requires_reauth_and_keeps_retry_id(page: Page) -> N
     )
     assert page.get_by_role("button", name="Check again").is_visible()
 
+    add_turnstile_token(page, "refreshed-token")
+    assert page.get_by_role("button", name="Submit Application").is_disabled()
     page.get_by_role("button", name="Check again").click()
     wait_for_identity(page)
     page.get_by_role("button", name="Submit Application").click()
@@ -389,6 +403,8 @@ def test_reauth_as_different_identity_gets_new_retry_id(page: Page) -> None:
     page.get_by_role("button", name="Check again").click()
     wait_for_identity(page)
     assert page.locator("#verified-email").text_content() == "different.user@cuny.edu"
+    assert page.get_by_role("button", name="Submit Application").is_disabled()
+    add_turnstile_token(page, "refreshed-token")
     page.get_by_role("button", name="Submit Application").click()
     page.get_by_role("heading", name="Thank you").wait_for()
 
@@ -554,9 +570,11 @@ def test_keyboard_navigation_and_safe_error_retry(page: Page) -> None:
     submit.click()
     status = page.locator("#form-status")
     status.get_by_text("The access service is temporarily unavailable. Try again shortly.").wait_for()
-    assert not submit.is_disabled()
+    expect(submit).to_be_disabled()
     assert "private detail" not in status.inner_text()
 
+    add_turnstile_token(page, "refreshed-token")
+    expect(submit).to_be_enabled()
     submit.click()
     page.get_by_role("heading", name="Thank you").wait_for()
     assert_equal(attempts, 2)
@@ -592,12 +610,14 @@ def test_ambiguous_retry_reuses_client_request_id(page: Page) -> None:
     submit = page.get_by_role("button", name="Submit Application")
     submit.click()
     page.get_by_text("The access service could not be reached. Check your connection and try again.").wait_for()
-    assert not submit.is_disabled()
+    expect(submit).to_be_disabled()
 
+    add_turnstile_token(page, "refreshed-token")
     submit.click()
     page.get_by_role("heading", name="Thank you").wait_for()
     assert_equal(attempts, 2)
     assert_equal(payloads[0]["clientRequestId"], payloads[1]["clientRequestId"])
+    assert payloads[0]["turnstileToken"] != payloads[1]["turnstileToken"]
 
 
 def test_changed_payload_gets_new_client_request_id(page: Page) -> None:
@@ -636,6 +656,7 @@ def test_changed_payload_gets_new_client_request_id(page: Page) -> None:
     submit.click()
     page.get_by_text("The access service is temporarily unavailable. Try again shortly.").wait_for()
     page.get_by_label("Department/Program").fill("English")
+    add_turnstile_token(page, "refreshed-token")
     submit.click()
     page.get_by_role("heading", name="Thank you").wait_for()
     assert_equal(attempts, 2)
@@ -655,6 +676,190 @@ def test_mobile_layout(page: Page) -> None:
     assert dimensions["scrollWidth"] <= dimensions["innerWidth"]
 
 
+def test_verification_lifecycle_keeps_entries_and_blocks_unready_posts(page: Page) -> None:
+    mock_identity(page)
+    page.goto(f"{BASE_URL}/request-access/")
+    wait_for_identity(page)
+    fill_common(page)
+    intended = page.get_by_label("Intended Use or Support Request")
+    text = "Research\twith pasted text\n\nAnd multiple paragraphs."
+    intended.fill(text)
+    payloads, _ = capture_success(page, "req-recovered", INDIVIDUAL_INTAKE_URL)
+    submit = page.get_by_role("button", name="Submit Application")
+    expect(submit).to_be_disabled()
+    # Enter/requestSubmit must not bypass the disabled-button gate.
+    page.locator("form").evaluate("form => form.requestSubmit()")
+    assert_equal(payloads, [])
+
+    for callback in ("expired-callback", "error-callback", "timeout-callback"):
+        add_turnstile_token(page)
+        expect(submit).to_be_enabled()
+        page.evaluate("name => window.testTurnstile.notify(name)", callback)
+        expect(submit).to_be_disabled()
+        expect(intended).to_have_value(text)
+        page.get_by_role("button", name="Retry verification").click()
+        expect(submit).to_be_disabled()
+        page.locator("form").evaluate("form => form.requestSubmit()")
+        assert_equal(payloads, [])
+
+    add_turnstile_token(page, "fresh-token")
+    submit.click()
+    expect(page.get_by_role("heading", name="Thank you", exact=True)).to_be_visible()
+    assert_equal(payloads[0]["intendedUse"], text)
+    assert_equal(payloads[0]["turnstileToken"], "fresh-token")
+
+
+def test_rejection_keeps_original_error_until_verified_retry(page: Page) -> None:
+    for kind, code in (("individual", 400), ("class", 403)):
+        mock_identity(page)
+        page.goto(f"{BASE_URL}/request-access/?kind={kind}")
+        wait_for_identity(page)
+        common = fill_common(page)
+        if kind == "class":
+            page.get_by_label("Class Name").fill("Research Methods")
+            page.get_by_label("Term").fill("Fall 2026")
+            page.get_by_label("Section").fill("01")
+            page.get_by_label("Start Date").fill("2026-08-25")
+            page.get_by_label("End Date").fill("2026-12-20")
+            page.get_by_label("Estimated Enrollment").fill("30")
+            page.get_by_label("I teach or lead this class").check()
+        add_turnstile_token(page)
+        payloads = []
+
+        def respond(route: Route) -> None:
+            if route.request.method == "OPTIONS":
+                route.fulfill(status=204, headers=cors_headers())
+                return
+            payloads.append(route.request.post_data_json)
+            first = len(payloads) == 1
+            route.fulfill(
+                status=code if first else 201, headers=cors_headers(),
+                content_type="application/json",
+                body=json.dumps({"error": {"code": "turnstile_failed" if code == 403 else "intake_invalid"}}
+                                if first else {"requestId": "req-retried"}),
+            )
+
+        endpoint = CLASS_INTAKE_URL if kind == "class" else INDIVIDUAL_INTAKE_URL
+        page.route(endpoint, respond)
+        submit = page.get_by_role("button", name="Submit Application")
+        submit.click()
+        status = page.locator("#form-status")
+        expect(status).to_be_visible()
+        original_error = status.inner_text()
+        expect(submit).to_be_disabled()
+        expect(page.locator('input[name="cf-turnstile-response"]')).to_have_value("")
+        page.locator("form").evaluate("form => form.requestSubmit()")
+        expect(status).to_have_text(original_error)
+        assert_equal(len(payloads), 1)
+        expect(page.get_by_label("Intended Use or Support Request")).to_have_value(common["intendedUse"])
+        add_turnstile_token(page, "refreshed-token")
+        expect(status).to_have_text(original_error)
+        submit.click()
+        expect(page.get_by_role("heading", name="Thank you", exact=True)).to_be_visible()
+        assert_equal(len(payloads), 2)
+        assert_equal(payloads[0]["clientRequestId"], payloads[1]["clientRequestId"])
+        assert_equal(payloads[1]["turnstileToken"], "refreshed-token")
+        page.unroute(endpoint, respond)
+
+
+def test_script_failure_can_retry_without_losing_text(page: Page) -> None:
+    mock_identity(page)
+    script_calls = []
+
+    def script(route: Route) -> None:
+        script_calls.append(route.request.url)
+        if len(script_calls) == 1:
+            route.abort()
+        else:
+            route.fulfill(content_type="application/javascript", body=TURNSTILE_SCRIPT)
+
+    page.route("https://challenges.cloudflare.com/**", script)
+    page.goto(f"{BASE_URL}/request-access/")
+    wait_for_identity(page)
+    common = fill_common(page)
+    submit = page.get_by_role("button", name="Submit Application")
+    expect(submit).to_be_disabled()
+    page.get_by_role("button", name="Retry verification").click()
+    add_turnstile_token(page)
+    expect(submit).to_be_enabled()
+    expect(page.get_by_label("Intended Use or Support Request")).to_have_value(common["intendedUse"])
+    assert_equal(len(script_calls), 2)
+
+
+def test_verification_before_identity_does_not_enable_submission(page: Page) -> None:
+    pending = []
+    page.route(IDENTITY_URL, lambda route: pending.append(route))
+    page.goto(f"{BASE_URL}/request-access/")
+    add_turnstile_token(page)
+    submit = page.get_by_role("button", name="Submit Application")
+    expect(submit).to_be_disabled()
+    # The header and form each check identity; neither may bypass verification.
+    assert pending
+    for request in pending:
+        request.fulfill(status=200, headers=cors_headers(), content_type="application/json",
+                        body=json.dumps({"email": "alex.rivera@cuny.edu"}))
+    wait_for_identity(page)
+    expect(submit).to_be_enabled()
+    page.evaluate("window.testTurnstile.notify('unsupported-callback')")
+    expect(submit).to_be_disabled()
+    expect(page.locator("#verification-status")).to_be_visible()
+    expect(page.get_by_role("button", name="Retry verification")).to_be_hidden()
+
+
+def test_intended_use_validation_focuses_field_without_consuming_token(page: Page) -> None:
+    mock_identity(page)
+    page.goto(f"{BASE_URL}/request-access/")
+    wait_for_identity(page)
+    fill_common(page)
+    add_turnstile_token(page)
+    payloads, _ = capture_success(page, "req-corrected", INDIVIDUAL_INTAKE_URL)
+    intended = page.get_by_label("Intended Use or Support Request")
+    submit = page.get_by_role("button", name="Submit Application")
+    for text in ("   ", "Research\x01analysis"):
+        intended.fill(text)
+        if intended.input_value() != text:
+            # Firefox removes C0 controls during text insertion, before our validator.
+            assert_equal(intended.input_value(), text.replace("\x01", ""))
+            continue
+        submit.click()
+        expect(intended).to_be_focused()
+        assert intended.evaluate("field => !field.validity.valid")
+        assert_equal(payloads, [])
+        expect(submit).to_be_enabled()
+    intended.fill("Research")
+    submit.click()
+    expect(page.get_by_role("heading", name="Thank you", exact=True)).to_be_visible()
+    assert_equal(len(payloads), 1)
+
+
+def test_verification_callbacks_cannot_duplicate_inflight_request(page: Page) -> None:
+    mock_identity(page)
+    page.goto(f"{BASE_URL}/request-access/")
+    wait_for_identity(page)
+    fill_common(page)
+    add_turnstile_token(page)
+    pending = []
+
+    def hold(route: Route) -> None:
+        if route.request.method == "OPTIONS":
+            route.fulfill(status=204, headers=cors_headers())
+        else:
+            pending.append(route)
+
+    page.route(INDIVIDUAL_INTAKE_URL, hold)
+    submit = page.locator("#access-request-submit")
+    with page.expect_request(lambda request: request.url == INDIVIDUAL_INTAKE_URL and request.method == "POST"):
+        submit.click()
+    page.evaluate("window.testTurnstile.notify('expired-callback')")
+    add_turnstile_token(page, "another-token")
+    expect(submit).to_be_disabled()
+    page.locator("form").evaluate("form => form.requestSubmit()")
+    assert_equal(len(pending), 1)
+    pending[0].fulfill(status=201, headers=cors_headers(), content_type="application/json",
+                       body=json.dumps({"requestId": "req-once"}))
+    expect(page.get_by_role("heading", name="Thank you", exact=True)).to_be_visible()
+
+
 def test_public_access_links_use_the_canonical_application(page: Page) -> None:
     page.goto(f"{BASE_URL}/contact/", wait_until="domcontentloaded")
     access_link = page.get_by_role("link", name="CAIL Access")
@@ -670,7 +875,7 @@ def test_public_access_links_use_the_canonical_application(page: Page) -> None:
 
 def main() -> None:
     with sync_playwright() as playwright:
-        browser = playwright.chromium.launch()
+        browser = getattr(playwright, os.environ.get("CAIL_TEST_BROWSER", "chromium")).launch()
         try:
             for test in (
                 test_unauthenticated_individual_has_cuny_sign_in_path,
@@ -681,13 +886,19 @@ def main() -> None:
                 test_keyboard_navigation_and_safe_error_retry,
                 test_ambiguous_retry_reuses_client_request_id,
                 test_changed_payload_gets_new_client_request_id,
+                test_verification_lifecycle_keeps_entries_and_blocks_unready_posts,
+                test_rejection_keeps_original_error_until_verified_retry,
+                test_script_failure_can_retry_without_losing_text,
+                test_verification_before_identity_does_not_enable_submission,
+                test_intended_use_validation_focuses_field_without_consuming_token,
+                test_verification_callbacks_cannot_duplicate_inflight_request,
                 test_mobile_layout,
                 test_public_access_links_use_the_canonical_application,
             ):
                 context = browser.new_context(viewport={"width": 1440, "height": 1000})
                 page = context.new_page()
                 add_test_cookie(page)
-                block_turnstile(page)
+                mock_turnstile(page)
                 errors: list[str] = []
                 page.on("pageerror", lambda error: errors.append(str(error)))
                 test(page)
