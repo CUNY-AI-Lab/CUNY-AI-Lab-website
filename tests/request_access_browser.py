@@ -114,6 +114,11 @@ def wait_for_identity(page: Page) -> None:
     ).wait_for()
 
 
+def intended_response(page: Page):
+    label = "How will you use the Lab’s tools in your course?" if class_choice(page).is_checked() else "Intended Use or Support Request"
+    return page.get_by_role("textbox", name=label)
+
+
 def fill_common(page: Page, affiliation: str = "faculty") -> dict[str, str]:
     values = {
         "name": "Alex Rivera",
@@ -126,7 +131,7 @@ def fill_common(page: Page, affiliation: str = "faculty") -> dict[str, str]:
     page.get_by_label("CUNY Affiliation").select_option(values["affiliation"])
     page.get_by_label("Department/Program").fill(values["department"])
     page.get_by_label("CUNY College/Campus").fill(values["campus"])
-    page.get_by_label("Intended Use or Support Request").fill(values["intendedUse"])
+    intended_response(page).fill(values["intendedUse"])
     return values
 
 
@@ -676,6 +681,84 @@ def test_mobile_layout(page: Page) -> None:
     assert dimensions["scrollWidth"] <= dimensions["innerWidth"]
 
 
+def test_class_activity_survives_paste_mode_switch_and_verification_retry(page: Page) -> None:
+    mock_identity(page)
+    page.goto(f"{BASE_URL}/request-access/?kind=class")
+    wait_for_identity(page)
+    fill_common(page)
+    page.get_by_label("Class Name").fill("Critical Reading")
+    page.get_by_label("Term").fill("Fall 2026")
+    page.get_by_label("Section").fill("01")
+    page.get_by_label("Start Date").fill("2026-09-22")
+    page.get_by_label("End Date").fill("2026-12-20")
+    page.get_by_label("Estimated Enrollment").fill("25")
+    page.get_by_label("I teach or lead this class").check()
+    intended = intended_response(page)
+    expect(page.get_by_role("textbox", name="Intended Use or Support Request")).to_have_count(0)
+    expect(page.locator("#class-application-guidance")).to_be_visible()
+    expect(page.locator("#class-intended-use-help")).to_be_visible()
+    expect(intended).to_have_attribute("aria-describedby", "class-intended-use-help")
+
+    pasted = "Students compare ‘AI interpretations’ with their own close reading.\r\n\r\n• Model:\tpropose an interpretation.\r\n• Students:\tcheck evidence—then revise.\r\nI assess their reasoning, not agreement. Café\u00a0/ 中文 🥬"
+    expected = pasted.replace("\r\n", "\n")
+    if os.environ.get("CAIL_TEST_BROWSER", "chromium") == "chromium":
+        # Exercise a real clipboard paste in Chromium, not a synthetic paste event.
+        page.context.grant_permissions(["clipboard-read", "clipboard-write"])
+        page.evaluate("text => navigator.clipboard.writeText(text)", pasted)
+        intended.fill("")
+        intended.press("ControlOrMeta+V")
+    else:
+        # Firefox/WebKit check multiline insertion and normalization without clipboard permissions.
+        intended.fill(pasted)
+    # Engines expose either LF or CRLF here; Admission normalizes either form.
+    actual = intended.input_value()
+    assert_equal(actual.replace("\r\n", "\n"), expected)
+    expected = actual
+
+    individual_choice(page).check()
+    expect(intended_response(page)).to_have_value(expected)
+    expect(page.locator("#class-application-guidance")).to_be_hidden()
+    expect(page.locator("#class-intended-use-help")).to_be_hidden()
+    assert intended_response(page).get_attribute("aria-describedby") is None
+    class_choice(page).check()
+    expect(intended_response(page)).to_have_value(expected)
+
+    payloads: list[dict[str, Any]] = []
+
+    def reject_expired_then_accept(route: Route) -> None:
+        if route.request.method == "OPTIONS":
+            route.fulfill(status=204, headers=cors_headers())
+            return
+        payloads.append(route.request.post_data_json)
+        first = len(payloads) == 1
+        route.fulfill(status=403 if first else 201, headers=cors_headers(), content_type="application/json",
+                      body=json.dumps({"error": {"code": "turnstile_failed"}} if first else {"requestId": "req-class-paste"}))
+
+    page.route(CLASS_INTAKE_URL, reject_expired_then_accept)
+    add_turnstile_token(page)
+    submit = page.get_by_role("button", name="Submit Application")
+    intended_response(page).fill(" \n\t\u00a0")
+    submit.click()
+    expect(intended_response(page)).to_be_focused()
+    assert_equal(payloads, [])
+    expect(submit).to_be_enabled()
+    intended_response(page).fill(expected)
+    submit.click()
+    expect(page.locator("#form-status")).to_be_visible()
+    expect(submit).to_be_disabled()
+    expect(intended_response(page)).to_have_value(expected)
+    add_turnstile_token(page, "fresh-class-token")
+    submit.click()
+    expect(page.get_by_role("heading", name="Thank you", exact=True)).to_be_visible()
+    assert_equal(len(payloads), 2)
+    assert_equal(payloads[0]["intendedUse"], expected)
+    assert_equal(payloads[1]["intendedUse"], expected)
+    assert_equal(payloads[0]["clientRequestId"], payloads[1]["clientRequestId"])
+    assert_equal(payloads[1]["turnstileToken"], "fresh-class-token")
+    assert "tools" not in payloads[1]
+    assert "classLeader" not in payloads[1]
+
+
 def test_verification_lifecycle_keeps_entries_and_blocks_unready_posts(page: Page) -> None:
     mock_identity(page)
     page.goto(f"{BASE_URL}/request-access/")
@@ -751,7 +834,7 @@ def test_rejection_keeps_original_error_until_verified_retry(page: Page) -> None
         page.locator("form").evaluate("form => form.requestSubmit()")
         expect(status).to_have_text(original_error)
         assert_equal(len(payloads), 1)
-        expect(page.get_by_label("Intended Use or Support Request")).to_have_value(common["intendedUse"])
+        expect(intended_response(page)).to_have_value(common["intendedUse"])
         add_turnstile_token(page, "refreshed-token")
         expect(status).to_have_text(original_error)
         submit.click()
@@ -886,6 +969,7 @@ def main() -> None:
                 test_keyboard_navigation_and_safe_error_retry,
                 test_ambiguous_retry_reuses_client_request_id,
                 test_changed_payload_gets_new_client_request_id,
+                test_class_activity_survives_paste_mode_switch_and_verification_retry,
                 test_verification_lifecycle_keeps_entries_and_blocks_unready_posts,
                 test_rejection_keeps_original_error_until_verified_retry,
                 test_script_failure_can_retry_without_losing_text,

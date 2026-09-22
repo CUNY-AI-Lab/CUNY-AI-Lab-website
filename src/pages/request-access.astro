@@ -201,9 +201,14 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
           <!-- Intended Use -->
           <div>
+            <div id="class-application-guidance" class="mb-5 space-y-3 text-sm leading-relaxed text-gray-700" hidden>
+              <p>{data.application_kind.class_capacity}</p>
+              <p>{data.application_kind.class_pedagogy}</p>
+            </div>
             <label for="intended-use" class="block text-sm font-semibold text-gray-700 mb-2">
-              {data.form_fields.intended_use.label} <span class="text-red-500">*</span>
+              <span id="intended-use-label" data-individual-label={data.form_fields.intended_use.label} data-class-label={data.class_fields.intended_use.label}>{data.form_fields.intended_use.label}</span> <span class="text-red-500">*</span>
             </label>
+            <p id="class-intended-use-help" class="mb-3 text-sm leading-relaxed text-gray-600" hidden>{data.class_fields.intended_use.help}</p>
             <textarea
               id="intended-use"
               name="intended-use"
@@ -212,6 +217,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
               maxlength="4000"
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
               placeholder={data.form_fields.intended_use.placeholder}
+              data-individual-placeholder={data.form_fields.intended_use.placeholder}
             ></textarea>
           </div>
 
@@ -422,6 +428,9 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     const verificationStatus = document.querySelector<HTMLElement>('#verification-status');
     const verificationRetry = document.querySelector<HTMLButtonElement>('#verification-retry');
     const intendedUse = document.querySelector<HTMLTextAreaElement>('#intended-use');
+    const intendedUseLabel = document.querySelector<HTMLElement>('#intended-use-label');
+    const classGuidance = document.querySelector<HTMLElement>('#class-application-guidance');
+    const classIntendedUseHelp = document.querySelector<HTMLElement>('#class-intended-use-help');
     const emailDisplay = document.querySelector<HTMLElement>('#verified-email');
     const confirmation = document.querySelector<HTMLElement>('#submission-confirmation');
     const confirmationMessage = document.querySelector<HTMLElement>('#confirmation-message');
@@ -624,6 +633,19 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
     function setApplicationKind(kind: 'individual' | 'class', updateUrl: boolean) {
       for (const input of kindInputs) input.checked = input.value === kind;
+      if (classGuidance) classGuidance.hidden = kind !== 'class';
+      if (classIntendedUseHelp) classIntendedUseHelp.hidden = kind !== 'class';
+      if (intendedUseLabel) {
+        intendedUseLabel.textContent = (kind === 'class'
+          ? intendedUseLabel.dataset.classLabel
+          : intendedUseLabel.dataset.individualLabel) ?? '';
+      }
+      if (intendedUse) {
+        intendedUse.placeholder = kind === 'class' ? '' : (intendedUse.dataset.individualPlaceholder ?? '');
+        if (kind === 'class') intendedUse.setAttribute('aria-describedby', 'class-intended-use-help');
+        else intendedUse.removeAttribute('aria-describedby');
+        intendedUse.setCustomValidity('');
+      }
       if (form) {
         form.action = kind === 'class'
           ? (form.dataset.classIntakeUrl ?? form.action)
@@ -680,11 +702,11 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
           return (code < 32 && code !== 9 && code !== 10) || code === 127;
         });
         intendedUse.setCustomValidity(!text.trim()
-          ? 'Describe your intended use or support request.'
+          ? 'Describe how you plan to use the Lab or what help you need.'
           : Array.from(text).length > 4000
-            ? 'Keep your intended use or support request to 4,000 characters or fewer.'
+            ? 'Keep your response to 4,000 characters or fewer.'
             : hasControlCharacter
-              ? 'Remove unsupported control characters from your intended use or support request.'
+              ? 'Remove unsupported control characters from your response.'
               : '');
       }
       if (!form.reportValidity()) return;
