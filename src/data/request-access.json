@@ -28,8 +28,7 @@
       "description": "Access for everyone in your course. You apply once; after approval you share an invitation link and students use it to join."
     },
     "class_note": "One application covers the whole class. You do not need existing Lab access to apply, and your students join through the invitation link you share after approval.",
-    "class_capacity": "The Lab has limited capacity to support courses. We review class applications based on available resources and the proposed teaching activities’ alignment with the Lab’s pedagogical approach. We may not be able to accommodate every request.",
-    "class_pedagogy": "We encourage uses of AI that foster meaningful engagement between instructors and students and afford learners opportunities to develop their own knowledge and judgment."
+    "class_guidance": "The Lab has limited capacity to support courses. We review class applications based on available resources and the clarity and alignment with the Lab’s values of the teaching activities that are proposed. We encourage uses of AI that address specific pedagogical problems, that preserve human agency within the learning process, and that foster meaningful engagement between instructors and students. We may not be able to accommodate every request."
   },
   "form_fields": {
     "name": {

@@ -201,9 +201,8 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
           <!-- Intended Use -->
           <div>
-            <div id="class-application-guidance" class="mb-5 space-y-3 text-sm leading-relaxed text-gray-700" hidden>
-              <p>{data.application_kind.class_capacity}</p>
-              <p>{data.application_kind.class_pedagogy}</p>
+            <div id="class-application-guidance" class="mb-5 text-sm leading-relaxed text-gray-700" hidden>
+              <p>{data.application_kind.class_guidance}</p>
             </div>
             <label for="intended-use" class="block text-sm font-semibold text-gray-700 mb-2">
               <span id="intended-use-label" data-individual-label={data.form_fields.intended_use.label} data-class-label={data.class_fields.intended_use.label}>{data.form_fields.intended_use.label}</span> <span class="text-red-500">*</span>
