@@ -710,7 +710,10 @@ def test_class_activity_survives_paste_mode_switch_and_verification_retry(page: 
     else:
         # Firefox/WebKit check multiline insertion and normalization without clipboard permissions.
         intended.fill(pasted)
-    expect(intended).to_have_value(expected)
+    # Engines expose either LF or CRLF here; Admission normalizes either form.
+    actual = intended.input_value()
+    assert_equal(actual.replace("\r\n", "\n"), expected)
+    expected = actual
 
     individual_choice(page).check()
     expect(intended_response(page)).to_have_value(expected)
