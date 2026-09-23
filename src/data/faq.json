@@ -114,6 +114,11 @@
           "id": "class-support",
           "q": "I'm an instructor. What support can my class expect?",
           "a": "<p>Given our limited capacity, the Lab cannot provide direct support to classes beyond very specific cases. When you sign up for class access, you also sign up to provide technical support for your students.</p><p>We expect instructors to be the first layer of troubleshooting, for example the blank sign-in screen described above, and to contact the Lab only after those options have been exhausted.</p><p>Instructors are also responsible for helping students manage their allowance so that no one reaches their limit before completing classroom assignments. The standard allowance is $5 per month, but each student should check the allowance and reporting period shown on their <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Dashboard</a>. Plan assignments accordingly.</p>"
+        },
+        {
+          "id": "report-problem",
+          "q": "How do I report a problem?",
+          "a": "<p>If a problem persists after the basic fixes and you need to escalate it to the Lab, document it as specifically as possible before emailing <a href=\"mailto:ailab@gc.cuny.edu\">ailab@gc.cuny.edu</a>. Instructors: have the student document the issue before you forward it. Ideally, we should receive:</p><ul><li>a screenshot of the error and the exact error message, if any;</li><li>the page or tool and the model you were using;</li><li>your operating system and browser;</li><li>the approximate date and time the problem occurred; and</li><li>a brief description of what you were trying to do and the steps that produced the error.</li></ul><p>Reports with these details are much faster for us to reproduce and fix.</p>"
         }
       ]
     },
