@@ -36,7 +36,7 @@ const base = import.meta.env.BASE_URL;
                 CAIL Pi is the Lab's setup package for <a href="https://pi.dev" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">Pi</a>, an open-source coding agent that runs in your terminal. You can think of it as an open-source version of Claude Code that uses the CUNY AI Lab as a model provider, and stores your personal CAIL API key so that you can use the models served through our gateway under your monthly allowance. The model list comes live from the Lab's gateway each time Pi starts.
               </p>
               <p class="text-gray-600 leading-relaxed">
-                The package is available ong <a href="https://github.com/CUNY-AI-Lab/cail-pi" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">GitHub</a> and published on <a href="https://www.npmjs.com/package/@cuny-ai-lab/cail-pi" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">npm</a>.
+                The package is available on <a href="https://github.com/CUNY-AI-Lab/cail-pi" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">GitHub</a> and published on <a href="https://www.npmjs.com/package/@cuny-ai-lab/cail-pi" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">npm</a>.
               </p>
             </section>
 
@@ -60,11 +60,13 @@ const base = import.meta.env.BASE_URL;
               </CopyCode>
               <p class="text-gray-600 leading-relaxed mt-4 mb-2">The installer will:</p>
               <ol class="list-decimal pl-5 space-y-1.5 text-gray-600 leading-relaxed">
-                <li>Install Pi and a curated set of Pi packages through LazyPi, a community installer by Rob Zolkos that sets Pi up with a curated set of add-on packages.</li>
-                <li>Add the CUNY AI Lab provider to Pi.</li>
+                <li>Check that Node.js 22.19 or newer and npm are installed.</li>
+                <li>Install Pi and a curated set of Pi packages through LazyPi, a community installer by Rob Zolkos.</li>
+                <li>Add the CUNY AI Lab provider to Pi, removing the earlier pi-workshop package if it is present.</li>
+                <li>On Windows, enable Pi's PowerShell tool in Pi's settings file, after backing the file up. A tool list you set yourself is never overwritten.</li>
                 <li>Ask for your CAIL API key.</li>
-                <li>Verify the key with the Lab's gateway and store it in Pi's credential store on your computer.</li>
-                <li>Load the CUNY AI Lab model list.</li>
+                <li>Verify the key with the Lab's gateway, using a quota check that makes no model call, and store it in Pi's credential store on your computer.</li>
+                <li>Start Pi once in the background to load the CUNY AI Lab model list.</li>
               </ol>
               <p class="text-gray-600 leading-relaxed mt-4">If you press Enter without a key, setup still completes. Run <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/login</code> inside Pi later and choose CUNY AI Lab.</p>
             </section>
@@ -84,7 +86,7 @@ const base = import.meta.env.BASE_URL;
 
             <section aria-labelledby="trouble-heading">
               <h2 id="trouble-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Troubleshooting</h2>
-              <p class="text-gray-600 leading-relaxed mb-4">Run the health check first. It reports Node, npm, Pi, the CUNY AI Lab extension, whether a key is saved and accepted, and how many models are available. It never prints the key.</p>
+              <p class="text-gray-600 leading-relaxed mb-4">Run the health check first. It reports Node, npm, Pi, the CUNY AI Lab extension, whether a key is saved, whether the gateway is reachable, whether the saved key is accepted, how many models are available, and on Windows whether Pi's PowerShell tool is enabled. It never prints the key.</p>
               <CopyCode label="Health check">
               <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>npx @cuny-ai-lab/cail-pi --doctor       # macOS / Linux
 npx.cmd @cuny-ai-lab/cail-pi --doctor   # Windows</code></pre>
@@ -110,18 +112,19 @@ npx.cmd @cuny-ai-lab/cail-pi --doctor   # Windows</code></pre>
               <CopyCode label="Remove the package">
               <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>pi remove npm:@cuny-ai-lab/cail-pi</code></pre>
               </CopyCode>
-              <p class="text-gray-600 leading-relaxed mt-4">To remove the saved key as well, run the installer with <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--uninstall</code>; it asks before deleting the key. Other useful flags: <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--skip-lazypi</code> when Pi is already installed, <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--replace-key</code> to enter a new key, and <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--skip-auth</code> to install without a key.</p>
+              <p class="text-gray-600 leading-relaxed mt-4">To remove the saved key as well, run the installer with <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--uninstall</code>; it asks before deleting the key. You can also remove the key from inside Pi with <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/logout</code>. Other useful flags: <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--skip-lazypi</code> when Pi is already installed, <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--replace-key</code> to enter a new key, <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--skip-auth</code> to install without a key, and <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">--no-windows-settings</code> to leave Pi's PowerShell tool setting alone on Windows.</p>
             </section>
 
             <section aria-labelledby="privacy-heading">
               <h2 id="privacy-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Privacy and security</h2>
               <ul class="list-disc pl-5 space-y-2 text-gray-600 leading-relaxed">
                 <li>Your key is entered only at a hidden prompt and is never accepted on the command line, so it never lands in shell history.</li>
-                <li>The key is sent to the Lab's gateway, to verify it, and Pi's credential store on your computer.</li>
+                <li>The key is sent to exactly two places: the Lab's gateway, to verify it, and Pi's credential store on your computer.</li>
                 <li>The key is never written to settings files, shell profiles, logs, or error messages, and the health check never shows it.</li>
                 <li>The package sends no telemetry.</li>
-                <li>Do not share your key under any circumstances.</li>
+                <li>Do not share your key under any circumstances. The Lab can revoke and reissue keys.</li>
               </ul>
+              <p class="text-gray-600 leading-relaxed mt-4">Advanced users can instead set the <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">AILAB_API_KEY</code> environment variable; the provider reads it only when no key is stored in Pi.</p>
             </section>
           </div>
         </article>
