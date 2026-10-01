@@ -121,13 +121,11 @@ def intended_response(page: Page):
 
 def fill_common(page: Page, affiliation: str = "faculty") -> dict[str, str]:
     values = {
-        "name": "Alex Rivera",
         "affiliation": affiliation,
         "department": "Digital Humanities",
         "campus": "Graduate Center",
         "intendedUse": "Coursework using Lab tools.",
     }
-    page.get_by_label("Full Name").fill(values["name"])
     page.get_by_label("CUNY Affiliation").select_option(values["affiliation"])
     page.get_by_label("Department/Program").fill(values["department"])
     page.get_by_label("CUNY College/Campus").fill(values["campus"])
@@ -220,6 +218,8 @@ def test_individual_mode(page: Page) -> None:
     assert page.locator("#class-fields").is_hidden()
     assert page.locator("#class-fields").evaluate("fieldset => fieldset.disabled")
     assert_equal(page.locator("#verified-email").text_content(), "alex.rivera@cuny.edu")
+    expect(page.get_by_label("Full Name")).to_have_count(0)
+    expect(page.locator('input[name="name"]')).to_have_count(0)
     assert identity_requests and "cail_test_session=present" in identity_requests[0].get("cookie", "")
 
     common = fill_common(page)
@@ -263,7 +263,6 @@ def test_individual_mode(page: Page) -> None:
         {
             "clientRequestId",
             "turnstileToken",
-            "name",
             "affiliation",
             "department",
             "campus",
@@ -429,6 +428,8 @@ def test_class_mode(page: Page) -> None:
     assert page.locator("#individual-fields").is_hidden()
     assert page.locator("#individual-fields").evaluate("fieldset => fieldset.disabled")
     assert_equal(page.get_by_label("Class Name").get_attribute("required"), "")
+    expect(page.get_by_label("Full Name")).to_have_count(0)
+    expect(page.locator('input[name="name"]')).to_have_count(0)
 
     # An individual-only tool selection must stay out of a later class payload.
     individual_choice(page).check()
@@ -503,7 +504,6 @@ def test_class_mode(page: Page) -> None:
         {
             "clientRequestId",
             "turnstileToken",
-            "name",
             "affiliation",
             "department",
             "campus",
