@@ -22,7 +22,7 @@ content collections, tools portal, model registry, and request-access flow.
 
 ## Commands
 
-Run these commands from the repository root:
+Run these commands from the repository root with the pinned Bun 1.4.2 runtime:
 
 | Command | Action |
 | :-- | :-- |

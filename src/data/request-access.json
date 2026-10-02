@@ -31,10 +31,6 @@
     "class_guidance": "The Lab has limited capacity to support courses. We review class applications based on available resources and the clarity and alignment with the Lab’s values of the teaching activities that are proposed. We encourage uses of AI that address specific pedagogical problems, that preserve human agency within the learning process, and that foster meaningful engagement between instructors and students. We may not be able to accommodate every request."
   },
   "form_fields": {
-    "name": {
-      "label": "Full Name",
-      "placeholder": "Jane Doe"
-    },
     "email": {
       "label": "Verified CUNY Email"
     },

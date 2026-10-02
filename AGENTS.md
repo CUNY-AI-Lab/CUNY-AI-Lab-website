@@ -8,6 +8,9 @@ These are the canonical instructions for working in this repository.
 
 ## Commands
 
+Use the repository-pinned Bun 1.4.2; its lockfile supports the scoped overrides
+required by the dependency audit gate.
+
 ```bash
 bun install --frozen-lockfile
 bun run dev      # Start dev server at localhost:4321
