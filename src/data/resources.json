@@ -23,7 +23,7 @@
     },
     {
       "title": "CAIL Pi",
-      "description": "Set up Pi, the terminal coding agent from the vibe-coding workshops, with CUNY AI Lab models in one command.",
+      "description": "Set up Pi, the terminal coding agent from the vibe-coding workshops, and sign in to use CUNY AI Lab models.",
       "url": "/docs/cail-pi",
       "external": false,
       "link_text": "Read the setup guide",
