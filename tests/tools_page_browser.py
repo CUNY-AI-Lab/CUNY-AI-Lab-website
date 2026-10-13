@@ -13,7 +13,7 @@ from playwright.sync_api import Page, expect, sync_playwright
 
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
-EXPECTED_PANELS = ["sandbox", "media", "assistants", "working-with-ai", "model-access"]
+EXPECTED_PANELS = ["sandbox", "media", "assistants", "teaching", "working-with-ai", "model-access"]
 
 
 def assert_equal(actual: Any, expected: Any) -> None:
@@ -46,6 +46,26 @@ def test_navigation_is_deterministic(page: Page) -> None:
     page.locator('.sidebar-row[data-panel="assistants"]').click()
     assert page.url.endswith("/tools/#assistants")
     assert_selected_panel(page, "assistants")
+
+    sidebar_tabs = page.locator('.tools-sidebar [role="tab"]')
+    assert_equal(sidebar_tabs.nth(2).inner_text().strip(), "Agentic Studios")
+    assert_equal(sidebar_tabs.nth(3).inner_text().strip(), "Teaching")
+    page.locator('.sidebar-row[data-panel="teaching"]').click()
+    assert page.url.endswith("/tools/#teaching")
+    assert_selected_panel(page, "teaching")
+
+    load_tools(page, "#teaching")
+    assert_selected_panel(page, "teaching")
+    panel = page.locator("#panel-teaching")
+    expect(panel.get_by_role("heading", name="Teaching Tools", exact=True)).to_be_visible()
+    tools = (
+        ("Stem Splitter", "https://stem-splitter.ailab-452.workers.dev/", "Decompose an audio track into layers, listen to individual parts, and explore with an AI listening guide. Annotate your observations and share your work with classmates."),
+        ("Systems Mapping", "https://systems-mapping.ailab-452.workers.dev/", "Develop a systems map from a written memo, examining stakeholders and relationships across micro, meso, exo, and macro levels."),
+    )
+    for title, url, description in tools:
+        card = panel.get_by_role("link").filter(has=page.get_by_role("heading", name=title, exact=True))
+        expect(card).to_have_attribute("href", url)
+        expect(card.locator("p")).to_have_text(description)
 
     page.set_viewport_size({"width": 390, "height": 844})
     assert not page.locator(".tools-sidebar").is_visible()
