@@ -30,6 +30,14 @@ const toolCategories = [
     activeClass: `${sidebarRowBase} bg-white border-indigo-500 text-neutral-stone font-semibold shadow-sm`,
   },
   {
+    id: 'teaching',
+    label: 'Teaching',
+    iconPath: 'M3 6l9-3 9 3-9 3-9-3zm3 2v7l6 3 6-3V8m3-2v8',
+    iconBackgroundClass: 'bg-indigo-50',
+    iconColorClass: 'text-indigo-600',
+    activeClass: `${sidebarRowBase} bg-white border-indigo-500 text-neutral-stone font-semibold shadow-sm`,
+  },
+  {
     id: 'working-with-ai',
     label: 'Working with AI',
     iconPath: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4',
@@ -359,6 +367,40 @@ const toolCategories = [
                 </div>
               </div>
 
+            </div>
+          </div>
+
+          <div id="panel-teaching" class="content-panel hidden" role="tabpanel" aria-label="Teaching">
+            <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+              <div class="p-8 lg:p-10">
+                <h2 class="text-3xl font-bold font-display text-neutral-stone mb-6">Teaching Tools</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                  <a href="https://stem-splitter.ailab-452.workers.dev/" target="_blank" rel="noopener noreferrer" class="block bg-neutral-cream rounded-xl overflow-hidden border border-transparent hover:shadow-lg hover:border-indigo-200 transition-all group">
+                    <div class="p-6">
+                      <div class="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-indigo-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 10v4m4-7v10m4-14v18m4-14v10m4-7v4" /></svg>
+                      </div>
+                      <div class="flex items-start justify-between gap-2">
+                        <h3 class="text-lg font-bold text-neutral-stone mb-2">Stem Splitter</h3>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-indigo-600 transition-colors flex-shrink-0 mt-1" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                      </div>
+                      <p class="text-gray-600 text-sm leading-relaxed">Decompose an audio track into layers, listen to individual parts, and explore with an AI listening guide. Annotate your observations and share your work with classmates.</p>
+                    </div>
+                  </a>
+                  <a href="https://systems-mapping.ailab-452.workers.dev/" target="_blank" rel="noopener noreferrer" class="block bg-neutral-cream rounded-xl overflow-hidden border border-transparent hover:shadow-lg hover:border-indigo-200 transition-all group">
+                    <div class="p-6">
+                      <div class="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5 text-indigo-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5m0 0H5v5m7-5h7v5M10 3h4v4h-4V3zM3 17h4v4H3v-4zm14 0h4v4h-4v-4z" /></svg>
+                      </div>
+                      <div class="flex items-start justify-between gap-2">
+                        <h3 class="text-lg font-bold text-neutral-stone mb-2">Systems Mapping</h3>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-indigo-600 transition-colors flex-shrink-0 mt-1" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                      </div>
+                      <p class="text-gray-600 text-sm leading-relaxed">Develop a systems map from a written memo, examining stakeholders and relationships across micro, meso, exo, and macro levels.</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 

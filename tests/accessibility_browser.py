@@ -73,7 +73,7 @@ def main() -> None:
                 check_accessibility(page, f"{width}px no matching models")
                 page.get_by_role("button", name="Clear filters", exact=True).click()
             page.goto(BASE_URL + "/tools/", wait_until="networkidle")
-            for category in ("media", "assistants", "working-with-ai", "model-access"):
+            for category in ("media", "assistants", "teaching", "working-with-ai", "model-access"):
                 page.get_by_label("Category", exact=True).select_option(category)
                 check_accessibility(page, f"tools: {category}")
             print("PASS axe WCAG A/AA: loaded/filtered models and tool categories")
