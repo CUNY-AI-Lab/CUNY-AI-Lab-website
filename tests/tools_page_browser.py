@@ -49,7 +49,7 @@ def test_navigation_is_deterministic(page: Page) -> None:
 
     sidebar_tabs = page.locator('.tools-sidebar [role="tab"]')
     assert_equal(sidebar_tabs.nth(2).inner_text().strip(), "Agentic Studios")
-    assert_equal(sidebar_tabs.nth(3).inner_text().strip(), "Teaching")
+    assert_equal(sidebar_tabs.nth(3).inner_text().strip(), "Teaching Tools")
     page.locator('.sidebar-row[data-panel="teaching"]').click()
     assert page.url.endswith("/tools/#teaching")
     assert_selected_panel(page, "teaching")
@@ -60,7 +60,7 @@ def test_navigation_is_deterministic(page: Page) -> None:
     expect(panel.get_by_role("heading", name="Teaching Tools", exact=True)).to_be_visible()
     tools = (
         ("Stem Splitter", "https://stem-splitter.ailab-452.workers.dev/", "Decompose an audio track into layers, listen to individual parts, and explore the recording with an AI listening guide. Annotate your observations and share your work with classmates."),
-        ("Systems Mapping", "https://systems-mapping.ailab-452.workers.dev/", "Develop a systems map from a written memo, examining stakeholders and relationships across micro, meso, exo, and macro levels."),
+        ("Systems Mapping", "https://systems-mapping.ailab-452.workers.dev/", "Develop an asset and systems map from a written memo, examining stakeholders and relationships across micro, meso, exo, and macro levels."),
     )
     for title, url, description in tools:
         card = panel.get_by_role("link").filter(has=page.get_by_role("heading", name=title, exact=True))
