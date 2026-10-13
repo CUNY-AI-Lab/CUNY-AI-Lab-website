@@ -49,7 +49,7 @@ def test_navigation_is_deterministic(page: Page) -> None:
 
     sidebar_tabs = page.locator('.tools-sidebar [role="tab"]')
     assert_equal(sidebar_tabs.nth(2).inner_text().strip(), "Agentic Studios")
-    assert_equal(sidebar_tabs.nth(3).inner_text().strip(), "Teaching")
+    assert_equal(sidebar_tabs.nth(3).inner_text().strip(), "Teaching Tools")
     page.locator('.sidebar-row[data-panel="teaching"]').click()
     assert page.url.endswith("/tools/#teaching")
     assert_selected_panel(page, "teaching")
