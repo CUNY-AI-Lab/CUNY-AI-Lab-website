@@ -47,6 +47,7 @@ CATALOG = {"object": "list", "data": [
     offering("same-name-a", name="Identical name"),
     offering("same-name-b", name="Identical name"),
     offering("image-route", name="Image generator", capabilities=["text-to-image"], pricing=pricing(0.00000001, 0.1)),
+    offering("flux-1-schnell", "workers-ai", name="FLUX.1 schnell", capabilities=["text-to-image"], context_length=None),
 ]}
 MODEL_COUNT = len(CATALOG["data"])
 
@@ -89,6 +90,10 @@ def test_canonical_models_and_copy(page: Page) -> None:
     expect(model_card(page, "deepseek-v3.2-speciale")).to_contain_text("Input from $0.04")
     expect(model_card(page, "image-route")).to_contain_text("$0.00000001")
     expect(model_card(page, "new-release-2099")).to_contain_text("Token prices not published")
+    flux = model_card(page, "flux-1-schnell")
+    expect(flux).to_contain_text("Image generation")
+    expect(flux).to_contain_text("Not priced per token")
+    expect(flux).not_to_contain_text("Context limit")
     summary = model_card(page, "gpt-oss-120b").locator(".model-summary")
     expect(summary).to_contain_text("116.8B")
     summary.get_by_text("Details and sources", exact=True).press("Enter")

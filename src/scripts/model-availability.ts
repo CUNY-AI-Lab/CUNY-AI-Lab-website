@@ -42,6 +42,8 @@ type Offering = z.infer<typeof offeringSchema>;
 const capabilityNames = new Map([
   ['text-generation', 'Text generation'],
   ['automatic-speech-recognition', 'Speech recognition'],
+  ['text-to-speech', 'Speech generation'],
+  ['text-to-image', 'Image generation'],
   ['vision', 'Image input'],
   ['function-calling', 'Function calling'],
   ['structured-output', 'Structured output'],
@@ -91,6 +93,8 @@ const iconPaths = new Map([
   ['structured-output', 'M8 3H5v6l-2 3 2 3v6h3 M16 3h3v6l2 3-2 3v6h-3 M10 9h4 M10 15h4'],
   ['text-generation', 'M4 4h16v12H8l-4 4V4Z M8 8h8 M8 12h5'],
   ['automatic-speech-recognition', 'M9 5a3 3 0 0 1 6 0v7a3 3 0 0 1-6 0V5Z M5 10v2a7 7 0 0 0 14 0v-2 M12 19v3 M8 22h8'],
+  ['text-to-speech', 'M11 5 6 9H2v6h4l5 4V5Z M15.5 8.5a5 5 0 0 1 0 7 M19 5a10 10 0 0 1 0 14'],
+  ['text-to-image', 'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z M11 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0 M21 15l-5-5L5 21'],
   ['long-context', 'M6 3h9l4 4v14H6V3Z M14 3v5h5 M9 12h7 M9 16h7'],
   ['open-weights', 'M7 11V7a5 5 0 0 1 9-3 M5 11h14v10H5V11Z M12 15v3'],
 ]);
@@ -206,9 +210,16 @@ function apiIdentity(offering: Offering): HTMLElement {
   return api;
 }
 
+// Speech and image models are priced per audio minute or image tile, not per
+// token, and have no text context window to report.
+const nonTokenCapabilities = new Set(['automatic-speech-recognition', 'text-to-speech', 'text-to-image']);
+
 function offeringRow(offering: Offering): HTMLElement {
   const row = element('div', '', 'model-facts');
-  const specs = figure('Context limit', offering.context_length === null ? 'Not published' : `${integers.format(offering.context_length)} tokens`);
+  const nonToken = offering.capabilities.some(capability => nonTokenCapabilities.has(capability));
+  const specs = offering.context_length === null && nonToken
+    ? element('div', '', 'spec')
+    : figure('Context limit', offering.context_length === null ? 'Not published' : `${integers.format(offering.context_length)} tokens`);
   const capabilities = element('div', '', 'capabilities');
   for (const capability of offering.capabilities) capabilities.append(badge(capabilityNames.get(capability) ?? capability, capability));
   if (offering.capabilities.length === 0) capabilities.append(element('span', 'Capabilities not published', 'spec-value'));
@@ -216,7 +227,7 @@ function offeringRow(offering: Offering): HTMLElement {
 
   const prices = element('div', '', 'offering-prices');
   if (offering.pricing === undefined) {
-    prices.append(figure('USD / million tokens', 'Token prices not published'));
+    prices.append(nonToken ? figure('Pricing', 'Not priced per token') : figure('USD / million tokens', 'Token prices not published'));
   } else {
     const { input, output, basis } = offering.pricing;
     const prefix = basis === 'starting_at' ? 'from ' : '';
