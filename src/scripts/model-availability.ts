@@ -10,6 +10,7 @@ const pricingSchema = z.object({
   basis: z.enum(['standard', 'starting_at']),
 });
 const metadataText = z.string().check(z.minLength(1), z.maxLength(512), z.refine(value => value.trim() === value && !Array.from(value).some(character => character < ' ' || character === '\u007f')));
+const unitPriceSchema = z.object({ currency: z.literal('USD'), price, unit: metadataText });
 const sourceUrl = z.string().check(z.url(), z.refine(value => {
   if (!URL.canParse(value) || value.trim() !== value || Array.from(value).some(character => character < ' ' || character === '\u007f')) return false;
   const url = new URL(value);
@@ -36,6 +37,7 @@ const offeringSchema = z.object({
   capabilities: z.array(z.string()),
   context_length: z.nullable(z.int().check(z.positive())),
   pricing: z.catch(z.optional(pricingSchema), undefined),
+  unit_prices: z.catch(z.optional(z.array(unitPriceSchema).check(z.minLength(1))), undefined),
 });
 const catalogSchema = z.object({ object: z.literal('list'), data: z.array(z.unknown()) });
 type Offering = z.infer<typeof offeringSchema>;
@@ -227,7 +229,11 @@ function offeringRow(offering: Offering): HTMLElement {
 
   const prices = element('div', '', 'offering-prices');
   if (offering.pricing === undefined) {
-    prices.append(nonToken ? figure('Pricing', 'Not priced per token') : figure('USD / million tokens', 'Token prices not published'));
+    if (offering.unit_prices !== undefined) {
+      prices.append(figure('Price', offering.unit_prices.map(rate => `${formatPrice(rate.price)} per ${rate.unit}`).join(' + ')));
+    } else {
+      prices.append(nonToken ? figure('Pricing', 'Price not published') : figure('USD / million tokens', 'Token prices not published'));
+    }
   } else {
     const { input, output, basis } = offering.pricing;
     const prefix = basis === 'starting_at' ? 'from ' : '';
