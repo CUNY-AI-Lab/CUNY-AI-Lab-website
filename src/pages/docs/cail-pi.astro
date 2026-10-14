@@ -31,7 +31,7 @@ const base = import.meta.env.BASE_URL;
           <div class="p-6 md:p-9 space-y-10">
             <section aria-labelledby="what-heading">
               <h2 id="what-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">What it is</h2>
-              <p class="text-gray-600 leading-relaxed mb-3">Pi works a lot like Claude Code, but it's open source and can talk to any model provider. CAIL Pi is a small Pi package that adds the Lab's gateway as a provider and lets you sign in with CUNY Login, so whatever you do in Pi comes out of your monthly allowance. Pi asks the gateway which models are available every time it starts, so you never have to update a model list. On Windows, CAIL Pi also turns on Pi's PowerShell tool, after backing up Pi's settings file.</p>
+              <p class="text-gray-600 leading-relaxed mb-3">Pi works a lot like Claude Code, but it's open source and can talk to any model provider. CAIL Pi is a small Pi package that adds the Lab's gateway as a provider and lets you sign in with CUNY Login, so whatever you do in Pi comes out of your monthly allowance. Pi asks the gateway which models are available every time it starts, so you never have to update a model list. On Windows, CAIL Pi also turns on Pi's PowerShell tool so Pi runs commands in PowerShell, and it backs up Pi's settings file before changing it.</p>
               <p class="text-gray-600 leading-relaxed">The code is on <a href="https://github.com/CUNY-AI-Lab/cail-pi" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">GitHub</a> and the package is on <a href="https://www.npmjs.com/package/@cuny-ai-lab/cail-pi" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">npm</a>.</p>
             </section>
 
@@ -39,7 +39,7 @@ const base = import.meta.env.BASE_URL;
               <h2 id="prereq-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Before you start</h2>
               <ul class="list-disc pl-5 space-y-2 text-gray-600 leading-relaxed">
                 <li>Lab model access. If you don't have it yet, <a href={`${base}request-access/`} class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">request access</a>.</li>
-                <li>A terminal: Terminal on macOS, PowerShell on Windows. You don't need to install Node.js or Git first. Pi's installer takes care of what it needs.</li>
+                <li>A terminal, such as Terminal on macOS or PowerShell on Windows. You don't need to install Node.js or Git first, because Pi's installer adds what it needs.</li>
               </ul>
             </section>
 
@@ -55,7 +55,7 @@ const base = import.meta.env.BASE_URL;
               <CopyCode label="Install Pi on Windows PowerShell">
               <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>irm https://pi.dev/install.ps1 | iex</code></pre>
               </CopyCode>
-              <p class="text-gray-600 leading-relaxed mt-4 mb-4">Press Enter to accept Pi's suggestions. It installs Node.js too if your computer needs it. When it asks "Start pi now?", type <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">n</code>, because the next step runs in the terminal, not inside Pi. If it says your shell isn't using the new install yet, open a new terminal window.</p>
+              <p class="text-gray-600 leading-relaxed mt-4 mb-4">Press Enter to accept Pi's suggestions. It installs Node.js too if your computer needs it. When it asks "Start pi now?", type <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">n</code>, because you'll run the next command in the terminal. If it says your shell isn't using the new install yet, open a new terminal window.</p>
               <p class="text-gray-600 leading-relaxed mb-4">Then add CUNY AI Lab to Pi. The command is the same on every system.</p>
               <CopyCode label="Add CUNY AI Lab to Pi">
               <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>pi install npm:@cuny-ai-lab/cail-pi</code></pre>
@@ -69,9 +69,9 @@ const base = import.meta.env.BASE_URL;
               <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>pi</code></pre>
               </CopyCode>
               <p class="text-gray-600 leading-relaxed mt-4">Inside Pi, type <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/login cail</code> and choose <strong>Sign in with CUNY AI Lab</strong>. Your browser opens the Lab's sign-in page. Sign in with CUNY Login, click <strong>Connect Pi</strong>, and go back to Pi.</p>
-              <p class="text-gray-600 leading-relaxed mt-4">Pi then shows a message ending in "no default model is configured for provider "cail"". That's expected. Type your first message and Pi answers with DeepSeek V4 Flash.</p>
-              <p class="text-gray-600 leading-relaxed mt-4">Working on another computer over SSH? Pi shows a link instead of opening a browser. Open it on any computer, click <strong>Connect Pi</strong>, and paste the code it shows into Pi.</p>
-              <p class="text-gray-600 leading-relaxed mt-4">Prefer an API key? Choose <strong>Sign in with an API key</strong> instead and paste a personal key from <a href="https://tools.ailab.gc.cuny.edu/model-access" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">your dashboard</a>. The <a href={`${base}docs/api-keys`} class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">API key guide</a> shows how to create one.</p>
+              <p class="text-gray-600 leading-relaxed mt-4">Pi then shows a message ending in "no default model is configured for provider "cail"". You can ignore it. Send your first message, and Pi answers with DeepSeek V4 Flash.</p>
+              <p class="text-gray-600 leading-relaxed mt-4">If you're working on another computer over SSH, Pi shows a link instead of opening a browser. Open the link on any computer, click <strong>Connect Pi</strong>, and paste the code it shows into Pi.</p>
+              <p class="text-gray-600 leading-relaxed mt-4">To use an API key instead, choose <strong>Sign in with an API key</strong> and paste a personal key from <a href="https://tools.ailab.gc.cuny.edu/model-access" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">your dashboard</a>. The <a href={`${base}docs/api-keys`} class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">API key guide</a> shows how to create one.</p>
             </section>
 
             <section aria-labelledby="model-heading">
@@ -81,12 +81,12 @@ const base = import.meta.env.BASE_URL;
 
             <section aria-labelledby="extras-heading">
               <h2 id="extras-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Add web search (optional)</h2>
-              <p class="text-gray-600 leading-relaxed mb-4">Two community packages, separate from CAIL Pi, let Pi search the web and ask you questions. Quit Pi first by typing <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/quit</code>, then run:</p>
+              <p class="text-gray-600 leading-relaxed mb-4">Two community packages, separate from CAIL Pi, let Pi search the web and ask you questions. If you already have them, skip this step. Otherwise, quit Pi by typing <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/quit</code> and run:</p>
               <CopyCode label="Add web search and questions">
               <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>pi install npm:pi-web-access
 pi install npm:pi-ask-user</code></pre>
               </CopyCode>
-              <p class="text-gray-600 leading-relaxed mt-4"><a href="https://www.npmjs.com/package/pi-web-access" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">pi-web-access</a> lets Pi search the web and read pages. Searches go through Exa's free service and need no key. If a whole room searches at the same moment, some searches can be refused briefly, and Pi can try again. <a href="https://www.npmjs.com/package/pi-ask-user" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">pi-ask-user</a> lets Pi stop and ask you to choose between options before it goes ahead. If you already have them, skip this step.</p>
+              <p class="text-gray-600 leading-relaxed mt-4"><a href="https://www.npmjs.com/package/pi-web-access" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">pi-web-access</a> lets Pi search the web and read pages. Searches go through Exa's free service and need no key. If a whole room searches at the same moment, some searches can be refused briefly, and Pi can try again. <a href="https://www.npmjs.com/package/pi-ask-user" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">pi-ask-user</a> lets Pi stop and ask you to choose between options before it goes ahead.</p>
             </section>
 
             <section aria-labelledby="earlier-heading">
@@ -95,20 +95,20 @@ pi install npm:pi-ask-user</code></pre>
               <CopyCode label="Update Pi and its packages">
               <pre tabindex="0" class="overflow-x-auto p-4 text-sm leading-relaxed"><code>pi update --all</code></pre>
               </CopyCode>
-              <p class="text-gray-600 leading-relaxed mt-4">That updates Pi and all of your Pi packages, CAIL Pi included. Your saved key, your settings, and the packages LazyPi installed, web search among them, stay as they are. On Windows, if PowerShell blocks <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">pi</code>, type <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">pi.cmd update --all</code>.</p>
+              <p class="text-gray-600 leading-relaxed mt-4">That updates Pi and all of your Pi packages, CAIL Pi included. Your saved key, your settings, and the packages LazyPi installed, including web search, stay as they are. On Windows, if PowerShell blocks <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">pi</code>, type <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">pi.cmd update --all</code>.</p>
               <p class="text-gray-600 leading-relaxed mt-4">If you still have the older pi-workshop package, remove it so the CUNY AI Lab provider isn't loaded twice: <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">pi remove npm:@cuny-ai-lab/pi-workshop</code>.</p>
             </section>
 
             <section aria-labelledby="trouble-heading">
               <h2 id="trouble-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Troubleshooting</h2>
-              <p class="text-gray-600 leading-relaxed">Start with the health check. Type <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/cail</code> inside Pi. It shows whether the gateway answers, whether your key is saved and accepted, how many CUNY AI Lab models you can use, and which model is active. On Windows it also checks that Pi's PowerShell tool is on. It never shows your key.</p>
+              <p class="text-gray-600 leading-relaxed">For most problems, start by typing <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/cail</code> inside Pi to run the health check. It shows whether the gateway answers, whether your key is saved and accepted, how many CUNY AI Lab models you can use, and which model is active. On Windows it also checks that Pi's PowerShell tool is on. It never shows your key.</p>
               <dl class="mt-5 space-y-4 text-gray-600 leading-relaxed">
                 <div><dt class="font-semibold text-neutral-stone">"No API key found for the selected model"</dt><dd>Type <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/login cail</code> and sign in.</dd></div>
                 <div><dt class="font-semibold text-neutral-stone">"Your CUNY AI Lab sign-in has expired"</dt><dd>A sign-in lasts 180 days. Type <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/login cail</code> and sign in again.</dd></div>
                 <div><dt class="font-semibold text-neutral-stone">"Your CUNY AI Lab access is not active yet"</dt><dd>Signing in works only for accounts with Lab model access. <a href="https://tools.ailab.gc.cuny.edu/model-access" target="_blank" rel="noopener noreferrer" class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">Your dashboard</a> shows how to request it.</dd></div>
                 <div><dt class="font-semibold text-neutral-stone">"That API key was not accepted"</dt><dd>Look for missing or extra characters and paste it again with <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/login cail</code>. Keys are personal, so make sure it's the one issued to you.</dd></div>
                 <div><dt class="font-semibold text-neutral-stone">No CUNY AI Lab models in /model</dt><dd>Pi lists them once you're signed in. If <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/cail</code> says your key is fine but the list stays empty, restart Pi.</dd></div>
-                <div><dt class="font-semibold text-neutral-stone">Pi takes over the whole terminal window</dt><dd>That's Pi's default. To keep your terminal's normal scrollback, add <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">"tuiMode": "regular"</code> to Pi's settings file (<code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">~/.pi/agent/settings.json</code>, or <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">%USERPROFILE%\.pi\agent\settings.json</code> on Windows), or start Pi with <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">pi --tui-mode regular</code>.</dd></div>
+                <div><dt class="font-semibold text-neutral-stone">Pi takes over the whole terminal window</dt><dd>Pi runs full screen by default. To keep your terminal's normal scrollback, add <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">"tuiMode": "regular"</code> to Pi's settings file (<code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">~/.pi/agent/settings.json</code>, or <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">%USERPROFILE%\.pi\agent\settings.json</code> on Windows), or start Pi with <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">pi --tui-mode regular</code>.</dd></div>
                 <div><dt class="font-semibold text-neutral-stone">Windows: "running scripts is disabled on this system"</dt><dd>Pi's installer works around this, so <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">pi</code> normally works. If the policy changed after you installed, type <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">pi.cmd</code> instead of <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">pi</code>. You don't need to change the execution policy.</dd></div>
               </dl>
             </section>
@@ -128,7 +128,7 @@ pi install npm:pi-ask-user</code></pre>
 
             <section aria-labelledby="privacy-heading">
               <h2 id="privacy-heading" class="text-2xl font-bold font-display text-neutral-stone mb-3">Privacy and security</h2>
-              <p class="text-gray-600 leading-relaxed">Signing in creates a personal key for this computer, named "Pi on" and the computer's name, that expires after 180 days. It appears in your dashboard, where you can revoke it. Signing in again from the same computer replaces that key. A key you pasted yourself is never replaced.</p>
+              <p class="text-gray-600 leading-relaxed">Signing in creates a personal key for this computer, named "Pi on" and the computer's name, that expires after 180 days. It appears in your dashboard, where you can revoke it. Signing in again from the same computer replaces it, but a key you pasted yourself is never replaced.</p>
               <p class="text-gray-600 leading-relaxed mt-4">Pi saves the key on your computer in <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">~/.pi/agent/auth.json</code>, which only you can read on macOS and Linux. CAIL Pi sends the key only to the Lab's gateway, with each model request and when <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/cail</code> checks it. It never shows the key in messages or the health check.</p>
               <p class="text-gray-600 leading-relaxed mt-4">If you add pi-web-access, your searches go to Exa and pages are fetched directly from your computer.</p>
               <p class="text-gray-600 leading-relaxed mt-4">If you prefer, you can set the <code class="text-sm bg-gray-100 px-1.5 py-0.5 rounded">AILAB_API_KEY</code> environment variable instead of signing in. Pi uses it only when no key is saved.</p>
