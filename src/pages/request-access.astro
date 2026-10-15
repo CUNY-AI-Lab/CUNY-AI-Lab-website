@@ -149,200 +149,210 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
                 <option value={option.value}>{option.label}</option>
               ))}
             </select>
-          </div>
-
-          <!-- Department/Program -->
-          <div>
-            <label for="department" class="block text-sm font-semibold text-gray-700 mb-2">
-              {data.form_fields.department.label} <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="department"
-              name="department"
-              required
-              maxlength="240"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
-              placeholder={data.form_fields.department.placeholder}
-            />
-          </div>
-
-          <!-- College/Campus -->
-          <div>
-            <label for="campus" class="block text-sm font-semibold text-gray-700 mb-2">
-              {data.form_fields.campus.label} <span class="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="campus"
-              name="campus"
-              required
-              maxlength="120"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
-              placeholder={data.form_fields.campus.placeholder}
-            />
-          </div>
-
-          <!-- Intended Use -->
-          <div>
-            <div id="class-application-guidance" class="mb-5 text-sm leading-relaxed text-gray-700" hidden>
-              <p>{data.application_kind.class_guidance}</p>
-            </div>
-            <label for="intended-use" class="block text-sm font-semibold text-gray-700 mb-2">
-              <span id="intended-use-label" data-individual-label={data.form_fields.intended_use.label} data-class-label={data.class_fields.intended_use.label}>{data.form_fields.intended_use.label}</span> <span class="text-red-500">*</span>
-            </label>
-            <p id="class-intended-use-help" class="mb-3 text-sm leading-relaxed text-gray-600" hidden>{data.class_fields.intended_use.help}</p>
-            <textarea
-              id="intended-use"
-              name="intended-use"
-              required
-              rows="4"
-              maxlength="4000"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
-              placeholder={data.form_fields.intended_use.placeholder}
-              data-individual-placeholder={data.form_fields.intended_use.placeholder}
-            ></textarea>
-          </div>
-
-          <!-- Individual application fields -->
-          <fieldset id="individual-fields" data-application-fields="individual">
-            <legend class="block text-sm font-semibold text-gray-700 mb-3">
-              {data.tools_of_interest.label}
-            </legend>
-            <div class="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
-              {data.tools_of_interest.options.map((tool: any) => (
-                <label class="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors">
-                  <input type="checkbox" name="tools[]" value={tool.value} class="w-5 h-5 text-vibrant-600 rounded focus:ring-vibrant-500 border-gray-300 mr-3" />
-                  <span class="text-gray-700">{tool.label}</span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
-
-          <!-- Class application fields -->
-          <fieldset id="class-fields" data-application-fields="class" disabled hidden aria-hidden="true">
-            <legend class="block text-sm font-semibold text-gray-700 mb-3">Class details</legend>
-            <p class="mb-5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm leading-relaxed text-blue-900">
-              {data.application_kind.class_note}
-            </p>
-            <div class="grid gap-5 sm:grid-cols-2">
-              <div class="sm:col-span-2">
-                <label for="class-name" class="block text-sm font-semibold text-gray-700 mb-2">
-                  {data.class_fields.class_name.label} <span class="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="class-name"
-                  name="className"
-                  data-required
-                  maxlength="200"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
-                  placeholder={data.class_fields.class_name.placeholder}
-                />
-              </div>
-              <div>
-                <label for="term" class="block text-sm font-semibold text-gray-700 mb-2">
-                  {data.class_fields.term.label} <span class="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="term"
-                  name="term"
-                  data-required
-                  maxlength="120"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
-                  placeholder={data.class_fields.term.placeholder}
-                />
-              </div>
-              <div>
-                <label for="section" class="block text-sm font-semibold text-gray-700 mb-2">
-                  {data.class_fields.section.label} <span class="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="section"
-                  name="section"
-                  data-required
-                  maxlength="120"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
-                  placeholder={data.class_fields.section.placeholder}
-                />
-              </div>
-              <div>
-                <label for="starts-on" class="block text-sm font-semibold text-gray-700 mb-2">
-                  {data.class_fields.starts_on.label} <span class="text-red-500">*</span>
-                </label>
-                <input
-                  type="date"
-                  id="starts-on"
-                  name="startsOn"
-                  data-required
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
-                />
-              </div>
-              <div>
-                <label for="ends-on" class="block text-sm font-semibold text-gray-700 mb-2">
-                  {data.class_fields.ends_on.label} <span class="text-red-500">*</span>
-                </label>
-                <input
-                  type="date"
-                  id="ends-on"
-                  name="endsOn"
-                  data-required
-                  aria-describedby="ends-on-help"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
-                />
-                <p id="ends-on-help" class="mt-2 text-xs text-gray-500">{data.class_fields.ends_on.help}</p>
-              </div>
-              <div>
-                <label for="estimated-seats" class="block text-sm font-semibold text-gray-700 mb-2">
-                  {data.class_fields.estimated_seats.label} <span class="text-red-500">*</span>
-                </label>
-                <input
-                  type="number"
-                  id="estimated-seats"
-                  name="estimatedSeats"
-                  data-required
-                  min="1"
-                  max="100000"
-                  step="1"
-                  inputmode="numeric"
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
-                  placeholder={data.class_fields.estimated_seats.placeholder}
-                />
+            <div aria-live="polite">
+              <div id="undergraduate-route" class="mt-3 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm leading-relaxed text-blue-900" hidden>
+                <p class="font-semibold">{data.undergraduate_note.heading}</p>
+                <p class="mt-1">{data.undergraduate_note.text}</p>
               </div>
             </div>
-            <label for="class-leader" class="mt-5 flex items-center gap-3 text-sm font-semibold text-gray-700">
+          </div>
+
+          <!-- Hidden for undergraduates, who join through a class instead of applying -->
+          <div id="application-details" class="space-y-6">
+
+            <!-- Department/Program -->
+            <div>
+              <label for="department" class="block text-sm font-semibold text-gray-700 mb-2">
+                {data.form_fields.department.label} <span class="text-red-500">*</span>
+              </label>
               <input
-                type="checkbox"
-                id="class-leader"
-                name="classLeader"
-                data-required
-                class="h-5 w-5 rounded border-gray-300 text-vibrant-600 focus:ring-vibrant-500"
+                type="text"
+                id="department"
+                name="department"
+                required
+                maxlength="240"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                placeholder={data.form_fields.department.placeholder}
               />
-              <span>I teach or lead this class</span>
-            </label>
-          </fieldset>
+            </div>
 
-          <div>
-            <div
-              id="access-verification"
-              data-sitekey={data.turnstile_site_key}
-            ></div>
-            <p id="verification-status" class="text-sm text-gray-700 mt-2" role="status" aria-live="polite">Loading verification…</p>
-            <button id="verification-retry" type="button" class="mt-2 text-sm font-semibold text-vibrant-700 underline" hidden>Retry verification</button>
-          </div>
+            <!-- College/Campus -->
+            <div>
+              <label for="campus" class="block text-sm font-semibold text-gray-700 mb-2">
+                {data.form_fields.campus.label} <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                id="campus"
+                name="campus"
+                required
+                maxlength="120"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                placeholder={data.form_fields.campus.placeholder}
+              />
+            </div>
 
-          <!-- Submit Button -->
-          <div class="pt-6">
-            <button
-              type="submit"
-              id="access-request-submit"
-              disabled
-              class="w-full bg-vibrant-700 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-vibrant-800 transition-all shadow-lg hover:shadow-vibrant-500/30 transform hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
-            >
-              {data.submit_text}
-            </button>
+            <!-- Intended Use -->
+            <div>
+              <div id="class-application-guidance" class="mb-5 text-sm leading-relaxed text-gray-700" hidden>
+                <p>{data.application_kind.class_guidance}</p>
+              </div>
+              <label for="intended-use" class="block text-sm font-semibold text-gray-700 mb-2">
+                <span id="intended-use-label" data-individual-label={data.form_fields.intended_use.label} data-class-label={data.class_fields.intended_use.label}>{data.form_fields.intended_use.label}</span> <span class="text-red-500">*</span>
+              </label>
+              <p id="class-intended-use-help" class="mb-3 text-sm leading-relaxed text-gray-600" hidden>{data.class_fields.intended_use.help}</p>
+              <textarea
+                id="intended-use"
+                name="intended-use"
+                required
+                rows="4"
+                maxlength="4000"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                placeholder={data.form_fields.intended_use.placeholder}
+                data-individual-placeholder={data.form_fields.intended_use.placeholder}
+              ></textarea>
+            </div>
+
+            <!-- Individual application fields -->
+            <fieldset id="individual-fields" data-application-fields="individual">
+              <legend class="block text-sm font-semibold text-gray-700 mb-3">
+                {data.tools_of_interest.label}
+              </legend>
+              <div class="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                {data.tools_of_interest.options.map((tool: any) => (
+                  <label class="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors">
+                    <input type="checkbox" name="tools[]" value={tool.value} class="w-5 h-5 text-vibrant-600 rounded focus:ring-vibrant-500 border-gray-300 mr-3" />
+                    <span class="text-gray-700">{tool.label}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            <!-- Class application fields -->
+            <fieldset id="class-fields" data-application-fields="class" disabled hidden aria-hidden="true">
+              <legend class="block text-sm font-semibold text-gray-700 mb-3">Class details</legend>
+              <p class="mb-5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm leading-relaxed text-blue-900">
+                {data.application_kind.class_note}
+              </p>
+              <div class="grid gap-5 sm:grid-cols-2">
+                <div class="sm:col-span-2">
+                  <label for="class-name" class="block text-sm font-semibold text-gray-700 mb-2">
+                    {data.class_fields.class_name.label} <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="class-name"
+                    name="className"
+                    data-required
+                    maxlength="200"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                    placeholder={data.class_fields.class_name.placeholder}
+                  />
+                </div>
+                <div>
+                  <label for="term" class="block text-sm font-semibold text-gray-700 mb-2">
+                    {data.class_fields.term.label} <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="term"
+                    name="term"
+                    data-required
+                    maxlength="120"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                    placeholder={data.class_fields.term.placeholder}
+                  />
+                </div>
+                <div>
+                  <label for="section" class="block text-sm font-semibold text-gray-700 mb-2">
+                    {data.class_fields.section.label} <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="section"
+                    name="section"
+                    data-required
+                    maxlength="120"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                    placeholder={data.class_fields.section.placeholder}
+                  />
+                </div>
+                <div>
+                  <label for="starts-on" class="block text-sm font-semibold text-gray-700 mb-2">
+                    {data.class_fields.starts_on.label} <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="date"
+                    id="starts-on"
+                    name="startsOn"
+                    data-required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                  />
+                </div>
+                <div>
+                  <label for="ends-on" class="block text-sm font-semibold text-gray-700 mb-2">
+                    {data.class_fields.ends_on.label} <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="date"
+                    id="ends-on"
+                    name="endsOn"
+                    data-required
+                    aria-describedby="ends-on-help"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                  />
+                  <p id="ends-on-help" class="mt-2 text-xs text-gray-500">{data.class_fields.ends_on.help}</p>
+                </div>
+                <div>
+                  <label for="estimated-seats" class="block text-sm font-semibold text-gray-700 mb-2">
+                    {data.class_fields.estimated_seats.label} <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    id="estimated-seats"
+                    name="estimatedSeats"
+                    data-required
+                    min="1"
+                    max="100000"
+                    step="1"
+                    inputmode="numeric"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-vibrant-500 focus:border-vibrant-500 transition-all bg-gray-50 focus:bg-white"
+                    placeholder={data.class_fields.estimated_seats.placeholder}
+                  />
+                </div>
+              </div>
+              <label for="class-leader" class="mt-5 flex items-center gap-3 text-sm font-semibold text-gray-700">
+                <input
+                  type="checkbox"
+                  id="class-leader"
+                  name="classLeader"
+                  data-required
+                  class="h-5 w-5 rounded border-gray-300 text-vibrant-600 focus:ring-vibrant-500"
+                />
+                <span>I teach or lead this class</span>
+              </label>
+            </fieldset>
+
+            <div>
+              <div
+                id="access-verification"
+                data-sitekey={data.turnstile_site_key}
+              ></div>
+              <p id="verification-status" class="text-sm text-gray-700 mt-2" role="status" aria-live="polite">Loading verification…</p>
+              <button id="verification-retry" type="button" class="mt-2 text-sm font-semibold text-vibrant-700 underline" hidden>Retry verification</button>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-6">
+              <button
+                type="submit"
+                id="access-request-submit"
+                disabled
+                class="w-full bg-vibrant-700 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-vibrant-800 transition-all shadow-lg hover:shadow-vibrant-500/30 transform hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+              >
+                {data.submit_text}
+              </button>
+            </div>
           </div>
 
           <div id="form-status" class="rounded-xl px-4 py-3 text-sm font-medium" role="status" aria-live="polite" tabindex="-1" hidden></div>
@@ -417,6 +427,9 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     const emailDisplay = document.querySelector<HTMLElement>('#verified-email');
     const confirmation = document.querySelector<HTMLElement>('#submission-confirmation');
     const confirmationMessage = document.querySelector<HTMLElement>('#confirmation-message');
+    const affiliation = document.querySelector<HTMLSelectElement>('#affiliation');
+    const undergraduateRoute = document.querySelector<HTMLElement>('#undergraduate-route');
+    const applicationDetails = document.querySelector<HTMLElement>('#application-details');
     const kindInputs = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="application-kind"]'));
     const modeSections = Array.from(document.querySelectorAll<HTMLFieldSetElement>('[data-application-fields]'));
     const submitLabel = submit?.textContent?.trim() ?? 'Submit Application';
@@ -427,6 +440,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     let identityReady = false;
     let verificationReady = false;
     let submitting = false;
+    let undergraduate = false;
 
     type TurnstileWindow = Window & {
       turnstile?: {
@@ -486,7 +500,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
     }
 
     function updateSubmit() {
-      if (submit) submit.disabled = !identityReady || !verificationReady || submitting;
+      if (submit) submit.disabled = undergraduate || !identityReady || !verificationReady || submitting;
     }
 
     function setVerification(message: string, ready: boolean, retry = false) {
@@ -650,6 +664,15 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
       }
     }
 
+    // Undergraduates get access only as students in a class their instructor
+    // applied for, so neither application form is open to them.
+    function setUndergraduate() {
+      undergraduate = affiliation?.value === 'undergraduate-student';
+      if (undergraduateRoute) undergraduateRoute.hidden = !undergraduate;
+      if (applicationDetails) applicationDetails.hidden = undergraduate;
+      updateSubmit();
+    }
+
     function isIsoDate(value: FormDataEntryValue | null): value is string {
       if (value === null || value instanceof File || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
       const date = new Date(`${value}T00:00:00.000Z`);
@@ -664,6 +687,8 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
 
     const initialKind = new URLSearchParams(window.location.search).get('kind') === 'class' ? 'class' : 'individual';
     setApplicationKind(initialKind, false);
+    affiliation?.addEventListener('change', setUndergraduate);
+    setUndergraduate();
     identityRetry?.addEventListener('click', () => void loadIdentity());
     verificationRetry?.addEventListener('click', () => {
       // SAFETY: the optional API is installed only after the external script loads.
