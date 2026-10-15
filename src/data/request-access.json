@@ -166,8 +166,8 @@
   "questions_text": "Have questions about access or the platform?",
   "questions_link_text": "Contact the CUNY AI Lab Team →",
   "undergraduate_note": {
-    "heading": "The Lab does not currently have capacity to serve undergraduate applicants.",
-    "text": "Undergraduates can use the Lab through a class whose instructor has applied."
+    "heading": "We are currently unable to provide Sandbox access to undergraduate students who are not enrolled in a participating pilot course.",
+    "text": "If your course uses the Sandbox, please contact your instructor for instructions on how to register."
   },
   "student_note": {
     "heading": "Taking a class that uses the Lab?",
