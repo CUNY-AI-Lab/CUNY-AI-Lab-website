@@ -9,7 +9,7 @@
         {
           "id": "who-can-use",
           "q": "Who can use the Lab right now?",
-          "a": "<p>The Lab is in a pilot phase with limited resources. Access is open to all Graduate Center students, faculty, and staff, and to selected faculty and staff from other CUNY campuses whose work aligns with the Lab's research and pedagogical framework. Students at other CUNY campuses, graduate and undergraduate, can only join if part of a class pilot or project.</p><p>Eligibility does not guarantee approval. <a href=\"/request-access\">Apply for access</a>.</p>"
+          "a": "<p>The Lab is in a pilot phase with limited resources. Access is open to all Graduate Center faculty, staff, and graduate students, and to selected faculty, staff, and graduate students from other CUNY campuses whose work aligns with the Lab's research and pedagogical framework.</p><p>Undergraduates use the Lab only through a class. The instructor applies for the class, and students join with the invitation link the instructor shares. Undergraduates do not submit individual applications.</p><p>Eligibility does not guarantee approval. <a href=\"/request-access\">Apply for access</a>.</p>"
         },
         {
           "id": "sign-in",
