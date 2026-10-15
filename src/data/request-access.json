@@ -2,7 +2,7 @@
   "title": "Request Access",
   "intro_heading": "Apply for Lab access",
   "intro_description": "CUNY faculty, staff, and graduate students can apply here for access to the Lab's tools, or ask for help with an existing account. One application covers the chat sandbox, API keys, and the studios.",
-  "eligibility_note": "The Lab is still in a pilot phase. Because resources are limited, access is open to all Graduate Center faculty, staff, and graduate students, and to selected faculty, staff, and graduate students from other CUNY campuses whose work aligns with the Lab's research and pedagogical framework. Undergraduates use the Lab only through a class: the instructor applies for the class, and students join with the invitation link.",
+  "eligibility_note": "The Lab is still in a pilot phase. Because resources are limited, access is open to all Graduate Center faculty, staff, and graduate students, and to selected faculty, staff, and graduate students from other CUNY campuses whose work aligns with the Lab's research and pedagogical framework. The Lab does not currently have capacity to serve undergraduate applicants. Undergraduates can use the Lab through a class whose instructor has applied.",
   "features_heading": "Available services",
   "features": [
     "The Sandbox for working with AI models",
@@ -166,8 +166,8 @@
   "questions_text": "Have questions about access or the platform?",
   "questions_link_text": "Contact the CUNY AI Lab Team →",
   "undergraduate_note": {
-    "heading": "Undergraduates don't apply individually.",
-    "text": "Undergraduates get Lab access only as students in a class whose instructor has applied for it. If your class uses the Lab, your instructor will share an invitation link."
+    "heading": "The Lab does not currently have capacity to serve undergraduate applicants.",
+    "text": "Undergraduates can use the Lab through a class whose instructor has applied."
   },
   "student_note": {
     "heading": "Taking a class that uses the Lab?",
