@@ -47,19 +47,19 @@
     "items": [
       {
         "title": "CAIL Sandbox",
-        "text": "Leverage our chat platform to experiment with open-weight models and prototype custom models of your own for teaching, research, and critique.",
+        "text": "Explore and evaluate open-weight language models and design reusable model configurations for teaching, research, and critique.",
         "href": "https://chat.ailab.gc.cuny.edu",
         "link": "Open Sandbox"
       },
       {
         "title": "Lab tools",
-        "text": "Build academic sites in Site Studio; conduct research tasks in Agent Studio; use Media Tools for transcription, image description, and OCR; make PDFs accessible; or get help drafting an AI use disclosure statement.",
+        "text": "Leverage custom-built tools to prototype sites, conduct research, process media, remediate PDFs, and draft AI use disclosure statements.",
         "href": "/tools",
         "link": "View tools"
       },
       {
-        "title": "API keys",
-        "text": "Create keys for the Lab's model API endpoint to use in your own tools, projects, or any OpenAI-compatible services.",
+        "title": "Model access",
+        "text": "Create private keys to access and use the Lab's API model gateway from your own OpenAI-compatible tools and applications.",
         "href": "/docs/api-keys/",
         "link": "Read guide"
       }

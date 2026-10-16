@@ -3,183 +3,226 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 
 const base = import.meta.env.BASE_URL;
+const sidebarRowBase = 'guide-category-tab flex items-center gap-3 w-full text-left rounded-lg px-3 py-2.5 text-sm transition-colors border-l-[3px]';
+const sidebarRowInactive = `${sidebarRowBase} border-transparent text-gray-600 font-medium hover:bg-white/70 hover:text-neutral-stone`;
+const categories = [
+  { id: 'vibe-coding', label: 'Vibe Coding Workshop Series', iconPath: 'M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5', iconBackground: 'bg-vibrant-100', iconColor: 'text-vibrant-600', activeClass: `${sidebarRowBase} bg-white border-vibrant-500 text-neutral-stone font-semibold shadow-sm` },
+  { id: 'sandbox', label: 'Sandbox Workshop Series', iconPath: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332-.477-4.5-1.253', iconBackground: 'bg-amber-100', iconColor: 'text-amber-600', activeClass: `${sidebarRowBase} bg-white border-amber-500 text-neutral-stone font-semibold shadow-sm` },
+  { id: 'pedagogy-labs', label: 'Interactive Technology and Pedagogy Labs', iconPath: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332-.477-4.5-1.253', iconBackground: 'bg-indigo-100', iconColor: 'text-indigo-600', activeClass: `${sidebarRowBase} bg-white border-indigo-500 text-neutral-stone font-semibold shadow-sm` },
+];
+const cardBase = 'group block h-full bg-white rounded-xl border border-gray-100 hover:border-vibrant-300 hover:shadow-lg transition-all p-6';
+const externalIcon = 'M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14';
 ---
 
 <BaseLayout title="Guides & Tutorials - CUNY AI Lab">
-  <!-- Hero Section -->
   <PageHero>
-      <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Guides & Tutorials</h1>
-      <p class="mt-4 text-vibrant-200/80 text-lg max-w-2xl">Slide decks, written guides, and workshop materials produced by the CUNY AI Lab.</p>
+    <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Guides &amp; Tutorials</h1>
+    <p class="mt-4 text-vibrant-200/80 text-lg max-w-2xl">Slide decks, written guides, and workshop materials produced by the CUNY AI Lab.</p>
   </PageHero>
 
-  <!-- AI-Assisted Development Guide (standalone) -->
-  <section class="py-16 bg-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <a href="https://cuny-ai-lab.github.io/vibe-coding-how-to/" target="_blank" rel="noopener noreferrer" class="group block bg-gradient-to-br from-indigo-50 to-vibrant-50 rounded-2xl border border-transparent hover:border-vibrant-400 hover:shadow-xl transition-all p-8 md:p-10">
-        <div class="flex flex-col md:flex-row md:items-center gap-6">
-          <div class="w-14 h-14 rounded-xl bg-indigo-100 flex items-center justify-center flex-shrink-0">
-            <svg class="w-7 h-7 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-            </svg>
-          </div>
-          <div class="flex-1">
-            <h2 class="text-2xl font-bold font-display text-neutral-stone mb-2 group-hover:text-vibrant-600 transition-colors">AI-Assisted Development Guide</h2>
-            <p class="text-gray-600 leading-relaxed">A step-by-step written tutorial on building digital projects with AI coding assistants. Covers environment setup, prompting strategies, and project workflows for beginners.</p>
-          </div>
-          <div class="flex-shrink-0">
-            <span class="inline-flex items-center gap-2 text-vibrant-600 font-semibold text-sm group-hover:gap-3 transition-all">
-              Read the guide
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-            </span>
-          </div>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- Workshop Slide Decks -->
-  <section class="py-16 bg-neutral-cream">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-bold font-display text-neutral-stone mb-3">Workshop Slide Decks</h2>
-      <p class="text-gray-600 leading-relaxed mb-10 max-w-3xl">Slides from our <a href="/events" class="text-vibrant-600 hover:text-vibrant-700 underline underline-offset-2">workshop series</a>, available for independent review or reuse.</p>
-
-      <!-- Vibe Coding Workshop Series -->
-      <div class="mb-12">
-        <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 rounded-lg bg-vibrant-100 flex items-center justify-center flex-shrink-0">
-            <svg class="w-4 h-4 text-vibrant-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold font-display text-neutral-stone">Vibe Coding Workshop Series</h3>
-        </div>
-        <div class="grid md:grid-cols-2 gap-6">
-          <a href="https://cuny-ai-lab.github.io/gen-dev-foundations/" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-transparent hover:border-vibrant-300 hover:shadow-lg transition-all p-6">
-            <div class="flex items-start justify-between gap-3 mb-3">
-              <span class="inline-flex items-center px-2.5 py-0.5 bg-vibrant-50 text-vibrant-700 text-xs font-medium rounded-full">Part 1</span>
-              <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-            </div>
-            <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-vibrant-600 transition-colors">Foundations: AI, Command Line, and Version Control</h4>
-            <p class="text-gray-600 text-sm leading-relaxed">Core concepts for AI-assisted development, including environment setup, terminal basics, and Git workflows.</p>
-          </a>
-          <a href="https://cuny-ai-lab.github.io/vibe-coding-prototypes" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-transparent hover:border-vibrant-300 hover:shadow-lg transition-all p-6">
-            <div class="flex items-start justify-between gap-3 mb-3">
-              <span class="inline-flex items-center px-2.5 py-0.5 bg-vibrant-50 text-vibrant-700 text-xs font-medium rounded-full">Part 2</span>
-              <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-            </div>
-            <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-vibrant-600 transition-colors">Vibe-Coding Prototypes</h4>
-            <p class="text-gray-600 text-sm leading-relaxed">Building prototypes with AI coding assistants, including prompting strategies, project design, and troubleshooting.</p>
-          </a>
-          <a href={`${base}docs/cail-pi`} class="group block bg-white rounded-xl border border-transparent hover:border-vibrant-300 hover:shadow-lg transition-all p-6">
-            <div class="flex items-start justify-between gap-3 mb-3">
-              <span class="inline-flex items-center px-2.5 py-0.5 bg-vibrant-50 text-vibrant-700 text-xs font-medium rounded-full">Setup</span>
-              <svg class="w-4 h-4 text-gray-400 group-hover:text-vibrant-600 transition-colors flex-shrink-0" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
-            </div>
-            <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-vibrant-600 transition-colors">CAIL Pi</h4>
-            <p class="text-gray-600 text-sm leading-relaxed">Install Pi, the terminal coding agent used in the workshops, connect it to CUNY AI Lab models, and sign in with your CUNY account.</p>
-          </a>
+  <section class="bg-neutral-cream min-h-[60vh]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="mb-6 lg:hidden">
+        <label for="guide-category" class="block text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1.5">Category</label>
+        <div class="relative">
+          <select id="guide-category" class="w-full appearance-none rounded-xl border-2 border-vibrant-100 bg-white px-4 py-3 pr-11 font-medium text-vibrant-800 focus:border-vibrant-500 focus:outline-none">
+            {categories.map((category) => <option value={category.id}>{category.label}</option>)}
+          </select>
+          <svg class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-vibrant-700" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
         </div>
       </div>
 
-      <!-- Sandbox Workshops -->
-      <div class="mb-12">
-        <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0">
-            <svg class="w-4 h-4 text-amber-600" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.636 50.636 0 00-2.658-.813A59.906 59.906 0 0112 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0112 13.489a50.702 50.702 0 017.74-3.342" />
-            </svg>
+      <div class="guides-layout">
+        <aside class="guide-sidebar hidden lg:block">
+          <div class="sticky top-24">
+            <p class="px-3 pb-2 text-xs font-semibold uppercase tracking-wide text-gray-500" aria-hidden="true">Categories</p>
+            <div class="space-y-1" role="tablist" aria-label="Guide categories" aria-orientation="vertical">
+              {categories.map((category, index) => {
+                const selected = index === 0;
+                return <button type="button" class={selected ? category.activeClass : sidebarRowInactive} data-active-class={category.activeClass} data-inactive-class={sidebarRowInactive} data-panel={category.id} role="tab" aria-selected={selected ? 'true' : 'false'} aria-controls={`panel-${category.id}`} tabindex={selected ? '0' : '-1'}><span class={`w-8 h-8 rounded-lg ${category.iconBackground} flex items-center justify-center flex-shrink-0`}><svg class={`w-4 h-4 ${category.iconColor}`} aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d={category.iconPath} /></svg></span><span>{category.label}</span></button>;
+              })}
+            </div>
           </div>
-          <h3 class="text-xl font-bold font-display text-neutral-stone">Sandbox Workshops</h3>
-        </div>
+        </aside>
 
-        <!-- Adventure Game series -->
-        <div class="mb-8" id="adventure-game-series">
-          <div class="flex items-center gap-2 mb-4">
-            <h4 class="text-base font-bold font-display text-neutral-stone">Adventure Game Series</h4>
-          </div>
-          <div class="grid md:grid-cols-3 gap-6">
-            <a href="https://cuny-ai-lab.github.io/sandbox-series/basics/" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-transparent hover:border-amber-300 hover:shadow-lg transition-all p-6">
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <span class="inline-flex items-center px-2.5 py-0.5 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 1</span>
-                <svg class="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors flex-shrink-0" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+        <div class="min-w-0">
+          <section id="panel-vibe-coding" class="guide-panel" role="tabpanel" aria-label="Vibe Coding Workshop Series">
+            <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden p-8 lg:p-10">
+              <h2 class="text-3xl font-bold font-display text-neutral-stone">Vibe Coding Workshop Series</h2>
+              <p class="text-gray-500 mt-1 mb-7">Build digital projects with AI coding assistants, from foundations through working prototypes.</p>
+              <div class="grid md:grid-cols-2 gap-6">
+                <a href="https://cuny-ai-lab.github.io/gen-dev-foundations/" target="_blank" rel="noopener noreferrer" class={cardBase}>
+                  <span class="inline-flex px-2.5 py-0.5 mb-3 bg-vibrant-50 text-vibrant-700 text-xs font-medium rounded-full">Part 1</span>
+                  <h3 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-vibrant-600">Foundations: AI, Command Line, and Version Control</h3>
+                  <p class="text-gray-600 text-sm leading-relaxed">Core concepts for AI-assisted development, including environment setup, terminal basics, and Git workflows.</p>
+                </a>
+                <a href="https://cuny-ai-lab.github.io/vibe-coding-prototypes" target="_blank" rel="noopener noreferrer" class={cardBase}>
+                  <span class="inline-flex px-2.5 py-0.5 mb-3 bg-vibrant-50 text-vibrant-700 text-xs font-medium rounded-full">Part 2</span>
+                  <h3 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-vibrant-600">Vibe-Coding Prototypes</h3>
+                  <p class="text-gray-600 text-sm leading-relaxed">Building prototypes with AI coding assistants, including prompting strategies, project design, and troubleshooting.</p>
+                </a>
               </div>
-              <h5 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600 transition-colors">Composing System Prompts</h5>
-              <p class="text-gray-600 text-sm leading-relaxed">Write your adventure's rules and setting.</p>
-            </a>
-            <a href="https://cuny-ai-lab.github.io/sandbox-series/knowledge/" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-transparent hover:border-amber-300 hover:shadow-lg transition-all p-6">
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <span class="inline-flex items-center px-2.5 py-0.5 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 2</span>
-                <svg class="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors flex-shrink-0" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-              </div>
-              <h5 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600 transition-colors">Curating Knowledge Collections</h5>
-              <p class="text-gray-600 text-sm leading-relaxed">Build your adventure around course materials.</p>
-            </a>
-            <a href="https://cuny-ai-lab.github.io/sandbox-series/skills/" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-transparent hover:border-amber-300 hover:shadow-lg transition-all p-6">
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <span class="inline-flex items-center px-2.5 py-0.5 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 3</span>
-                <svg class="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors flex-shrink-0" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-              </div>
-              <h5 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600 transition-colors">Configuring Skills and Tools</h5>
-              <p class="text-gray-600 text-sm leading-relaxed">Add skills and tools to your game.</p>
-            </a>
-          </div>
-        </div>
 
-        <!-- Workspace Foundations series -->
-        <div class="mb-8">
-          <div class="flex items-center gap-2 mb-4">
-            <h4 class="text-base font-bold font-display text-neutral-stone">Workspace Foundations Series</h4>
-          </div>
-          <div class="grid md:grid-cols-3 gap-6">
-            <a href="https://cuny-ai-lab.github.io/system-prompting/" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-transparent hover:border-amber-300 hover:shadow-lg transition-all p-6">
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <span class="inline-flex items-center px-2.5 py-0.5 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 1</span>
-                <svg class="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors flex-shrink-0" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-              </div>
-              <h5 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600 transition-colors">System Prompting</h5>
-              <p class="text-gray-600 text-sm leading-relaxed">How to craft effective system prompts to shape AI behavior for classroom use cases and custom assistants.</p>
-            </a>
-            <a href="https://cuny-ai-lab.github.io/knowledge-collections/" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-transparent hover:border-amber-300 hover:shadow-lg transition-all p-6">
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <span class="inline-flex items-center px-2.5 py-0.5 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 2</span>
-                <svg class="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors flex-shrink-0" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-              </div>
-              <h5 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600 transition-colors">Knowledge Collections</h5>
-              <p class="text-gray-600 text-sm leading-relaxed">Building and managing knowledge collections to ground AI responses in course materials and curated sources.</p>
-            </a>
-            <a href="https://cuny-ai-lab.github.io/skills-tools/#1" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-transparent hover:border-amber-300 hover:shadow-lg transition-all p-6">
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <span class="inline-flex items-center px-2.5 py-0.5 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 3</span>
-                <svg class="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors flex-shrink-0" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-              </div>
-              <h5 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600 transition-colors">Skills and Tools</h5>
-              <p class="text-gray-600 text-sm leading-relaxed">Customizing agentic tools and skills to extend AI assistant capabilities for specialized classroom workflows.</p>
-            </a>
-          </div>
-        </div>
+              <section aria-labelledby="development-guides-title" class="mt-9 pt-8 border-t border-gray-200">
+                <h3 id="development-guides-title" class="text-xl font-bold font-display text-neutral-stone mb-5">Development Guides</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <a href="https://cuny-ai-lab.github.io/vibe-coding-how-to/" target="_blank" rel="noopener noreferrer" class={cardBase}>
+                    <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-vibrant-600">AI-Assisted Development Guide</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">A step-by-step written tutorial on building digital projects with AI coding assistants. Covers environment setup, prompting strategies, and project workflows for beginners.</p>
+                    <span class="inline-flex items-center gap-2 mt-4 text-vibrant-600 font-semibold text-sm">Read the guide <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d={externalIcon} /></svg></span>
+                  </a>
+                  <a href={`${base}docs/cail-pi`} class={cardBase}>
+                    <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-vibrant-600">CAIL Pi</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Install Pi, the terminal coding agent used in the workshops, connect it to CUNY AI Lab models, and sign in with your CUNY account.</p>
+                    <span class="inline-flex items-center gap-2 mt-4 text-vibrant-600 font-semibold text-sm">Setup guide <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></span>
+                  </a>
+                </div>
+              </section>
+            </div>
+          </section>
 
-        <!-- Interactive Technology and Pedagogy labs -->
-        <div class="pt-8 border-t border-gray-200">
-          <h4 class="text-base font-bold font-display text-neutral-stone mb-4">Interactive Technology and Pedagogy Labs</h4>
-          <div class="grid md:grid-cols-2 gap-6">
-            <a href="https://cuny-ai-lab.github.io/creative-coding" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-transparent hover:border-amber-300 hover:shadow-lg transition-all p-6">
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <h5 class="text-lg font-bold text-neutral-stone group-hover:text-amber-600 transition-colors">Creative Coding</h5>
-                <svg class="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors flex-shrink-0 mt-1" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+          <section id="panel-sandbox" class="guide-panel hidden" role="tabpanel" aria-label="Sandbox Workshop Series">
+            <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden p-8 lg:p-10">
+              <h2 class="text-3xl font-bold font-display text-neutral-stone">Sandbox Workshop Series</h2>
+              <p class="text-gray-500 mt-1 mb-8">Slides from our workshop series, available for independent review or reuse.</p>
+
+              <section aria-labelledby="adventure-series-title" class="mb-10">
+                <h3 id="adventure-series-title" class="text-xl font-bold font-display text-neutral-stone mb-5">Adventure Game Series</h3>
+                <div class="grid md:grid-cols-3 gap-5">
+                  <a href="https://cuny-ai-lab.github.io/sandbox-series/basics/" target="_blank" rel="noopener noreferrer" class={cardBase}>
+                    <span class="inline-flex px-2.5 py-0.5 mb-3 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 1</span>
+                    <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600">Composing System Prompts</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Write your adventure’s rules and setting.</p>
+                  </a>
+                  <a href="https://cuny-ai-lab.github.io/sandbox-series/knowledge/" target="_blank" rel="noopener noreferrer" class={cardBase}>
+                    <span class="inline-flex px-2.5 py-0.5 mb-3 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 2</span>
+                    <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600">Curating Knowledge Collections</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Build your adventure around course materials.</p>
+                  </a>
+                  <a href="https://cuny-ai-lab.github.io/sandbox-series/skills/" target="_blank" rel="noopener noreferrer" class={cardBase}>
+                    <span class="inline-flex px-2.5 py-0.5 mb-3 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 3</span>
+                    <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600">Configuring Skills and Tools</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Add skills and tools to your game.</p>
+                  </a>
+                </div>
+              </section>
+
+              <section aria-labelledby="foundations-series-title" class="mb-9 pt-8 border-t border-gray-200">
+                <h3 id="foundations-series-title" class="text-xl font-bold font-display text-neutral-stone mb-5">Workspace Foundations Series</h3>
+                <div class="grid md:grid-cols-3 gap-5">
+                  <a href="https://cuny-ai-lab.github.io/system-prompting/" target="_blank" rel="noopener noreferrer" class={cardBase}>
+                    <span class="inline-flex px-2.5 py-0.5 mb-3 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 1</span>
+                    <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600">System Prompting</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">How to craft effective system prompts to shape AI behavior for classroom use cases and custom assistants.</p>
+                  </a>
+                  <a href="https://cuny-ai-lab.github.io/knowledge-collections/" target="_blank" rel="noopener noreferrer" class={cardBase}>
+                    <span class="inline-flex px-2.5 py-0.5 mb-3 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 2</span>
+                    <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600">Knowledge Collections</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Building and managing knowledge collections to ground AI responses in course materials and curated sources.</p>
+                  </a>
+                  <a href="https://cuny-ai-lab.github.io/sandbox-series/skills/" target="_blank" rel="noopener noreferrer" class={cardBase}>
+                    <span class="inline-flex px-2.5 py-0.5 mb-3 bg-amber-50 text-amber-700 text-xs font-medium rounded-full">Part 3</span>
+                    <h4 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-amber-600">Skills and Tools</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">Customizing agentic tools and skills to extend AI assistant capabilities for specialized classroom workflows.</p>
+                  </a>
+                </div>
+              </section>
+
+              <section aria-labelledby="sandbox-documentation-title" class="pt-8 border-t border-gray-200">
+                <h3 id="sandbox-documentation-title" class="text-xl font-bold font-display text-neutral-stone mb-2">Sandbox Documentation</h3>
+                <p class="text-gray-600 text-sm leading-relaxed mb-5">Guides to getting started, designing custom models, and using the CAIL Sandbox for teaching and research.</p>
+                <a href={`${base}sandbox-docs`} class="inline-flex items-center gap-2 px-6 py-3 bg-vibrant-600 text-white rounded-full font-medium hover:bg-vibrant-700 transition-colors shadow-md">
+                  Browse Sandbox Docs
+                  <svg class="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d={externalIcon} /></svg>
+                </a>
+              </section>
+            </div>
+          </section>
+
+          <section id="panel-pedagogy-labs" class="guide-panel hidden" role="tabpanel" aria-label="Interactive Technology and Pedagogy Labs">
+            <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden p-8 lg:p-10">
+              <h2 class="text-3xl font-bold font-display text-neutral-stone">Interactive Technology and Pedagogy Labs</h2>
+              <div class="grid md:grid-cols-2 gap-6 mt-7">
+                <a href="https://cuny-ai-lab.github.io/creative-coding" target="_blank" rel="noopener noreferrer" class={cardBase}>
+                  <h3 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-vibrant-600">Creative Coding</h3>
+                  <p class="text-gray-600 text-sm leading-relaxed">Make generative art with AI.</p>
+                </a>
+                <a href="https://cuny-ai-lab.github.io/critical-play/" target="_blank" rel="noopener noreferrer" class={cardBase}>
+                  <h3 class="text-lg font-bold text-neutral-stone mb-2 group-hover:text-vibrant-600">Critical Play</h3>
+                  <p class="text-gray-600 text-sm leading-relaxed">Examine AI through play.</p>
+                </a>
               </div>
-              <p class="text-gray-600 text-sm leading-relaxed">Make generative art with AI.</p>
-            </a>
-            <a href="https://cuny-ai-lab.github.io/critical-play/" target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl border border-transparent hover:border-amber-300 hover:shadow-lg transition-all p-6">
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <h5 class="text-lg font-bold text-neutral-stone group-hover:text-amber-600 transition-colors">Critical Play</h5>
-                <svg class="w-4 h-4 text-gray-400 group-hover:text-amber-600 transition-colors flex-shrink-0 mt-1" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-              </div>
-              <p class="text-gray-600 text-sm leading-relaxed">Examine AI through play.</p>
-            </a>
-          </div>
+            </div>
+          </section>
         </div>
       </div>
-
     </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      var tabs = Array.from(document.querySelectorAll('.guide-category-tab'));
+      var panels = Array.from(document.querySelectorAll('.guide-panel'));
+      var select = document.getElementById('guide-category');
+      if (!tabs.length || !panels.length) return;
+
+      function activate(id, updateHash, scrollToPanel) {
+        panels.forEach(function (panel) {
+          var active = panel.id === 'panel-' + id;
+          panel.classList.toggle('hidden', !active);
+          panel.style.opacity = active ? '1' : '0';
+        });
+        tabs.forEach(function (tab) {
+          var active = tab.dataset.panel === id;
+          tab.setAttribute('aria-selected', active ? 'true' : 'false');
+          tab.tabIndex = active ? 0 : -1;
+          tab.className = active ? tab.dataset.activeClass : tab.dataset.inactiveClass;
+        });
+        if (select) select.value = id;
+        if (updateHash) history.replaceState(null, '', '#' + id);
+        if (scrollToPanel && window.innerWidth < 1024) {
+          var panel = document.getElementById('panel-' + id);
+          if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () { activate(tab.dataset.panel, true, true); });
+      });
+      if (select) select.addEventListener('change', function () { activate(select.value, true, false); });
+      var tablist = document.querySelector('[role="tablist"]');
+      tablist.addEventListener('keydown', function (event) {
+        var index = tabs.indexOf(document.activeElement);
+        if (index < 0) return;
+        var next;
+        if (event.key === 'ArrowDown' || event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        tabs[next].focus();
+        tabs[next].click();
+      });
+
+      var ids = tabs.map(function (tab) { return tab.dataset.panel; });
+      function validHash() {
+        var id = (location.hash || '').slice(1);
+        return ids.indexOf(id) >= 0 ? id : null;
+      }
+      activate(validHash() || ids[0], false, false);
+      window.addEventListener('hashchange', function () {
+        var id = validHash();
+        if (id) activate(id, false, true);
+      });
+    })();
+  </script>
 </BaseLayout>
+
+<style is:global>
+  .guide-panel { transition: opacity 0.25s ease-in-out; }
+  @media (min-width: 1024px) {
+    .guides-layout { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; }
+    .guide-sidebar { display: block !important; }
+  }
+</style>
