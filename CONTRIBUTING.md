@@ -9,6 +9,7 @@ This guide covers how to make content changes and submit them for review.
 | Homepage text/links | `src/data/homepage.json` |
 | About page text | `src/content/pages/about.md` |
 | Contact page text | `src/content/pages/contact.md` |
+| Support and bug-report links (CAIL Ticketing) | `src/data/ticketing.json` |
 | Team members | `src/data/team.json` |
 | Tools descriptions | `src/pages/tools.astro` (content is inline in the page) |
 | Resources list | `src/data/resources.json` |

@@ -1,0 +1,30 @@
+{
+  "new_ticket_url": "https://tools.ailab.gc.cuny.edu/help/projects/support/issues/new",
+  "register_url": "https://tools.ailab.gc.cuny.edu/help/account/register",
+  "card_title": "Support and Bug Reports",
+  "card_description": "Ask for help or report a problem with a CAIL tool or service. Requires an activated CAIL Ticketing account.",
+  "heading": "Using CAIL Ticketing",
+  "intro": "CAIL Ticketing is where the Lab tracks help requests, bug reports, accessibility problems, and service interruptions. Students in a course that uses Lab tools should ask their instructor first.",
+  "steps": [
+    {
+      "title": "Register",
+      "description": "Create a CAIL Ticketing account. It is separate from your CUNY Login."
+    },
+    {
+      "title": "Wait for activation",
+      "description": "CAIL staff review and activate new accounts manually, so you cannot sign in right away."
+    },
+    {
+      "title": "Set up two-factor authentication",
+      "description": "The first time you sign in, set up two-factor authentication with an authenticator app."
+    },
+    {
+      "title": "Open a ticket",
+      "description": "Submit your request in the CAIL Support project. Only you and CAIL staff can see the tickets you submit."
+    }
+  ],
+  "register_link_text": "Register for an account",
+  "new_ticket_link_text": "Open a support ticket",
+  "safety_note": "Do not include passwords, API keys, access tokens, private research data, or other sensitive personal information in a ticket. Give the minimum useful description; the CAIL team will arrange a safer follow-up channel when needed.",
+  "fallback_text": "Waiting for an account or unable to sign in? Email"
+}
