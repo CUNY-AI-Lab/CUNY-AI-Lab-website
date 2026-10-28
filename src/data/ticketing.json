@@ -25,6 +25,9 @@
   ],
   "register_link_text": "Register for an account",
   "new_ticket_link_text": "Open a support ticket",
+  "email_address": "ailab+help@gc.cuny.edu",
+  "email_intro": "Once your account is active, you can also open a ticket by email. Write to",
+  "email_details": "from the email address on your CAIL Ticketing account. The subject becomes the ticket title and the message becomes its description. Mail from any other address does not create a ticket. To add to an existing ticket, reply to its notification email.",
   "safety_note": "Do not include passwords, API keys, access tokens, private research data, or other sensitive personal information in a ticket. Give the minimum useful description; the CAIL team will arrange a safer follow-up channel when needed.",
   "fallback_text": "Waiting for an account or unable to sign in? Email"
 }

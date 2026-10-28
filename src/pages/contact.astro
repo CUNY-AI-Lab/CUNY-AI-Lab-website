@@ -109,6 +109,7 @@ const { Content } = await render(entry);
           <a href={ticketing.register_url} target="_blank" rel="noopener noreferrer" class="inline-block bg-vibrant-600 text-white px-5 py-2.5 rounded-full font-semibold hover:bg-vibrant-700 transition-colors">{ticketing.register_link_text}</a>
           <a href={ticketing.new_ticket_url} target="_blank" rel="noopener noreferrer" class="inline-block border border-vibrant-600 text-vibrant-700 px-5 py-2.5 rounded-full font-semibold hover:bg-vibrant-50 transition-colors">{ticketing.new_ticket_link_text}</a>
         </div>
+        <p class="text-gray-600 leading-relaxed mb-6">{ticketing.email_intro} <a href={`mailto:${ticketing.email_address}`} class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">{ticketing.email_address}</a> {ticketing.email_details}</p>
         <p class="text-sm text-gray-600 leading-relaxed mb-3">{ticketing.safety_note}</p>
         <p class="text-sm text-gray-600 leading-relaxed">{ticketing.fallback_text} <a href={`mailto:${data.email}`} class="text-vibrant-700 underline underline-offset-2 hover:text-vibrant-800">{data.email}</a>.</p>
       </div>
