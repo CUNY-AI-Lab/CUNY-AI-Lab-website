@@ -2,32 +2,25 @@
   "new_ticket_url": "https://tools.ailab.gc.cuny.edu/help/projects/support/issues/new",
   "register_url": "https://tools.ailab.gc.cuny.edu/help/account/register",
   "card_title": "Support and Bug Reports",
-  "card_description": "Ask for help or report a problem with a CAIL tool or service. Requires an activated CAIL Ticketing account.",
+  "card_description": "Ask for help or report a problem with a CAIL tool or service. Sign in with your CUNY Login.",
   "heading": "Using CAIL Ticketing",
   "intro": "CAIL Ticketing is where the Lab tracks help requests, bug reports, accessibility problems, and service interruptions. Students in a course that uses Lab tools should ask their instructor first.",
   "steps": [
     {
-      "title": "Register",
-      "description": "Create a CAIL Ticketing account. It is separate from your CUNY Login."
-    },
-    {
-      "title": "Wait for activation",
-      "description": "CAIL staff review and activate new accounts manually, so you cannot sign in right away."
-    },
-    {
-      "title": "Set up two-factor authentication",
-      "description": "The first time you sign in, set up two-factor authentication with an authenticator app."
+      "title": "Sign in with CUNY Login",
+      "description": "If you use CAIL tools, sign in to CAIL Ticketing with your CUNY Login. Your account is set up the first time you sign in."
     },
     {
       "title": "Open a ticket",
       "description": "Submit your request in the CAIL Support project. Only you and CAIL staff can see the tickets you submit."
     }
   ],
-  "register_link_text": "Register for an account",
+  "password_option": "No CUNY Login, or no access to CAIL tools yet? Register for a CAIL Ticketing account with a password instead. CAIL staff activate these accounts manually, and you set up two-factor authentication the first time you sign in.",
+  "register_link_text": "Register without CUNY Login",
   "new_ticket_link_text": "Open a support ticket",
   "email_address": "ailab+help@gc.cuny.edu",
-  "email_intro": "Once your account is active, you can also open a ticket by email. Write to",
-  "email_details": "from the email address on your CAIL Ticketing account. The subject becomes the ticket title and the message becomes its description. Mail from any other address does not create a ticket. To add to an existing ticket, reply to its notification email.",
+  "email_intro": "After you have signed in once, you can also open a ticket by email. Write to",
+  "email_details": "from an email address on your CAIL Ticketing account. If you sign in with CUNY Login, that is your CUNY address, plus any address you add and confirm under My account. The subject becomes the ticket title and the message becomes its description. Mail from any other address does not create a ticket. To add to an existing ticket, reply to its notification email.",
   "safety_note": "Do not include passwords, API keys, access tokens, private research data, or other sensitive personal information in a ticket. Give the minimum useful description; the CAIL team will arrange a safer follow-up channel when needed.",
-  "fallback_text": "Waiting for an account or unable to sign in? Email"
+  "fallback_text": "Can't sign in, or waiting for a password account to be activated? Email"
 }
