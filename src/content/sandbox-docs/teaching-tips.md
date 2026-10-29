@@ -200,7 +200,7 @@ AI tools can support or marginalize these students depending on how you deploy t
 
 - **Multilingual support.** Configure models to help students work in their home languages and translate to English when needed.
 - **Flexible pacing.** Allow students to use AI for time-intensive tasks (e.g., literature search) so they can focus cognitive effort on higher-order thinking.
-- **Accessibility.** Test the chat interface and course materials with the assistive technologies students use. Report barriers in [CAIL Ticketing](https://tools.ailab.gc.cuny.edu/help/projects/support/issues/new) (see [how to get an account](/contact/#ticketing)) or to the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu).
+- **Accessibility.** Test the chat interface and course materials with the assistive technologies students use. Report barriers in [CAIL Ticketing](https://tools.ailab.gc.cuny.edu/help/projects/support/issues/new) (sign in with your CUNY Login; see [how to open a ticket](/contact/#ticketing)) or to the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu).
 - **Cultural responsiveness.** Acknowledge that students' prior knowledge and lived experiences are valid sources of authority. AI models should supplement, not replace, those perspectives.
 
 ---
