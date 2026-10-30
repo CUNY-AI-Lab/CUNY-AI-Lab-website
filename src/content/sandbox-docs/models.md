@@ -3,74 +3,46 @@ title: "Custom Models"
 headingId: "custom-models"
 ---
 
-Custom models combine a base model with instructions, documents, and tools for tasks such as reviewing drafts or working through course readings. You can specify which materials the model should reference, how it should respond, and which requests it should decline. Creating this configuration does not train a new base model.
+Create a custom model when you want to reuse instructions and materials for a particular task. Begin with one task you can test, such as asking questions about a course passage. You can add documents and tools later; creating the configuration does not train a new base model.
 
-## Creating a Model
+## Create a Private Configuration
 
-1. Request **Workspace** access by emailing the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu). Once enabled, click **Workspace** in the left sidebar.
-2. Select **Models**
-3. Click **Create** beside the Workspace tabs
-   - Enter a **Model Name**. In the editor, define its behavior, connect documents, and choose its tools.
-4. Choose a **base model** from the dropdown
-   - Test the available models with the kinds of prompts you plan to use before choosing one. If you need a specific model and do not see it listed, contact the CUNY AI Lab team.
-5. Write a **system prompt** (see below for guidance)
-6. Attach **knowledge bases** if you want the model to draw from your documents
-   - See [Knowledge Bases](knowledge-bases.md) for how to create one
-7. Select **Tools** for connected services, and configure Web Search or Code Interpreter under **Capabilities** and **Default Features** if available
-   - See [Tools & Skills](tools-skills.md) for available options
-8. Add **prompt suggestions**
-   - These appear as clickable suggestions above the input bar when students open a new chat. Write examples of tasks or questions the model is configured to support.
-9. Open **Access**
-   - Keep **Private** while building. Use **Add Access** to share with your course group or selected users.
-   - Choose **Public** only if the model should be available to all signed-in Sandbox users and your account permits it.
-10. Click **Save & Create** (or **Save & Update** when editing)
+You need **Workspace** access to build a model. Individual Lab access does not include it automatically; request it from [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
 
-## System Prompt
+1. Open **Workspace > Models** and select **Create** beside the tabs.
+2. Enter a **Model Name** that identifies the task or course, then choose a base model. Test models available in the selector before deciding; contact the Lab if a required model is missing.
+3. In **System Prompt**, describe what the model should do and what work remains with the student. Use the [prompt walkthrough](system-prompts.md) to draft those instructions.
+4. Add prompt suggestions that show how to begin the intended task. These appear above the input bar in a new chat.
+5. Open **Access** and keep **Private** while building.
+6. Select **Save & Create**, or **Save & Update** when editing an existing model.
 
-In step 5, write a system prompt that specifies the model’s role, boundaries, and instructional approach. For patterns, examples, and advanced prompt techniques, see [System Prompts as Instructional Design](system-prompts.md).
+Now open a new chat with this configuration. Try a likely student question, an unclear request, and a request outside the assignment's limits. Compare the response with your instructions. A prompt asks the model to behave a certain way; it cannot guarantee that behavior.
 
-### Prompt Suggestions
+## Add Materials Only When Needed
 
-Write short prompts that students can select to begin a task, such as choosing a statistical test or interpreting a result. Examples for a data analysis model
+If the task depends on course readings, attach a tested collection in **Knowledge**. Follow [Knowledge Collections](knowledge-bases.md) to prepare the files and check whether the model retrieves relevant passages.
 
-- "What visualization works best for this data?"
-- "Help me interpret these statistical results"
-- "Which test should I use for this research question?"
+Use **Tools** for connected services. Web Search and Code Interpreter are configured under **Capabilities** and **Default Features**, when available. [Tools & Skills](tools-skills.md) explains the permissions and tests these additions require. Leave unused capabilities off so students can understand what the configuration is doing.
 
-## Advanced Settings
+## Test, Then Share
+
+Test with the actual materials students will use, including a question the materials cannot answer. Check citations and look for invented details, excessive help, or ignored boundaries. Revise one part of the configuration and repeat the same test before adding another feature.
+
+When ready, open **Access**, keep **Private**, and use **Add Access** to grant your course group **Read** access. Share attached knowledge collections, tools, and skills with the intended users too. Use **Write** only for collaborators who should edit. **Public**, where permitted, makes the resource available to all signed-in Sandbox users. See [Roles & Permissions](roles-permissions.md).
+
+## Adjust Generation Settings
 
 <details>
-<summary>View details</summary>
+<summary>Open optional advanced settings</summary>
 
-### Advanced Parameters
+Start with defaults. **Max Tokens** limits output length and can cut a response short; request concise answers in the prompt rather than relying only on a small limit. **Temperature** changes response variation, but lowering it does not guarantee accuracy or identical answers. Leave **Top P** at its default unless you have a specific reason to change it.
 
-These parameters control response generation; adjust them when the default settings do not fit your task.
+**Stop Sequences** end generation when matching text appears. Use them only when the task requires that behavior and test for premature stops. Available parameters and their effects depend on the base model.
 
-- **Max Tokens** caps output length. One token is roughly three-quarters of an English word. Lower limits (100-500) can cut responses short; higher limits (1000-4000) leave more room. Use the prompt to request concise responses.
-- **Temperature** controls randomness. Lower values (0.1 to 0.3) reduce variation; higher values (0.7 to 1.0) allow more variation. Low temperature does not guarantee identical or accurate responses.
-- **Top P** (nucleus sampling) controls diversity of word selection. Leave at default unless you have a specific reason to change it.
-- **Stop Sequences** force the model to stop generating when it encounters specific text strings. Enter sequences like `<|end_of_text|>` or `User:` and press Enter.
-
-### Switching Models Mid-Chat
-
-You can change models during a chat by clicking the model name on the right inside the message box. The chat context carries across the switch. This lets you use different models for different stages of a task.
-
-> **Tip.** Ask students to compare how two models respond to the same prompt.
+You can switch models from the selector during a chat, but the existing context carries over. Use fresh chats when testing a changed configuration from the same starting point.
 
 </details>
 
-## Callout
+The [Open WebUI model reference](https://docs.openwebui.com/features/workspace/models/) covers the wider editor. For a course setup, continue with the features your task needs.
 
-<div class="callout">
-  <strong>For instructors.</strong> Specify which parts of an assignment the model should support and what it should do when students ask for work outside those limits. Test the configuration with likely student requests, then explain the permitted uses in the assignment instructions.
-</div>
-
-## Additional Resources
-
-- [Open WebUI Model Configuration Docs](https://docs.openwebui.com/features/workspace/models/) — official reference for all model settings
-- [Teach@CUNY AI Toolkit: Course Policies](https://aitoolkit.commons.gc.cuny.edu/course-policies/) — guidance on setting expectations for AI use in your courses
-- [Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering) — OpenAI's strategies for writing effective prompts
-
----
-
-[← Return to Getting Started](getting-started.md) | [Continue to Knowledge Bases →](knowledge-bases.md)
+[← Return to Sandbox Basics](sandbox-basics.md) | [Continue to System Prompts →](system-prompts.md)

@@ -1,0 +1,24 @@
+<h2>Workspaces</h2>
+<p>Systems Mapping provides a <strong>general workspace</strong> for signed-in Lab members and a <strong>course workspace</strong> for each approved course. Each course keeps its own maps, links, and prompts. An item saved in one workspace remains there when you open another.</p>
+<p>Students choose a course under Your courses on the Projects page or follow an instructor's <code>?course=</code> link. The server checks the Lab's enrollment records on every request, so a withdrawn student loses access even if they retain the link. A course owner can use instructor controls for that course. A general Lab administrator receives no course-owner override, and ownership of one course grants no access to another.</p>
+<h2>What an Instructor Sees</h2>
+<table>
+<thead><tr><th>Item</th><th>Visible to the course instructor?</th></tr></thead>
+<tbody>
+<tr><td>Roster and first/latest visit</td><td>Yes, from admission records and the course workspace.</td></tr>
+<tr><td>Saved progress and course revision records</td><td>Yes. The instructor sees map progress and submitted-revision counts and timestamps, not a full map snapshot.</td></tr>
+<tr><td>Map content, memo, evidence, Field Notes</td><td>Through an eligible project link shared with them, not through Submit revision. You can also share an exported copy separately.</td></tr>
+<tr><td>Map content without an eligible shared link or separately shared copy</td><td>No current-work access through the instructor role. Recording a course revision does not change that rule.</td></tr>
+<tr><td>General-workspace maps</td><td>Not through the instructor role. General-workspace project-link rules still apply.</td></tr>
+</tbody>
+</table>
+<p>Use the roster to check who has started and which level they have reached. Submit revision records a saved course revision without revealing map content. An eligible project link gives instructors the same access as other course members. The separate Submissions queue may retain older memo/suggestion reviews; current revision records do not populate it.</p>
+<h2>Guest Instructors</h2>
+<p>A course can grant a guest instructor specific permissions to open the instructor panel, read the roster, or read and edit prompts. The grant does not require course ownership, student membership, or administrator access. The app checks the relevant permission on every request.</p>
+<h2>Demo Course</h2>
+<p>The CAIL Teaching Tools Demo course supports workshops and try-outs. The Lab issues revocable invitations tied to verified CUNY identities. Demo maps follow the same privacy rules as maps in other courses.</p>
+
+    <footer class="page-foot">
+      <p>Systems Mapping grew from the Critical AI Literacy Institute and continues with the <a href="https://ailab.gc.cuny.edu/">CUNY AI Lab</a>.</p>
+      <p>The app remains in classroom development. Use Report a problem if its behavior differs from these pages.</p>
+    </footer>

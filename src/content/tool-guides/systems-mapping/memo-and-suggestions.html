@@ -1,0 +1,30 @@
+<h2>Adding a Memo</h2>
+<p>Write a one-sentence inquiry that names the focal person or group and what you want to understand. Then paste or upload the memo, which can contain field notes, a case description, an interview, or a reading. The app accepts about 128 KB of text.</p>
+<p>Before the first request, read the <strong>transfer disclosure</strong>. It identifies the memo, inquiry, current level, and published course guidance sent with the request. Levels can use different memos. The next level's reading also receives earlier Field Notes as your own notes, separate from the source.</p>
+<h2>Reviewing Suggestions</h2>
+<figure class="narrow"><img alt="One suggestion in the Notebook: Maya, &#x27;Focal person who volunteers at the garden and attends the library workshop&#x27;, with Details, Add to map, Set aside, Remove, and Finish review" loading="lazy" src="/images/docs/systems-mapping/suggestion-card.png"><figcaption>Each card presents a label and the model's short reason. Open Details to inspect the source passage before deciding.</figcaption></figure>
+<p>Review each suggestion in the Notebook. Micro suggestions are items, while Meso suggestions are relationships between existing Micro items. Open <strong>Details</strong> to read the source passage and the model's reasoning. When a suggestion lacks a passage, examine it as an inference and check whether the memo supports it.</p>
+<p>Choose Add to map to keep a suggestion, Set aside to retain it, or Remove to reject it. <strong>Finish review</strong> becomes available after every suggestion has a decision. For an optional later reading, use Update suggestions → Reread memo; the control shows Updating…. Saving edits alone does not request a reading.</p>
+<p>Project → Preferences includes Automatic suggestion addition. When you turn it on, the app adds suggestions that pass its structural checks immediately, and you remove any that do not belong. The setting starts off, so the usual review asks you to decide before an item enters the map.</p>
+<h2>What the Model Sends Back</h2>
+<p>These are maximums, not promised output: a valid review can return fewer suggestions or none. Memo reviews can also include up to three guidance entries.</p>
+<table>
+<thead><tr><th>Level</th><th>Maximum suggestions per review</th></tr></thead>
+<tbody>
+<tr><td>Micro</td><td>10 items; no relationships.</td></tr>
+<tr><td>Meso</td><td>8 relationships between existing Micro items; no new items.</td></tr>
+<tr><td>Exo</td><td>6 items and 5 relationships.</td></tr>
+<tr><td>Macro</td><td>6 items and 12 scope references; no relationships.</td></tr>
+</tbody>
+</table>
+<p>The app validates structure and source support. A completed semantic failure may receive a bounded correction and, for eligible source-grounding failures, final evidence repair. The review must pass as a whole. The app does not accept partial results, invent missing evidence, or silently rewrite returned labels.</p>
+<p>Durable guidance has an 85-second generation budget and can retry explicitly retryable failures with backoff, up to three durable attempts. The browser monitors for up to three minutes, then may ask you to reopen the map to check the saved request. This does not mean the review finished. Quota denials and ambiguous failures are not automatically retried; reopening checks the existing request rather than starting an unrelated reading.</p>
+<h2>Guidance and Evidence</h2>
+<p>Guidance and evidence shows the instructor's published material for the current Part and stage. Requests include it, so the model receives course terms alongside the app's fixed rules.</p>
+<h2>Initial Guidance and Later Manual Work</h2>
+<p>An empty map requires a valid Generate guidance response before map-building begins, even if it returns no suggestions. The control shows Reading memo… while working; Try again supports deliberate retry after a failure. A new level without work needs its own reading once course guidance is ready. Afterward, add supported work manually and revise suggestions. Existing saved work remains available without regeneration.</p>
+
+    <footer class="page-foot">
+      <p>Systems Mapping grew from the Critical AI Literacy Institute and continues with the <a href="https://ailab.gc.cuny.edu/">CUNY AI Lab</a>.</p>
+      <p>The app remains in classroom development. Use Report a problem if its behavior differs from these pages.</p>
+    </footer>

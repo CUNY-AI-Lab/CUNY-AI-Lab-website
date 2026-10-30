@@ -1,0 +1,40 @@
+{
+  "source": "Final frozen walkthrough review, 2026-10-29; archive SHA256 49d74d71e4e576bb351612f7d456ced471896adfddfb08c19b9f5c51dd9154d1",
+  "files": {
+    "stem-splitter/classroom.html": "49e6261e4c62723adb372c0d92ed0d541b7be2cb7ab3a3291854f2ab68f6ba8f",
+    "stem-splitter/export-and-sharing.html": "51e090cd0e52ec199865e6d20ac140f3d7e77da3b5b0a88da57f9a9655e09459",
+    "stem-splitter/getting-started.html": "eee55c2146d703e86b19b0f78e96f9a6b180a3d1e27ec1f51cf516b2f8941499",
+    "stem-splitter/index.html": "4c3eb378830b28918e899ecceeaaf55314c5a5904c4481692d79c352aec816eb",
+    "stem-splitter/instructor-console.html": "058b4148dd8e5d789219e4fcdd2856166fa649b206784cc30213704f46cf781f",
+    "stem-splitter/listening-guy.html": "22ecac4df0552bfeb435c9e4147fe87fb3a03a1c44167b24e40c83cb4407ccf7",
+    "stem-splitter/live-sessions.html": "e6d5949da6d62b9863771fc10b8529f0b20bb5eb08e5116008d8909da8634307",
+    "stem-splitter/mixer.html": "dd3677c2aad94bca717915337b1340f29980cd903653b2a1afc1780f0a5c0f37",
+    "stem-splitter/notes.html": "ddb26174929fd82d78354ac98e83c96e7fb628ddf087c240c061c9663f93ec04",
+    "stem-splitter/privacy-and-limits.html": "f8fe4bd6cc18df22cd8402eae3a1613ded743d175998b596d7fd6731e8bbd0cc",
+    "stem-splitter/sample-activities.html": "505878e747feaec5716c77e704940cafd9bae217af65d48fab02582bb2bafc5b",
+    "stem-splitter/splitter-basics.html": "a348be0d644dc4a0bca26fd0b0f979d39ecdd0c3739038e2ef2d8cf2696967e8",
+    "stem-splitter/student-onboarding.html": "445c2b8bc20a418404bdb438bbbef1ebe73371d76ebd04bb006043098f5dfb48",
+    "stem-splitter/teaching-tips.html": "bd3bd57a5570795dea89af2afb691596b04bd4c235701b6188b22c2faa82fdaf",
+    "stem-splitter/use-cases.html": "315f2c23dcb8c784de9fe2555c5204be03fc5c66c6652f6a9b9e679e1869d0cf",
+    "systems-mapping/course-access.html": "b51f8a9da25ae8d0d14822b9bda02279a4fd4aeceb8dffedd9c49e1c5b549d06",
+    "systems-mapping/evidence-and-field-notes.html": "dd7e158335cb552db299cd0208e1ab19b3f7e9a3ed076b4fb3eee60be52dce7f",
+    "systems-mapping/export-and-sharing.html": "97e933e065b4f497d752f1285812326e001b3b88b7d37b0e8b435fdd63c84a76",
+    "systems-mapping/getting-started.html": "e077635186b02a5a71b7478cc61bc98f6502b46646db93b91fe6fb6cdd5dac6c",
+    "systems-mapping/index.html": "d4855e7e40a76e65644b1f55d721da8e1c0b59547c2206c1721184904d46b0da",
+    "systems-mapping/instructor-console.html": "f35b6a08e2274ea1092355d5f6f823e762b4854f2b774a060ba3ace04725ebf8",
+    "systems-mapping/levels.html": "ead10d2900b7ffb9fd84b169726bfa3a8adb8db4ee0b1e6dba924ef258a2dfd6",
+    "systems-mapping/map.html": "3bd56e54da12380ce08f0035aad614f7e2e566fb6c6a0952b0915c557f2c44e4",
+    "systems-mapping/memo-and-suggestions.html": "9e6e572fe0be85924f9982d94e1050259fc408151ecd4cb34008b5425188ae4c",
+    "systems-mapping/privacy-and-limits.html": "38e177db273ba5d37ca4562c6659577efad634a15145b03787aa6935b6b2fbd2",
+    "systems-mapping/sample-activities.html": "3ec8ab6ccd320afbf8cbcf23fe427d1bc884a9e8578eaf6d98c9f955b3673d75",
+    "systems-mapping/student-onboarding.html": "f967b0dae5670e7cfaf5a68cd7d5a480da1d8c01e91a94ac4e5c746481d0e6b6",
+    "systems-mapping/teaching-tips.html": "783bdd2a486697e7f61f779cdfc0da2d77474777627180ae0b48abeeea709bd9",
+    "systems-mapping/use-cases.html": "2744adf8f94b444dcfb7b5f0b79f3f65b180e6b4ba16ef81a2987b04b20cccfd",
+    "systems-mapping/workspace-basics.html": "a7f6e552afe165fc100233b9d66576646b7c8b3e19080c7c4a6f90b0348118bf"
+  },
+  "editorial_source": {
+    "date": "2026-10-29",
+    "archive_sha256": "49d74d71e4e576bb351612f7d456ced471896adfddfb08c19b9f5c51dd9154d1",
+    "manifest_sha256": "b61e8de4c3ecb6d0c7b34ef56db8e17de22a7e48fc17c0b6597dfcd894f1e924"
+  }
+}

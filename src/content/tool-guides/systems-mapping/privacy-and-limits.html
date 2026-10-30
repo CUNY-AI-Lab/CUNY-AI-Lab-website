@@ -1,0 +1,29 @@
+<h2>What Instructors Can See</h2>
+<p>Instructors can see course progress and revision counts, but Submit revision does not send map content to the separate review queue. Share an eligible project link or export when they need to read the work. General-workspace maps remain separate, and a general Lab administrator has no course-owner override. Feedback on existing review records leaves your map intact.</p>
+<table>
+<thead><tr><th>Item</th><th>General workspace</th><th>Course workspace</th></tr></thead>
+<tbody>
+<tr><td>That a map exists, its level and stage</td><td>You, plus eligible recipients of a shared project link</td><td>Course instructor (metadata only)</td></tr>
+<tr><td>Map content, memo, evidence, Field Notes</td><td>You, plus eligible recipients of a shared project link</td><td>You, plus eligible recipients of a shared project link; Submit revision does not grant content access</td></tr>
+<tr><td>Submitted-revision counts and timestamps</td><td>Not a general-workspace action</td><td>Course instructor through saved progress; no full map snapshot</td></tr>
+<tr><td>Project link</td><td>Signed-in Lab members with the link</td><td>Current course members with the link</td></tr>
+<tr><td>Model request metadata (fingerprints, revision IDs)</td><td>Operators, without memo text</td><td>Operators, without memo text</td></tr>
+</tbody>
+</table>
+<h2>Storage and Retention</h2>
+<p>The app saves up to 200 maps per workspace to your account and checks revisions before accepting changes. It also keeps a recovery copy in the browser. Anyone who uses the same browser profile can read that browser storage, which CUNY Login does not encrypt.</p>
+<p>Model request inputs and results last 24 hours for reload recovery; request tokens last seven days to reject replay. In the separate memo/suggestion review queue, pending snapshots last 30 days and those with recorded feedback last 180 days. Purging removes their content and keeps a hashed receipt. These periods do not describe the metadata-only record created by Submit revision.</p>
+<p>Project links expire after 90 days. You can revoke a link earlier when the people who received it no longer need to view the live map.</p>
+<h2>Model Limits</h2>
+<p>Requests go through the Lab's gateway to GLM 5.3 Flash. Backup use requires a known availability refusal; the app stores no provider keys. Durable guidance has an 85-second generation budget and up to three durable attempts for explicitly retryable failures. After monitoring for up to three minutes, the browser may ask you to reopen the map to check progress. Neither interval promises successful completion; quota denials and ambiguous failures are not automatically retried.</p>
+<p><a href="/systems-mapping-docs/memo-and-suggestions/">Memo &amp; Suggestions</a> lists the per-level output ceilings; a review can return fewer suggestions or none. Bounded correction or eligible evidence repair must still produce a wholly valid response, without silently rewriting returned labels. Memo and inquiry limits are 131,072 and 8,192 bytes respectively.</p>
+<p>Read the <strong>transfer disclosure</strong> before the first request. Requests include course guidance and materials, while instructor identity and prompt history stay out of the request.</p>
+<h2>What to Put in a Memo</h2>
+<p>The app stores memo text with the map and sends it to the model when you request a review. De-identify fieldwork before pasting it and follow your course's confidentiality rules. The browser creates exports locally, so review a copy before sharing it. Problem reports exclude memo text and map content.</p>
+<h2>Reporting a Problem</h2>
+<p>To report a problem, choose <strong>Report a problem</strong> in the footer and enter your description in the form’s single field. The report includes your verified account name, the page, and the app release. For access questions, email <a href="mailto:ailab@gc.cuny.edu">ailab@gc.cuny.edu</a>.</p>
+
+    <footer class="page-foot">
+      <p>Systems Mapping grew from the Critical AI Literacy Institute and continues with the <a href="https://ailab.gc.cuny.edu/">CUNY AI Lab</a>.</p>
+      <p>The app remains in classroom development. Use Report a problem if its behavior differs from these pages.</p>
+    </footer>
