@@ -1,0 +1,156 @@
+{
+  "stem-splitter": {
+    "classroom": {
+      "title": "Class Workspace",
+      "description": "Use Class Workspace to organize course recordings and share folders. Instructors can also review the roster and Listening Guy conversations attached to course work.",
+      "headingId": "stem-splitter-classroom"
+    },
+    "export-and-sharing": {
+      "title": "Export & Sharing",
+      "description": "Download audio, make a public listening link, or share course recordings through a folder. Choose the option that matches who needs access.",
+      "headingId": "stem-splitter-export-and-sharing"
+    },
+    "getting-started": {
+      "title": "Getting Started",
+      "description": "Sign in, choose a familiar recording, and make your first split. Knowing the song will help you compare the separated parts with the full mix.",
+      "headingId": "stem-splitter-getting-started"
+    },
+    "index": {
+      "title": "Stem Splitter Documentation",
+      "description": "Separate a recording into musical parts, compare them in the mixer, and pin notes to the moments you want to discuss.",
+      "headingId": "stem-splitter-index"
+    },
+    "instructor-console": {
+      "title": "Instructor Console",
+      "description": "Set the vocabulary and listening tasks you want Listening Guy to use. Give it instructions students can test with the mixer.",
+      "headingId": "stem-splitter-instructor-console"
+    },
+    "listening-guy": {
+      "title": "Listening Guy",
+      "description": "Ask about a recording, try the suggested mixer action, and check the answer by listening. Listening Guy can control the mixer, but it cannot hear the audio.",
+      "headingId": "stem-splitter-listening-guy"
+    },
+    "live-sessions": {
+      "title": "Live Sessions",
+      "description": "Lead playback from your mixer while students follow on their own devices. Headphones let each student hear the shared passage and set their own volume.",
+      "headingId": "stem-splitter-live-sessions"
+    },
+    "mixer": {
+      "title": "The Mixer",
+      "description": "Hear one part alone, compare it with the full mix, or repeat a passage until you can describe what changed.",
+      "headingId": "stem-splitter-mixer"
+    },
+    "notes": {
+      "title": "Notes",
+      "description": "Pin a comment to a moment in the recording so the next listener can find the passage and check your description.",
+      "headingId": "stem-splitter-notes"
+    },
+    "privacy-and-limits": {
+      "title": "Privacy & Limits",
+      "description": "Personal work is private to your account. Course work permits instructor review after you acknowledge the policy; classmates need access through a shared folder.",
+      "headingId": "stem-splitter-privacy-and-limits"
+    },
+    "sample-activities": {
+      "title": "Sample Activities",
+      "description": "Try these short listening tasks with a recording your class is using. Each moves from a mixer action to a note about what students heard.",
+      "headingId": "stem-splitter-sample-activities"
+    },
+    "splitter-basics": {
+      "title": "Splitter Basics",
+      "description": "Find your recording in the Session Rack, open its mixer, and use the surrounding controls to manage your work.",
+      "headingId": "stem-splitter-splitter-basics"
+    },
+    "student-onboarding": {
+      "title": "Student Onboarding",
+      "description": "Start with a prepared recording so students can learn the mixer and save a note before importing their own audio.",
+      "headingId": "stem-splitter-student-onboarding"
+    },
+    "teaching-tips": {
+      "title": "Teaching Tips",
+      "description": "Ask students to describe a sound before naming the musical concept. Use one mixer change at a time so they can hear what makes the difference.",
+      "headingId": "stem-splitter-teaching-tips"
+    },
+    "use-cases": {
+      "title": "Use Cases",
+      "description": "Start with a recording, describe what you hear, and compare the full mix with isolated parts. Use notes to show where your account comes from.",
+      "headingId": "stem-splitter-use-cases"
+    }
+  },
+  "systems-mapping": {
+    "course-access": {
+      "title": "Course Access",
+      "description": "Enter your course workspace through the Lab and keep its maps separate from your other projects.",
+      "headingId": "systems-mapping-course-access"
+    },
+    "evidence-and-field-notes": {
+      "title": "Evidence & Field Notes",
+      "description": "Show which passage supports a claim, explain your reading, and use Field Notes to guide your next inquiry.",
+      "headingId": "systems-mapping-evidence-and-field-notes"
+    },
+    "export-and-sharing": {
+      "title": "Export & Sharing",
+      "description": "Share a live project link or an exported copy, and record a saved course revision when your instructor asks.",
+      "headingId": "systems-mapping-export-and-sharing"
+    },
+    "getting-started": {
+      "title": "Getting Started",
+      "description": "Accept your course invitation, open a project, and build a first Micro map from one memo.",
+      "headingId": "systems-mapping-getting-started"
+    },
+    "index": {
+      "title": "Systems Mapping Documentation",
+      "description": "Build a map from a case or fieldwork memo, and show how each claim follows from the evidence.",
+      "headingId": "systems-mapping-index"
+    },
+    "instructor-console": {
+      "title": "Instructor Console",
+      "description": "Give students a question for each level and follow their progress while keeping private map content separate.",
+      "headingId": "systems-mapping-instructor-console"
+    },
+    "levels": {
+      "title": "The Four Levels",
+      "description": "Follow the focal person's direct encounters, relationships between mapped items, outside decisions, and broader conditions across one cumulative map.",
+      "headingId": "systems-mapping-levels"
+    },
+    "map": {
+      "title": "The Map",
+      "description": "Place items where the case supports them, then describe the relationships a reader should follow.",
+      "headingId": "systems-mapping-map"
+    },
+    "memo-and-suggestions": {
+      "title": "Memo & Suggestions",
+      "description": "Compare each model suggestion with your memo before deciding what belongs on the map.",
+      "headingId": "systems-mapping-memo-and-suggestions"
+    },
+    "privacy-and-limits": {
+      "title": "Privacy & Limits",
+      "description": "Check who can read your work and what leaves the browser before you add a memo or share a map.",
+      "headingId": "systems-mapping-privacy-and-limits"
+    },
+    "sample-activities": {
+      "title": "Sample Activities",
+      "description": "Give students a short mapping task that asks them to inspect a source, make a choice, and explain it.",
+      "headingId": "systems-mapping-sample-activities"
+    },
+    "student-onboarding": {
+      "title": "Student Onboarding",
+      "description": "Use one shared case during the first week so you can help students reach a saved Micro map.",
+      "headingId": "systems-mapping-student-onboarding"
+    },
+    "teaching-tips": {
+      "title": "Teaching Tips",
+      "description": "Use each level to ask students where a claim belongs and which passage supports it.",
+      "headingId": "systems-mapping-teaching-tips"
+    },
+    "use-cases": {
+      "title": "Use Cases",
+      "description": "Adapt a shared case, a community inquiry, or field-placement notes into a sequence of mapping assignments.",
+      "headingId": "systems-mapping-use-cases"
+    },
+    "workspace-basics": {
+      "title": "Workspace Basics",
+      "description": "Move between the map and your writing without losing your place in either.",
+      "headingId": "systems-mapping-workspace-basics"
+    }
+  }
+}

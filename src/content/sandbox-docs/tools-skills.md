@@ -3,109 +3,50 @@ title: "Extending Models with Tools & Skills"
 headingId: "extending-models-with-tools--skills"
 ---
 
-Tools let a model search the web, run code, query a database, or look up papers on arXiv during a chat. Skills give it access to specialized procedural instructions without requiring you to put those instructions in the system prompt.
+Add a tool only when the task needs an action the model cannot perform through text alone. A skill serves a different purpose: it supplies reusable instructions for a procedure. Neither needs to be part of every course model.
 
----
+## Try an Available Tool
 
-## Tools
+Tools and capabilities depend on the platform configuration, your permissions, and the selected model. Seeing a tool in the Open WebUI community library does not mean it is installed in the Sandbox.
 
-### Types of Tools
+1. Open a chat and choose **Integrations** beside the plus button in the message box.
+2. Browse the available options and enable the one needed for your task.
+3. Make a small, non-sensitive test request. Check what the tool returned and whether the model represented that result accurately.
 
-- **Built-in capabilities**. Web Search, Image Generation, URL fetching, and Memory are available when configured and enabled by administrators and permitted for your account and model.
-- **Workspace tools**. Python scripts registered in the platform. These run on the server when the model calls them.
-- **MCP (Model Context Protocol)**. Anthropic's open standard for connecting AI models to external data sources and services. MCP servers expose structured capabilities that models discover and invoke automatically.
-- **OpenAPI servers**. Any web service with an OpenAPI specification can be connected as a tool provider.
+Selections made here apply to the current chat. If the needed option is missing, contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu) rather than assuming you can install it yourself. External services may have their own access and data-handling requirements; check them before sending course or research material.
 
-### Enabling Tools Per-Chat
+## Attach a Tool to a Model
 
-1. Open a chat
-2. Open **Integrations** beside the plus button in the message box
-3. Browse or search available tools
-4. Toggle on the tools you want for this session
-   - Tools enabled this way apply only to the current chat
+With **Workspace** access enabled, open **Workspace > Models** and edit the model. Select connected tools in **Tools**; configure built-in Web Search or Code Interpreter under **Capabilities** and **Default Features**, when available. Select **Save & Update**.
 
-### Enabling Tools Per-Model
+Use a base model that supports tool calling. Its **Function Calling** setting is under **Advanced Parameters**; Native mode lets it request tools with structured arguments. Test the chosen model with each attached tool. Share the tool with the intended users or course group as well as sharing the model.
 
-1. Request **Workspace** access by emailing the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu), then go to **Workspace > Models** once access is enabled.
-2. Edit the model you want to configure
-3. Scroll to the **Tools** section
-4. Select the default tools for this model
-5. Click **Save & Update**
-   - Share each attached tool with the intended users or course group as well as sharing the model.
+## Add Reusable Instructions with a Skill
 
-### Community Tool Library
+A skill is a Markdown procedure that a model can load for a relevant task. For example, you could write the steps of an approved course feedback process as a skill instead of putting the entire procedure in the system prompt. This is a possible configuration, not a claim that a particular course skill is installed.
 
-The [Open WebUI community library](https://openwebui.com/tools) lists tools administrators can install. To request one for the Sandbox, send its link to the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu). Examples include
+With the necessary Workspace permissions, create it in **Workspace > Skills** or select one shared with you. Then:
 
-- **arXiv Search** — query academic papers directly from chat. No API key required.
-- **Perplexica Search** — web search with inline citations.
-- **Pexels Media Search** — find stock photos and videos for presentations.
-- **YouTube Search & Embed** — locate and embed instructional videos.
+1. Edit the model in **Workspace > Models**.
+2. Select the skill in **Skills**.
+3. Set **Function Calling** to **Native** under **Advanced Parameters** so the model can load attached skill instructions.
+4. Select **Save & Update**, then test a request that should use the skill.
 
-> **Tip.** Browse the community library before building your own tool. Someone may have already solved your problem.
+Share the skill with the same intended audience. Check whether it was used as expected; attaching instructions does not guarantee compliance or grant access to additional data.
 
-### Function Calling
-
-Use a model that supports tool calling and check its **Function Calling** setting under **Advanced Parameters**. Native mode lets the model request a tool with structured arguments. Test the chosen model with each tool before sharing the configuration.
-
----
-
-## Skills
-
-Skills are reusable Markdown instructions for tasks or procedures. With Workspace access enabled, create a skill in **Workspace > Skills** or choose one shared with you, then attach it to a model using the steps below.
-
-### Binding Skills
-
-1. Go to **Workspace > Models**
-2. Edit the model
-3. Scroll to the **Skills** section
-4. Select the skills you want to bind
-5. Click **Save & Update**
-
-Share attached skills with the intended users or course group as well as sharing the model. For skills attached to a model, set **Function Calling** to **Native** in the model's **Advanced Parameters** so it can load the instructions. Test a request that uses the skill before sharing the model.
-
-### Example Skills for CUNY
-
-- **Quantitative Methods**. Statistical analysis, research design, SPSS and R guidance
-- **Academic Writing**. Scholarly conventions, citation practices, genre awareness
-- **Research Ethics**. IRB compliance, data privacy, informed consent protocols
-- **Digital Humanities**. Text analysis, corpus methods, visualization techniques
-
----
-
-## Advanced Settings
+## Request or Build an Extension
 
 <details>
-<summary>View details</summary>
+<summary>Read before adding a new tool</summary>
 
-### Building Custom Tools
+The [Open WebUI community library](https://openwebui.com/tools) offers tools administrators can review. Send the Lab a link and explain the task before requesting installation. Workspace tools are Python code that executes on the server; malicious or poorly written code can expose data or disrupt service. Installation requires appropriate permission and code review.
 
-If the community library does not have what you need, administrators can write custom tools. Each tool requires a name, description, and Python function body. The function runs on the server when the model invokes it.
+Administrators or otherwise authorized developers can use **Workspace > Tools > Create** to supply a tool name, description, and Python function. Do not treat a successful small test as a security review.
 
-Open **Workspace > Tools** and choose **Create** to get started, if your account has permission. Consult with the CUNY AI Lab team if you are unsure about security implications.
+Configured MCP servers and OpenAPI services provide other tool connections. Built-in capabilities such as Web Search, Image Generation, URL fetching, and Memory also depend on administrator settings and account/model permissions. Availability in the upstream platform does not establish local availability.
 
-### Tool Security
-
-Tools are Python scripts that execute on the server. A poorly written or malicious tool can access system resources, exfiltrate data, or disrupt service. Only install tools from trusted sources. Contact the CUNY AI Lab team before adding community tools to the instance.
+See the [Open WebUI tools reference](https://docs.openwebui.com/features/extensibility/plugin/tools/) and [Model Context Protocol documentation](https://modelcontextprotocol.io) for technical detail.
 
 </details>
 
----
-
-## Callout
-
-<div class="callout">
-  <strong>Security reminder.</strong> Review any community tool's code before installing it. Tools run with server-level access. If you are not comfortable evaluating Python code, ask the CUNY AI Lab team to review it for you.
-</div>
-
----
-
-## Additional Resources
-
-- [Open WebUI Tools Documentation](https://docs.openwebui.com/features/extensibility/plugin/tools/) — official reference for tool development and configuration
-- [Model Context Protocol (MCP)](https://modelcontextprotocol.io) — Anthropic's specification for connecting AI models to external data
-- [Open WebUI Community Tools](https://openwebui.com/tools) — browse and download pre-built tools
-
----
-
-[← Return to Knowledge Bases](knowledge-bases.md) | [Continue to Roles & Permissions →](roles-permissions.md)
+[← Return to Knowledge Collections](knowledge-bases.md) | [Continue to Roles & Permissions →](roles-permissions.md)

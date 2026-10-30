@@ -3,79 +3,28 @@ title: "Sandbox Basics"
 headingId: "sandbox-basics"
 ---
 
-Core terminology, interface layout, and navigation.
+Once you have sent a message, take a moment to examine the reply before asking for more. The Sandbox gives you ways to try different models and bring in course materials, but a fluent answer still needs checking.
 
----
+## Read the Response
 
-## Key Concepts
+Compare the response with the task you gave it. Open any cited source and check the relevant passage; a citation alone does not establish that the answer is accurate. If the response adds a fact you cannot verify, set it aside or ask where it came from rather than treating the model's explanation as confirmation.
 
-A **base model** generates responses from the instructions and content in a chat. When creating a custom model, choose which base model it will use.
+Follow up on one point at a time. You might ask which sentence supports an interpretation, what information is missing, or how an explanation relates to a course reading. Keep your own judgment visible by noting what you accepted, changed, or rejected.
 
-A **custom model** combines a base model, system prompt, knowledge bases, and tools.
+## Know Which Model You Are Using
 
-A **system prompt** gives the model instructions for its role, tone, boundaries, and response style.
+The name on the right inside the message box identifies the selected model. A base model generates responses from the chat's instructions and content. A custom model adds a configuration, such as a system prompt, document collection, or available tools; it does not train a new base model.
 
-A **knowledge base** contains files you upload, such as PDFs, Markdown, and plain text. Through **retrieval-augmented generation (RAG)**, custom models can retrieve passages from these documents when responding to tasks or questions about course materials.
+Click the model name to choose another. Switching retains the chat history, so use separate new chats when you want to compare responses to the same starting prompt. Check the current selector rather than assuming a model mentioned in an older activity is still available.
 
-**Tools** add capabilities such as Web Search, Code Interpreter, and arXiv Search. Enable them for an individual chat or a custom model.
+## Bring in a Source
 
-**Skills** are reusable Markdown instructions for tasks or procedures that you can attach to models.
+Use **➕ > Upload Files**, or drag a file into the chat, to attach permitted material. Ask about a specific passage or question you can check against the original. File support and available capabilities depend on the selected model and configuration. A persistent collection for a custom model requires [Workspace access and a knowledge base](knowledge-bases.md).
 
-**Roles**
-- **Admin** — manages the platform and user access
-- **User** — uses the features and resources granted to their account and groups
-- **Pending** — awaits account activation
+## Decide What to Keep or Share
 
-Faculty, staff, and student access depends on assigned permissions and course membership.
+Regular chats save to your account; temporary chats stay out of history. Use the sidebar's three-dot menu to rename a useful chat. Before choosing **Share** or posting in a course channel, review the content and intended audience. Administrators can access stored chats; provider zero-retention settings do not erase Sandbox history.
 
-**Resource access.** Private resources are available to you and any users or groups you add through **Add Access**. Public resources are available to all signed-in Sandbox users, where public sharing is permitted.
-
----
-
-## Interface Layout
-
-Three areas on screen
-
-1. **Sidebar (left)** — chat history, Workspace access, settings
-2. **Chat area (center)** — chat thread
-3. **Message box** — text input, attachments, integrations, and model selector on the right
-
----
-
-## Sidebar
-
-- **Chats** — chat history. Click to reopen. Hover for rename/archive/delete.
-- **Workspace** — Models, Knowledge, Tools (requires Workspace access)
-- **Settings** — preferences, defaults, profile
-
----
-
-## Chat Controls
-
-- **Model selector** (right inside the message box) — switch models mid-chat
-- **Integrations** (beside the plus button) — choose available tools and skills
-- **➕ > Upload Files** — attach images, PDFs, or documents
-- **Message actions** (beneath a message) — copy, edit, or regenerate where available; additional actions are in the three-dot menu
-
----
-
-## Workspace
-
-Individual access lets you use resources shared by the CUNY AI Lab, but does not automatically include **Workspace**. Email the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu) to request access for creating custom configurations.
-
-- **Workspace > Models** — create, edit, share custom AI models
-- **Workspace > Knowledge** — upload documents, build knowledge bases
-- **Workspace > Prompts** — save and share reusable prompt templates
-- **Workspace > Tools** — browse and manage available tools
-- **Workspace > Skills** — create and share reusable instructions
-
----
-
-## Next Steps
-
-- [Getting Started](getting-started.md) — log in and start your first chat
-- [Custom Models](models.md) — build your first custom configuration
-
----
+For the location of other controls, use the [Quick Tour](quick-tour.md). When you have a task that needs a reusable configuration, continue to [Custom Models](models.md); creating one requires separate **Workspace** permission.
 
 [← Return to Getting Started](getting-started.md) | [Continue to Custom Models →](models.md)
