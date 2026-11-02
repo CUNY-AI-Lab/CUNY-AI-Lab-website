@@ -52,27 +52,80 @@
       "photo_position": "center"
     }
   ],
-  "fellows": [
+  "fellows": {
+    "years": "2026–2027",
+    "members": [
+      {
+        "name": "Kay Kim",
+        "degree": "M.S. student",
+        "program": "Data Analysis and Visualization",
+        "photo": "images/team/kay-kim.jpg",
+        "photo_position": "center"
+      },
+      {
+        "name": "Ricardo Ledan",
+        "degree": "M.A. student",
+        "program": "Digital Humanities",
+        "photo": "images/team/ricardo-ledan.jpg",
+        "photo_position": "center"
+      },
+      {
+        "name": "Gabe Levine",
+        "degree": "Ph.D. student",
+        "program": "Computer Science",
+        "photo": "images/team/gabe-levine.jpg",
+        "photo_position": "center"
+      },
+      {
+        "name": "Sasha Richardson",
+        "degree": "M.A. student",
+        "program": "Digital Humanities",
+        "photo": "images/team/sasha-richardson.jpg",
+        "photo_position": "center"
+      },
+      {
+        "name": "Parisa M. Setayesh",
+        "degree": "Ph.D. student",
+        "program": "Earth and Environmental Sciences",
+        "photo": "images/team/parisa-setayesh.jpg",
+        "photo_position": "center"
+      }
+    ]
+  },
+  "past_fellows": [
     {
-      "name": "Ellen Siyuan Pan",
-      "photo": "images/team/ellen-pan.jpg",
-      "photo_position": "center",
-      "photo_bg": "bg-gradient-to-br from-vibrant-100 to-vibrant-200"
-    },
-    {
-      "name": "Jonathan Toro",
-      "photo": "images/team/jonathan-toro.png",
-      "photo_position": "center"
-    },
-    {
-      "name": "Nicole Walker",
-      "photo": "images/team/nicole-walker.png",
-      "photo_position": "center"
-    },
-    {
-      "name": "Ian G. Williams",
-      "photo": "images/team/ian-williams.jpg",
-      "photo_position": "center"
+      "years": "2025–2026",
+      "members": [
+        {
+          "name": "Ellen Siyuan Pan",
+          "degree": "Ph.D. student",
+          "program": "English",
+          "photo": "images/team/ellen-pan.jpg",
+          "photo_position": "center",
+          "photo_bg": "bg-gradient-to-br from-vibrant-100 to-vibrant-200"
+        },
+        {
+          "name": "Jonathan Toro",
+          "degree": "Ph.D. student",
+          "program": "English",
+          "photo": "images/team/jonathan-toro.png",
+          "photo_position": "center"
+        },
+        {
+          "name": "Nicole Walker",
+          "degree": "Ph.D. student",
+          "program": "English",
+          "photo": "images/team/nicole-walker.png",
+          "photo_position": "center"
+        },
+        {
+          "name": "Ian G. Williams",
+          "degree": "Ph.D. student",
+          "program": "Social Welfare",
+          "photo": "images/team/ian-williams.jpg",
+          "photo_position": "center"
+        }
+      ]
     }
   ],
   "partners": [

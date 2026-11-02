@@ -19,6 +19,8 @@ CUNY Login verifies your CUNY identity, but it does not by itself grant access t
 
 Most tools send you straight to CUNY Login. The [CAIL Sandbox](https://chat.ailab.gc.cuny.edu/) is the exception, because it shows its own sign-in form first. Use the **Continue with CUNY Login** button there and leave the email and password fields empty.
 
+Starting November 2, the Sandbox accepts only CUNY Login and the email-and-password option is discontinued. See [CAIL Sandbox: Transition to CUNY Login](/blog/sandbox-cuny-login/) for details.
+
 <figure>
   <img src="/images/blog/cuny-login-sso.png" alt="The CAIL Sandbox sign-in screen. A button labeled 'Continue with CUNY Login' sits below the email and password form, separated from it by a divider labeled 'or'." />
   <figcaption>The Sandbox sign-in screen. Use the "Continue with CUNY Login" button, not the email and password fields.</figcaption>
