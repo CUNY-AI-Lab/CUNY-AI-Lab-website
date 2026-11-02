@@ -67,10 +67,7 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
         {data.past_fellows.map((cohort: any) => (
           <details class="group/cohort rounded-2xl border border-gray-200 bg-neutral-cream/40 open:bg-white transition-colors">
             <summary class="flex items-center justify-between gap-4 cursor-pointer list-none px-5 py-4 [&::-webkit-details-marker]:hidden">
-              <span class="text-lg font-semibold font-display text-neutral-stone">
-                {cohort.years}
-                <span class="ml-2 text-sm font-normal text-gray-500">{cohort.members.length} fellows</span>
-              </span>
+              <span class="text-lg font-semibold font-display text-neutral-stone">{cohort.years}</span>
               <svg class="h-5 w-5 shrink-0 text-gray-500 transition-transform duration-200 group-open/cohort:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
               </svg>
