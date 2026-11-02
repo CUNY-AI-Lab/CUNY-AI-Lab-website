@@ -47,7 +47,7 @@
     },
     "privacy-and-limits": {
       "title": "Privacy & Limits",
-      "description": "Personal work is private to your account. Course work permits instructor review after you acknowledge the policy; classmates need access through a shared folder.",
+      "description": "Personal work stays in your account unless you share a public link. Your instructor can review work assigned to a course after you agree to the course policy, and classmates need access through a shared folder.",
       "headingId": "stem-splitter-privacy-and-limits"
     },
     "sample-activities": {
@@ -89,7 +89,7 @@
     },
     "export-and-sharing": {
       "title": "Export & Sharing",
-      "description": "Share a live project link or an exported copy, and record a saved course revision when your instructor asks.",
+      "description": "Share a live project link or an exported copy, and record your progress when your instructor asks.",
       "headingId": "systems-mapping-export-and-sharing"
     },
     "getting-started": {
@@ -104,7 +104,7 @@
     },
     "instructor-console": {
       "title": "Instructor Console",
-      "description": "Give students a question for each level and follow their progress while keeping private map content separate.",
+      "description": "Write questions and guidance for your course and see how far students have progressed.",
       "headingId": "systems-mapping-instructor-console"
     },
     "levels": {
@@ -139,7 +139,7 @@
     },
     "teaching-tips": {
       "title": "Teaching Tips",
-      "description": "Use each level to ask students where a claim belongs and which passage supports it.",
+      "description": "Help students decide what to include on their maps and consider how their sources support their choices.",
       "headingId": "systems-mapping-teaching-tips"
     },
     "use-cases": {
