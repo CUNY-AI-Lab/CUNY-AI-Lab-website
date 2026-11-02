@@ -12,7 +12,7 @@
     },
     "getting-started": {
       "title": "Getting Started",
-      "description": "Sign in, choose a familiar recording, and make your first split. Knowing the song will help you compare the separated parts with the full mix.",
+      "description": "Sign in, choose a recording, and split it into parts you can listen to separately.",
       "headingId": "stem-splitter-getting-started"
     },
     "index": {
@@ -27,7 +27,7 @@
     },
     "listening-guy": {
       "title": "Listening Guy",
-      "description": "Ask about a recording, try the suggested mixer action, and check the answer by listening. Listening Guy can control the mixer, but it cannot hear the audio.",
+      "description": "Ask Listening Guy about a recording and listen to check its descriptions. The model does not receive the audio or waveforms.",
       "headingId": "stem-splitter-listening-guy"
     },
     "live-sessions": {
@@ -52,7 +52,7 @@
     },
     "sample-activities": {
       "title": "Sample Activities",
-      "description": "Try these short listening tasks with a recording your class is using. Each moves from a mixer action to a note about what students heard.",
+      "description": "Try these listening activities with a recording your class is using.",
       "headingId": "stem-splitter-sample-activities"
     },
     "splitter-basics": {
@@ -72,7 +72,7 @@
     },
     "use-cases": {
       "title": "Use Cases",
-      "description": "Start with a recording, describe what you hear, and compare the full mix with isolated parts. Use notes to show where your account comes from.",
+      "description": "Listen to a recording, make notes, and share it with your class.",
       "headingId": "stem-splitter-use-cases"
     }
   },
@@ -94,12 +94,12 @@
     },
     "getting-started": {
       "title": "Getting Started",
-      "description": "Accept your course invitation, open a project, and build a first Micro map from one memo.",
+      "description": "Accept your course invitation, open a project, and start a map from a memo.",
       "headingId": "systems-mapping-getting-started"
     },
     "index": {
       "title": "Systems Mapping Documentation",
-      "description": "Build a map from a case or fieldwork memo, and show how each claim follows from the evidence.",
+      "description": "Build a map from a memo, add evidence, and write Field Notes.",
       "headingId": "systems-mapping-index"
     },
     "instructor-console": {
@@ -109,12 +109,12 @@
     },
     "levels": {
       "title": "The Four Levels",
-      "description": "Follow the focal person's direct encounters, relationships between mapped items, outside decisions, and broader conditions across one cumulative map.",
+      "description": "Map the people and places in a memo, then consider how outside decisions and broader conditions affect them.",
       "headingId": "systems-mapping-levels"
     },
     "map": {
       "title": "The Map",
-      "description": "Place items where the case supports them, then describe the relationships a reader should follow.",
+      "description": "Add items to a map and describe how they are connected.",
       "headingId": "systems-mapping-map"
     },
     "memo-and-suggestions": {
