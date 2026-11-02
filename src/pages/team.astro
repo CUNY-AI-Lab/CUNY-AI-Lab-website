@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
+import FellowCard from '../components/FellowCard.astro';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -51,21 +52,25 @@ const data = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
   <!-- Fellows Section -->
   <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl font-bold font-display text-neutral-stone mb-8">Fellows, 2025–2026</h2>
+      <h2 class="text-2xl font-bold font-display text-neutral-stone mb-8">Fellows, {data.fellows.years}</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
-        {data.fellows.map((fellow: any) => (
-          <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden w-full max-w-[280px] group border border-gray-100">
-            <div class={`aspect-[3/4] overflow-hidden ${fellow.photo_bg || 'bg-gray-100'} relative${fellow.photo_bg ? ' flex items-center justify-center' : ''}`}>
-              <img src={`${base}${fellow.photo}`} alt={fellow.name} class={`w-full h-full object-cover${fellow.photo_bg ? '' : ` object-${fellow.photo_position} group-hover:scale-105 transition-transform duration-500`}`} />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-            <div class="p-5">
-              <h3 class="text-lg font-bold font-display text-neutral-stone mb-1">{fellow.name}</h3>
-
-            </div>
-          </div>
-        ))}
+        {data.fellows.members.map((fellow: any) => <FellowCard {...fellow} />)}
       </div>
+    </div>
+  </section>
+
+  <!-- Past Fellows Section -->
+  <section class="pb-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 border-t border-gray-100">
+      <h2 class="text-2xl font-bold font-display text-neutral-stone mb-8">Past Fellows</h2>
+      {data.past_fellows.map((cohort: any) => (
+        <div class="mb-12 last:mb-0">
+          <h3 class="text-lg font-semibold font-display text-gray-600 mb-6">{cohort.years}</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+            {cohort.members.map((fellow: any) => <FellowCard {...fellow} />)}
+          </div>
+        </div>
+      ))}
     </div>
   </section>
 
