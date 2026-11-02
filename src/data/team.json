@@ -56,13 +56,6 @@
     "years": "2026–2027",
     "members": [
       {
-        "name": "Ricardo Ledan",
-        "degree": "M.A. student",
-        "program": "Digital Humanities",
-        "photo": "images/team/ricardo-ledan.jpg",
-        "photo_position": "center"
-      },
-      {
         "name": "Kay Kim",
         "degree": "M.S. student",
         "program": "Data Analysis and Visualization",
@@ -70,10 +63,10 @@
         "photo_position": "center"
       },
       {
-        "name": "Sasha Richardson",
+        "name": "Ricardo Ledan",
         "degree": "M.A. student",
         "program": "Digital Humanities",
-        "photo": "images/team/sasha-richardson.jpg",
+        "photo": "images/team/ricardo-ledan.jpg",
         "photo_position": "center"
       },
       {
@@ -81,6 +74,13 @@
         "degree": "Ph.D. student",
         "program": "Computer Science",
         "photo": "images/team/gabe-levine.jpg",
+        "photo_position": "center"
+      },
+      {
+        "name": "Sasha Richardson",
+        "degree": "M.A. student",
+        "program": "Digital Humanities",
+        "photo": "images/team/sasha-richardson.jpg",
         "photo_position": "center"
       },
       {
