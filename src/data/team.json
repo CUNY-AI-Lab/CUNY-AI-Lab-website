@@ -57,21 +57,21 @@
     "members": [
       {
         "name": "Ricardo Ledan",
-        "degree": "Master's student",
+        "degree": "M.A. student",
         "program": "Digital Humanities",
         "photo": "images/team/ricardo-ledan.jpg",
         "photo_position": "center"
       },
       {
         "name": "Kay Kim",
-        "degree": "Master's student",
+        "degree": "M.S. student",
         "program": "Data Analysis and Visualization",
         "photo": "images/team/kay-kim.jpg",
         "photo_position": "center"
       },
       {
         "name": "Sasha Richardson",
-        "degree": "Master's student",
+        "degree": "M.A. student",
         "program": "Digital Humanities",
         "photo": "images/team/sasha-richardson.jpg",
         "photo_position": "center"
