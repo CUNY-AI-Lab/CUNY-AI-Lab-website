@@ -22,17 +22,17 @@
     },
     "instructor-console": {
       "title": "Instructor Console",
-      "description": "Give Listening Guy instructions for your course, including terms you want students to use.",
+      "description": "Write teaching instructions for Listening Guy, including terms you want students to use.",
       "headingId": "stem-splitter-instructor-console"
     },
     "listening-guy": {
       "title": "Listening Guy",
-      "description": "Ask Listening Guy about a recording and listen to check its descriptions. The model does not receive the audio or waveforms.",
+      "description": "Ask Listening Guy about a recording. Listening Guy does not receive the recording or its waveforms, so listen to check its descriptions.",
       "headingId": "stem-splitter-listening-guy"
     },
     "live-sessions": {
       "title": "Live Sessions",
-      "description": "Lead playback from your mixer while students follow on their own devices. Headphones let each student hear the shared passage and set their own volume.",
+      "description": "Lead playback from your mixer while students follow on their own devices. With headphones, each student can hear the shared passage and set their own volume.",
       "headingId": "stem-splitter-live-sessions"
     },
     "mixer": {
@@ -47,7 +47,7 @@
     },
     "privacy-and-limits": {
       "title": "Privacy & Limits",
-      "description": "Personal work stays in your account unless you share a public link. Your instructor can review work assigned to a course after you agree to the course policy, and classmates need access through a shared folder.",
+      "description": "Personal work stays in your account unless you share a public link. Your instructor can review work assigned to a course after you check the acknowledgment, and classmates need access through a class folder.",
       "headingId": "stem-splitter-privacy-and-limits"
     },
     "sample-activities": {
@@ -79,7 +79,7 @@
   "systems-mapping": {
     "course-access": {
       "title": "Course Access",
-      "description": "Enter your course workspace through the Lab and keep its maps separate from your other projects.",
+      "description": "Enter your course workspace through the Lab. Its maps stay separate from your other projects.",
       "headingId": "systems-mapping-course-access"
     },
     "evidence-and-field-notes": {
