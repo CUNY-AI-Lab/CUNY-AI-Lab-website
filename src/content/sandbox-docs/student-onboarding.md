@@ -16,7 +16,7 @@ Get course approval before setting up the class or inviting students. An individ
 
 Check the roster in **My classes** before the activity. Contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu) about unresolved enrollment or login problems.
 
-## Prepare the Resources and Expectations
+## Prepare Class Materials and Instructions<span id="prepare-the-resources-and-expectations" aria-hidden="true"></span>
 
 If you are creating a course model, request separate **Workspace** access from the Lab. Build and test the model before class, then keep its visibility **Private** and use **Add Access** to give the course group **Read** access. Do the same for attached knowledge collections, tools, and skills. Confirm that intended users can reach the resources; your owner view alone does not establish their access.
 
@@ -46,7 +46,7 @@ The model uses the current chat's history. If Memory is enabled or another chat 
 
 Administrators can access stored chats and system logs. Classmates see content shared with them or posted in the course channel. Provider requests are configured for zero retention, and using prompts or responses for model training is prohibited; saved Sandbox history is separate. Review [Privacy and Chat History](getting-started.md#privacy-and-chat-history) with students.
 
-## Return to What Students Found
+## Discuss Student Findings<span id="return-to-what-students-found" aria-hidden="true"></span>
 
 After the activity, discuss a response that needed checking and a decision the student made. Use those examples to revise the assignment, prompt, or document collection. Do not assume a polished output demonstrates understanding, or that a student who could not use the interface failed the learning task.
 

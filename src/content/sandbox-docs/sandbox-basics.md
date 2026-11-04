@@ -17,7 +17,7 @@ The name on the right inside the message box identifies the selected model. A ba
 
 Click the model name to choose another. Switching retains the chat history, so use separate new chats when you want to compare responses to the same starting prompt. Check the current selector rather than assuming a model mentioned in an older activity is still available.
 
-## Bring in a Source
+## Add Source Material<span id="bring-in-a-source" aria-hidden="true"></span>
 
 Use **➕ > Upload Files**, or drag a file into the chat, to attach permitted material. Ask about a specific passage or question you can check against the original. File support and available capabilities depend on the selected model and configuration. A persistent collection for a custom model requires [Workspace access and a knowledge base](knowledge-bases.md).
 

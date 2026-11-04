@@ -4,7 +4,7 @@ headingId: "getting-started"
 description: "Get access, sign in, and start experimenting with open-weight models."
 ---
 
-Start by choosing the access route that fits you. Students join through an instructor's invitation; instructors arranging a class apply for course access. An individual application is for your own use.
+Students can join through an instructor's invitation. Instructors can request course access through the CUNY AI Lab. If you plan to use the Sandbox on your own, request individual access.
 
 ## Get Access<span id="request-access" aria-hidden="true"></span>
 
@@ -18,7 +18,7 @@ Individual access lets you use resources shared by the Lab. To create configurat
 
 ### Request Course Access
 
-Get course approval before preparing the class environment or inviting students. You can apply without an existing individual Lab account.
+Request course access before inviting students. Once the Lab approves the course, you can check the class group and channel. You can apply without an existing individual Lab account.
 
 1. Open the [course application](https://ailab.gc.cuny.edu/request-access/?kind=class), sign in with **CUNY Login**, and select **A class I'm teaching or organizing**.
 2. Complete your details, planned use, and **Class details**, including dates and estimated enrollment. Check **I teach or lead this class**, complete the verification, and submit.

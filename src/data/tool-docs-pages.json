@@ -17,7 +17,7 @@
     },
     "index": {
       "title": "Stem Splitter Documentation",
-      "description": "Listen closely to a recording, explore its parts, and leave notes about what you hear.",
+      "description": "Play a recording or selected stems, and add notes at specific points.",
       "headingId": "stem-splitter-index"
     },
     "instructor-console": {
@@ -32,7 +32,7 @@
     },
     "live-sessions": {
       "title": "Live Sessions",
-      "description": "Lead playback from your mixer while students follow on their own devices. With headphones, each student can hear the shared passage and set their own volume.",
+      "description": "Lead playback from your mixer while students follow on their own devices. Students can use headphones and adjust the volume on their own devices.",
       "headingId": "stem-splitter-live-sessions"
     },
     "mixer": {
@@ -67,7 +67,7 @@
     },
     "teaching-tips": {
       "title": "Teaching Tips",
-      "description": "Find ways to help students listen closely and describe what they hear.",
+      "description": "Help students describe specific passages and support their observations.",
       "headingId": "stem-splitter-teaching-tips"
     },
     "use-cases": {
