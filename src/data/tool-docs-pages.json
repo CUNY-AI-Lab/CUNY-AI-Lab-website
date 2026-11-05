@@ -79,22 +79,22 @@
   "systems-mapping": {
     "course-access": {
       "title": "Course Access",
-      "description": "Enter your course workspace through the Lab. Its maps stay separate from your other projects.",
+      "description": "Choose a course or general workspace and understand instructor access to saved progress.",
       "headingId": "systems-mapping-course-access"
     },
     "evidence-and-field-notes": {
       "title": "Evidence & Field Notes",
-      "description": "Connect your map to passages in your memo and use Field Notes to write about your research.",
+      "description": "Read source quotations, explain connections, and write optional Field Notes.",
       "headingId": "systems-mapping-evidence-and-field-notes"
     },
     "export-and-sharing": {
       "title": "Export & Sharing",
-      "description": "Share a live project link or an exported copy, and record your progress when your instructor asks.",
+      "description": "Download the map, reopen a project backup, or share a project link.",
       "headingId": "systems-mapping-export-and-sharing"
     },
     "getting-started": {
       "title": "Getting Started",
-      "description": "Accept your course invitation, open a project, and start a map from a memo.",
+      "description": "Create a project, submit two memos, and build connections across Micro, Meso, Exo, and Macro.",
       "headingId": "systems-mapping-getting-started"
     },
     "index": {
@@ -104,52 +104,52 @@
     },
     "instructor-console": {
       "title": "Instructor Console",
-      "description": "Write questions and guidance for your course and see how far students have progressed.",
+      "description": "Publish course questions and guidance, inspect saved progress, and manage versions.",
       "headingId": "systems-mapping-instructor-console"
     },
     "levels": {
       "title": "The Four Levels",
-      "description": "Map people and places, connect them, and explore how they relate to institutions, resources, and policies.",
+      "description": "Work across four mapping steps and three nested system regions using two related memos.",
       "headingId": "systems-mapping-levels"
     },
     "map": {
       "title": "The Map",
-      "description": "Add items to a map and describe how they are connected.",
+      "description": "Edit nodes, draw relationships, connect broader influences, and use saved Undo and Redo.",
       "headingId": "systems-mapping-map"
     },
     "memo-and-suggestions": {
-      "title": "Memo & Suggestions",
-      "description": "Compare each model suggestion with your memo before deciding what belongs on the map.",
+      "title": "Memos & Map Updates",
+      "description": "Submit two independent memos and use Update map when the sources change.",
       "headingId": "systems-mapping-memo-and-suggestions"
     },
     "privacy-and-limits": {
       "title": "Privacy & Limits",
-      "description": "Learn who can see your work and how your memo is used before you share a map.",
+      "description": "Understand source submissions, sharing, recovery copies, and current model limits.",
       "headingId": "systems-mapping-privacy-and-limits"
     },
     "sample-activities": {
       "title": "Sample Activities",
-      "description": "Try these short activities to help students make and discuss their maps.",
+      "description": "Use two memos to examine local relationships and connect broader influences.",
       "headingId": "systems-mapping-sample-activities"
     },
     "student-onboarding": {
       "title": "Student Onboarding",
-      "description": "Help students get started with a shared memo and save their first map.",
+      "description": "Introduce the two memos, student-created relationships, and optional Field Notes.",
       "headingId": "systems-mapping-student-onboarding"
     },
     "teaching-tips": {
       "title": "Teaching Tips",
-      "description": "Help students decide what to include on their maps and consider how their sources support their choices.",
+      "description": "Choose related sources and help students examine classification, evidence, and connections.",
       "headingId": "systems-mapping-teaching-tips"
     },
     "use-cases": {
       "title": "Use Cases",
-      "description": "Explore ways to use a shared case, community research, or field notes in a mapping assignment.",
+      "description": "Connect community research, local relationships, and broader conditions in one evolving map.",
       "headingId": "systems-mapping-use-cases"
     },
     "workspace-basics": {
       "title": "Workspace Basics",
-      "description": "Move between the map and your writing without losing your place in either.",
+      "description": "Use Memo, Notebook, and Tools to develop the map and revise saved work.",
       "headingId": "systems-mapping-workspace-basics"
     }
   }

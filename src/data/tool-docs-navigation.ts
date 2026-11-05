@@ -16,7 +16,7 @@ export const toolDocs = {
     appUrl: 'https://systems-mapping.ailab-452.workers.dev/',
     groups: [
       { title: 'Getting Started', pages: [['getting-started', 'Getting Started'], ['workspace-basics', 'Workspace Basics']] },
-      { title: 'Build & Interpret', pages: [['levels', 'The Four Levels'], ['memo-and-suggestions', 'Memo & Suggestions'], ['map', 'The Map'], ['evidence-and-field-notes', 'Evidence & Field Notes'], ['export-and-sharing', 'Export & Sharing']] },
+      { title: 'Build & Interpret', pages: [['levels', 'The Four Levels'], ['memo-and-suggestions', 'Memos & Map Updates'], ['map', 'The Map'], ['evidence-and-field-notes', 'Evidence & Field Notes'], ['export-and-sharing', 'Export & Sharing']] },
       { title: 'Teach & Review', pages: [['course-access', 'Course Access'], ['instructor-console', 'Instructor Console'], ['teaching-tips', 'Teaching Tips'], ['sample-activities', 'Sample Activities'], ['student-onboarding', 'Student Onboarding'], ['use-cases', 'Use Cases']] },
       { title: 'Related', pages: [['privacy-and-limits', 'Privacy & Limits']] },
     ],
