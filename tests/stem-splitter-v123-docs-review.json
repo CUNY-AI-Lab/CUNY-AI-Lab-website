@@ -1,0 +1,30 @@
+{
+  "source": "b953107d6e9d6f744a01d9cb9a6ff7acd108285e",
+  "productionVersion": "3c591905-32a0-40a9-ba7b-9762f6376451",
+  "productionDeployment": "793aff04-e71d-40fa-82f6-b01c4d51414e",
+  "review": "Verified healthz, 100 percent deployment, eleven exact served assets and signed-out desktop/phone navigation before editing docs.",
+  "screenshots": [
+    {
+      "file": "v123-upload.png",
+      "source": "fresh production signed-out capture",
+      "sha256": "a6281b3b959e38efa4c5f4b960744fc84ae5a8aff94ee930238fe8afa3010e8f"
+    },
+    {
+      "file": "v123-settings.png",
+      "source": "synthetic student fixture from released statefulness audit",
+      "sha256": "8823a96f70b56561fff608bbfe202c103eff07a5cc4e33f2aec4ad3a8a1f9d5e"
+    },
+    {
+      "file": "v123-recording-title.png",
+      "source": "synthetic owned recording fixture from released statefulness audit",
+      "sha256": "069a89cd5751de7f773e8b6072da2f75ec3c22f1f93a445982a210c3be94460c"
+    }
+  ],
+  "remainingLiveChecks": [
+    "Ordinary individual member",
+    "Enrolled student",
+    "Non-admin course instructor",
+    "Successful Listening Guy model reply"
+  ],
+  "instrumentFeatures": "Unfinished instrument experiments excluded; live runtime instrumentTargets and remixer are false."
+}
