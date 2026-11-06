@@ -68,10 +68,18 @@
       "sha256": "3e11d1f653c023e73227bbc2856987ccbb887864572ff5b95766d028d393cdc9"
     }
   ],
-  "note": "Reviewed for the documentation preview on November 5, 2026. Progression images are earlier Dev captures of the website-based CUNY AI Lab example, not fresh production captures or the later expanded-memo results. Export and shortcut changes on Dev are excluded until released.",
+  "note": "Reviewed for the documentation preview on November 5, 2026. Progression images are earlier Dev captures of the website-based CUNY AI Lab example, not fresh production captures or the later expanded-memo results.",
   "productionScreenshot": {
     "file": "course-settings.jpg",
     "release": "763943c3c1b24aa583c30c08353b1cab8bc78f7f",
     "source": "systems-mapping-v1.2.2 / outputs/cuny-ai-lab-expanded-memos/interface/07-production-course-settings.jpg"
+  },
+  "exportAndShortcutScreenshots": {
+    "release": "1a93a420b4c4302ec4b0592d03ac57d687029dc9",
+    "environment": "production",
+    "files": [
+      "production-downloads.jpg",
+      "production-shortcuts.jpg"
+    ]
   }
 }
