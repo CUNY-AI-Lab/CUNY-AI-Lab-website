@@ -3,119 +3,51 @@ title: "Grounding AI with Knowledge Collections"
 headingId: "grounding-ai-with-knowledge-collections"
 ---
 
-After uploading files (PDFs, Markdown, plain text) to a knowledge collection, custom models can retrieve relevant passages from those documents in response to situated tasks or course-specific questions.
+Use a knowledge collection when a custom model needs to consult the same documents across chats. Start with a small set of permitted course materials and a question whose answer you can locate yourself. Retrieval can supply useful passages, but you still need to check whether the response represents them accurately.
 
-When a student asks, "What does the syllabus say about late submissions?", an uploaded syllabus gives the model a document to search and cite. Without that document, the model may generate a confident but incorrect response. Test whether it retrieves the relevant passage and represents your policy accurately before students rely on it.
+## Create a Knowledge Base<span id="creating-a-knowledge-base-1" aria-hidden="true"></span>
 
----
+Creating collections requires **Workspace** access. If it is missing, request it from [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
 
-## Creating a Knowledge Base<span id="creating-a-knowledge-base-1" aria-hidden="true"></span>
+1. Open **Workspace > Knowledge** and select **Create** beside the tabs.
+2. Enter a recognizable name and a description of the materials and intended task.
+3. Keep **Private** while preparing the collection. Do not upload confidential material or other people's work without appropriate permission.
+4. Select **Create Knowledge**.
+5. Drag in PDF, Markdown, or plain-text files, or browse to select them. Wait for processing to finish.
 
-1. Request **Workspace** access by emailing the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu). Once enabled, click **Workspace** in the left sidebar.
-2. Select **Knowledge**
-3. Click **Create** beside the Workspace tabs
-   - A dialog opens asking you to describe what you are building
-4. Give it a **name**
-   - Use a name your students or colleagues will recognize, such as "ENG 2100 Fall 2026 Readings" or "IRB Protocol Archive"
-5. Describe its **purpose**
-   - Name the materials the collection contains and the tasks it should support, such as checking course policies or comparing research methods.
-6. Set access
-   - Keep **Private** while building. Use **Add Access** to grant your course group **Read** access.
-   - Choose **Public** only for materials intended for all signed-in Sandbox users, where permitted.
-7. Click **Create Knowledge**
+Use readable text with clear headings. Scanned documents may need OCR, and multi-column PDFs, tables, or images may not be extracted as you expect. If a PDF performs poorly, inspect its text or convert it to Markdown, checking passage order before uploading again.
 
-### Uploading Documents
+## Connect It to a Model
 
-8. **Drag and drop files** into the knowledge base, or click to browse
-   - Supported formats. PDF, Markdown, plain text
-   - You can upload multiple files at once
-9. Wait for processing to complete
-   - The system splits your documents into chunks and creates searchable embeddings. Processing time depends on file size and the configured services.
+1. Open **Workspace > Models** and edit the intended model.
+2. In **Knowledge**, select the collection. You can attach more than one when the task requires it.
+3. Select **Save & Update**.
 
-After processing finishes, attach the collection to the custom model that should use it.
+Attaching a collection does not grant its audience access. Before sharing the model, use **Add Access** to grant the intended course group **Read** access to the collection as well. Choose **Public** only for materials intended for all signed-in Sandbox users, where permitted.
 
-### Connecting to a Model
+## Check What the Model Retrieves
 
-10. Go to **Workspace > Models** and edit the model you want to ground
-11. Scroll to the **Knowledge** section
-12. Select the knowledge base you just created
-    - You can attach multiple knowledge bases to a single model so it can retrieve from those collections.
-13. Click **Save & Update**
+Ask a question tied to a specific passage, such as the late-submission policy in an uploaded syllabus. Open the cited source and compare the answer with that passage. Then ask a question the documents do not answer. Does the model acknowledge the gap, or supply an unsupported policy?
 
-The knowledge base is now attached to the model. Grant its intended users access to the knowledge base as well as the model so they can use it for retrieval.
+Repeat after changing the documents or model. If retrieval fails, check the file's text and the attached collection before adding more material. A larger collection is not necessarily easier to search well. Explain to students that they should consult the original reading or policy when an answer is unclear.
 
-> **Tip.** Start with a small collection (syllabus + 2-3 key readings) to test how well the model retrieves and uses your materials. Add more documents once you are confident in the results.
+## Manage Files Carefully
 
----
+Open **Settings > Data Controls > Manage Files** to search uploads, sort by name or date, and inspect metadata. Deleting a file there removes it from every knowledge base that uses it and deletes its embeddings. Check its uses before deletion.
 
-## Advanced Settings
+## Optional Technical Details
 
 <details>
-<summary>View details</summary>
+<summary>Read about retrieval and administrator settings</summary>
 
-### What Happens Under the Hood
+During processing, documents are divided into chunks and converted into numerical representations called embeddings. These help locate related passages even when a question uses different words. Related wording does not establish that a passage answers the question.
 
-When you upload a document, the Sandbox splits it into chunks and converts each chunk into a numerical representation called an embedding. These representations help it find related passages even when a question uses different words. A question about "thesis committee requirements" may retrieve a passage about "dissertation advisory boards"; check that the passage addresses the question you asked.
+Retrieval also depends on configuration. Native tool-calling mode can use knowledge tools to fetch passages; other modes add retrieved context automatically. Test the chosen mode with the collection rather than assuming every response consulted it.
 
-Retrieval depends on the model’s configuration. In native tool-calling mode, the model can use knowledge tools to fetch passages; other modes add retrieved context automatically. Check that it retrieves the relevant material when testing.
+Administrators can edit **Settings > Admin > Documents > RAG Template** to guide citation and responses to missing evidence. Embedding settings are also under **Settings > Admin > Documents**. After changing the embedding model, **Reindex** rebuilds knowledge-base embeddings; files attached directly to chats must be uploaded again. Instructors should contact the Lab rather than changing platform-wide settings to repair one collection.
 
-### Choosing What to Upload
-
-Use clean, well-structured text so the system can divide it into usable passages.
-
-**Works well**
-- Markdown files and plain text
-- Well-formatted PDFs with clear headings and paragraphs
-- Course syllabi, handbooks, policy documents
-- Research papers and annotated bibliographies
-
-**May need preprocessing**
-- Complex PDFs with multi-column layouts, tables, or embedded images
-- Scanned documents without OCR
-- Slide decks (convert to text or PDF with notes first)
-
-If a PDF produces poor results, convert it to Markdown and check that headings and paragraphs remain in the intended order before uploading it again.
-
-### Managing Your Files
-
-Access all uploaded files through **Settings > Data Controls > Manage Files**. This centralized manager lets you search by filename, sort by name or date, and inspect file metadata. Deleting a file here removes it from all knowledge bases and deletes the corresponding embeddings.
-
-### RAG Template (Admin)
-
-Administrators can customize the template for **retrieval-augmented generation (RAG)** via **Settings > Admin > Documents > RAG Template**. Use it to tell the model how to cite retrieved passages and respond when those passages do not address the question.
-
-Example for CUNY
-
-```
-You are assisting a CUNY researcher. Respond based primarily on
-the provided context. When using information from documents,
-indicate the source. If the context does not adequately address
-the query, say so and suggest how the user might find additional
-information. Prioritize accuracy over elaboration.
-```
-
-### Embedding Model Configuration
-
-Administrators can check or change the embedding model in **Settings > Admin > Documents**. After changing it, use **Reindex** to rebuild knowledge-base embeddings. Files uploaded directly to chats must be uploaded again; changing the setting does not rebuild them automatically.
+The [Open WebUI retrieval reference](https://docs.openwebui.com/features/chat-conversations/rag/) explains these settings in detail.
 
 </details>
 
----
-
-## Callout
-
-<div class="callout">
-  <strong>For researchers.</strong> Build a knowledge collection from the studies or methods you want to compare, then attach it to a custom model. Ask the model to compare specific claims or methods and check its citations against the uploaded documents.
-</div>
-
----
-
-## Additional Resources
-
-- [Open WebUI RAG Documentation](https://docs.openwebui.com/features/chat-conversations/rag/) — technical details on embedding models, chunk size, and retrieval configuration
-- [Teach@CUNY AI Toolkit](https://aitoolkit.commons.gc.cuny.edu/) — pedagogical resources for integrating AI into CUNY courses
-- [Hugging Face Sentence Transformers](https://huggingface.co/sentence-transformers) — alternative embedding models if the default does not meet your needs
-
----
-
-[← Return to Custom Models](models.md) | [Continue to Tools & Skills →](tools-skills.md)
+[← Return to System Prompts](system-prompts.md) | [Continue to Tools & Skills →](tools-skills.md)

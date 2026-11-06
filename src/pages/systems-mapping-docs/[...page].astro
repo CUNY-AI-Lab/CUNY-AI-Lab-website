@@ -1,0 +1,14 @@
+---
+import SandboxDocsLayout from '../../layouts/SandboxDocsLayout.astro';
+import { getToolGuidePaths } from '../../lib/tool-docs';
+
+export function getStaticPaths() {
+  return getToolGuidePaths('systems-mapping');
+}
+
+const { page, data, html } = Astro.props;
+---
+
+<SandboxDocsLayout {...data} page={page} guide="systems-mapping">
+  <Fragment set:html={html} />
+</SandboxDocsLayout>

@@ -2,16 +2,21 @@
 import BaseLayout from './BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import source from '../data/sandbox-docs-source.json';
+import { toolDocs, type ToolGuide } from '../data/tool-docs-navigation';
 
 interface Props {
   title: string;
   page: string;
   headingId: string;
   description?: string;
+  guide?: ToolGuide;
 }
 
-const { title, page, headingId, description } = Astro.props;
-const groups = [
+const { title, page, headingId, description, guide } = Astro.props;
+const guideConfig = guide ? toolDocs[guide] : undefined;
+const basePath = guideConfig?.basePath ?? '/sandbox-docs/';
+const docsTitle = guideConfig?.title ?? 'CAIL Sandbox Docs';
+const groups = guideConfig?.groups ?? [
   { title: 'Getting Started', pages: [
     ['getting-started', 'Getting Started'], ['sandbox-basics', 'Sandbox Basics'],
   ] },
@@ -26,17 +31,17 @@ const groups = [
 ];
 // These linked articles were not in the original sidebar. Keep them reachable
 // without changing the published navigation groups.
-const related = [
+const related = guide ? [] : [
   ['basic-concepts', 'Basic Concepts'], ['quick-tour', 'Quick Tour'],
   ['system-prompts', 'System Prompts'],
 ];
-const legacyPages = Object.keys(source.files).map((file) => file.replace(/\.md$/, ''));
+const legacyPages = (guide ? [] : Object.keys(source.files)).map((file) => file.replace(/\.md$/, ''));
 ---
 
 <BaseLayout title={`${title} - CUNY AI Lab`} description={description ?? 'Documentation for the CAIL Sandbox: getting started, custom models, knowledge bases, tools, and teaching activities.'}>
   <PageHero sectionClass="docs-hero relative mt-[72px] py-5 lg:py-6 text-white" containerClass="max-w-[1280px] mx-auto px-6 lg:px-8">
-    <a class="inline-block text-xs font-semibold tracking-widest uppercase text-blue-200 hover:text-white mb-2" href={page === 'index' ? '/resources/' : '/sandbox-docs/'}>
-      {page === 'index' ? 'Resources' : 'CAIL Sandbox Docs'}
+    <a class="inline-block text-xs font-semibold tracking-widest uppercase text-blue-200 hover:text-white mb-2" href={page === 'index' ? '/resources/' : basePath}>
+      {page === 'index' ? 'Resources' : docsTitle}
     </a>
     <h1 id={headingId} class="font-display text-3xl sm:text-4xl font-bold tracking-tight leading-tight">{title}</h1>
     {description && <p class="mt-3 max-w-4xl text-base leading-6 text-blue-100">{description}</p>}
@@ -45,21 +50,29 @@ const legacyPages = Object.keys(source.files).map((file) => file.replace(/\.md$/
     <aside class="docs-sidebar">
       <details open id="docs-menu">
         <summary>Browse docs</summary>
-        <nav aria-label="CAIL Sandbox Docs">
-          <a href="/sandbox-docs/" aria-current={page === 'index' ? 'page' : undefined}>Home</a>
+        <nav aria-label={docsTitle}>
+          <a href={basePath} aria-current={page === 'index' ? 'page' : undefined}>Home</a>
           {groups.map((group) => (
             <div>
               <p class="docs-section-label">{group.title}</p>
               {group.pages.map(([id, label]) => (
-                <a href={`/sandbox-docs/${id}/`} aria-current={page === id ? 'page' : undefined}>{label}</a>
+                <a href={`${basePath}${id}/`} aria-current={page === id ? 'page' : undefined}>{label}</a>
               ))}
             </div>
           ))}
-          <div>
+          {related.length > 0 && <div>
             <p class="docs-section-label">Related guides</p>
             {related.map(([id, label]) => (
-              <a href={`/sandbox-docs/${id}/`} aria-current={page === id ? 'page' : undefined}>{label}</a>
+              <a href={`${basePath}${id}/`} aria-current={page === id ? 'page' : undefined}>{label}</a>
             ))}
+          </div>}
+          <div>
+            <p class="docs-section-label">Other tool guides</p>
+            {guide && <a href="/sandbox-docs/">CAIL Sandbox Docs</a>}
+            {Object.entries(toolDocs).filter(([id]) => id !== guide).map(([, item]) => (
+              <a href={item.basePath}>{item.title}</a>
+            ))}
+            {guideConfig && <a href={guideConfig.appUrl}>Open the app</a>}
           </div>
         </nav>
       </details>
@@ -123,6 +136,11 @@ const legacyPages = Object.keys(source.files).map((file) => file.replace(/\.md$/
   .sandbox-content hr { border: 0; border-top: 1px solid #e5e7eb; margin: 2.5em 0; }
   .sandbox-content .callout { border-left: 4px solid #3b73e6; background: #e8f4fc; padding: 16px 20px; margin: 1.4em 0; border-radius: 0 6px 6px 0; font-size: .95rem; }
   .sandbox-content .callout strong { color: #2a6fb8; }
+  .sandbox-content figure { margin: 1.4em 0; }
+  .sandbox-content figure img { display: block; max-width: 100%; height: auto; border: 1px solid #dfe5ee; border-radius: 8px; }
+  .sandbox-content figcaption { margin-top: .6em; color: #596273; font-size: .875rem; }
+  .sandbox-content kbd { padding: .1em .35em; border: 1px solid #cbd5e1; border-radius: 4px; font-size: .85em; }
+  .sandbox-content .page-foot { border-top: 1px solid #dfe5ee; margin-top: 2em; padding-top: 1em; font-size: .875rem; }
   .sandbox-content summary { cursor: pointer; font-weight: 600; padding: 8px 0; }
   .sandbox-docs :focus-visible { outline: 3px solid #2a6fb8; outline-offset: 3px; }
   .docs-hero :focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
