@@ -73,7 +73,7 @@ The Tailwind content glob includes `.json` files: `'./src/**/*.{astro,html,js,js
 
 **External Tool URLs:**
 - Open WebUI: https://chat.ailab.gc.cuny.edu/
-- Tools subdomain: https://tools.ailab.gc.cuny.edu/ (media, agent-studio, site-studio, pdf-accessibility)
+- Tools subdomain: https://tools.ailab.gc.cuny.edu/ (media, agent-studio, site-studio, pdf-accessibility, bibliography)
 
 **Blog:**
 - Staging/publish workflow: commit new posts with `draft: true` and a future `pubDate`; on publish day, flip `draft: false` and push.
