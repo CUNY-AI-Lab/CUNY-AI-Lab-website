@@ -5,9 +5,9 @@
   "review": "Verified healthz, 100 percent deployment, eleven exact served assets and signed-out desktop/phone navigation before editing docs.",
   "screenshots": [
     {
-      "file": "v123-upload.png",
-      "source": "fresh production signed-out capture",
-      "sha256": "a6281b3b959e38efa4c5f4b960744fc84ae5a8aff94ee930238fe8afa3010e8f"
+      "file": "upload.png",
+      "source": "fresh production signed-out capture, November 10, 2026, 800px dark theme",
+      "sha256": "131194a3f1b7f27a7b9ad7a4097eb0697dd876196a66dfe35b3e47f96ed7b179"
     },
     {
       "file": "v123-settings.png",
