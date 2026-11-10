@@ -1,0 +1,156 @@
+{
+  "stem-splitter": {
+    "classroom": {
+      "title": "Classes",
+      "description": "Use the Classes page to organize course recordings and share folders. Instructors can also review the roster and Listening Guy conversations attached to course work.",
+      "headingId": "stem-splitter-classroom"
+    },
+    "export-and-sharing": {
+      "title": "Export & Sharing",
+      "description": "Download audio, make a public listening link, or share course recordings through a folder. Choose the option that matches who needs access.",
+      "headingId": "stem-splitter-export-and-sharing"
+    },
+    "getting-started": {
+      "title": "Getting Started",
+      "description": "Sign in, choose a recording, and split it into parts you can listen to separately.",
+      "headingId": "stem-splitter-getting-started"
+    },
+    "index": {
+      "title": "Stem Splitter Documentation",
+      "description": "Play a recording or selected stems, and add notes at specific points.",
+      "headingId": "stem-splitter-index"
+    },
+    "instructor-console": {
+      "title": "Account Settings",
+      "description": "Write Listening Guy instructions for your Personal work or a class, including terms you want students to use.",
+      "headingId": "stem-splitter-instructor-console"
+    },
+    "listening-guy": {
+      "title": "Listening Guy",
+      "description": "Ask Listening Guy about a recording. Listening Guy does not receive the recording or its waveforms, so listen to check its descriptions.",
+      "headingId": "stem-splitter-listening-guy"
+    },
+    "live-sessions": {
+      "title": "Live Sessions",
+      "description": "Lead playback from your mixer while students follow on their own devices. Students can use headphones and adjust the volume on their own devices.",
+      "headingId": "stem-splitter-live-sessions"
+    },
+    "mixer": {
+      "title": "The Mixer",
+      "description": "Listen to the parts of a recording on their own or together, slow down a passage, and play it again.",
+      "headingId": "stem-splitter-mixer"
+    },
+    "notes": {
+      "title": "Notes",
+      "description": "Add a note at a moment in a recording so you and your classmates can find it again.",
+      "headingId": "stem-splitter-notes"
+    },
+    "privacy-and-limits": {
+      "title": "Privacy & Limits",
+      "description": "Personal work stays in your account unless you share a public link. Your instructor can review work assigned to a course after you check the acknowledgment, and classmates need access through a class folder.",
+      "headingId": "stem-splitter-privacy-and-limits"
+    },
+    "sample-activities": {
+      "title": "Sample Activities",
+      "description": "Try these listening activities with a recording your class is using.",
+      "headingId": "stem-splitter-sample-activities"
+    },
+    "splitter-basics": {
+      "title": "Splitter Basics",
+      "description": "Find your recordings in the Session Rack and learn how to open and manage them.",
+      "headingId": "stem-splitter-splitter-basics"
+    },
+    "student-onboarding": {
+      "title": "Student Onboarding",
+      "description": "Help students open a recording, listen to its parts, and leave a note.",
+      "headingId": "stem-splitter-student-onboarding"
+    },
+    "teaching-tips": {
+      "title": "Teaching Tips",
+      "description": "Help students describe specific passages and support their observations.",
+      "headingId": "stem-splitter-teaching-tips"
+    },
+    "use-cases": {
+      "title": "Use Cases",
+      "description": "Listen to a recording, make notes, and share it with your class.",
+      "headingId": "stem-splitter-use-cases"
+    }
+  },
+  "systems-mapping": {
+    "course-access": {
+      "title": "Course Access",
+      "description": "Choose a course or general workspace and understand instructor access to saved progress.",
+      "headingId": "systems-mapping-course-access"
+    },
+    "evidence-and-field-notes": {
+      "title": "Evidence & Field Notes",
+      "description": "Read source quotations, explain connections, and write optional Field Notes.",
+      "headingId": "systems-mapping-evidence-and-field-notes"
+    },
+    "export-and-sharing": {
+      "title": "Export & Sharing",
+      "description": "Download the map, reopen a project backup, or share a project link.",
+      "headingId": "systems-mapping-export-and-sharing"
+    },
+    "getting-started": {
+      "title": "Getting Started",
+      "description": "Create a project, submit two memos, and build connections across Micro, Meso, Exo, and Macro.",
+      "headingId": "systems-mapping-getting-started"
+    },
+    "index": {
+      "title": "Systems Mapping Documentation",
+      "description": "Map how people, settings, and broader influences connect across scales.",
+      "headingId": "systems-mapping-index"
+    },
+    "instructor-console": {
+      "title": "Instructor Console",
+      "description": "Publish course questions and guidance, inspect saved progress, and manage versions.",
+      "headingId": "systems-mapping-instructor-console"
+    },
+    "levels": {
+      "title": "The Four Levels",
+      "description": "Work across four mapping steps and three nested system regions using two related memos.",
+      "headingId": "systems-mapping-levels"
+    },
+    "map": {
+      "title": "The Map",
+      "description": "Edit nodes, draw relationships, connect broader influences, and use saved Undo and Redo.",
+      "headingId": "systems-mapping-map"
+    },
+    "memo-and-suggestions": {
+      "title": "Memos & Map Updates",
+      "description": "Submit two independent memos and use Update map when the sources change.",
+      "headingId": "systems-mapping-memo-and-suggestions"
+    },
+    "privacy-and-limits": {
+      "title": "Privacy & Limits",
+      "description": "Understand source submissions, sharing, recovery copies, and current model limits.",
+      "headingId": "systems-mapping-privacy-and-limits"
+    },
+    "sample-activities": {
+      "title": "Sample Activities",
+      "description": "Use two memos to examine local relationships and connect broader influences.",
+      "headingId": "systems-mapping-sample-activities"
+    },
+    "student-onboarding": {
+      "title": "Student Onboarding",
+      "description": "Introduce the two memos, student-created relationships, and optional Field Notes.",
+      "headingId": "systems-mapping-student-onboarding"
+    },
+    "teaching-tips": {
+      "title": "Teaching Tips",
+      "description": "Choose related sources and help students examine classification, evidence, and connections.",
+      "headingId": "systems-mapping-teaching-tips"
+    },
+    "use-cases": {
+      "title": "Use Cases",
+      "description": "Connect community research, local relationships, and broader conditions in one evolving map.",
+      "headingId": "systems-mapping-use-cases"
+    },
+    "workspace-basics": {
+      "title": "Workspace Basics",
+      "description": "Use Memo, Notebook, and Tools to develop the map and revise saved work.",
+      "headingId": "systems-mapping-workspace-basics"
+    }
+  }
+}

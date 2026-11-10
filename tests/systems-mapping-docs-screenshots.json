@@ -1,0 +1,82 @@
+{
+  "context": "Fresh production captures, November 10, 2026, of a sample project in the CAIL Teaching Tools Demo course. Both memos were written from the public CUNY AI Lab About page without personal names.",
+  "screenshots": [
+    {
+      "file": "micro-nodes.png",
+      "title": "Micro nodes",
+      "nodeCount": 10,
+      "relationshipCount": 0,
+      "environment": "production",
+      "reviewed": true,
+      "sha256": "78b41caef530d89c29fa1565d45e672d9156784a37553d7b69eb9c12da50b681"
+    },
+    {
+      "file": "local-relationships.png",
+      "title": "Student-authored local relationships",
+      "nodeCount": 10,
+      "relationshipCount": 3,
+      "environment": "production",
+      "reviewed": true,
+      "sha256": "188790ca5626422032b6e84555c405cf1fe065943440d81aa6b886cbfe65dd4b"
+    },
+    {
+      "file": "exo-nodes.png",
+      "title": "Exo and Macro nodes from the second memo",
+      "nodeCount": 14,
+      "relationshipCount": 3,
+      "environment": "production",
+      "reviewed": true,
+      "sha256": "7e943d539344d2eefa6e700d8861d80f56150a89f822ad5fb984a7377917db07"
+    },
+    {
+      "file": "exo-connection.png",
+      "title": "Exo connection to a local relationship",
+      "nodeCount": 14,
+      "relationshipCount": 3,
+      "environment": "production",
+      "reviewed": true,
+      "sha256": "8fcb06c7173bd99d49449c80a7f719282c157bb583b8300a5d629872317cdf30"
+    },
+    {
+      "file": "macro-conditions.png",
+      "title": "Macro connection to a local relationship",
+      "nodeCount": 14,
+      "relationshipCount": 4,
+      "environment": "production",
+      "reviewed": true,
+      "sha256": "96108d8c9ee4b6a8d9cb2baf03e8466df1d1d8bd99aac1bde861243a7c34fe31"
+    },
+    {
+      "file": "complete-map.png",
+      "title": "Complete map",
+      "nodeCount": 14,
+      "relationshipCount": 5,
+      "environment": "production",
+      "reviewed": true,
+      "sha256": "34f7ac13555fba8c94a671c04c86d53a84aab4e0db7b1b4d9fca60cb7f7ae40d"
+    }
+  ],
+  "note": "Captured at an 800px-wide frame from a 998px viewport. The project shows no personal names.",
+  "productionScreenshot": {
+    "file": "course-settings.jpg",
+    "note": "Retained from the earlier review; not recaptured on November 10 because sign-in was unavailable during capture.",
+    "sha256": "1199d437e513ef05de38f332b8410ce1d2f6df9e1396443e3c0896d996d77740"
+  },
+  "exportAndShortcutScreenshots": [
+    {
+      "file": "export.png",
+      "environment": "production",
+      "sha256": "4dd34c5b3045dd30850bea00802d1a3315b69b9e93becf71e3d4ed92bdea712b"
+    },
+    {
+      "file": "map-key.png",
+      "environment": "production",
+      "sha256": "b2cee545be6d74a3f4bd8c76bdd967e7027d497ba2abeb4e94002a2659def8a3"
+    },
+    {
+      "file": "node-details.png",
+      "environment": "production",
+      "sha256": "17d5df3f4eb458c667704ea95f4024f8667de09700c315d723b838cf3e1f4f27"
+    }
+  ]
+}

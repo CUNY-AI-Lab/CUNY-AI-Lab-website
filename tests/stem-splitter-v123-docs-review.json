@@ -1,0 +1,71 @@
+{
+  "source": "b953107d6e9d6f744a01d9cb9a6ff7acd108285e",
+  "productionVersion": "3c591905-32a0-40a9-ba7b-9762f6376451",
+  "productionDeployment": "793aff04-e71d-40fa-82f6-b01c4d51414e",
+  "review": "Verified healthz, 100 percent deployment, eleven exact served assets and signed-out desktop/phone navigation before editing docs.",
+  "screenshots": [
+    {
+      "file": "upload.png",
+      "source": "fresh production signed-out capture, November 10, 2026, 800px viewport",
+      "sha256": "131194a3f1b7f27a7b9ad7a4097eb0697dd876196a66dfe35b3e47f96ed7b179"
+    },
+    {
+      "file": "account-dashboard.png",
+      "source": "fresh production capture, administrator account, CAIL Teaching Tools Demo course, November 10, 2026, 800px viewport",
+      "sha256": "ec1dbb6c8325c0a0f2d99c18d33c6c6d3f2c46d57e82b5ba15ca7f1961ca534d"
+    },
+    {
+      "file": "split-actions.png",
+      "source": "fresh production capture, administrator account, CAIL Teaching Tools Demo course, November 10, 2026, 800px viewport",
+      "sha256": "fec2b1dec4af0629616c5dda384ce8e4a69f5001d307035594b3220043bd82ae"
+    },
+    {
+      "file": "mixer.png",
+      "source": "fresh production capture, administrator account, CAIL Teaching Tools Demo course, November 10, 2026, 800px viewport",
+      "sha256": "4298ef8740f5aa9e64710dc9b52993ca41812825977face74e1d4feedde87b79"
+    },
+    {
+      "file": "hero-stardust.png",
+      "source": "fresh production capture, administrator account, CAIL Teaching Tools Demo course, November 10, 2026, 800px viewport",
+      "sha256": "96c8c7c79d53ed419d573f10fa7d43c70c41d2c4c625ec1a0a34587f756194e6"
+    },
+    {
+      "file": "notes.png",
+      "source": "fresh production capture, administrator account, CAIL Teaching Tools Demo course, November 10, 2026, 800px viewport",
+      "sha256": "dad1d241fd3f908dccd506976bb946aee6f90183ca4f29c06702a950260407c8"
+    },
+    {
+      "file": "listening-guy.png",
+      "source": "fresh production capture, administrator account, CAIL Teaching Tools Demo course, November 10, 2026, 800px viewport",
+      "sha256": "d1b2f856ba0fb123b7bd81ca28a87ecc24b0dd45a68f0aa5044da02c178fba95"
+    },
+    {
+      "file": "my-folders.png",
+      "source": "fresh production capture, administrator account, CAIL Teaching Tools Demo course, November 10, 2026, 800px viewport",
+      "sha256": "ddf8b6e8ee3cd7d858e2d15c2c51c05a340e648b99a013322699d8464d00b8e4"
+    },
+    {
+      "file": "classes-my-splits.png",
+      "source": "fresh production capture, administrator account, CAIL Teaching Tools Demo course, November 10, 2026, 800px viewport",
+      "sha256": "7acb62ab540ceb3219018dcae907babaff32d62116f05dc8352646129c4cfff8"
+    },
+    {
+      "file": "classes-folders.png",
+      "source": "fresh production capture, administrator account, CAIL Teaching Tools Demo course, November 10, 2026, 800px viewport",
+      "sha256": "7f22a5cb1a07d1ba5298233227ab73e52fded8e84aff0a15d4e45e174f2744cb"
+    },
+    {
+      "file": "instructions.png",
+      "source": "fresh production capture, administrator account, CAIL Teaching Tools Demo course, November 10, 2026, 800px viewport",
+      "sha256": "5d3405b643e7e9a821f52345d30115674f221d6c56e645fd778085bdf5c48857"
+    }
+  ],
+  "remainingLiveChecks": [
+    "Ordinary individual member",
+    "Enrolled student",
+    "Non-admin course instructor",
+    "Successful Listening Guy model reply"
+  ],
+  "instrumentFeatures": "Unfinished instrument experiments excluded; live runtime instrumentTargets and remixer are false.",
+  "privacy": "Personal names removed from captured notes; course captures use only the CAIL Teaching Tools Demo course."
+}

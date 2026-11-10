@@ -1,20 +1,38 @@
 {
-  "repository": "https://github.com/CUNY-AI-Lab/sandbox-docs",
-  "revision": "74ce09d2bb6cc58b37e1f7296a3a01e988009222",
+  "base_repository": "https://github.com/CUNY-AI-Lab/CUNY-AI-Lab-website",
+  "base_revision": "44049de7db47d1304c8cec546874586369019a37",
+  "editorial_source": {
+    "date": "2026-10-29",
+    "archive_sha256": "49d74d71e4e576bb351612f7d456ced471896adfddfb08c19b9f5c51dd9154d1",
+    "manifest_sha256": "b61e8de4c3ecb6d0c7b34ef56db8e17de22a7e48fc17c0b6597dfcd894f1e924"
+  },
+  "upstream": {
+    "repository": "https://github.com/CUNY-AI-Lab/sandbox-docs",
+    "revision": "74ce09d2bb6cc58b37e1f7296a3a01e988009222"
+  },
   "files": {
-    "basic-concepts.md": "edf73c61c66f05d3aaf634fd998150bd30f3626f1d44f0ead88787ca67b7edcf",
-    "getting-started.md": "ed2cc29a434962718b6dde46e6c5eb5d1273b243423a8d29c62cc6682f75b326",
-    "index.md": "94072d4d815e155bc770f144831b143f3129bd64466b41324fbd1cde7dd05484",
-    "knowledge-bases.md": "a8fc1f65ec64cd474193ecb0a1a937a74b99ddd6bd8561baa0d7e8c1e17c1ecc",
-    "models.md": "450b5b4e704cab9f659669e8ecb45f046ae55fc0e7464c854e0b5ca6bb37bd00",
-    "quick-tour.md": "3c9e62d2a3a9b99f3b6ab99013d81f63573aff156310b04e10b63a858e77caae",
-    "roles-permissions.md": "4d908bf2a6b01512e0fed28066f1ef5ad3c450cee2c9a8c4f9949df44145bbb6",
-    "sample-activities.md": "38453a5246ef994b2a5951eeed101ece846bba71692ba48fb3748599c540ccb7",
-    "sandbox-basics.md": "798dae4e00132e6857071f01be355a2623592c3e954e5b5ce7f2236aa11587d9",
-    "student-onboarding.md": "302f3d08f431e12c3941fe1cd6b8471246701115db382ffa345e7182009b84b6",
-    "system-prompts.md": "15ac824d549489f7f75449f18ba2d69efc9234d8499af0a80ce691d41fca6ddc",
-    "teaching-tips.md": "de4f1d933b2c6797712f68a650d639b3eb8bad3ea8ef80333416f4bd92064151",
-    "tools-skills.md": "88629cd33d6ae828f284f7894249cc7428518e3665de563c36030ca7e705e13e",
-    "use-cases.md": "6918271a388d4b4d1b4c6fa699c37fdba05df1a927422bfb3a46ffb97f9f0277"
+    "basic-concepts.md": "c7af7f6ded8936e21bb294c56c23403319a5227823aeefa50e46f185d2d289c9",
+    "getting-started.md": "c867dfce61ae9af7eb686194192c9a24e29db013c8e7d68b9ec4002e70585650",
+    "index.md": "404cfa9c49f96abf53579b8dee6ac942741c616bac7089b7c03b6b2974268bb8",
+    "knowledge-bases.md": "d4887431fed92eeb58d1ebe2fd91067e6f924e22f1ece9dfcc987df8d7dc8022",
+    "models.md": "dfd0ba15d8c6a1c5b3f637b8a9bd57f97b36d5bf43215c96bd8c6fcb4121bca6",
+    "quick-tour.md": "bc283637303e277eb31cfdd1ae882055c73b673c2937f19bd4fe9eab1aea3413",
+    "roles-permissions.md": "62d482351db0885dbf4f3ece55ff5bc4bf38236f77f9ffceb4907756260429c4",
+    "sample-activities.md": "d3ee88025f8da9cdcb0d276c452c9eba84ca93667f7e0812004169acbf87113e",
+    "sandbox-basics.md": "e9076b64c8a1922c155e3c84bd3141dc7ba46542ea63182611f0cf1d4f2e5c95",
+    "student-onboarding.md": "daed77efda17c1677c26c4d35c2acf59431e0e8f14dc6e20653cf629666e6af3",
+    "system-prompts.md": "ce8ff423e859c7c5329a5162d7ce55c4e56360c6d361a0567b6bc46f5ed22a4b",
+    "teaching-tips.md": "a497f7398d8e1a438dc728ccfec6615283f16a351b85e0ddb4ff9eaf158fcd55",
+    "tools-skills.md": "e12b4c6fd1bf03643bdef9b96ae9cbfe5ad5dd9182049b7c67f15fbc7bc23eb5",
+    "use-cases.md": "b4f98d38dd22a00ebfa1fbc4f2963f09434292f55ef4bb9779d2bd3952492ba7"
+  },
+  "upstream_reconciliation": {
+    "revision": "44049de7db47d1304c8cec546874586369019a37",
+    "files": {
+      "teaching-tips.md": {
+        "reason": "Preserve the newer CUNY Login ticketing instruction while retaining the reviewed prose.",
+        "integrated_sha256": "135a0b1decefef9b9db7769b6d5f24bc9280750f0c847fe0099a8c359314c921"
+      }
+    }
   }
 }

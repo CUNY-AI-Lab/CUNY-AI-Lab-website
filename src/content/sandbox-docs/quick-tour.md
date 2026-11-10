@@ -3,204 +3,40 @@ title: "Quick Tour"
 headingId: "quick-tour"
 ---
 
-Find the main controls in the Sandbox interface and follow the steps to use them.
+Follow this tour with the Sandbox open. Start in chat; you can leave Workspace controls until you have a reason and permission to build a configuration.
 
----
+## Start a Chat<span id="starting-a-conversation" aria-hidden="true"></span>
 
-## Main Interface
+Click **New Chat** at the top of the left sidebar, or press `Ctrl/Cmd + Shift + O`. Your messages and replies appear in the center. The message box contains text input, attachments, **Integrations**, and the model selector on the right.
 
-When you log in, you see the main chat interface. Three areas
+Choose a model, enter your message, and press Enter or select the send arrow. Your **Enter to Send** preference in **Settings > Interface** controls keyboard sending and line breaks.
 
-1. **Sidebar (left).** Your chat history, workspace access, settings
-2. **Chat area (center).** The chat thread
-3. **Message box.** Text input, attachments, integrations, and the model selector on the right
+## Change the Model or Add Material
 
----
+Click the model name inside the message box to switch models. The existing chat history carries across the switch. For a comparison from the same starting point, begin a separate new chat for each model.
 
-## Sidebar
+Choose **➕ > Upload Files**, or drag files into the chat, to attach permitted images or documents. **Integrations**, beside the plus button, offers tools, skills, and capabilities available to your account and selected model. You do not need to enable them all; choose only what the task requires.
 
-The sidebar has several sections
+## Work with a Reply<span id="conversation-actions" aria-hidden="true"></span>
 
-**Chats**
-- Your chat history
-- Click a chat to reopen it
-- Hover over a chat title to see options (rename, archive, delete)
+Use the buttons beneath a message to **Copy**, **Edit**, or **Regenerate**, where available. Its three-dot menu offers additional actions such as **Delete**. A regenerated answer is another response to evaluate, not a correction verified against a source.
 
-**Workspace** (request access by emailing the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu))
-- Models — Create custom AI configurations
-- Knowledge — Build document collections
-- Tools — Browse available tools (if you have access)
+## Find the Chat Again
 
-**Settings**
-- User settings (preferences, defaults)
-- Admin panel (if you're an administrator)
+Click a chat title in the sidebar to reopen it. Its three-dot menu includes **Rename**, **Archive**, **Delete**, and **Share**. Rename a chat to identify its task; archive it to remove it from the active list. Deletion is permanent. Before sharing, review its contents and the audience rather than assuming a link is limited to your course.
 
----
+## Open Workspace, If Enabled
 
-## Starting a Chat<span id="starting-a-conversation" aria-hidden="true"></span>
+Individual access does not automatically include **Workspace**. Request it from [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu) if you need to create configurations.
 
-Click the **New Chat** button at the top of the sidebar (or press `Ctrl/Cmd + Shift + O`).
+In **Workspace > Models**, select **Create** beside the tabs. The editor lets you name the model, choose its base, write a **System Prompt**, and attach **Knowledge**, **Tools**, or **Skills**. **Access** controls sharing. Follow [Custom Models](models.md) for the complete save-and-test sequence.
 
-A new chat opens. You'll see
-- An empty chat area
-- The input box at the bottom
-- The current model name on the right inside the message box
+To prepare documents, open **Workspace > Knowledge**, select **Create**, enter a name and description, and choose **Create Knowledge**. Upload the files, wait for processing, then attach the collection through a model's **Knowledge** section. [Knowledge Collections](knowledge-bases.md) explains how to test retrieval and grant access.
 
-Type a message and press Enter to send.
+## Adjust Preferences
 
----
+Open your profile menu and choose **Settings**. **General** contains theme, language, and personal model defaults; **Account** contains profile details; **Interface** contains message display and input preferences. Click **Save** after editing. To set a default model, use **Set as default** in the model selector of a new chat.
 
-## Switching Models
+For help with a missing control or permission, contact the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu). Available controls depend on your account and the platform configuration.
 
-Click the **model name** on the right inside the message box.
-
-Choose a model from the dropdown to switch while retaining the chat history.
-
----
-
-## Input Box Features
-
-The input box has several buttons
-
-**Integrations (beside the plus button)**
-- Choose available tools, skills, and capabilities for this chat
-- Options depend on your model and account permissions
-
-**➕ > Upload Files**
-- Attach images, PDFs, or documents to your message
-- You can also drag files into the chat
-
-**↑ (Send button)**
-- Send your message
-- Or press Enter on your keyboard
-
----
-
-## Workspace. Models
-
-With Workspace access enabled, go to **Workspace > Models** in the sidebar.
-
-You'll see
-- A list of models you've created
-- Models shared with you
-- A shared **Create** button beside the Workspace tabs
-
-With **Models** selected, click **Create** to open the model editor.
-
----
-
-## Model Editor
-
-The model editor has several sections
-
-**Basic Info**
-- Name your model
-- Choose a base model
-- Open **Access** to keep it private or share with selected users and groups
-
-**System Prompt**
-- Write instructions for the model
-- Define its role and boundaries
-
-**Knowledge**
-- Attach knowledge bases (document collections)
-
-**Tools**
-- Choose available Workspace tools; configure Web Search and Code Interpreter under **Capabilities** and **Default Features**
-
-**Skills**
-- Attach reusable instructions (if available)
-
----
-
-## Workspace. Knowledge
-
-With Workspace access enabled, go to **Workspace > Knowledge** in the sidebar.
-
-You'll see
-- A list of knowledge bases you've created
-- Knowledge bases shared with you
-- A shared **Create** button beside the Workspace tabs
-
-With **Knowledge** selected, click **Create**, enter a name and description, then choose **Create Knowledge**.
-
----
-
-## Knowledge Base Editor
-
-When creating or editing a knowledge base
-
-**Basic Info**
-- Name it
-- Describe its purpose
-- Set visibility
-
-**Upload Files**
-- Drag and drop PDFs, Markdown, or plain text
-- Multiple files at once
-- Processing happens automatically
-
-**Connected Models**
-- Open a model in **Workspace > Models**
-- Add or remove the collection in its **Knowledge** section
-
----
-
-## Settings
-
-Open your **profile menu** in the sidebar and select **Settings**.
-
-You'll see several tabs
-
-**General**
-- Theme and language
-- Personal system prompt and advanced model parameters
-
-**Account**
-- Profile picture
-- Display name
-- Email
-
-**Interface**
-- Message display and input preferences, including **Enter to Send**
-
-Choose a default model from **Set as default** in the model selector when starting a new chat.
-
----
-
-## Message Actions<span id="conversation-actions" aria-hidden="true"></span>
-
-Use the action buttons beneath a message to **Copy**, **Edit**, or **Regenerate**, where available. Open its **three-dot menu** for additional actions such as **Delete**.
-
----
-
-## Chat Renaming
-
-Hover over a chat in the sidebar and click the **three dots** that appear.
-
-Options
-- **Rename** — Give the chat a descriptive title
-- **Archive** — Remove from active list (still accessible)
-- **Delete** — Permanently remove
-- **Share** — Generate a share link
-
-Renaming helps you find chats later.
-
----
-
-## What's Next?
-
-Now that you've toured the interface, you can
-- Start using the Sandbox. [Getting Started](getting-started.md)
-- Build your first custom model. [Custom Models](models.md)
-- Learn about teaching strategies. [Teaching Tips](teaching-tips.md)
-
----
-
-## Need Help?
-
-The CUNY AI Lab maintains the Sandbox and provides support through [workshops and office hours](https://ailab.gc.cuny.edu). Check the [AI Lab website](https://ailab.gc.cuny.edu) for schedules and contact information.
-
----
-
-[← Return to Basic Concepts](basic-concepts.md) | [Continue to Design & Test →](models.md)
+[← Return to Basic Concepts](basic-concepts.md) | [Continue to Custom Models →](models.md)
