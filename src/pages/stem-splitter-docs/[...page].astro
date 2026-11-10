@@ -1,0 +1,14 @@
+---
+import SandboxDocsLayout from '../../layouts/SandboxDocsLayout.astro';
+import { getToolGuidePaths } from '../../lib/tool-docs';
+
+export function getStaticPaths() {
+  return getToolGuidePaths('stem-splitter');
+}
+
+const { page, data, html } = Astro.props;
+---
+
+<SandboxDocsLayout {...data} page={page} guide="stem-splitter">
+  <Fragment set:html={html} />
+</SandboxDocsLayout>

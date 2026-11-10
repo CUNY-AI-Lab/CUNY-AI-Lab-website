@@ -3,227 +3,56 @@ title: "Teaching Tips"
 headingId: "teaching-tips"
 ---
 
-Many CUNY undergraduates balance jobs, family obligations, and coursework; some are international or first-generation college students. A model configured for writing instruction can help students develop their voice or generate essays they submit without working through the assignment. Frame its use within the course’s learning goals, including collaborative work in and out of class, and consider how the activity could support learning or amplify existing inequities.
+Use the Sandbox to support a specific part of an assignment that you can explain and review with students. The preparation below follows the activity from its learning goal to the evidence students bring back.
 
----
+## Choose the Work Students Should Practice<span id="tip-1-reflect-on-learning-objectives-1" aria-hidden="true"></span>
 
-## Tip #1. Reflect on Learning Objectives<span id="tip-1-reflect-on-learning-objectives-1" aria-hidden="true"></span>
+Start with one decision the assignment asks students to make: interpreting a passage, evaluating an experimental choice, or distinguishing what changed between sources. Decide which help the model may provide and which judgment students must make themselves. The [documented use cases](use-cases.md) offer examples of these boundaries.
 
-**Principle.** Start with what (skills) students should learn, not with what AI can do.
+Write that distinction into the assignment before configuring the model. If you cannot explain how the chat contributes to the learning goal, reconsider whether the task needs it.
 
-Choosing a tool before defining the learning objective can lead to "This tool can do X, so let’s assign Y." Begin with the course or assignment’s learning objectives, then decide whether AI can help students meet them.
+## Rehearse Before Adding Complexity<span id="tip-2-progressive-disclosure-1" aria-hidden="true"></span>
 
-**Example**
+Run the assignment yourself with the materials students will use. Follow its steps in order, including checking sources and explaining your decisions. Keep the first configuration small; add a knowledge collection, tool, or skill only when the rehearsal shows a need.
 
-The learning objective is "Students will develop the ability to construct evidence-based arguments in response to scholarly sources."
+Test more than an ideal request. Try an incomplete question, an unsupported claim, and a request for a finished assignment. Use the responses to revise both the model instructions and your directions to students. Instructions alone do not guarantee compliance.
 
-Does AI support this objective?
-- Ask students to compare a generated argument with the assigned sources and identify unsupported claims.
-- If AI helps students locate relevant sources and identify counterarguments, it may support the objective while the student still constructs the argument.
-- If AI critiques a student's draft argument for logical gaps, its feedback can support the student's revision.
+## Explain the Assignment's Limits<span id="tip-3-assignment-expectations-and-learning-1" aria-hidden="true"></span>
 
-**Application**
+Tell students where AI assistance is allowed and why, what they must disclose, and what work remains their responsibility. State the limits for this assignment rather than assuming a general syllabus policy answers every question. Invite students to ask when a use falls between those boundaries.
 
-When designing an AI-integrated activity
-1. State the learning objective explicitly.
-2. Map the cognitive tasks required to meet that objective.
-3. Identify which tasks AI can assist with and which students should complete themselves.
-4. Write those limits into the system prompt and test the model with likely student requests.
+Explain what may be shared in the course channel and what should stay out of the platform. Do not require personal information, private conversations, or other people's work as material for an AI exercise.
 
----
+## Ask for Evidence of a Decision<span id="tip-4-visible-learning-1" aria-hidden="true"></span>
 
-## Tip #2. Progressive Disclosure<span id="tip-2-progressive-disclosure-1" aria-hidden="true"></span>
+Ask students to retain a manageable record: a source passage, the relevant output, and a note explaining a change they made or a suggestion they rejected. You can discuss that record alongside their final work without collecting every private chat.
 
-**Principle.** Scaffold students’ AI use from guided practice toward independent work with more complex tasks.
+If the class compares examples, agree on the audience and use permitted excerpts. Showing a process can support discussion; it does not make an AI output a reliable measure of learning.
 
-Students may avoid unfamiliar AI tools or accept their outputs without scrutiny. Introduce the tools through guided practice, then increase independence as students learn to question and evaluate the results.
+## Make Reflection Specific<span id="tip-5-metacognitive-prompting-1" aria-hidden="true"></span>
 
-**Stages**
+Instead of asking only whether the tool was helpful, ask which claim needed checking, what source changed the student's interpretation, or where the model misunderstood the task. Have students point to the evidence behind their answer. A short explanation of one consequential choice is more useful than a generic account of using AI.
 
-1. **Guided exploration.** The instructor demonstrates AI use in class. Students observe how to prompt AI, critique/evaluate outputs, and integrate results into their own thinking and work.
+## Keep Feedback Open to Review<span id="tip-6-formative-over-summative-1" aria-hidden="true"></span>
 
-2. **Constrained practice.** Students use AI for specific, bounded tasks with clear learning objectives. For example, "Use the model to generate three counterarguments to your thesis, then evaluate which one is strongest and explain why."
+Use model feedback as material students can question and revise, with instructor and peer feedback still available. Do not use a fluent response, a completed game, or agreement with the model as proof that a learning objective was met. High-stakes judgments require the instructor's review of students' work and reasoning.
 
-3. **Reflective application.** Students use AI in their workflow and document their process. For example, "Describe how you used the model, what it helped you understand, and where its limitations became apparent."
+## Discuss What the Model Leaves Out<span id="tip-7-critical-ai-literacy-1" aria-hidden="true"></span>
 
-4. **Independent integration.** Students determine when and how to use AI tools based on their learning needs.
+Compare a response with the course's sources and perspectives. Ask whose knowledge it recognizes, what it omits, and which statements sound authoritative without support. If students compare models or prompts, keep the task and materials consistent and record the configuration used; one output cannot establish a model's general quality.
 
-**Application at CUNY**
+## Check Access and Participation<span id="tip-8-inclusive-design-1" aria-hidden="true"></span>
 
-Demonstrate the research and writing procedures an activity requires, then adjust the guidance as students show which steps they can complete independently.
+Ask what students need to participate, including language support, time, and accessible materials. Test the interface with the assistive technologies they use, and provide another way to complete the task when needed. Do not assume multilingual output is accurate or that one interface suits everyone.
 
----
+Report barriers through [CAIL Ticketing](https://tools.ailab.gc.cuny.edu/help/projects/support/issues/new), signing in with your CUNY Login (see [how to open a ticket](/contact/#ticketing)), or contact [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu). Students' experience and knowledge remain part of the discussion, not material for the model to overrule.
 
-## Tip #3. Assignment Expectations and Learning<span id="tip-3-assignment-expectations-and-learning-1" aria-hidden="true"></span>
+## Review and Revise<span id="putting-it-together-1" aria-hidden="true"></span>
 
-**Principle.** Help students understand what counts as their work and why this matters.
+After the activity, compare the work students produced with the goal you set. Keep the parts that supported that work and revise confusing directions or unnecessary features. Describe an adaptation as a proposal until you have tried it; report observed results without inventing broader learning gains.
 
-AI blurs the line between "your work" and "someone else's work." A student who prompts an AI model and revises its output is doing *some* work. What does it mean for students to work toward established learning goals in your class, and how will you know when they meet them?
+## Further Reading<span id="additional-resources-1" aria-hidden="true"></span>
 
-Teach students to judge whether their use of AI supports the work the assignment asks them to learn.
-
-**Framework**
-
-Ask students to reflect on three questions
-1. **What did I learn from using this tool?** Point to a claim you checked, a decision you reconsidered, or a question you still need to resolve.
-2. **How did I evaluate the output?** Ask students to identify claims they accepted, rejected, or checked against other sources.
-3. **Does this use align with the assignment's learning objectives?** If the answer is unclear, the student should be encouraged to ask you as their instructor and bring the question to their peers as a learning opportunity.
-
-**Practical Implementation**
-
-- Include AI use guidance in every assignment prompt. Be explicit and specific about what kind of use is encouraged, what is discouraged, and why.
-- Ask students to submit a brief process note documenting their AI use to reflect on their decisions throughout the semester.
-- Model appropriate AI use by showing students how you use the tools in your own research or teaching preparation, and discuss those choices with the class.
-
-**Example**
-
-> "I used the model to locate five papers on scaffolding in writing pedagogy. I verified each citation and read the abstracts to confirm relevance. Two were useful. Three were off-target. Here's what I learned about prompting for academic sources..."
-
-**Sample Syllabus Language**
-
-> AI tools like the Sandbox models can support your learning when used thoughtfully. You are encouraged to use them for brainstorming, discovering and vetting sources, adapting texts into
-more accessible formats, or reading and reviewing constructive feedback on their drafts. Remember, you are expected to do the intellectual work yourself, such as synthesizing ideas, evaluating secondary sources, and constructing arguments. If you are unsure whether AI use is appropriate for an assignment, please reach out to me at [instructor-email] before submitting.
-
----
-
-## Tip #4. Visible Learning<span id="tip-4-visible-learning-1" aria-hidden="true"></span>
-
-**Principle.** Make learning processes visible to students and yourself.
-
-A polished essay does not show how a student brainstormed, drafted, revised, or used AI along the way. Ask students to document those stages so you can discuss their decisions and see how their thinking develops.
-
-**Strategies**
-
-- **Process documentation.** Require students to submit drafts, outlines, or reflection notes alongside final work.
-- **Live workshopping.** Have students demonstrate their AI use in class. They show how they prompted the model, evaluated outputs, and incorporated results.
-- **Iterative assignments.** Break large projects into stages with checkpoints. Each checkpoint surfaces student thinking at that stage.
-- **Metacognitive prompts.** Ask students to write briefly about their approach. "What strategy did you use to tackle this problem? Where did you get stuck? What did you learn?"
-
-**Example**
-
-Instead of assigning a 10-page research paper due at semester's end, assign
-- Week 4. Annotated bibliography (5 sources)
-- Week 8. Argument outline with evidence
-- Week 12. Draft (peer review)
-- Week 16. Final paper with process reflection
-
-Review the work at each stage to discuss students’ decisions, their use of AI, and difficulties that need attention.
-
----
-
-## Tip #5. Metacognitive Prompting<span id="tip-5-metacognitive-prompting-1" aria-hidden="true"></span>
-
-**Principle.** Design prompts that require students to think about their thinking.
-
-Ask students to explain how they approached the task and how their understanding changed. Their reflections give you material to discuss alongside the output and the process they documented.
-
-**Examples**
-
-- "Explain your reasoning process for solving this problem. Where did you feel confident? Where uncertain?"
-- "What assumptions are you making in this argument? How would your conclusion change if those assumptions were false?"
-- "Compare your initial understanding of this concept to your current understanding. What changed?"
-- "If you were teaching this material to a friend, what would you emphasize? What would you skip? Why?"
-
-**Application in AI-Integrated Assignments**
-
-Ask students to document how they used AI tools and what they learned from the interaction
-- "What did you ask the model? Why did you phrase your prompt that way?"
-- "How did you evaluate the model's response? What made you trust or distrust it?"
-- "What did the model help you understand? Where did it mislead or confuse you?"
-
----
-
-## Tip #6. Formative Over Summative<span id="tip-6-formative-over-summative-1" aria-hidden="true"></span>
-
-**Principle.** Use AI tools primarily for formative assessment and learning support, not high-stakes summative evaluation.
-
-When AI is available, summative assessments become harder to secure. Take-home exams, papers written outside class, and projects completed over weeks all allow AI use (whether you permit it or not).
-
-Use formative assessment to give students feedback they can apply in revision before a final evaluation.
-
-**Formative Uses of AI**
-
-- **Brainstorming partner.** Students generate ideas with a model before writing.
-- **Peer review simulator.** Students submit drafts to a model configured to provide feedback aligned with your rubric.
-- **Concept checker.** Students explain a concept to the model. The model asks clarifying questions. Students refine their understanding.
-- **Research support.** Students locate sources, identify patterns, and develop research questions with AI support.
-
-**Summative Alternatives**
-
-If you need summative assessment that resists AI shortcuts
-- **In-class writing.** Controlled environment, no AI access.
-- **Oral exams or presentations.** Students explain their thinking in real time.
-- **Process portfolios.** Students submit evidence of their learning process (drafts, notes, reflections) alongside final work.
-- **Live demonstrations.** Students show how they solved a problem or conducted an analysis.
-
----
-
-## Tip #7. Critical AI Literacy<span id="tip-7-critical-ai-literacy-1" aria-hidden="true"></span>
-
-**Principle.** Teach students to examine an AI system and question the authority behind it.
-
-AI is not neutral. It embeds the biases, priorities, and limitations of its training data, design, and patrons’ standpoints. Students who use AI without understanding these dynamics risk uncritical acceptance of its outputs.
-
-Critical AI literacy asks students to evaluate
-- **What the model knows and doesn't know.** The training data is frozen in a particular time, meaning that the model often cannot access current events or recent research.
-- **Whose perspectives are represented.** AI training data overrepresents English-language, Western, affluent voices.
-- **How the model was incentivized.** What outputs were rewarded during training? Fluency? Confidence? Compliance?
-- **Evaluating recommendations.** Ask students which evidence supports a model’s recommendation and whose interests it serves.
-
-**Activities**
-
-- **Compare sources.** Have students ask a model for information on a topic, then compare its response to several reliable sources. Where do they align? Where do they diverge? Why?
-- **Bias audit.** Ask students to prompt the model on a culturally sensitive topic (e.g., immigration policy, religious practices). Analyze the response for bias or omission.
-- **Compare instructions.** Change one instruction in a prompt, repeat the same task, and compare the outputs. Record which differences persist across repeated attempts.
-- **Failure modes.** Task students with finding cases where the model fails, hallucinates, or produces nonsense. What patterns do they notice?
-
-**CUNY Context**
-
-CUNY students bring diverse linguistic, cultural, and epistemological perspectives. AI models trained predominantly on English-language Western sources may not reflect their knowledge or experiences. Ask students to identify whose knowledge the responses omit and discuss how those omissions affect their use of the model.
-
----
-
-## Tip #8. Inclusive Design<span id="tip-8-inclusive-design-1" aria-hidden="true"></span>
-
-**Principle.** Design AI-integrated activities with CUNY's diverse student population in mind.
-
-CUNY students include
-- Multilingual learners navigating academic English
-- Working adults balancing study with jobs and caregiving
-- First-generation college students
-- Students with disabilities who benefit from adaptive technologies
-- Immigrant and international students
-
-AI tools can support or marginalize these students depending on how you deploy them.
-
-**Inclusive Strategies**
-
-- **Multilingual support.** Configure models to help students work in their home languages and translate to English when needed.
-- **Flexible pacing.** Allow students to use AI for time-intensive tasks (e.g., literature search) so they can focus cognitive effort on higher-order thinking.
-- **Accessibility.** Test the chat interface and course materials with the assistive technologies students use. Report barriers in [CAIL Ticketing](https://tools.ailab.gc.cuny.edu/help/projects/support/issues/new) (sign in with your CUNY Login; see [how to open a ticket](/contact/#ticketing)) or to the [CUNY AI Lab team](mailto:ailab@gc.cuny.edu).
-- **Cultural responsiveness.** Acknowledge that students' prior knowledge and lived experiences are valid sources of authority. AI models should supplement, not replace, those perspectives.
-
----
-
-## Putting It Together<span id="putting-it-together-1" aria-hidden="true"></span>
-
-Adapt these patterns to your discipline, students, and teaching context.
-
-When in doubt, ask
-- Does this use develop students' capacities?
-- Does it make learning visible?
-- Does it encourage critical thinking?
-
-Use your responses to revise the activity before teaching it.
-
----
-
-## Additional Resources<span id="additional-resources-1" aria-hidden="true"></span>
-
-- **[Teach@CUNY AI Toolkit](https://aitoolkit.commons.gc.cuny.edu/)** — pedagogical guidance on AI in the classroom, including assignment redesign and policy templates
-- **[Sample Activities](sample-activities.md)** — concrete exercises applying these patterns
-- **[Student Onboarding](student-onboarding.md)** — first-week plans for introducing students to AI tools responsibly
-
----
+The [Teach@CUNY AI Toolkit](https://aitoolkit.commons.gc.cuny.edu/) provides broader assignment-design guidance. Continue to [Sample Activities](sample-activities.md) for proposed tasks grounded in documented designs, then use [Student Onboarding](student-onboarding.md) to prepare access and expectations.
 
 [← Return to Home](index.md) | [Continue to Use Cases →](use-cases.md)
