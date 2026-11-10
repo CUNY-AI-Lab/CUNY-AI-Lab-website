@@ -13,7 +13,7 @@ from playwright.sync_api import Page, expect, sync_playwright
 
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
-EXPECTED_PANELS = ["sandbox", "media", "assistants", "teaching", "working-with-ai", "model-access"]
+EXPECTED_PANELS = ["sandbox", "media", "assistants", "teaching", "citations", "working-with-ai", "model-access"]
 
 
 def assert_equal(actual: Any, expected: Any) -> None:
@@ -66,6 +66,21 @@ def test_navigation_is_deterministic(page: Page) -> None:
         card = panel.get_by_role("link").filter(has=page.get_by_role("heading", name=title, exact=True))
         expect(card).to_have_attribute("href", url)
         expect(card.locator("p")).to_have_text(description)
+
+    load_tools(page, "#citations")
+    assert_selected_panel(page, "citations")
+    panel = page.locator("#panel-citations")
+    expect(panel.get_by_role("heading", name="Citation Tools", exact=True)).to_be_visible()
+    converter = panel.get_by_role("link").filter(has=page.get_by_role("heading", name="Bibliography Converter", exact=True))
+    expect(converter).to_have_attribute("href", "https://tools.ailab.gc.cuny.edu/bibliography/")
+    expect(converter).to_contain_text("Sign in with CUNY Login")
+    release = "https://github.com/CUNY-AI-Lab/zotero-autofill/releases/tag/v1.1.2"
+    plugin = panel.get_by_role("link").filter(has=page.get_by_role("heading", name="Zotero Metadata Assistant", exact=True))
+    expect(plugin).to_have_attribute("href", release)
+    expect(panel.get_by_role("link", name="Download v1.1.2", exact=True)).to_have_attribute("href", release)
+    expect(panel.get_by_role("link", name="Installation guide", exact=True)).to_have_attribute(
+        "href", "https://github.com/CUNY-AI-Lab/zotero-autofill#install"
+    )
 
     page.set_viewport_size({"width": 390, "height": 844})
     assert not page.locator(".tools-sidebar").is_visible()
