@@ -6,7 +6,7 @@ export const toolDocs = {
     groups: [
       { title: 'Getting Started', pages: [['getting-started', 'Getting Started'], ['splitter-basics', 'Splitter Basics']] },
       { title: 'Listen & Analyze', pages: [['mixer', 'The Mixer'], ['notes', 'Notes'], ['listening-guy', 'Listening Guy'], ['export-and-sharing', 'Export & Sharing']] },
-      { title: 'Teach & Share', pages: [['classroom', 'Class Workspace'], ['live-sessions', 'Live Sessions'], ['instructor-console', 'Instructor Console'], ['teaching-tips', 'Teaching Tips'], ['sample-activities', 'Sample Activities'], ['student-onboarding', 'Student Onboarding'], ['use-cases', 'Use Cases']] },
+      { title: 'Teach & Share', pages: [['classroom', 'Classes'], ['live-sessions', 'Live Sessions'], ['instructor-console', 'Account Settings'], ['teaching-tips', 'Teaching Tips'], ['sample-activities', 'Sample Activities'], ['student-onboarding', 'Student Onboarding'], ['use-cases', 'Use Cases']] },
       { title: 'Related', pages: [['privacy-and-limits', 'Privacy & Limits']] },
     ],
   },

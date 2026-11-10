@@ -1,8 +1,8 @@
 {
   "stem-splitter": {
     "classroom": {
-      "title": "Class Workspace",
-      "description": "Use Class Workspace to organize course recordings and share folders. Instructors can also review the roster and Listening Guy conversations attached to course work.",
+      "title": "Classes",
+      "description": "Use the Classes page to organize course recordings and share folders. Instructors can also review the roster and Listening Guy conversations attached to course work.",
       "headingId": "stem-splitter-classroom"
     },
     "export-and-sharing": {
@@ -21,8 +21,8 @@
       "headingId": "stem-splitter-index"
     },
     "instructor-console": {
-      "title": "Instructor Console",
-      "description": "Write teaching instructions for Listening Guy, including terms you want students to use.",
+      "title": "Account Settings",
+      "description": "Write Listening Guy instructions for your Personal work or a class, including terms you want students to use.",
       "headingId": "stem-splitter-instructor-console"
     },
     "listening-guy": {
