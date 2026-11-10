@@ -1,85 +1,82 @@
 {
-  "context": "Earlier factual CUNY AI Lab progression, before the expanded GitHub-based memos. These are Dev captures, not production captures.",
+  "context": "Fresh production captures, November 10, 2026, of a sample project in the CAIL Teaching Tools Demo course. Both memos were written from the public CUNY AI Lab About page without personal names.",
   "screenshots": [
     {
-      "file": "01-micro-nodes.jpg",
+      "file": "micro-nodes.png",
       "title": "Micro nodes",
-      "nodeCount": 6,
+      "nodeCount": 10,
       "relationshipCount": 0,
-      "source": "f9bfc61fa69f62bf326ca629f340aaa8700547e1",
-      "sourceMeaning": "loaded frontend; early Micro backend source was not separately captured",
-      "environment": "dev",
+      "environment": "production",
       "reviewed": true,
-      "sha256": "a603ede5f33fa3e611140af4d9e301d3f6fa147cda97a87a69d93afb12cfdf48"
+      "sha256": "78b41caef530d89c29fa1565d45e672d9156784a37553d7b69eb9c12da50b681"
     },
     {
-      "file": "02-local-relationships.jpg",
+      "file": "local-relationships.png",
       "title": "Student-authored local relationships",
-      "nodeCount": 6,
-      "relationshipCount": 3,
-      "source": "f9bfc61fa69f62bf326ca629f340aaa8700547e1",
-      "sourceMeaning": "loaded frontend; early Micro backend source was not separately captured",
-      "environment": "dev",
-      "reviewed": true,
-      "sha256": "57734cae6f9256ae97c291607b60312faec18921254bda5abd7c13793a6c026c"
-    },
-    {
-      "file": "03-exo-nodes.jpg",
-      "title": "Micro plus Exo policy",
-      "nodeCount": 7,
-      "relationshipCount": 3,
-      "source": "4b2fd69bbbc81420c4df172b5c879ddfb462d553",
-      "sourceMeaning": "verified frontend and Worker release",
-      "environment": "dev",
-      "reviewed": true,
-      "sha256": "12aadbfbf4f468b5e6e3876c2ae3f7c61897d3404bfadb28702e828d7724c814"
-    },
-    {
-      "file": "04-exo-connection.jpg",
-      "title": "Exo policy connected to a local relationship",
-      "nodeCount": 7,
-      "relationshipCount": 4,
-      "source": "4b2fd69bbbc81420c4df172b5c879ddfb462d553",
-      "sourceMeaning": "verified frontend and Worker release",
-      "environment": "dev",
-      "reviewed": true,
-      "sha256": "8a38eeef7ef2687d3490989a528ceb3e6e23b44e7406e7f19a2d5b1dd001ae19"
-    },
-    {
-      "file": "05-macro-conditions.jpg",
-      "title": "Three documented Macro principles",
       "nodeCount": 10,
-      "relationshipCount": 4,
-      "source": "4b2fd69bbbc81420c4df172b5c879ddfb462d553",
-      "sourceMeaning": "verified frontend and Worker release",
-      "environment": "dev",
+      "relationshipCount": 3,
+      "environment": "production",
       "reviewed": true,
-      "sha256": "dddb5fedbc026ffaf55b0496272683437ba311b448ac5f54cb708553f7d38487"
+      "sha256": "188790ca5626422032b6e84555c405cf1fe065943440d81aa6b886cbfe65dd4b"
     },
     {
-      "file": "06-complete-map.jpg",
-      "title": "Complete map with manually authored relationships",
-      "nodeCount": 10,
+      "file": "exo-nodes.png",
+      "title": "Exo and Macro nodes from the second memo",
+      "nodeCount": 14,
+      "relationshipCount": 3,
+      "environment": "production",
+      "reviewed": true,
+      "sha256": "7e943d539344d2eefa6e700d8861d80f56150a89f822ad5fb984a7377917db07"
+    },
+    {
+      "file": "exo-connection.png",
+      "title": "Exo connection to a local relationship",
+      "nodeCount": 14,
+      "relationshipCount": 3,
+      "environment": "production",
+      "reviewed": true,
+      "sha256": "8fcb06c7173bd99d49449c80a7f719282c157bb583b8300a5d629872317cdf30"
+    },
+    {
+      "file": "macro-conditions.png",
+      "title": "Macro connection to a local relationship",
+      "nodeCount": 14,
+      "relationshipCount": 4,
+      "environment": "production",
+      "reviewed": true,
+      "sha256": "96108d8c9ee4b6a8d9cb2baf03e8466df1d1d8bd99aac1bde861243a7c34fe31"
+    },
+    {
+      "file": "complete-map.png",
+      "title": "Complete map",
+      "nodeCount": 14,
       "relationshipCount": 5,
-      "source": "4b2fd69bbbc81420c4df172b5c879ddfb462d553",
-      "sourceMeaning": "verified frontend and Worker release",
-      "environment": "dev",
+      "environment": "production",
       "reviewed": true,
-      "sha256": "3e11d1f653c023e73227bbc2856987ccbb887864572ff5b95766d028d393cdc9"
+      "sha256": "34f7ac13555fba8c94a671c04c86d53a84aab4e0db7b1b4d9fca60cb7f7ae40d"
     }
   ],
-  "note": "Reviewed for the documentation preview on November 5, 2026. Progression images are earlier Dev captures of the website-based CUNY AI Lab example, not fresh production captures or the later expanded-memo results.",
+  "note": "Captured at an 800px-wide frame from a 998px viewport. The project shows no personal names.",
   "productionScreenshot": {
     "file": "course-settings.jpg",
-    "release": "763943c3c1b24aa583c30c08353b1cab8bc78f7f",
-    "source": "systems-mapping-v1.2.2 / outputs/cuny-ai-lab-expanded-memos/interface/07-production-course-settings.jpg"
+    "note": "Retained from the earlier review; not recaptured on November 10 because sign-in was unavailable during capture.",
+    "sha256": "1199d437e513ef05de38f332b8410ce1d2f6df9e1396443e3c0896d996d77740"
   },
-  "exportAndShortcutScreenshots": {
-    "release": "1a93a420b4c4302ec4b0592d03ac57d687029dc9",
-    "environment": "production",
-    "files": [
-      "production-downloads.jpg",
-      "production-shortcuts.jpg"
-    ]
-  }
+  "exportAndShortcutScreenshots": [
+    {
+      "file": "export.png",
+      "environment": "production",
+      "sha256": "4dd34c5b3045dd30850bea00802d1a3315b69b9e93becf71e3d4ed92bdea712b"
+    },
+    {
+      "file": "map-key.png",
+      "environment": "production",
+      "sha256": "b2cee545be6d74a3f4bd8c76bdd967e7027d497ba2abeb4e94002a2659def8a3"
+    },
+    {
+      "file": "node-details.png",
+      "environment": "production",
+      "sha256": "17d5df3f4eb458c667704ea95f4024f8667de09700c315d723b838cf3e1f4f27"
+    }
+  ]
 }
