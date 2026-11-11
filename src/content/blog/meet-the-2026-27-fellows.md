@@ -10,7 +10,7 @@ tags:
 draft: false
 ---
 
-We're excited to welcome five graduate student fellows to the CUNY AI Lab (CAIL) for the 2026–27 academic year! Please join us in welcoming Kay Kim (M.S. in Data Analysis and Visualization), Ricardo Ledan (M.A. in Digital Humanities), Gabe Levine (Ph.D. in Computer Science), Sasha Richardson (M.A. in Digital Humanities), and Parisa M. Setayesh (Ph.D. in Earth and Environmental Sciences)!
+We're excited to welcome [five graduate student fellows](/team/) to the CUNY AI Lab (CAIL) for the 2026–27 academic year! Please join us in welcoming Kay Kim (M.S. in Data Analysis and Visualization), Ricardo Ledan (M.A. in Digital Humanities), Gabe Levine (Ph.D. in Computer Science), Sasha Richardson (M.A. in Digital Humanities), and Parisa M. Setayesh (Ph.D. in Earth and Environmental Sciences)!
 
 Our [call for applications](/blog/cail-fellows-2026-27/) drew an enthusiastic response from master's and doctoral students across the Graduate Center, with many more strong applicants than we were able to support. This year's fellows bring a range of disciplinary perspectives and skills to the Lab.
 
