@@ -142,3 +142,11 @@ alongside the keyboard and form journeys. Axe checks the rendered pages and
 expanded tool/model states against WCAG A/AA rules, with representative mobile
 views. It does not certify conformance or replace testing with assistive
 technology. The scanner is a development dependency, not a website script.
+
+## License
+
+Copyright © 2025–2026 CUNY AI Lab, The Graduate Center, City University of New York.
+
+The website's source code is licensed under the [GNU Affero General Public License v3.0 or later](LICENSE) (AGPL-3.0-or-later). Except where otherwise noted, the site's content, including the pages, posts, and docs under `src/content/` and `src/data/`, is licensed under [Creative Commons Attribution-NonCommercial 4.0 International](LICENSE-CONTENT) (CC BY-NC 4.0).
+
+These licenses apply to every version of this repository, including earlier commits. They do not cover third-party material, photographs of people, or the names, logos, and branding of CUNY, the CUNY Graduate Center, the CUNY AI Lab, and partner organizations. `tools/oxlint/anti-slop/` is vendored under its own license (see its `LICENSE`). The public summary is the [licensing page](https://ailab.gc.cuny.edu/license/); questions go to [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
