@@ -2,6 +2,7 @@
   "name": "cuny-ai-lab",
   "type": "module",
   "version": "0.0.1",
+  "license": "(AGPL-3.0-or-later AND CC-BY-NC-4.0)",
   "packageManager": "bun@1.4.2",
   "scripts": {
     "dev": "astro dev",

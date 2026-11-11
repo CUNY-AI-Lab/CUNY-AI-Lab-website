@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { getEntry, render } from 'astro:content';
+
+const entry = await getEntry('pages', 'license');
+if (!entry) throw new Error('Licensing page content is missing');
+const { title } = entry.data;
+if (!title) throw new Error('Licensing page content is incomplete');
+const description = 'How the CUNY AI Lab licenses its website, teaching materials, and software, and how to reuse them.';
+const { Content } = await render(entry);
+---
+
+<BaseLayout title="Licensing - CUNY AI Lab" description={description}>
+  <PageHero>
+    <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">{title}</h1>
+  </PageHero>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="license-content">
+        <Content />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .license-content {
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    color: #4b5563;
+  }
+  .license-content h2 {
+    font-family: Outfit, ui-sans-serif, system-ui, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333333;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .license-content p,
+  .license-content li {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+  .license-content p {
+    margin-bottom: 1.25rem;
+  }
+  .license-content ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .license-content li {
+    margin-bottom: 0.5rem;
+  }
+  .license-content code {
+    font-size: 0.95em;
+    background: #f3f4f6;
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.3rem;
+  }
+  .license-content a {
+    color: #3268D8;
+    text-decoration: underline;
+  }
+  .license-content a:hover {
+    color: #2A6FB8;
+  }
+</style>
