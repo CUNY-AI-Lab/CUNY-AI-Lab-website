@@ -13,7 +13,7 @@ from playwright.sync_api import Page, expect, sync_playwright
 
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
-EXPECTED_PANELS = ["sandbox", "media", "assistants", "teaching", "citations", "working-with-ai", "model-access"]
+EXPECTED_PANELS = ["sandbox", "media", "assistants", "teaching", "citations", "model-access"]
 
 
 def assert_equal(actual: Any, expected: Any) -> None:
@@ -81,6 +81,11 @@ def test_navigation_is_deterministic(page: Page) -> None:
     expect(panel.get_by_role("link", name="Installation guide", exact=True)).to_have_attribute(
         "href", "https://github.com/CUNY-AI-Lab/zotero-autofill#install"
     )
+    disclosure = panel.get_by_role("link").filter(has=page.get_by_role("heading", name="AI Use Disclosure", exact=True))
+    expect(disclosure).to_have_attribute("href", "https://tools.ailab.gc.cuny.edu/ai-disclosure/")
+
+    load_tools(page, "#working-with-ai")
+    assert_selected_panel(page, "citations")
 
     page.set_viewport_size({"width": 390, "height": 844})
     assert not page.locator(".tools-sidebar").is_visible()
