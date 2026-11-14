@@ -59,8 +59,8 @@ def test_navigation_is_deterministic(page: Page) -> None:
     panel = page.locator("#panel-teaching")
     expect(panel.get_by_role("heading", name="Teaching Tools", exact=True)).to_be_visible()
     tools = (
-        ("Stem Splitter", "https://stem-splitter.ailab-452.workers.dev/", "Decompose an audio track into layers, listen to individual parts, and explore the recording with an AI listening guide. Annotate your observations and share your work with classmates."),
-        ("Systems Mapping", "https://systems-mapping.ailab-452.workers.dev/", "Develop an asset and systems map from a written memo, examining stakeholders and relationships across micro, meso, exo, and macro levels."),
+        ("Stem Splitter", "https://tools.ailab.gc.cuny.edu/stem-splitter/", "Decompose an audio track into layers, listen to individual parts, and explore the recording with an AI listening guide. Annotate your observations and share your work with classmates."),
+        ("Systems Mapping", "https://tools.ailab.gc.cuny.edu/systems-mapping/", "Develop an asset and systems map from a written memo, examining stakeholders and relationships across micro, meso, exo, and macro levels."),
     )
     for title, url, description in tools:
         card = panel.get_by_role("link").filter(has=page.get_by_role("heading", name=title, exact=True))
