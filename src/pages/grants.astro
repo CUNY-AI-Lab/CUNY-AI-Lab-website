@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { getEntry, render } from 'astro:content';
+
+const entry = await getEntry('pages', 'grants');
+if (!entry) throw new Error('Grant proposals page content is missing');
+const { title } = entry.data;
+if (!title) throw new Error('Grant proposals page content is incomplete');
+const description = 'How to involve the CUNY AI Lab in a grant proposal: when to contact us, what to send, and what we can help with.';
+const { Content } = await render(entry);
+---
+
+<BaseLayout title="Grant Proposals - CUNY AI Lab" description={description}>
+  <PageHero>
+    <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">{title}</h1>
+  </PageHero>
+
+  <section class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grants-content">
+        <Content />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .grants-content {
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    color: #4b5563;
+  }
+  .grants-content h2 {
+    font-family: Outfit, ui-sans-serif, system-ui, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333333;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .grants-content p,
+  .grants-content li {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+  .grants-content p {
+    margin-bottom: 1.25rem;
+  }
+  .grants-content ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .grants-content li {
+    margin-bottom: 0.5rem;
+  }
+  .grants-content a {
+    color: #3268D8;
+    text-decoration: underline;
+  }
+  .grants-content a:hover {
+    color: #2A6FB8;
+  }
+</style>
