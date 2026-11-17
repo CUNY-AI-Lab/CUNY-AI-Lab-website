@@ -8,7 +8,7 @@ CAIL is run by a small team, and much of our time goes to the services, workshop
 
 ## How to reach us
 
-Email [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu) with "Grant proposal" in the subject line and tell us about the project. You don't need a finished draft.
+Tell us about the project through our [grant proposal form](https://tools.ailab.gc.cuny.edu/help/projects/support/issues/new?topic=grant) in CAIL Ticketing, where you sign in with your CUNY Login. You don't need a finished draft. If you can't sign in, email [ailab@gc.cuny.edu](mailto:ailab@gc.cuny.edu).
 
 If you need a letter of support, please write to us at least four weeks before the funder's deadline, and earlier if you'd like help shaping the project or its budget. Your campus's sponsored programs office will usually set its own internal deadline a week or two before the funder's, so plan around the campus deadline too.
 
