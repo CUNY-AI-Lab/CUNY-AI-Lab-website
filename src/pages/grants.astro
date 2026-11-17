@@ -7,11 +7,11 @@ const entry = await getEntry('pages', 'grants');
 if (!entry) throw new Error('Grant proposals page content is missing');
 const { title } = entry.data;
 if (!title) throw new Error('Grant proposals page content is incomplete');
-const description = 'How to involve the CUNY AI Lab in a grant proposal: when to contact us, what to send, and what we can help with.';
+const description = 'How to involve the CUNY AI Lab in a collaboration or grant proposal: how to reach us, the limits to plan around, and projects we have partnered on.';
 const { Content } = await render(entry);
 ---
 
-<BaseLayout title="Grant Proposals - CUNY AI Lab" description={description}>
+<BaseLayout title="Collaborations and Grant Proposals - CUNY AI Lab" description={description}>
   <PageHero>
     <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">{title}</h1>
   </PageHero>

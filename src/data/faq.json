@@ -55,7 +55,7 @@
         {
           "id": "allowance-exhausted",
           "q": "What happens when I use up my allowance?",
-          "a": "<p>Model requests pause when you reach your limit. Your <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Dashboard</a> shows your current reporting period. If you need more for a specific project or course, email <a href=\"mailto:ailab@gc.cuny.edu\">ailab@gc.cuny.edu</a> to ask about an exception.</p>"
+          "a": "<p>Model requests pause when you reach your limit. Your <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Dashboard</a> shows your current reporting period. We can raise an allowance only when funding is committed to the Lab to cover it; see <a href=\"#is-it-free\">How much usage do I get?</a></p>"
         }
       ]
     },
