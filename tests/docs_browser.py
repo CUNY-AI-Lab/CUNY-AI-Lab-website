@@ -63,12 +63,38 @@ def check_built_links(routes):
     print(f"PASS local documentation targets: {len(checked)} links and images", flush=True)
 
 
+def check_docs_hub(page, width):
+    page.set_viewport_size({"width": width, "height": 1000})
+    response = page.goto(BASE_URL + "/resources/", wait_until="networkidle")
+    assert response.status == 200
+    assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    main = page.locator("main")
+    docs_card = main.locator('a[href="/docs/"]')
+    expect(docs_card).to_have_count(1)
+    expect(docs_card.get_by_role("heading", name="Docs", exact=True)).to_be_visible()
+    for destination in ("/sandbox-docs", "/docs/cail-pi", "/docs/api-keys"):
+        expect(main.locator(f'a[href="{destination}"], a[href="{destination}/"]')).to_have_count(0)
+    for label in ("Model Registry", "Events", "Guides & Tutorials", "GC AI Guidelines", "GitHub"):
+        expect(main.get_by_role("heading", name=label, exact=True)).to_be_visible()
+
+    docs_card.press("Enter")
+    expect(page).to_have_url(BASE_URL + "/docs/")
+    expect(page.get_by_role("heading", name="Documentation", exact=True)).to_be_visible()
+    assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    check_accessibility(page, f"{width}px /docs/")
+    for destination in ("/sandbox-docs/", "/docs/cail-pi/", "/stem-splitter-docs/",
+                        "/systems-mapping-docs/", "/docs/api-keys/", "/models/guide/"):
+        expect(main.locator(f'a[href="{destination}"]')).to_have_count(1)
+        assert page.request.get(BASE_URL + destination).status == 200
+    print(f"PASS Resources Docs card, keyboard access and 6 hub links: {width}px", flush=True)
+
+
 def main():
     assert urlsplit(BASE_URL).hostname in {"127.0.0.1", "localhost"}, "Docs tests require a local fixture server"
     routes = sorted("/" + str(file.relative_to(ROOT / "dist")).removesuffix("index.html")
                     for guide in GUIDES for file in (ROOT / "dist" / f"{guide}-docs").rglob("index.html"))
     assert len(routes) == 44, f"Expected the reviewed 44-article scope, found {len(routes)}"
-    check_built_links(routes)
+    check_built_links([*routes, "/resources/", "/docs/"])
     screenshot_dir = os.environ.get("CAIL_DOCS_SCREENSHOTS")
     if screenshot_dir:
         Path(screenshot_dir).mkdir(parents=True, exist_ok=True)
@@ -82,6 +108,8 @@ def main():
             page = context.new_page()
             page_errors = []
             page.on("pageerror", lambda error: page_errors.append(str(error)))
+            for width in (1440, 390):
+                check_docs_hub(page, width)
             for width in (1440, 390):
                 page.set_viewport_size({"width": width, "height": 1000})
                 for path in routes:
