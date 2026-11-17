@@ -52,8 +52,14 @@ No email migration is planned.
 
 ## CAIL Sandbox Docs
 
-`/sandbox-docs/` and its article routes are built from
-`src/content/sandbox-docs/*.md`. The initial import preserved all 14 published
+`/docs/sandbox/` and its article routes are built from
+`src/content/sandbox-docs/*.md`. The Stem Splitter and Systems Mapping guides
+sit beside it at `/docs/stem-splitter/` and `/docs/systems-mapping/`, built from
+the reviewed HTML in `src/content/tool-guides/`. All three moved from
+`/sandbox-docs/`, `/stem-splitter-docs/` and `/systems-mapping-docs/` in
+November 2026. Every old article address still has a page
+(`src/components/MovedPage.astro`) that forwards to the new one, keeping the
+query and `#fragment`, and is left out of the sitemap. The initial import preserved all 14 published
 Markdown files from `CUNY-AI-Lab/sandbox-docs` at revision
 `74ce09d2bb6cc58b37e1f7296a3a01e988009222`, including examples, tables, and
 expandable sections. `src/data/sandbox-docs-source.json` records that import's
@@ -69,7 +75,8 @@ Markdown files are a historical source snapshot, not the editing destination.
 The docs use the shared website header, footer, fonts, and canonical URLs,
 with the original three sidebar groups plus links to the three supplementary
 articles. Relative `.md` links become website routes during rendering, and
-legacy links such as `/sandbox-docs/#student-onboarding` resolve to the article.
+legacy links such as `/sandbox-docs/#student-onboarding` resolve to
+`/docs/sandbox/student-onboarding/`.
 Each article stores its title and original heading ID in frontmatter for the
 compact shared page hero; the landing introduction also lives in frontmatter.
 The landing page uses the title **CAIL Sandbox Docs** and a short introduction

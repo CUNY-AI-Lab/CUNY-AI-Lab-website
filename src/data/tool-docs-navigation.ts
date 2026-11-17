@@ -1,7 +1,7 @@
 export const toolDocs = {
   'stem-splitter': {
     title: 'Stem Splitter Docs',
-    basePath: '/stem-splitter-docs/',
+    basePath: '/docs/stem-splitter/',
     appUrl: 'https://stem-splitter.ailab-452.workers.dev/',
     groups: [
       { title: 'Getting Started', pages: [['getting-started', 'Getting Started'], ['splitter-basics', 'Splitter Basics']] },
@@ -12,7 +12,7 @@ export const toolDocs = {
   },
   'systems-mapping': {
     title: 'Systems Mapping Docs',
-    basePath: '/systems-mapping-docs/',
+    basePath: '/docs/systems-mapping/',
     appUrl: 'https://systems-mapping.ailab-452.workers.dev/',
     groups: [
       { title: 'Getting Started', pages: [['getting-started', 'Getting Started'], ['workspace-basics', 'Workspace Basics']] },

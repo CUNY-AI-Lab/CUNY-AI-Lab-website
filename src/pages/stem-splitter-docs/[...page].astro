@@ -1,14 +1,13 @@
 ---
-import SandboxDocsLayout from '../../layouts/SandboxDocsLayout.astro';
+// The Stem Splitter docs moved to /docs/stem-splitter/; old links land here.
+import MovedPage from '../../components/MovedPage.astro';
 import { getToolGuidePaths } from '../../lib/tool-docs';
 
 export function getStaticPaths() {
-  return getToolGuidePaths('stem-splitter');
+  return getToolGuidePaths('stem-splitter').map(({ params }) => ({ params }));
 }
 
-const { page, data, html } = Astro.props;
+const { page } = Astro.params;
 ---
 
-<SandboxDocsLayout {...data} page={page} guide="stem-splitter">
-  <Fragment set:html={html} />
-</SandboxDocsLayout>
+<MovedPage to={`/docs/stem-splitter/${page ? `${page}/` : ''}`} />
