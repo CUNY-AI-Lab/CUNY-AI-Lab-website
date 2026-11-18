@@ -4,7 +4,7 @@ title: Collaborations and Grant Proposals
 
 The CUNY AI Lab is open to collaborating on projects that align with our scope and goals. If you're considering a grant proposal that involves the Lab, please reach out while the project is still in the planning phase. Before you include the Lab, its staff, or its services in a proposal, please talk with us about roles, funding, and what the project would need from us.
 
-We're most interested in partnering on projects that center human autonomy and decision-making, and that use AI to augment human labor rather than replace it. We also look for projects that share [the principles that guide our own work](/about/): privacy, sustainability, transparency, and critical AI literacy.
+We're most interested in partnering on projects that center human autonomy and decision-making, and that use AI to augment human labor rather than replace it. We also look for projects that share [the principles that guide our own work](/about/), including sustainability, transparency, and critical AI literacy.
 
 CAIL is run by a small team, and much of our time goes to the services, workshops, and consultations we already offer. While the Lab is in its pilot phase, access is open to all Graduate Center faculty, staff, and graduate students, and to selected faculty, staff, and graduate students from other CUNY campuses. An early conversation lets us plan together what resources we'll need to support your project. It also helps you describe our services accurately in the proposal: which models we run and how we run them, how we handle data, and what staff support the Lab can and cannot provide.
 
