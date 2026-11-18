@@ -88,9 +88,18 @@ exact API ID and copy control. IDs preserve the complete model variant, such as
 strip prefixes, display alternate IDs, or name the provider serving a model. Featured models render as
 separate cards above the full registry in Gateway's numeric recommendation order and also appear in the
 canonical rows below. Gateway owns `recommended`, `tier`, and `order`; the website has no static Featured
-list. Featured status changes prominence, not availability. Search and capability filters operate on the
-full registry. Malformed recommendation metadata makes a model nonfeatured without removing its valid
-canonical row.
+list. Featured status changes prominence, not availability. Search, model type, and capability filters
+operate on the full registry. Malformed recommendation metadata makes a model nonfeatured without removing
+its valid canonical row.
+
+The **Model type** options are the capabilities `text-generation`, `decision`,
+`automatic-speech-recognition`, `text-to-speech`, and `text-to-image`. Every
+other capability value appears under **Capability**, including values that have
+no website label yet. The page reads a model's type from its catalog
+`capabilities` and does not match IDs or descriptions. A decision model such as
+Cloudflare's Clef appears under **Decisions** once its Gateway catalog row
+carries `decision`. If the row keeps `text-generation` as well, the model
+appears under both types.
 
 Capabilities reflect Gateway's eligible-route union. A request still requires a
 route supporting its complete capability combination. Context and comparative
