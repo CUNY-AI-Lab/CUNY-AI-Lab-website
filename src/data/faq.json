@@ -130,6 +130,11 @@
           "id": "fellows",
           "q": "What is the CAIL Fellows program?",
           "a": "<p>A yearly fellowship for Graduate Center master's and Ph.D. students to work with the Lab. Calls are announced on the <a href=\"/blog/\">blog</a>; see the <a href=\"/blog/cail-fellows-2026-27/\">2026–27 call</a>.</p>"
+        },
+        {
+          "id": "grant-proposals",
+          "q": "Can I include the Lab in a grant proposal or collaboration?",
+          "a": "<p>The Lab is open to collaborating on projects that align with our scope and goals. Please contact us while the project is still in the planning phase, before you name the Lab, its staff or its services in a proposal. <a href=\"/grants/\">Collaborations and Grant Proposals</a> explains how to reach us, the limits to plan around, and the projects we have worked on.</p>"
         }
       ]
     }
