@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from playwright.sync_api import Page, expect, sync_playwright
+from playwright.sync_api import Page, Route, expect, sync_playwright
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
 CATALOG_URL = "https://tools.ailab.gc.cuny.edu/v1/catalog"
@@ -68,6 +68,9 @@ def stub_catalog(page: Page, payload: Any = CATALOG, *, network_failure: bool = 
 def expect_checked(page: Page) -> None:
     expect(page.get_by_role("status", name="Catalog status", exact=True)).to_contain_text("Catalog checked at")
     expect(page.get_by_role("button", name="Refresh catalog", exact=True)).to_be_enabled()
+    # Loaded results fade in; wait until they are fully shown before inspecting them.
+    page.wait_for_function("""() => document.getAnimations().every(animation =>
+        animation.playState !== 'running' || animation.effect?.getComputedTiming().iterations === Infinity)""")
 
 
 def model_card(page: Page, api_id: str):
@@ -413,6 +416,64 @@ def test_featured_order_and_full_catalog_retention(page: Page) -> None:
     stub_catalog(page)
 
 
+def test_loading_keeps_layout_and_refresh_keeps_results(page: Page) -> None:
+    pending: list[Route] = []
+    page.unroute(CATALOG_URL)
+    page.route(CATALOG_URL, lambda route: pending.append(route))
+    placeholders = page.locator("#model-registry .registry-placeholder")
+    cards = page.locator("#models-list article.model-card")
+    registry_list = page.locator("#models-list")
+    with page.expect_request(CATALOG_URL):
+        page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
+    expect(page.locator("#featured-list .registry-placeholder")).to_have_count(2)
+    expect(page.locator("#models-list .registry-placeholder")).to_have_count(3)
+    expect(page.locator("#featured-models")).to_be_visible()
+    expect(registry_list).to_have_attribute("aria-busy", "true")
+    expect(cards).to_have_count(0)
+    assert len(pending) == 1
+    pending.pop().fulfill(status=200, content_type="application/json", body=json.dumps(CATALOG))
+    expect_checked(page)
+    expect(cards).to_have_count(MODEL_COUNT)
+    expect(placeholders).to_have_count(0)
+    expect(registry_list).to_have_attribute("aria-busy", "false")
+
+    refresh = page.get_by_role("button", name="Refresh catalog", exact=True)
+    with page.expect_request(CATALOG_URL):
+        refresh.click()
+    expect(registry_list).to_have_attribute("aria-busy", "true")
+    expect(refresh).to_be_disabled()
+    expect(cards).to_have_count(MODEL_COUNT)
+    expect(placeholders).to_have_count(0)
+    assert len(pending) == 1
+    pending.pop().fulfill(status=200, content_type="application/json",
+                          body=json.dumps({"object": "list", "data": [offering("replacement")]}))
+    expect_checked(page)
+    expect(cards).to_have_count(1)
+    expect(model_card(page, "replacement")).to_be_visible()
+    expect(registry_list).to_have_attribute("aria-busy", "false")
+
+    empty_state = page.locator("#empty-state")
+    with page.expect_request(CATALOG_URL):
+        refresh.click()
+    expect(registry_list).to_have_attribute("aria-busy", "true")
+    assert len(pending) == 1
+    pending.pop().abort("failed")
+    expect(empty_state).to_be_visible()
+    expect(refresh).to_be_enabled()
+    expect(cards).to_have_count(0)
+    expect(placeholders).to_have_count(0)
+    with page.expect_request(CATALOG_URL):
+        refresh.click()
+    expect(page.locator("#models-list .registry-placeholder")).to_have_count(3)
+    expect(empty_state).to_be_hidden()
+    assert len(pending) == 1
+    pending.pop().fulfill(status=200, content_type="application/json", body=json.dumps(CATALOG))
+    expect_checked(page)
+    expect(cards).to_have_count(MODEL_COUNT)
+    expect(placeholders).to_have_count(0)
+    stub_catalog(page)
+
+
 def main() -> None:
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -427,7 +488,8 @@ def main() -> None:
                          test_refresh_empty_failure_retry_and_safe_text, test_optional_metadata,
                          test_malformed_rows_and_pricing_are_isolated,
                          test_pagination_and_filter_resets,
-                         test_featured_order_and_full_catalog_retention, test_guide):
+                         test_featured_order_and_full_catalog_retention,
+                         test_loading_keeps_layout_and_refresh_keeps_results, test_guide):
                 test(page)
                 print(f"PASS {test.__name__}", flush=True)
             assert errors == [], errors
