@@ -10,7 +10,7 @@ export default function sandboxDocsLinks(document) {
           const match = /^(?:\.\/)?([a-z0-9-]+)\.md([?#].*)?$/.exec(node.properties.href);
           if (match) {
             const [, page, suffix = ''] = match;
-            context.setProperty(node, 'href', `/sandbox-docs/${page === 'index' ? '' : `${page}/`}${suffix}`);
+            context.setProperty(node, 'href', `/docs/sandbox/${page === 'index' ? '' : `${page}/`}${suffix}`);
           }
         } else {
           // Wide examples and tables can be scrolled with the keyboard.
