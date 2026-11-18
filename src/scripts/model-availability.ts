@@ -43,6 +43,7 @@ const catalogSchema = z.object({ object: z.literal('list'), data: z.array(z.unkn
 type Offering = z.infer<typeof offeringSchema>;
 const capabilityNames = new Map([
   ['text-generation', 'Text generation'],
+  ['decision', 'Decisions'],
   ['automatic-speech-recognition', 'Speech recognition'],
   ['text-to-speech', 'Speech generation'],
   ['text-to-image', 'Image generation'],
@@ -51,6 +52,10 @@ const capabilityNames = new Map([
   ['structured-output', 'Structured output'],
   ['reasoning', 'Reasoning'],
 ]);
+// Gateway gives each model one of these capabilities to say what kind of
+// request it takes. They fill the Model type filter; the other capabilities
+// fill the Capability filter.
+const modelTypes = new Set(['text-generation', 'decision', 'automatic-speech-recognition', 'text-to-speech', 'text-to-image']);
 const dollars = new Intl.NumberFormat('en-US', {
   style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 6,
 });
@@ -61,6 +66,7 @@ const featuredList = document.querySelector<HTMLElement>('#featured-list');
 const status = document.querySelector<HTMLElement>('#catalog-status');
 const refresh = document.querySelector<HTMLButtonElement>('#refresh-catalog');
 const search = document.querySelector<HTMLInputElement>('#model-search');
+const typeFilter = document.querySelector<HTMLSelectElement>('#type-filter');
 const capabilityFilter = document.querySelector<HTMLSelectElement>('#capability-filter');
 const count = document.querySelector<HTMLElement>('#results-count');
 const empty = document.querySelector<HTMLElement>('#empty-state');
@@ -94,6 +100,7 @@ const iconPaths = new Map([
   ['function-calling', 'M14 6a5 5 0 0 0-6 6L3 17a3 3 0 0 0 4 4l5-5a5 5 0 0 0 6-6l-3 3-4-4 3-3Z'],
   ['structured-output', 'M8 3H5v6l-2 3 2 3v6h3 M16 3h3v6l2 3-2 3v6h-3 M10 9h4 M10 15h4'],
   ['text-generation', 'M4 4h16v12H8l-4 4V4Z M8 8h8 M8 12h5'],
+  ['decision', 'M3 7l2 2 4-4 M3 17l2 2 4-4 M13 6h8 M13 12h8 M13 18h8'],
   ['automatic-speech-recognition', 'M9 5a3 3 0 0 1 6 0v7a3 3 0 0 1-6 0V5Z M5 10v2a7 7 0 0 0 14 0v-2 M12 19v3 M8 22h8'],
   ['text-to-speech', 'M11 5 6 9H2v6h4l5 4V5Z M15.5 8.5a5 5 0 0 1 0 7 M19 5a10 10 0 0 1 0 14'],
   ['text-to-image', 'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z M11 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0 M21 15l-5-5L5 21'],
@@ -270,14 +277,18 @@ function featuredCards(): HTMLElement[] {
 function applyFilters(): void {
   if (!list || !count || !empty || !loaded) return;
   const query = search?.value.trim().toLocaleLowerCase() ?? '';
-  const filtering = query !== '' || Boolean(capabilityFilter?.value);
+  const type = typeFilter?.value ?? '';
+  const capability = capabilityFilter?.value ?? '';
+  const filtering = query !== '' || type !== '' || capability !== '';
   if (featuredSection) featuredSection.hidden = filtering || (featuredList?.childElementCount ?? 0) === 0;
   const matchingCards: HTMLElement[] = [];
   for (const [index, card] of Array.from(list.children).entries()) {
     const model = models[index];
     if (!model || !(card instanceof HTMLElement)) continue;
     const haystack = [model.model_name ?? model.name, model.id, ...model.capabilities, ...model.capabilities.map(capability => capabilityNames.get(capability) ?? capability)].join(' ').toLocaleLowerCase();
-    const matches = haystack.includes(query) && (!capabilityFilter?.value || model.capabilities.includes(capabilityFilter.value));
+    const matches = haystack.includes(query)
+      && (type === '' || model.capabilities.includes(type))
+      && (capability === '' || model.capabilities.includes(capability));
     card.hidden = !matches;
     if (matches) matchingCards.push(card);
   }
@@ -327,7 +338,9 @@ async function refreshCatalog(): Promise<void> {
     const omitted = catalog.data.length - unambiguous.length;
     if (catalog.data.length > 0 && unambiguous.length === 0) throw new Error('catalog_has_no_usable_rows');
     models = unambiguous.toSorted((a, b) => (a.model_name ?? a.name).localeCompare(b.model_name ?? b.name) || a.id.localeCompare(b.id));
-    populateFilter(capabilityFilter, [...new Set(models.flatMap(model => model.capabilities))], capabilityNames, 'All capabilities');
+    const capabilities = [...new Set(models.flatMap(model => model.capabilities))];
+    populateFilter(typeFilter, capabilities.filter(value => modelTypes.has(value)), capabilityNames, 'All model types');
+    populateFilter(capabilityFilter, capabilities.filter(value => !modelTypes.has(value)), capabilityNames, 'All capabilities');
     list.replaceChildren(...models.map(model => modelCard(model)));
     featuredList?.replaceChildren(...featuredCards());
     loaded = true;
@@ -364,9 +377,11 @@ for (const nav of document.querySelectorAll<HTMLElement>('[data-pagination="all"
 }
 
 search?.addEventListener('input', resetFiltersPage);
+typeFilter?.addEventListener('change', resetFiltersPage);
 capabilityFilter?.addEventListener('change', resetFiltersPage);
 document.querySelector('#clear-filters')?.addEventListener('click', () => {
   if (search) search.value = '';
+  if (typeFilter) typeFilter.value = '';
   if (capabilityFilter) capabilityFilter.value = '';
   resetFiltersPage();
 });

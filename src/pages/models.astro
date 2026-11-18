@@ -21,6 +21,7 @@ const base = import.meta.env.BASE_URL;
       <div class="registry-toolbar">
         <div class="registry-filters">
           <div class="filter-field"><label for="model-search">Search models</label><input id="model-search" type="search" placeholder="Name, API ID, or capability" autocomplete="off" /></div>
+          <div class="filter-field"><label for="type-filter">Model type</label><select id="type-filter"><option value="">All model types</option></select></div>
           <div class="filter-field"><label for="capability-filter">Capability</label><select id="capability-filter"><option value="">All capabilities</option></select></div>
           <button id="clear-filters" class="registry-button" type="button">Clear filters</button>
         </div>
@@ -56,7 +57,7 @@ const base = import.meta.env.BASE_URL;
 <style is:global>
   #model-registry { --registry-ink: #1D3A83; --registry-text: #333333; --registry-muted: #5b6878; --registry-line: #dfe5ee; --registry-soft: #f3f6fa; --registry-accent: #3268D8; }
   #model-registry .registry-toolbar { background: white; border: 1px solid var(--registry-line); border-radius: 1rem; box-shadow: 0 1px 2px rgba(29, 58, 131, .05); padding: 1.25rem 1.5rem; }
-  #model-registry .registry-filters { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto; gap: 1rem; align-items: end; }
+  #model-registry .registry-filters { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) minmax(0, 2fr) auto; gap: 1rem; align-items: end; }
   #model-registry .filter-field { display: grid; gap: .35rem; }
   #model-registry label { font-size: .8rem; font-weight: 600; color: var(--registry-muted); }
   #model-registry input, #model-registry select { width: 100%; min-width: 0; padding: .65rem .8rem; border: 1px solid #c6cfdb; border-radius: .625rem; background: white; color: var(--registry-text); font-weight: 400; }
@@ -116,6 +117,10 @@ const base = import.meta.env.BASE_URL;
   #model-registry .capabilities { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .4rem; }
   #model-registry .capability { display: inline-flex; align-items: center; gap: .3rem; padding: .2rem .55rem; border: 1px solid var(--registry-line); border-radius: 999px; font-size: .72rem; color: #46556b; overflow-wrap: anywhere; }
   #model-registry .capability svg { width: .85rem; height: .85rem; flex-shrink: 0; color: var(--registry-accent); }
+  @media (max-width: 1023px) {
+    #model-registry .registry-filters { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
+    #model-registry .registry-filters .filter-field:first-child { grid-column: 1 / -1; }
+  }
   @media (max-width: 767px) {
     #model-registry .registry-toolbar { padding: 1rem; }
     #model-registry .registry-filters { grid-template-columns: 1fr 1fr; }
