@@ -74,6 +74,31 @@ let models: Offering[] = [];
 let loaded = false;
 const modelsPerPage = 12;
 let modelPage = 1;
+// The page ships placeholder cards so it has its final shape while the
+// catalog loads. Keep them to show again when a refresh has nothing to keep.
+const featuredPlaceholders = Array.from(featuredList?.children ?? []);
+const registryPlaceholders = Array.from(list?.children ?? []);
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+function setBusy(busy: boolean): void {
+  for (const node of [featuredList, list]) node?.setAttribute('aria-busy', String(busy));
+}
+
+function showPlaceholders(): void {
+  loaded = false;
+  featuredList?.replaceChildren(...featuredPlaceholders);
+  list?.replaceChildren(...registryPlaceholders);
+  if (featuredSection) featuredSection.hidden = false;
+  updatePagination(1, 0, modelsPerPage);
+  if (count) count.textContent = '';
+}
+
+function reveal(): void {
+  if (reducedMotion.matches) return;
+  for (const node of [featuredSection, list]) {
+    if (node && !node.hidden) node.animate([{ opacity: 0.4 }, { opacity: 1 }], { duration: 250, easing: 'ease-out' });
+  }
+}
 
 function updatePagination(page: number, total: number, pageSize: number): void {
   const pages = Math.ceil(total / pageSize);
@@ -314,14 +339,9 @@ function populateFilter(select: HTMLSelectElement | null, values: string[], name
 async function refreshCatalog(): Promise<void> {
   if (!refresh || !status || !list || !empty || !count || refresh.disabled) return;
   refresh.disabled = true;
-  loaded = false;
-  models = [];
-  modelPage = 1;
-  updatePagination(modelPage, 0, modelsPerPage);
-  list.replaceChildren();
-  featuredList?.replaceChildren();
-  if (featuredSection) featuredSection.hidden = true;
-  count.textContent = '';
+  // Leave loaded results in place, dimmed, until the new catalog replaces them.
+  if (models.length === 0) showPlaceholders();
+  setBusy(true);
   empty.hidden = true;
   status.textContent = 'Loading the live catalog…';
   try {
@@ -338,6 +358,7 @@ async function refreshCatalog(): Promise<void> {
     const omitted = catalog.data.length - unambiguous.length;
     if (catalog.data.length > 0 && unambiguous.length === 0) throw new Error('catalog_has_no_usable_rows');
     models = unambiguous.toSorted((a, b) => (a.model_name ?? a.name).localeCompare(b.model_name ?? b.name) || a.id.localeCompare(b.id));
+    modelPage = 1;
     const capabilities = [...new Set(models.flatMap(model => model.capabilities))];
     populateFilter(typeFilter, capabilities.filter(value => modelTypes.has(value)), capabilityNames, 'All model types');
     populateFilter(capabilityFilter, capabilities.filter(value => !modelTypes.has(value)), capabilityNames, 'All capabilities');
@@ -345,14 +366,24 @@ async function refreshCatalog(): Promise<void> {
     featuredList?.replaceChildren(...featuredCards());
     loaded = true;
     applyFilters();
+    reveal();
     const checkedAt = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date());
     const omittedMessage = omitted === 0 ? '' : ` ${omitted} invalid or ambiguous ${omitted === 1 ? 'entry was' : 'entries were'} omitted.`;
     status.textContent = `Catalog checked at ${checkedAt}.${omittedMessage} Availability and prices can change.`;
   } catch {
+    loaded = false;
+    models = [];
+    modelPage = 1;
+    updatePagination(modelPage, 0, modelsPerPage);
+    list.replaceChildren();
+    featuredList?.replaceChildren();
+    if (featuredSection) featuredSection.hidden = true;
+    count.textContent = '';
     empty.hidden = false;
     empty.textContent = 'The live catalog is unavailable. Refresh catalog to try again.';
     status.textContent = 'Couldn’t load the Gateway catalog. Availability and prices are unknown.';
   } finally {
+    setBusy(false);
     refresh.disabled = false;
   }
 }

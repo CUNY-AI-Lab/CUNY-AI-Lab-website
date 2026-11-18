@@ -128,6 +128,8 @@ The check time applies to catalog availability, route capabilities, context, and
 prices. A malformed row is omitted without hiding valid rows; malformed optional
 pricing stays unpublished. A malformed envelope or a response with no usable,
 unambiguous rows clears previous results and offers retry.
+While the catalog loads, placeholder cards hold the page's layout. A refresh
+keeps the current results, dimmed, until the new catalog replaces them.
 An empty catalog and a search with no matches have separate messages. JavaScript
 is required for the interactive list; a public JSON catalog link remains usable
 without it. No inference request is sent by browsing, filtering, or copying IDs.
