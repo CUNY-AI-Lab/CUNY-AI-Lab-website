@@ -1,0 +1,32 @@
+---
+// A docs page that moved under /docs/. The static hosts can't send a 301 from
+// here, so this page forwards the browser and keeps the query and #fragment:
+// old links such as /sandbox-docs/#student-onboarding depend on the fragment,
+// which a meta refresh would drop. The meta refresh is only the no-script path.
+interface Props {
+  to: string;
+}
+
+const { to } = Astro.props;
+const canonical = new URL(to, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>This page has moved - CUNY AI Lab</title>
+    <link rel="canonical" href={canonical} />
+    <script is:inline define:vars={{ to }}>
+      location.replace(to + location.search + location.hash);
+    </script>
+    <noscript><meta http-equiv="refresh" content={`0;url=${to}`} /></noscript>
+  </head>
+  <body>
+    <main>
+      <p>This page has moved to <a href={to}>{canonical}</a>.</p>
+    </main>
+  </body>
+</html>

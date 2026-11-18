@@ -47,13 +47,23 @@ class ImportGuidesTest(unittest.TestCase):
                 article = (root / "src/content/tool-guides" / tool / "index.html").read_text()
                 self.assertNotIn("Old site", article)
                 self.assertIn("Keep this sentence.", article)
-                self.assertIn(f'href="/{tool}-docs/notes/#shared"', article)
+                self.assertIn(f'href="/docs/{tool}/notes/#shared"', article)
                 self.assertIn(f'href="{app}/"', article)
                 self.assertEqual(metadata[tool]["index"]["title"], "A & B")
                 self.assertEqual(metadata[tool]["index"]["description"], "Start here.")
                 for relative, content in (("overview.png", b"flat image"), ("screens/overview.png", b"nested image")):
                     self.assertIn(f'src="/images/docs/{tool}/{relative}"', article)
                     self.assertEqual((root / "public/images/docs" / tool / relative).read_bytes(), content)
+
+    def test_sandbox_links_use_the_docs_address(self):
+        for value, expected in (
+            ("https://ailab.gc.cuny.edu/sandbox-docs/", "/docs/sandbox/"),
+            ("https://ailab.gc.cuny.edu/sandbox-docs/models", "/docs/sandbox/models/"),
+            ("https://ailab.gc.cuny.edu/sandbox-docs/models/#tools", "/docs/sandbox/models/#tools"),
+            ("https://ailab.gc.cuny.edu/docs/sandbox/models/", "/docs/sandbox/models/"),
+        ):
+            with self.subTest(value=value):
+                self.assertEqual(importer.adapt_url(value, "stem-splitter", "href"), expected)
 
     def test_images_require_canonical_relative_paths(self):
         for path in ("https://example.com/image.png", "/image.png", "img/../outside.png", "//example.com/image.png"):

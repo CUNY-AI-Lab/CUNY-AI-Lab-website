@@ -15,6 +15,8 @@ TOOLS = {
     "stem-splitter": "https://stem-splitter.ailab-452.workers.dev",
     "systems-mapping": "https://systems-mapping.ailab-452.workers.dev",
 }
+# Reviewed sources may still link to the Sandbox docs' old address.
+SANDBOX_PATHS = ("/docs/sandbox", "/sandbox-docs")
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
 
 
@@ -27,8 +29,10 @@ def adapt_url(value, tool, attribute):
     if url.scheme:
         if url.scheme not in {"https", "http", "mailto"}:
             raise ValueError(f"Unsupported article URL: {value}")
-        if url.netloc == "ailab.gc.cuny.edu" and url.path.startswith("/sandbox-docs"):
-            return urlunsplit(("", "", url.path.rstrip("/") + "/", url.query, url.fragment))
+        if url.netloc == "ailab.gc.cuny.edu" and url.path.startswith(SANDBOX_PATHS):
+            page = url.path.removeprefix("/docs/sandbox").removeprefix("/sandbox-docs").strip("/")
+            path = "/docs/sandbox/" + (page + "/" if page else "")
+            return urlunsplit(("", "", path, url.query, url.fragment))
         return value
     if url.netloc or ".." in Path(url.path).parts:
         raise ValueError(f"Unexpected article URL: {value}")
@@ -36,7 +40,7 @@ def adapt_url(value, tool, attribute):
         return TOOLS[tool] + value
     if url.path.endswith(".html"):
         page = url.path.removesuffix(".html")
-        path = f"/{tool}-docs/" + ("" if page == "index" else page + "/")
+        path = f"/docs/{tool}/" + ("" if page == "index" else page + "/")
         return urlunsplit(("", "", path, url.query, url.fragment))
     if not url.path:
         return value.replace("#main", "#main-content") if value == "#main" else value

@@ -108,7 +108,7 @@
         {
           "id": "get-help",
           "q": "How do I get help?",
-          "a": "<p>Open a ticket in <a href=\"https://tools.ailab.gc.cuny.edu/help/projects/support/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">CAIL Ticketing</a> and sign in with your CUNY Login. Without CUNY Login or access to CAIL tools, read <a href=\"/contact/#ticketing\">how to get a CAIL Ticketing account</a>; until it is activated, email <a href=\"mailto:ailab@gc.cuny.edu\">ailab@gc.cuny.edu</a>. To discuss a project, use the consultation form on the <a href=\"/contact\">Contact page</a>. The <a href=\"/sandbox-docs/\">Sandbox documentation</a> answers most questions about the chat platform, and the <a href=\"/events\">Events page</a> lists upcoming workshops.</p>"
+          "a": "<p>Open a ticket in <a href=\"https://tools.ailab.gc.cuny.edu/help/projects/support/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">CAIL Ticketing</a> and sign in with your CUNY Login. Without CUNY Login or access to CAIL tools, read <a href=\"/contact/#ticketing\">how to get a CAIL Ticketing account</a>; until it is activated, email <a href=\"mailto:ailab@gc.cuny.edu\">ailab@gc.cuny.edu</a>. To discuss a project, use the consultation form on the <a href=\"/contact\">Contact page</a>. The <a href=\"/docs/sandbox/\">Sandbox documentation</a> answers most questions about the chat platform, and the <a href=\"/events\">Events page</a> lists upcoming workshops.</p>"
         },
         {
           "id": "class-support",
