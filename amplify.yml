@@ -19,6 +19,7 @@ frontend:
     build:
       commands:
         - bun run build
+        - python3 tests/docs_routes_test.py
   artifacts:
     baseDirectory: dist
     files:

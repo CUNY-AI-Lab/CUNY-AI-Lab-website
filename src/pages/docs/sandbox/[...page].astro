@@ -1,0 +1,19 @@
+---
+import { getCollection, render } from 'astro:content';
+import SandboxDocsLayout from '../../../layouts/SandboxDocsLayout.astro';
+
+export async function getStaticPaths() {
+  const docs = await getCollection('sandboxDocs');
+  return docs.map((entry) => ({
+    params: { page: entry.id === 'index' ? undefined : entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<SandboxDocsLayout {...entry.data} page={entry.id}>
+  <Content />
+</SandboxDocsLayout>

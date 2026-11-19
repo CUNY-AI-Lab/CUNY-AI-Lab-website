@@ -43,6 +43,7 @@ const catalogSchema = z.object({ object: z.literal('list'), data: z.array(z.unkn
 type Offering = z.infer<typeof offeringSchema>;
 const capabilityNames = new Map([
   ['text-generation', 'Text generation'],
+  ['decision', 'Decisions'],
   ['automatic-speech-recognition', 'Speech recognition'],
   ['text-to-speech', 'Speech generation'],
   ['text-to-image', 'Image generation'],
@@ -51,6 +52,10 @@ const capabilityNames = new Map([
   ['structured-output', 'Structured output'],
   ['reasoning', 'Reasoning'],
 ]);
+// Gateway gives each model one of these capabilities to say what kind of
+// request it takes. They fill the Model type filter; the other capabilities
+// fill the Capability filter.
+const modelTypes = new Set(['text-generation', 'decision', 'automatic-speech-recognition', 'text-to-speech', 'text-to-image']);
 const dollars = new Intl.NumberFormat('en-US', {
   style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 6,
 });
@@ -61,6 +66,7 @@ const featuredList = document.querySelector<HTMLElement>('#featured-list');
 const status = document.querySelector<HTMLElement>('#catalog-status');
 const refresh = document.querySelector<HTMLButtonElement>('#refresh-catalog');
 const search = document.querySelector<HTMLInputElement>('#model-search');
+const typeFilter = document.querySelector<HTMLSelectElement>('#type-filter');
 const capabilityFilter = document.querySelector<HTMLSelectElement>('#capability-filter');
 const count = document.querySelector<HTMLElement>('#results-count');
 const empty = document.querySelector<HTMLElement>('#empty-state');
@@ -68,6 +74,31 @@ let models: Offering[] = [];
 let loaded = false;
 const modelsPerPage = 12;
 let modelPage = 1;
+// The page ships placeholder cards so it has its final shape while the
+// catalog loads. Keep them to show again when a refresh has nothing to keep.
+const featuredPlaceholders = Array.from(featuredList?.children ?? []);
+const registryPlaceholders = Array.from(list?.children ?? []);
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+function setBusy(busy: boolean): void {
+  for (const node of [featuredList, list]) node?.setAttribute('aria-busy', String(busy));
+}
+
+function showPlaceholders(): void {
+  loaded = false;
+  featuredList?.replaceChildren(...featuredPlaceholders);
+  list?.replaceChildren(...registryPlaceholders);
+  if (featuredSection) featuredSection.hidden = false;
+  updatePagination(1, 0, modelsPerPage);
+  if (count) count.textContent = '';
+}
+
+function reveal(): void {
+  if (reducedMotion.matches) return;
+  for (const node of [featuredSection, list]) {
+    if (node && !node.hidden) node.animate([{ opacity: 0.4 }, { opacity: 1 }], { duration: 250, easing: 'ease-out' });
+  }
+}
 
 function updatePagination(page: number, total: number, pageSize: number): void {
   const pages = Math.ceil(total / pageSize);
@@ -94,6 +125,7 @@ const iconPaths = new Map([
   ['function-calling', 'M14 6a5 5 0 0 0-6 6L3 17a3 3 0 0 0 4 4l5-5a5 5 0 0 0 6-6l-3 3-4-4 3-3Z'],
   ['structured-output', 'M8 3H5v6l-2 3 2 3v6h3 M16 3h3v6l2 3-2 3v6h-3 M10 9h4 M10 15h4'],
   ['text-generation', 'M4 4h16v12H8l-4 4V4Z M8 8h8 M8 12h5'],
+  ['decision', 'M3 7l2 2 4-4 M3 17l2 2 4-4 M13 6h8 M13 12h8 M13 18h8'],
   ['automatic-speech-recognition', 'M9 5a3 3 0 0 1 6 0v7a3 3 0 0 1-6 0V5Z M5 10v2a7 7 0 0 0 14 0v-2 M12 19v3 M8 22h8'],
   ['text-to-speech', 'M11 5 6 9H2v6h4l5 4V5Z M15.5 8.5a5 5 0 0 1 0 7 M19 5a10 10 0 0 1 0 14'],
   ['text-to-image', 'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z M11 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0 M21 15l-5-5L5 21'],
@@ -270,14 +302,18 @@ function featuredCards(): HTMLElement[] {
 function applyFilters(): void {
   if (!list || !count || !empty || !loaded) return;
   const query = search?.value.trim().toLocaleLowerCase() ?? '';
-  const filtering = query !== '' || Boolean(capabilityFilter?.value);
+  const type = typeFilter?.value ?? '';
+  const capability = capabilityFilter?.value ?? '';
+  const filtering = query !== '' || type !== '' || capability !== '';
   if (featuredSection) featuredSection.hidden = filtering || (featuredList?.childElementCount ?? 0) === 0;
   const matchingCards: HTMLElement[] = [];
   for (const [index, card] of Array.from(list.children).entries()) {
     const model = models[index];
     if (!model || !(card instanceof HTMLElement)) continue;
     const haystack = [model.model_name ?? model.name, model.id, ...model.capabilities, ...model.capabilities.map(capability => capabilityNames.get(capability) ?? capability)].join(' ').toLocaleLowerCase();
-    const matches = haystack.includes(query) && (!capabilityFilter?.value || model.capabilities.includes(capabilityFilter.value));
+    const matches = haystack.includes(query)
+      && (type === '' || model.capabilities.includes(type))
+      && (capability === '' || model.capabilities.includes(capability));
     card.hidden = !matches;
     if (matches) matchingCards.push(card);
   }
@@ -303,14 +339,9 @@ function populateFilter(select: HTMLSelectElement | null, values: string[], name
 async function refreshCatalog(): Promise<void> {
   if (!refresh || !status || !list || !empty || !count || refresh.disabled) return;
   refresh.disabled = true;
-  loaded = false;
-  models = [];
-  modelPage = 1;
-  updatePagination(modelPage, 0, modelsPerPage);
-  list.replaceChildren();
-  featuredList?.replaceChildren();
-  if (featuredSection) featuredSection.hidden = true;
-  count.textContent = '';
+  // Leave loaded results in place, dimmed, until the new catalog replaces them.
+  if (models.length === 0) showPlaceholders();
+  setBusy(true);
   empty.hidden = true;
   status.textContent = 'Loading the live catalog…';
   try {
@@ -327,19 +358,32 @@ async function refreshCatalog(): Promise<void> {
     const omitted = catalog.data.length - unambiguous.length;
     if (catalog.data.length > 0 && unambiguous.length === 0) throw new Error('catalog_has_no_usable_rows');
     models = unambiguous.toSorted((a, b) => (a.model_name ?? a.name).localeCompare(b.model_name ?? b.name) || a.id.localeCompare(b.id));
-    populateFilter(capabilityFilter, [...new Set(models.flatMap(model => model.capabilities))], capabilityNames, 'All capabilities');
+    modelPage = 1;
+    const capabilities = [...new Set(models.flatMap(model => model.capabilities))];
+    populateFilter(typeFilter, capabilities.filter(value => modelTypes.has(value)), capabilityNames, 'All model types');
+    populateFilter(capabilityFilter, capabilities.filter(value => !modelTypes.has(value)), capabilityNames, 'All capabilities');
     list.replaceChildren(...models.map(model => modelCard(model)));
     featuredList?.replaceChildren(...featuredCards());
     loaded = true;
     applyFilters();
+    reveal();
     const checkedAt = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date());
     const omittedMessage = omitted === 0 ? '' : ` ${omitted} invalid or ambiguous ${omitted === 1 ? 'entry was' : 'entries were'} omitted.`;
     status.textContent = `Catalog checked at ${checkedAt}.${omittedMessage} Availability and prices can change.`;
   } catch {
+    loaded = false;
+    models = [];
+    modelPage = 1;
+    updatePagination(modelPage, 0, modelsPerPage);
+    list.replaceChildren();
+    featuredList?.replaceChildren();
+    if (featuredSection) featuredSection.hidden = true;
+    count.textContent = '';
     empty.hidden = false;
     empty.textContent = 'The live catalog is unavailable. Refresh catalog to try again.';
     status.textContent = 'Couldn’t load the Gateway catalog. Availability and prices are unknown.';
   } finally {
+    setBusy(false);
     refresh.disabled = false;
   }
 }
@@ -364,9 +408,11 @@ for (const nav of document.querySelectorAll<HTMLElement>('[data-pagination="all"
 }
 
 search?.addEventListener('input', resetFiltersPage);
+typeFilter?.addEventListener('change', resetFiltersPage);
 capabilityFilter?.addEventListener('change', resetFiltersPage);
 document.querySelector('#clear-filters')?.addEventListener('click', () => {
   if (search) search.value = '';
+  if (typeFilter) typeFilter.value = '';
   if (capabilityFilter) capabilityFilter.value = '';
   resetFiltersPage();
 });

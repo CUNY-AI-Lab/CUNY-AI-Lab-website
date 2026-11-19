@@ -27,8 +27,10 @@ def check_accessibility(page: Page, label: str) -> None:
 
 
 def main() -> None:
-    routes = sorted("/" + str(path.relative_to(ROOT / "dist")).removesuffix("index.html")
-                    for path in (ROOT / "dist").rglob("index.html"))
+    # The old /<guide>-docs/ pages only forward to /docs/<guide>/, which is scanned.
+    routes = sorted(route for route in ("/" + str(path.relative_to(ROOT / "dist")).removesuffix("index.html")
+                                        for path in (ROOT / "dist").rglob("index.html"))
+                    if not route.startswith(("/sandbox-docs/", "/stem-splitter-docs/", "/systems-mapping-docs/")))
     assert routes, "Build the website before running browser checks"
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -39,7 +41,7 @@ def main() -> None:
             context.route("https://www.googletagmanager.com/**", lambda route: route.abort())
             context.route("https://challenges.cloudflare.com/**", lambda route: route.abort())
             page = context.new_page()
-            for width, paths in ((1440, routes), (390, ["/", "/tools/", "/models/", "/models/guide/", "/request-access/?kind=class", "/docs/api-keys/", "/research/", "/sandbox-docs/", "/sandbox-docs/system-prompts/"])):
+            for width, paths in ((1440, routes), (390, ["/", "/tools/", "/models/", "/models/guide/", "/request-access/?kind=class", "/docs/api-keys/", "/research/", "/docs/sandbox/", "/docs/sandbox/system-prompts/"])):
                 page.set_viewport_size({"width": width, "height": 1000})
                 for path in paths:
                     page.goto(BASE_URL + path, wait_until="networkidle")
@@ -66,7 +68,7 @@ def main() -> None:
             for width in (1440, 390):
                 page.set_viewport_size({"width": width, "height": 1000})
                 check_accessibility(page, f"{width}px loaded model catalog")
-                page.get_by_label("Capability", exact=True).select_option("text-generation")
+                page.get_by_label("Model type", exact=True).select_option("text-generation")
                 page.get_by_role("searchbox", name="Search models", exact=True).fill("deepseek")
                 check_accessibility(page, f"{width}px filtered model catalog")
                 page.get_by_role("searchbox", name="Search models", exact=True).fill("no-such-model")

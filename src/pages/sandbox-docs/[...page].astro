@@ -1,19 +1,14 @@
 ---
-import { getCollection, render } from 'astro:content';
-import SandboxDocsLayout from '../../layouts/SandboxDocsLayout.astro';
+// The Sandbox docs moved to /docs/sandbox/; old links land here.
+import { getCollection } from 'astro:content';
+import MovedPage from '../../components/MovedPage.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('sandboxDocs');
-  return docs.map((entry) => ({
-    params: { page: entry.id === 'index' ? undefined : entry.id },
-    props: { entry },
-  }));
+  return docs.map((entry) => ({ params: { page: entry.id === 'index' ? undefined : entry.id } }));
 }
 
-const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { page } = Astro.params;
 ---
 
-<SandboxDocsLayout {...entry.data} page={entry.id}>
-  <Content />
-</SandboxDocsLayout>
+<MovedPage to={`/docs/sandbox/${page ? `${page}/` : ''}`} />

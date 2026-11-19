@@ -52,8 +52,14 @@ No email migration is planned.
 
 ## CAIL Sandbox Docs
 
-`/sandbox-docs/` and its article routes are built from
-`src/content/sandbox-docs/*.md`. The initial import preserved all 14 published
+`/docs/sandbox/` and its article routes are built from
+`src/content/sandbox-docs/*.md`. The Stem Splitter and Systems Mapping guides
+sit beside it at `/docs/stem-splitter/` and `/docs/systems-mapping/`, built from
+the reviewed HTML in `src/content/tool-guides/`. All three moved from
+`/sandbox-docs/`, `/stem-splitter-docs/` and `/systems-mapping-docs/` in
+November 2026. Every old article address still has a page
+(`src/components/MovedPage.astro`) that forwards to the new one, keeping the
+query and `#fragment`, and is left out of the sitemap. The initial import preserved all 14 published
 Markdown files from `CUNY-AI-Lab/sandbox-docs` at revision
 `74ce09d2bb6cc58b37e1f7296a3a01e988009222`, including examples, tables, and
 expandable sections. `src/data/sandbox-docs-source.json` records that import's
@@ -69,7 +75,8 @@ Markdown files are a historical source snapshot, not the editing destination.
 The docs use the shared website header, footer, fonts, and canonical URLs,
 with the original three sidebar groups plus links to the three supplementary
 articles. Relative `.md` links become website routes during rendering, and
-legacy links such as `/sandbox-docs/#student-onboarding` resolve to the article.
+legacy links such as `/sandbox-docs/#student-onboarding` resolve to
+`/docs/sandbox/student-onboarding/`.
 Each article stores its title and original heading ID in frontmatter for the
 compact shared page hero; the landing introduction also lives in frontmatter.
 The landing page uses the title **CAIL Sandbox Docs** and a short introduction
@@ -88,9 +95,18 @@ exact API ID and copy control. IDs preserve the complete model variant, such as
 strip prefixes, display alternate IDs, or name the provider serving a model. Featured models render as
 separate cards above the full registry in Gateway's numeric recommendation order and also appear in the
 canonical rows below. Gateway owns `recommended`, `tier`, and `order`; the website has no static Featured
-list. Featured status changes prominence, not availability. Search and capability filters operate on the
-full registry. Malformed recommendation metadata makes a model nonfeatured without removing its valid
-canonical row.
+list. Featured status changes prominence, not availability. Search, model type, and capability filters
+operate on the full registry. Malformed recommendation metadata makes a model nonfeatured without removing
+its valid canonical row.
+
+The **Model type** options are the capabilities `text-generation`, `decision`,
+`automatic-speech-recognition`, `text-to-speech`, and `text-to-image`. Every
+other capability value appears under **Capability**, including values that have
+no website label yet. The page reads a model's type from its catalog
+`capabilities` and does not match IDs or descriptions. A decision model such as
+Cloudflare's Clef appears under **Decisions** once its Gateway catalog row
+carries `decision`. If the row keeps `text-generation` as well, the model
+appears under both types.
 
 Capabilities reflect Gateway's eligible-route union. A request still requires a
 route supporting its complete capability combination. Context and comparative
@@ -112,6 +128,8 @@ The check time applies to catalog availability, route capabilities, context, and
 prices. A malformed row is omitted without hiding valid rows; malformed optional
 pricing stays unpublished. A malformed envelope or a response with no usable,
 unambiguous rows clears previous results and offers retry.
+While the catalog loads, placeholder cards hold the page's layout. A refresh
+keeps the current results, dimmed, until the new catalog replaces them.
 An empty catalog and a search with no matches have separate messages. JavaScript
 is required for the interactive list; a public JSON catalog link remains usable
 without it. No inference request is sent by browsing, filtering, or copying IDs.

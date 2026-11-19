@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from playwright.sync_api import Page, expect, sync_playwright
+from playwright.sync_api import Page, Route, expect, sync_playwright
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
 CATALOG_URL = "https://tools.ailab.gc.cuny.edu/v1/catalog"
@@ -68,6 +68,9 @@ def stub_catalog(page: Page, payload: Any = CATALOG, *, network_failure: bool = 
 def expect_checked(page: Page) -> None:
     expect(page.get_by_role("status", name="Catalog status", exact=True)).to_contain_text("Catalog checked at")
     expect(page.get_by_role("button", name="Refresh catalog", exact=True)).to_be_enabled()
+    # Loaded results fade in; wait until they are fully shown before inspecting them.
+    page.wait_for_function("""() => document.getAnimations().every(animation =>
+        animation.playState !== 'running' || animation.effect?.getComputedTiming().iterations === Infinity)""")
 
 
 def model_card(page: Page, api_id: str):
@@ -132,6 +135,53 @@ def test_search_and_combined_filters(page: Page) -> None:
     expect(page.get_by_label("Capability", exact=True)).to_have_value("")
     expect(page.locator("#models-list article.model-card:visible")).to_have_count(MODEL_COUNT)
     expect(page.locator("#featured-models")).to_be_visible()
+
+
+def test_model_types_and_decision_models(page: Page) -> None:
+    entries = [
+        offering("chat-vision", name="Chat with images", recommended=True, tier="recommended", order=1,
+                 capabilities=["text-generation", "vision"]),
+        offering("clef", "workers-ai", name="Clef", capabilities=["decision", "vision"],
+                 context_length=65536, pricing=pricing(0.24, 0)),
+        offering("whisper", "workers-ai", name="Whisper", capabilities=["automatic-speech-recognition"],
+                 context_length=None),
+        offering("embedder", name="Embedder", capabilities=["embeddings"]),
+        offering("untyped", name="Untyped", capabilities=["vision"]),
+    ]
+    stub_catalog(page, {"object": "list", "data": entries})
+    page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
+    expect_checked(page)
+    clef = model_card(page, "clef")
+    expect(clef.locator(".capability")).to_have_text(["Decisions", "Image input"])
+    expect(clef).to_contain_text("65,536 tokens")
+    expect(clef).to_contain_text("Input $0.24")
+    expect(clef).to_contain_text("Output $0.00")
+
+    model_type = page.get_by_label("Model type", exact=True)
+    capability = page.get_by_label("Capability", exact=True)
+    option_values = "select => Array.from(select.options, option => option.value).filter(Boolean)"
+    assert sorted(model_type.evaluate(option_values)) == ["automatic-speech-recognition", "decision", "text-generation"]
+    assert sorted(capability.evaluate(option_values)) == ["embeddings", "vision"]
+    visible_ids = page.locator("#models-list article.model-card:visible code")
+    model_type.select_option("decision")
+    expect(visible_ids).to_have_text(["clef"])
+    expect(page.locator("#featured-models")).to_be_hidden()
+    model_type.select_option("text-generation")
+    capability.select_option("vision")
+    expect(visible_ids).to_have_text(["chat-vision"])
+    page.get_by_role("button", name="Clear filters", exact=True).press("Enter")
+    expect(model_type).to_have_value("")
+    expect(capability).to_have_value("")
+    expect(page.locator("#models-list article.model-card:visible")).to_have_count(len(entries))
+    expect(page.locator("#featured-models")).to_be_visible()
+    capability.select_option("vision")
+    expect(visible_ids).to_have_text(["chat-vision", "clef", "untyped"])
+    capability.select_option("")
+    search = page.get_by_role("searchbox", name="Search models", exact=True)
+    search.fill("decisions")
+    expect(visible_ids).to_have_text(["clef"])
+    search.fill("")
+    stub_catalog(page)
 
 
 def test_refresh_empty_failure_retry_and_safe_text(page: Page) -> None:
@@ -366,6 +416,64 @@ def test_featured_order_and_full_catalog_retention(page: Page) -> None:
     stub_catalog(page)
 
 
+def test_loading_keeps_layout_and_refresh_keeps_results(page: Page) -> None:
+    pending: list[Route] = []
+    page.unroute(CATALOG_URL)
+    page.route(CATALOG_URL, lambda route: pending.append(route))
+    placeholders = page.locator("#model-registry .registry-placeholder")
+    cards = page.locator("#models-list article.model-card")
+    registry_list = page.locator("#models-list")
+    with page.expect_request(CATALOG_URL):
+        page.goto(f"{BASE_URL}/models/", wait_until="domcontentloaded")
+    expect(page.locator("#featured-list .registry-placeholder")).to_have_count(2)
+    expect(page.locator("#models-list .registry-placeholder")).to_have_count(3)
+    expect(page.locator("#featured-models")).to_be_visible()
+    expect(registry_list).to_have_attribute("aria-busy", "true")
+    expect(cards).to_have_count(0)
+    assert len(pending) == 1
+    pending.pop().fulfill(status=200, content_type="application/json", body=json.dumps(CATALOG))
+    expect_checked(page)
+    expect(cards).to_have_count(MODEL_COUNT)
+    expect(placeholders).to_have_count(0)
+    expect(registry_list).to_have_attribute("aria-busy", "false")
+
+    refresh = page.get_by_role("button", name="Refresh catalog", exact=True)
+    with page.expect_request(CATALOG_URL):
+        refresh.click()
+    expect(registry_list).to_have_attribute("aria-busy", "true")
+    expect(refresh).to_be_disabled()
+    expect(cards).to_have_count(MODEL_COUNT)
+    expect(placeholders).to_have_count(0)
+    assert len(pending) == 1
+    pending.pop().fulfill(status=200, content_type="application/json",
+                          body=json.dumps({"object": "list", "data": [offering("replacement")]}))
+    expect_checked(page)
+    expect(cards).to_have_count(1)
+    expect(model_card(page, "replacement")).to_be_visible()
+    expect(registry_list).to_have_attribute("aria-busy", "false")
+
+    empty_state = page.locator("#empty-state")
+    with page.expect_request(CATALOG_URL):
+        refresh.click()
+    expect(registry_list).to_have_attribute("aria-busy", "true")
+    assert len(pending) == 1
+    pending.pop().abort("failed")
+    expect(empty_state).to_be_visible()
+    expect(refresh).to_be_enabled()
+    expect(cards).to_have_count(0)
+    expect(placeholders).to_have_count(0)
+    with page.expect_request(CATALOG_URL):
+        refresh.click()
+    expect(page.locator("#models-list .registry-placeholder")).to_have_count(3)
+    expect(empty_state).to_be_hidden()
+    assert len(pending) == 1
+    pending.pop().fulfill(status=200, content_type="application/json", body=json.dumps(CATALOG))
+    expect_checked(page)
+    expect(cards).to_have_count(MODEL_COUNT)
+    expect(placeholders).to_have_count(0)
+    stub_catalog(page)
+
+
 def main() -> None:
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
@@ -376,10 +484,12 @@ def main() -> None:
             errors: list[str] = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             for test in (test_canonical_models_and_copy, test_search_and_combined_filters,
+                         test_model_types_and_decision_models,
                          test_refresh_empty_failure_retry_and_safe_text, test_optional_metadata,
                          test_malformed_rows_and_pricing_are_isolated,
                          test_pagination_and_filter_resets,
-                         test_featured_order_and_full_catalog_retention, test_guide):
+                         test_featured_order_and_full_catalog_retention,
+                         test_loading_keeps_layout_and_refresh_keeps_results, test_guide):
                 test(page)
                 print(f"PASS {test.__name__}", flush=True)
             assert errors == [], errors

@@ -9,10 +9,10 @@ const groups = [
     title: 'Applications',
     icon: 'M4 6h16v12H4zM8 10l2 2-2 2m4 0h4',
     links: [
-      { title: 'CAIL Sandbox', path: 'sandbox-docs/' },
+      { title: 'CAIL Sandbox', path: 'docs/sandbox/' },
       { title: 'CAIL Pi', path: 'docs/cail-pi/' },
-      { title: 'Stem Splitter', path: 'stem-splitter-docs/' },
-      { title: 'Systems Mapping', path: 'systems-mapping-docs/' },
+      { title: 'Stem Splitter', path: 'docs/stem-splitter/' },
+      { title: 'Systems Mapping', path: 'docs/systems-mapping/' },
     ],
   },
   {
@@ -26,8 +26,9 @@ const groups = [
 ];
 ---
 
-<BaseLayout title="Documentation - CUNY AI Lab">
+<BaseLayout title="Documentation - CUNY AI Lab" description="Find guides for CAIL applications, personal API keys, and the model registry.">
   <PageHero>
+    <a href={`${base}resources/`} class="inline-block text-sm font-medium text-blue-200 hover:text-white mb-3">Back to Resources</a>
     <h1 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tight">Documentation</h1>
   </PageHero>
 

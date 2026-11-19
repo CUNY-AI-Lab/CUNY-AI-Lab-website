@@ -14,7 +14,7 @@ interface Props {
 
 const { title, page, headingId, description, guide } = Astro.props;
 const guideConfig = guide ? toolDocs[guide] : undefined;
-const basePath = guideConfig?.basePath ?? '/sandbox-docs/';
+const basePath = guideConfig?.basePath ?? '/docs/sandbox/';
 const docsTitle = guideConfig?.title ?? 'CAIL Sandbox Docs';
 const groups = guideConfig?.groups ?? [
   { title: 'Getting Started', pages: [
@@ -40,8 +40,8 @@ const legacyPages = (guide ? [] : Object.keys(source.files)).map((file) => file.
 
 <BaseLayout title={`${title} - CUNY AI Lab`} description={description ?? 'Documentation for the CAIL Sandbox: getting started, custom models, knowledge bases, tools, and teaching activities.'}>
   <PageHero sectionClass="docs-hero relative mt-[72px] py-5 lg:py-6 text-white" containerClass="max-w-[1280px] mx-auto px-6 lg:px-8">
-    <a class="inline-block text-xs font-semibold tracking-widest uppercase text-blue-200 hover:text-white mb-2" href={page === 'index' ? '/resources/' : basePath}>
-      {page === 'index' ? 'Resources' : docsTitle}
+    <a class="inline-block text-xs font-semibold tracking-widest uppercase text-blue-200 hover:text-white mb-2" href={page === 'index' ? '/docs/' : basePath}>
+      {page === 'index' ? 'All documentation' : docsTitle}
     </a>
     <h1 id={headingId} class="font-display text-3xl sm:text-4xl font-bold tracking-tight leading-tight">{title}</h1>
     {description && <p class="mt-3 max-w-4xl text-base leading-6 text-blue-100">{description}</p>}
@@ -68,7 +68,7 @@ const legacyPages = (guide ? [] : Object.keys(source.files)).map((file) => file.
           </div>}
           <div>
             <p class="docs-section-label">Other tool guides</p>
-            {guide && <a href="/sandbox-docs/">CAIL Sandbox Docs</a>}
+            {guide && <a href="/docs/sandbox/">CAIL Sandbox Docs</a>}
             {Object.entries(toolDocs).filter(([id]) => id !== guide).map(([, item]) => (
               <a href={item.basePath}>{item.title}</a>
             ))}
@@ -84,11 +84,12 @@ const legacyPages = (guide ? [] : Object.keys(source.files)).map((file) => file.
 </BaseLayout>
 
 <script is:inline define:vars={{ legacyPages, page }}>
-  // Preserve links such as /sandbox-docs/#student-onboarding from the old SPA.
+  // Preserve links such as /sandbox-docs/#student-onboarding from the old SPA;
+  // the moved /sandbox-docs/ page forwards the hash here.
   function followLegacyLink() {
     const target = location.hash.slice(1);
     if (page === 'index' && legacyPages.includes(target)) {
-      location.replace(`/sandbox-docs/${target === 'index' ? '' : `${target}/`}`);
+      location.replace(`/docs/sandbox/${target === 'index' ? '' : `${target}/`}${location.search}`);
     }
   }
   followLegacyLink();

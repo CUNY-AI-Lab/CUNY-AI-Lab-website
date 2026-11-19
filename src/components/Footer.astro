@@ -1,5 +1,6 @@
 ---
 import socials from "../data/socials.json";
+import ticketing from "../data/ticketing.json";
 
 const base = import.meta.env.BASE_URL;
 ---
@@ -17,6 +18,7 @@ const base = import.meta.env.BASE_URL;
           unless otherwise noted; code under AGPL-3.0.{' '}
           <a href={`${base}license/`} class="underline hover:text-white">Licensing</a>
         </p>
+        <a href={ticketing.new_ticket_url} target="_blank" rel="noopener noreferrer" class="text-xs text-gray-400 whitespace-nowrap underline hover:text-white">Report a problem</a>
         <div class="flex items-center gap-4">
           {socials.map((social) => (
             <a
