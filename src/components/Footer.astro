@@ -9,54 +9,52 @@ const base = import.meta.env.BASE_URL;
   <!-- Subtle texture overlay -->
   <div class="absolute inset-0 opacity-[0.03]" aria-hidden="true" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
 
-  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-      <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-        <div class="flex flex-col gap-1 text-xs text-gray-400">
-          <p>
-            &copy; {new Date().getFullYear()} CUNY AI Lab. Content licensed under{' '}
-            <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license" class="underline hover:text-white">CC BY-NC 4.0</a>{' '}
-            unless otherwise noted; code under <span class="whitespace-nowrap">AGPL-3.0</span>.
-          </p>
-          <p>
-            <a href={`${base}license/`} class="underline hover:text-white">Licensing</a>
-            <span aria-hidden="true" class="mx-1.5">&middot;</span>
-            <a href={ticketing.new_ticket_url} target="_blank" rel="noopener noreferrer" class="underline hover:text-white">Report a problem</a>
-          </p>
-        </div>
-        <div class="flex items-center gap-4">
-          {socials.map((social) => (
-            <a
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`CUNY AI Lab on ${social.name}`}
-              class="text-gray-400 hover:text-white transition-colors"
-            >
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d={social.path} />
-              </svg>
+      <div class="flex flex-wrap items-center gap-x-8 gap-y-5">
+            <a href="https://gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-60 hover:opacity-100 transition-opacity">
+              <img src={`${base}images/partners/gc-logo-white.png`} alt="The Graduate Center, CUNY" class="h-8 w-auto" />
             </a>
-          ))}
-        </div>
+            <a href="https://gcdi.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
+              <img src={`${base}images/partners/logo-gcdi.png`} alt="Graduate Center Digital Initiatives" class="h-7 w-auto brightness-0 invert" />
+            </a>
+            <a href="https://tlc.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
+              <img src={`${base}images/partners/TLC-Logo-v4-No-GC-white.png`} alt="Teaching and Learning Center" class="h-7 w-auto brightness-0 invert" />
+            </a>
+            <a href="https://library.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
+              <img src={`${base}images/partners/MRS_logo_One_Search.png`} alt="Mina Rees Library" class="h-7 w-auto brightness-0 invert" />
+            </a>
+            <a href="https://ashp.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
+              <img src={`${base}images/partners/ashp-logo-blue.png`} alt="American Social History Project" class="h-7 w-auto brightness-0 invert" />
+            </a>
       </div>
-      <div class="flex flex-wrap items-center gap-6">
-        <a href="https://gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-60 hover:opacity-100 transition-opacity">
-          <img src={`${base}images/partners/gc-logo-white.png`} alt="The Graduate Center, CUNY" class="h-8 w-auto" />
-        </a>
-        <a href="https://gcdi.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
-          <img src={`${base}images/partners/logo-gcdi.png`} alt="Graduate Center Digital Initiatives" class="h-7 w-auto brightness-0 invert" />
-        </a>
-        <a href="https://tlc.commons.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
-          <img src={`${base}images/partners/TLC-Logo-v4-No-GC-white.png`} alt="Teaching and Learning Center" class="h-7 w-auto brightness-0 invert" />
-        </a>
-        <a href="https://library.gc.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
-          <img src={`${base}images/partners/MRS_logo_One_Search.png`} alt="Mina Rees Library" class="h-7 w-auto brightness-0 invert" />
-        </a>
-        <a href="https://ashp.cuny.edu/" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity">
-          <img src={`${base}images/partners/ashp-logo-blue.png`} alt="American Social History Project" class="h-7 w-auto brightness-0 invert" />
-        </a>
+      <div class="flex items-center gap-4">
+        {socials.map((social) => (
+          <a
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`CUNY AI Lab on ${social.name}`}
+            class="text-gray-400 hover:text-white transition-colors"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d={social.path} />
+            </svg>
+          </a>
+        ))}
       </div>
+    </div>
+    <div class="mt-6 pt-5 border-t border-white/10 flex flex-col md:flex-row md:items-baseline md:justify-between gap-x-8 gap-y-2 text-xs text-gray-400">
+      <p>
+        &copy; {new Date().getFullYear()} CUNY AI Lab. Content licensed under{' '}
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license" class="underline hover:text-white">CC BY-NC 4.0</a>{' '}
+        unless otherwise noted; code under <span class="whitespace-nowrap">AGPL-3.0</span>.
+      </p>
+      <p class="shrink-0">
+        <a href={`${base}license/`} class="underline hover:text-white">Licensing</a>
+        <span aria-hidden="true" class="mx-1.5">&middot;</span>
+        <a href={ticketing.new_ticket_url} target="_blank" rel="noopener noreferrer" class="underline hover:text-white">Report a problem</a>
+      </p>
     </div>
   </div>
 </footer>
