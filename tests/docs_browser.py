@@ -63,6 +63,35 @@ def check_built_links(routes):
     print(f"PASS local documentation targets: {len(checked)} links and images", flush=True)
 
 
+def check_docs_hub(page, width):
+    page.set_viewport_size({"width": width, "height": 1000})
+    response = page.goto(BASE_URL + "/resources/", wait_until="networkidle")
+    assert response.status == 200
+    assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    main = page.locator("main")
+    docs_card = main.locator('a[href="/docs/"]')
+    expect(docs_card).to_have_count(1)
+    expect(docs_card.get_by_role("heading", name="Docs", exact=True)).to_be_visible()
+    for destination in ("/sandbox-docs", "/docs/sandbox", "/docs/cail-pi", "/docs/api-keys"):
+        expect(main.locator(f'a[href="{destination}"], a[href="{destination}/"]')).to_have_count(0)
+    for label in ("Model Registry", "Events", "Guides & Tutorials", "GC AI Guidelines", "GitHub"):
+        expect(main.get_by_role("heading", name=label, exact=True)).to_be_visible()
+
+    docs_card.press("Enter")
+    expect(page).to_have_url(BASE_URL + "/docs/")
+    expect(page.get_by_role("heading", name="Documentation", exact=True)).to_be_visible()
+    assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    check_accessibility(page, f"{width}px /docs/")
+    for destination in ("/docs/sandbox/", "/docs/cail-pi/", "/docs/stem-splitter/",
+                        "/docs/systems-mapping/", "/docs/api-keys/", "/models/guide/"):
+        expect(main.locator(f'a[href="{destination}"]')).to_have_count(1)
+        main.locator(f'a[href="{destination}"]').press("Enter")
+        expect(page).to_have_url(BASE_URL + destination)
+        main.locator('a[href="/docs/"]').press("Enter")
+        expect(page).to_have_url(BASE_URL + "/docs/")
+    print(f"PASS Resources Docs card, keyboard access and 6 hub links: {width}px", flush=True)
+
+
 def check_moved_pages(routes):
     # Every article's old /<guide>-docs/ address has a page that forwards to it.
     for path in routes:
@@ -81,7 +110,7 @@ def main():
     routes = sorted("/" + str(file.relative_to(ROOT / "dist")).removesuffix("index.html")
                     for guide in GUIDES for file in (ROOT / "dist/docs" / guide).rglob("index.html"))
     assert len(routes) == 44, f"Expected the reviewed 44-article scope, found {len(routes)}"
-    check_built_links(routes)
+    check_built_links([*routes, "/resources/", "/docs/"])
     check_moved_pages(routes)
     screenshot_dir = os.environ.get("CAIL_DOCS_SCREENSHOTS")
     if screenshot_dir:
@@ -96,6 +125,8 @@ def main():
             page = context.new_page()
             page_errors = []
             page.on("pageerror", lambda error: page_errors.append(str(error)))
+            for width in (1440, 390):
+                check_docs_hub(page, width)
             for width in (1440, 390):
                 page.set_viewport_size({"width": width, "height": 1000})
                 for path in routes:
@@ -138,9 +169,19 @@ def main():
                     expect(page).to_have_url(f"{BASE_URL}/docs/{destination}/")
                 print(f"PASS keyboard article and cross-guide navigation: 3 guides at {width}px", flush=True)
 
+            for path in routes:
+                guide, _, rest = path.removeprefix("/docs/").partition("/")
+                # "docs-menu" is a real anchor in all three document sets.
+                suffix = "?source=course%20site#docs-menu"
+                page.goto(f"{BASE_URL}/{guide}-docs/{rest}{suffix}", wait_until="commit")
+                expect(page).to_have_url(BASE_URL + path + suffix)
+            print(f"PASS browser redirects with query + anchor: {len(routes)} legacy URLs", flush=True)
+
             # Old addresses, including the original single-page app's hashes, still arrive.
             for old, new in (
-                ("/sandbox-docs/#student-onboarding", "/docs/sandbox/student-onboarding/"),
+                ("/sandbox-docs/?from=old#student-onboarding", "/docs/sandbox/student-onboarding/?from=old"),
+                ("/sandbox-docs/?from=old#index", "/docs/sandbox/?from=old"),
+                ("/sandbox-docs/?from=old#start-with-a-chat", "/docs/sandbox/?from=old#start-with-a-chat"),
                 ("/sandbox-docs/models/", "/docs/sandbox/models/"),
                 ("/stem-splitter-docs/mixer/", "/docs/stem-splitter/mixer/"),
                 ("/systems-mapping-docs/", "/docs/systems-mapping/"),
@@ -148,7 +189,8 @@ def main():
             ):
                 page.goto(BASE_URL + old)
                 expect(page).to_have_url(BASE_URL + new)
-            for missing_path in ("/docs/stem-splitter/not-a-guide/", "/stem-splitter-docs/not-a-guide/"):
+            for missing_path in (f"{prefix}/not-a-guide/" for guide in GUIDES
+                                 for prefix in (f"/docs/{guide}", f"/{guide}-docs")):
                 missing = context.request.get(BASE_URL + missing_path)
                 assert missing.status == 404, f"{missing_path} returned {missing.status}"
             print("PASS old docs addresses forward with their hash and query, and missing guides 404", flush=True)

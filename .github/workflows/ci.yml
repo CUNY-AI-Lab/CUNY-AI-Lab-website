@@ -35,6 +35,9 @@ jobs:
       - name: Check site
         run: bun run check
 
+      - name: Check published documentation links
+        run: python3 tests/docs_routes_test.py
+
       - name: Check guide importer
         run: python3 tests/docs_importer_test.py
 

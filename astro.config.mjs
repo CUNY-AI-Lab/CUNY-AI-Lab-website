@@ -8,6 +8,9 @@ import { satteri } from '@astrojs/markdown-satteri';
 export default defineConfig({
   site: 'https://ailab.gc.cuny.edu',
   base: '/',
+  // Amplify restores node_modules between builds. Do not restore previously
+  // rendered Markdown when a link transformation changes but the source does not.
+  cacheDir: './.astro/cache',
   // The old /<guide>-docs/ URLs only forward to /docs/<guide>/; keep them out of the sitemap.
   integrations: [sitemap({ filter: (page) => !/\/(sandbox|stem-splitter|systems-mapping)-docs\//.test(new URL(page).pathname) })],
   markdown: { processor: satteri({ hastPlugins: [sandboxDocsLinks] }) },
