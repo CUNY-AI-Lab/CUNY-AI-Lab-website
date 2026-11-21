@@ -148,6 +148,21 @@ def main():
                     assert not page_errors, f"{path}: {json.dumps(page_errors)}"
                 print(f"PASS rendered docs, images, navigation state and axe WCAG A/AA: {len(routes)} routes at {width}px", flush=True)
 
+                page.goto(BASE_URL + "/docs/cail-pi/#install-heading")
+                steps = page.get_by_role("region", name="Install", exact=True).get_by_role("listitem")
+                expect(steps).to_have_count(2)
+                for step in steps.all():
+                    copy = step.get_by_role("button", name="Copy code:")
+                    expect(copy).to_be_visible()
+                    button = copy.bounding_box()
+                    command = step.locator("pre").bounding_box()
+                    assert button and command
+                    button_center = button["y"] + button["height"] / 2
+                    command_center = command["y"] + command["height"] / 2
+                    assert abs(button_center - command_center) <= 1, f"{width}px: Copy is outside the command row"
+                    assert command["x"] + command["width"] <= button["x"] + 1, f"{width}px: Copy overlaps the command"
+                print(f"PASS Pi install buttons beside their commands at {width}px", flush=True)
+
             for width in (1440, 390):
                 page.set_viewport_size({"width": width, "height": 1000})
                 for guide in GUIDES:
