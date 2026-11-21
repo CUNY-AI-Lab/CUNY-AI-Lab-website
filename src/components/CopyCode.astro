@@ -1,18 +1,91 @@
 ---
 interface Props {
   label: string;
+  inlineButton?: boolean;
 }
 
-const { label } = Astro.props;
+const { label, inlineButton = false } = Astro.props;
 ---
 
-<div data-copy-code class="overflow-hidden rounded-xl bg-neutral-stone text-gray-100">
-  <div data-copy-controls hidden class="flex items-center justify-end gap-3 px-4 pt-3">
+<div data-copy-code class:list={['overflow-hidden rounded-xl', inlineButton ? 'inline-copy' : 'bg-neutral-stone text-gray-100']}>
+  <div data-copy-controls hidden class={inlineButton ? undefined : 'flex items-center justify-end gap-3 px-4 pt-3'}>
     <span data-copy-status role="status" class="text-sm"></span>
     <button type="button" aria-label={`Copy code: ${label}`} class="shrink-0 rounded-md border border-gray-400 px-3 py-2 text-sm font-semibold hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Copy</button>
   </div>
   <slot />
 </div>
+
+<style>
+  .inline-copy {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    border: 1px solid #d1d5db;
+    background: #f3f4f6;
+    color: #1f2937;
+  }
+
+  .inline-copy > [data-copy-controls]:not([hidden]) {
+    display: contents;
+  }
+
+  .inline-copy button {
+    grid-area: 1 / 2;
+    min-height: 2rem;
+    margin: 0.5rem 0.625rem 0.5rem 0;
+    padding: 0.25rem 0.625rem;
+    color: #374151;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .inline-copy button:hover {
+    background: #e5e7eb;
+  }
+
+  .inline-copy button:focus-visible {
+    outline-color: #3268d8;
+  }
+
+  .inline-copy > :global(pre) {
+    grid-area: 1 / 1;
+    min-width: 0;
+    margin: 0;
+    padding: 0.625rem 0.5rem 0.625rem 0.875rem;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .inline-copy > :global(pre code) {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-family: Menlo, Consolas, monospace;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .inline-copy > :global(pre:focus-visible) {
+    outline: 2px solid #3268d8;
+    outline-offset: -3px;
+  }
+
+  .inline-copy [data-copy-status] {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    color: #4b5563;
+    font-size: 0.75rem;
+  }
+
+  .inline-copy [data-copy-status]:not(:empty) {
+    padding: 0 0.875rem 0.5rem;
+  }
+</style>
 
 <script>
   document.querySelectorAll<HTMLElement>('[data-copy-code]').forEach((block) => {
