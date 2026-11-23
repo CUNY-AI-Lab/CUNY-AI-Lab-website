@@ -46,4 +46,4 @@ Administrators set default and group permissions; group grants are additive. Ope
 
 </details>
 
-[← Return to Tools & Skills](tools-skills.md) | [Continue to Student Onboarding →](student-onboarding.md)
+[← Return to Tools & Skills](tools-skills.md) | [Continue to Teaching Tips →](teaching-tips.md)

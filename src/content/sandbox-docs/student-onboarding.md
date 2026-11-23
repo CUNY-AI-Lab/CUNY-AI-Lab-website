@@ -50,4 +50,4 @@ Administrators can access stored chats and system logs. Classmates see content s
 
 After the activity, discuss a response that needed checking and a decision the student made. Use those examples to revise the assignment, prompt, or document collection. Do not assume a polished output demonstrates understanding, or that a student who could not use the interface failed the learning task.
 
-[← Return to Roles & Permissions](roles-permissions.md) | [Continue to Use Cases →](use-cases.md)
+[← Return to Sample Activities](sample-activities.md) | [Continue to Use Cases →](use-cases.md)
