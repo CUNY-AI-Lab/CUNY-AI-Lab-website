@@ -13,7 +13,7 @@ from playwright.sync_api import Page, expect, sync_playwright
 
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
-EXPECTED_PANELS = ["sandbox", "media", "assistants", "teaching", "citations", "model-access"]
+EXPECTED_PANELS = ["sandbox", "media", "assistants", "teaching", "citations", "arcade", "model-access"]
 
 
 def assert_equal(actual: Any, expected: Any) -> None:
@@ -86,6 +86,15 @@ def test_navigation_is_deterministic(page: Page) -> None:
 
     load_tools(page, "#working-with-ai")
     assert_selected_panel(page, "citations")
+
+    load_tools(page, "#arcade")
+    assert_selected_panel(page, "arcade")
+    panel = page.locator("#panel-arcade")
+    expect(panel.get_by_role("heading", name="Inference Arcade", exact=True)).to_be_visible()
+    assert_equal(panel.get_by_role("link").count(), 1)
+    expect(panel.get_by_role("link", name="Launch Inference Arcade", exact=True)).to_have_attribute(
+        "href", "https://tools.ailab.gc.cuny.edu/games/"
+    )
 
     page.set_viewport_size({"width": 390, "height": 844})
     assert not page.locator(".tools-sidebar").is_visible()
