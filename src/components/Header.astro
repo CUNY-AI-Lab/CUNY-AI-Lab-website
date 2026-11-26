@@ -6,7 +6,7 @@ const currentPath = Astro.url.pathname;
 const isActive = (path: string) => {
   if (path === base && currentPath === base) return true;
   // "Resources" nav item also highlights on model and documentation pages
-  if (path === `${base}resources` && (currentPath.startsWith(`${base}models`) || currentPath.startsWith(`${base}resources`) || currentPath.startsWith(`${base}docs`))) return true;
+  if (path === `${base}resources/` && (currentPath.startsWith(`${base}models`) || currentPath.startsWith(`${base}resources`) || currentPath.startsWith(`${base}docs`))) return true;
   if (path !== base && currentPath.startsWith(path)) return true;
   return false;
 };
@@ -26,7 +26,7 @@ const mobileLinkClass = (path: string) => {
 };
 
 // "About" groups Team, Research, Collaborations, FAQ and Contact, so its trigger highlights on those pages
-const isAboutSection = isActive(`${base}about`) || isActive(`${base}team`) || isActive(`${base}research`) || isActive(`${base}grants`) || isActive(`${base}faq`) || isActive(`${base}contact`);
+const isAboutSection = isActive(`${base}about/`) || isActive(`${base}team/`) || isActive(`${base}research/`) || isActive(`${base}grants/`) || isActive(`${base}faq/`) || isActive(`${base}contact/`);
 
 const aboutTriggerClass = isAboutSection
   ? "bg-vibrant-50 text-vibrant-700 font-semibold shadow-sm ring-1 ring-vibrant-200"
@@ -52,18 +52,18 @@ const subItemClass = (path: string) =>
           <a href={base} class={linkClass(base)}>
             Home
           </a>
-          <a href={`${base}tools`} class={linkClass(`${base}tools`)}>
+          <a href={`${base}tools/`} class={linkClass(`${base}tools/`)}>
             Tools
           </a>
-          <a href={`${base}resources`} class={linkClass(`${base}resources`)}>
+          <a href={`${base}resources/`} class={linkClass(`${base}resources/`)}>
             Resources
           </a>
-          <a href={`${base}blog`} class={linkClass(`${base}blog`)}>
+          <a href={`${base}blog/`} class={linkClass(`${base}blog/`)}>
             Blog
           </a>
           <div class="relative nav-dropdown" data-dropdown data-open="false">
             <div class={`flex items-center rounded-full text-sm font-medium transition-all duration-200 ${aboutTriggerClass}`}>
-              <a href={`${base}about`} class="pl-4 pr-1.5 py-2 rounded-l-full focus:outline-none focus-visible:ring-2 focus-visible:ring-vibrant-400">
+              <a href={`${base}about/`} class="pl-4 pr-1.5 py-2 rounded-l-full focus:outline-none focus-visible:ring-2 focus-visible:ring-vibrant-400">
                 About
               </a>
               <button
@@ -81,11 +81,11 @@ const subItemClass = (path: string) =>
             </div>
             <div id="about-submenu" data-dropdown-menu class="nav-dropdown__menu absolute left-0 top-full pt-2 min-w-[11rem] z-50">
               <div class="rounded-xl bg-white py-2 shadow-lg ring-1 ring-gray-200/80">
-                <a href={`${base}team`} class={subItemClass(`${base}team`)}>Team</a>
-                <a href={`${base}research`} class={subItemClass(`${base}research`)} aria-current={isActive(`${base}research`) ? 'page' : undefined}>Research</a>
-                <a href={`${base}grants`} class={subItemClass(`${base}grants`)} aria-current={isActive(`${base}grants`) ? 'page' : undefined}>Collaborations</a>
-                <a href={`${base}faq`} class={subItemClass(`${base}faq`)}>FAQ</a>
-                <a href={`${base}contact`} class={subItemClass(`${base}contact`)}>Contact</a>
+                <a href={`${base}team/`} class={subItemClass(`${base}team/`)}>Team</a>
+                <a href={`${base}research/`} class={subItemClass(`${base}research/`)} aria-current={isActive(`${base}research/`) ? 'page' : undefined}>Research</a>
+                <a href={`${base}grants/`} class={subItemClass(`${base}grants/`)} aria-current={isActive(`${base}grants/`) ? 'page' : undefined}>Collaborations</a>
+                <a href={`${base}faq/`} class={subItemClass(`${base}faq/`)}>FAQ</a>
+                <a href={`${base}contact/`} class={subItemClass(`${base}contact/`)}>Contact</a>
               </div>
             </div>
           </div>
@@ -116,17 +116,17 @@ const subItemClass = (path: string) =>
       <a href={base} class={mobileLinkClass(base)}>
         Home
       </a>
-      <a href={`${base}tools`} class={mobileLinkClass(`${base}tools`)}>
+      <a href={`${base}tools/`} class={mobileLinkClass(`${base}tools/`)}>
         Tools
       </a>
-      <a href={`${base}resources`} class={mobileLinkClass(`${base}resources`)}>
+      <a href={`${base}resources/`} class={mobileLinkClass(`${base}resources/`)}>
         Resources
       </a>
-      <a href={`${base}blog`} class={mobileLinkClass(`${base}blog`)}>
+      <a href={`${base}blog/`} class={mobileLinkClass(`${base}blog/`)}>
         Blog
       </a>
       <div class="flex items-center gap-1">
-        <a href={`${base}about`} class={`${mobileLinkClass(`${base}about`)} flex-1`}>
+        <a href={`${base}about/`} class={`${mobileLinkClass(`${base}about/`)} flex-1`}>
           About
         </a>
         <button
@@ -143,19 +143,19 @@ const subItemClass = (path: string) =>
         </button>
       </div>
       <div id="about-mobile-submenu" class={`${isAboutSection ? "" : "hidden"} pl-4 space-y-1 border-l-2 border-gray-100 ml-3`}>
-        <a href={`${base}team`} class={mobileLinkClass(`${base}team`)}>
+        <a href={`${base}team/`} class={mobileLinkClass(`${base}team/`)}>
           Team
         </a>
-        <a href={`${base}research`} class={mobileLinkClass(`${base}research`)} aria-current={isActive(`${base}research`) ? 'page' : undefined}>
+        <a href={`${base}research/`} class={mobileLinkClass(`${base}research/`)} aria-current={isActive(`${base}research/`) ? 'page' : undefined}>
           Research
         </a>
-        <a href={`${base}grants`} class={mobileLinkClass(`${base}grants`)} aria-current={isActive(`${base}grants`) ? 'page' : undefined}>
+        <a href={`${base}grants/`} class={mobileLinkClass(`${base}grants/`)} aria-current={isActive(`${base}grants/`) ? 'page' : undefined}>
           Collaborations
         </a>
-        <a href={`${base}faq`} class={mobileLinkClass(`${base}faq`)}>
+        <a href={`${base}faq/`} class={mobileLinkClass(`${base}faq/`)}>
           FAQ
         </a>
-        <a href={`${base}contact`} class={mobileLinkClass(`${base}contact`)}>
+        <a href={`${base}contact/`} class={mobileLinkClass(`${base}contact/`)}>
           Contact
         </a>
       </div>

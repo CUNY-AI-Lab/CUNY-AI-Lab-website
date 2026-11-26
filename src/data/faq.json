@@ -9,7 +9,7 @@
         {
           "id": "who-can-use",
           "q": "Who can use the Lab right now?",
-          "a": "<p>The Lab is in a pilot phase with limited resources. Access is open to all Graduate Center faculty, staff, and graduate students, and to selected faculty, staff, and graduate students from other CUNY campuses whose work aligns with the Lab's research and pedagogical framework.</p><p>The Lab does not currently have capacity to serve undergraduate applicants. Undergraduates can use the Lab through a class whose instructor has applied.</p><p>Eligibility does not guarantee approval. <a href=\"/request-access\">Apply for access</a>.</p>"
+          "a": "<p>The Lab is in a pilot phase with limited resources. Access is open to all Graduate Center faculty, staff, and graduate students, and to selected faculty, staff, and graduate students from other CUNY campuses whose work aligns with the Lab's research and pedagogical framework.</p><p>The Lab does not currently have capacity to serve undergraduate applicants. Undergraduates can use the Lab through a class whose instructor has applied.</p><p>Eligibility does not guarantee approval. <a href=\"/request-access/\">Apply for access</a>.</p>"
         },
         {
           "id": "sign-in",
@@ -34,7 +34,7 @@
         {
           "id": "class-access",
           "q": "I teach a class. How do my students get access?",
-          "a": "<p>Apply for a class on the <a href=\"/request-access\">Request Access</a> page. You do not need existing Lab access to apply. Once the class is approved, you receive an invitation link to share with your students. Each student opens the link, signs in with CUNY Login, and their class access is active immediately. Students in a class pilot do not submit individual applications.</p><p>Class access lasts for the approved course dates.</p>"
+          "a": "<p>Apply for a class on the <a href=\"/request-access/\">Request Access</a> page. You do not need existing Lab access to apply. Once the class is approved, you receive an invitation link to share with your students. Each student opens the link, signs in with CUNY Login, and their class access is active immediately. Students in a class pilot do not submit individual applications.</p><p>Class access lasts for the approved course dates.</p>"
         }
       ]
     },
@@ -45,7 +45,7 @@
         {
           "id": "is-it-free",
           "q": "How much usage do I get?",
-          "a": "<p>The standard allowance is $5 per month of model use. Your <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Dashboard</a> shows the allowance and reporting period currently assigned to your account.</p><p>We welcome opportunities to raise that allowance. If you or your program have funding you would like to allocate to Lab use, please <a href=\"/contact\">contact us</a> to explore a collaboration.</p>"
+          "a": "<p>The standard allowance is $5 per month of model use. Your <a href=\"https://tools.ailab.gc.cuny.edu/model-access/\" target=\"_blank\" rel=\"noopener noreferrer\">Dashboard</a> shows the allowance and reporting period currently assigned to your account.</p><p>We welcome opportunities to raise that allowance. If you or your program have funding you would like to allocate to Lab use, please <a href=\"/contact/\">contact us</a> to explore a collaboration.</p>"
         },
         {
           "id": "check-balance",
@@ -66,7 +66,7 @@
         {
           "id": "which-models",
           "q": "Which models are available?",
-          "a": "<p>The <a href=\"/models\">Model Registry</a> lists every model currently available through the Lab, with its capabilities and the exact API ID to use. The list is read live from the Lab's gateway, so it is always current.</p>"
+          "a": "<p>The <a href=\"/models/\">Model Registry</a> lists every model currently available through the Lab, with its capabilities and the exact API ID to use. The list is read live from the Lab's gateway, so it is always current.</p>"
         },
         {
           "id": "why-open-weights",
@@ -92,7 +92,7 @@
         {
           "id": "sensitive-data",
           "q": "Can I use the Lab with FERPA, HIPAA, or IRB-protected data?",
-          "a": "<p>No. Do not enter confidential, FERPA-protected, HIPAA-regulated, proprietary, or personally identifying information into any Lab tool.</p><p>If your research involves audio, images, interviews, archives, or institutional data that should not leave the Graduate Center, <a href=\"/contact\">contact us</a> about on-premises processing. We handle those requests by consultation.</p>"
+          "a": "<p>No. Do not enter confidential, FERPA-protected, HIPAA-regulated, proprietary, or personally identifying information into any Lab tool.</p><p>If your research involves audio, images, interviews, archives, or institutional data that should not leave the Graduate Center, <a href=\"/contact/\">contact us</a> about on-premises processing. We handle those requests by consultation.</p>"
         },
         {
           "id": "terms",
@@ -108,7 +108,7 @@
         {
           "id": "get-help",
           "q": "How do I get help?",
-          "a": "<p>Open a ticket in <a href=\"https://tools.ailab.gc.cuny.edu/help/projects/support/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">CAIL Ticketing</a> and sign in with your CUNY Login. Without CUNY Login or access to CAIL tools, read <a href=\"/contact/#ticketing\">how to get a CAIL Ticketing account</a>; until it is activated, email <a href=\"mailto:ailab@gc.cuny.edu\">ailab@gc.cuny.edu</a>. To discuss a project, use the consultation form on the <a href=\"/contact\">Contact page</a>. The <a href=\"/docs/sandbox/\">Sandbox documentation</a> answers most questions about the chat platform, and the <a href=\"/events\">Events page</a> lists upcoming workshops.</p>"
+          "a": "<p>Open a ticket in <a href=\"https://tools.ailab.gc.cuny.edu/help/projects/support/issues/new\" target=\"_blank\" rel=\"noopener noreferrer\">CAIL Ticketing</a> and sign in with your CUNY Login. Without CUNY Login or access to CAIL tools, read <a href=\"/contact/#ticketing\">how to get a CAIL Ticketing account</a>; until it is activated, email <a href=\"mailto:ailab@gc.cuny.edu\">ailab@gc.cuny.edu</a>. To discuss a project, use the consultation form on the <a href=\"/contact/\">Contact page</a>. The <a href=\"/docs/sandbox/\">Sandbox documentation</a> answers most questions about the chat platform, and the <a href=\"/events/\">Events page</a> lists upcoming workshops.</p>"
         },
         {
           "id": "class-support",

@@ -1,0 +1,9 @@
+# Permanent redirects for pages that moved. Cloudflare reads this file at
+# deploy time; amplify-redirects.json carries the same rules for Amplify.
+# tests/site_routes_test.py keeps the two files and the moved pages in step.
+/sandbox-docs /docs/sandbox/ 301
+/sandbox-docs/* /docs/sandbox/:splat 301
+/stem-splitter-docs /docs/stem-splitter/ 301
+/stem-splitter-docs/* /docs/stem-splitter/:splat 301
+/systems-mapping-docs /docs/systems-mapping/ 301
+/systems-mapping-docs/* /docs/systems-mapping/:splat 301
