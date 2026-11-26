@@ -7,13 +7,14 @@ and the basic tab-panel accessibility contract stay stable together.
 from __future__ import annotations
 
 import os
+from pathlib import Path
 from typing import Any
 
 from playwright.sync_api import Page, expect, sync_playwright
 
 
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
-EXPECTED_PANELS = ["sandbox", "media", "assistants", "teaching", "citations", "model-access"]
+EXPECTED_PANELS = ["sandbox", "media", "assistants", "teaching", "citations", "arcade", "model-access"]
 
 
 def assert_equal(actual: Any, expected: Any) -> None:
@@ -87,10 +88,30 @@ def test_navigation_is_deterministic(page: Page) -> None:
     load_tools(page, "#working-with-ai")
     assert_selected_panel(page, "citations")
 
+    load_tools(page, "#arcade")
+    assert_selected_panel(page, "arcade")
+    panel = page.locator("#panel-arcade")
+    expect(panel.get_by_role("heading", name="Inference Arcade", exact=True)).to_be_visible()
+    assert_equal(panel.get_by_role("link").count(), 1)
+    expect(panel.get_by_role("link", name="Inference Arcade", exact=True)).to_have_attribute(
+        "href", "https://games.ailab-452.workers.dev/"
+    )
+    image = panel.get_by_role("img")
+    screenshot = Path(__file__).resolve().parents[1] / "public/images/tools/inference-arcade-gallery.png"
+    if screenshot.is_file():
+        image.scroll_into_view_if_needed()
+        expect(image).to_have_js_property("complete", True)
+        assert image.evaluate("img => img.naturalWidth > 0")
+    else:
+        expect(image).to_have_count(0)
+
     page.set_viewport_size({"width": 390, "height": 844})
     assert not page.locator(".tools-sidebar").is_visible()
     picker = page.locator("#tool-category")
     assert picker.is_visible()
+    picker.select_option("arcade")
+    assert page.url.endswith("/tools/#arcade")
+    assert_selected_panel(page, "arcade")
     picker.select_option("model-access")
     assert page.url.endswith("/tools/#model-access")
     assert_selected_panel(page, "model-access")
