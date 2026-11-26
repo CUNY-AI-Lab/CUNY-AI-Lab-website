@@ -41,6 +41,9 @@ jobs:
       - name: Check guide importer
         run: python3 tests/docs_importer_test.py
 
+      - name: Check Search Console classification
+        run: python3 tests/search_console_check_test.py
+
       - name: Check Cloudflare deployment
         run: bun run deploy:cloudflare --dry-run
 
