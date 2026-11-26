@@ -4,11 +4,11 @@
   "description": "The CUNY AI Lab is a faculty- and staff-led initiative that develops and maintains AI tools for teaching, learning, and research. We prioritize privacy, transparency, and thoughtful integration of AI into academic work.",
   "cta_primary": {
     "text": "Request access",
-    "url": "/request-access"
+    "url": "/request-access/"
   },
   "cta_secondary": {
     "text": "Explore tools",
-    "url": "/tools"
+    "url": "/tools/"
   },
   "principles_heading": "Guiding Principles",
   "principles": [
@@ -54,7 +54,7 @@
       {
         "title": "Lab tools",
         "text": "Leverage custom-built tools to prototype sites, conduct research, process media, remediate PDFs, convert bibliographies for Zotero, and draft AI use disclosure statements.",
-        "href": "/tools",
+        "href": "/tools/",
         "link": "View tools"
       },
       {
@@ -67,7 +67,7 @@
     "classes_note": "Teaching with AI? Apply for a class, then share an invitation link your students use to sign up. No individual applications needed.",
     "classes_link": {
       "text": "Apply for a class",
-      "url": "/request-access"
+      "url": "/request-access/"
     }
   }
 }
