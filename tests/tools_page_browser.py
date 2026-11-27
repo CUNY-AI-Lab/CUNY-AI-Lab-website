@@ -7,7 +7,6 @@ and the basic tab-panel accessibility contract stay stable together.
 from __future__ import annotations
 
 import os
-from pathlib import Path
 from typing import Any
 
 from playwright.sync_api import Page, expect, sync_playwright
@@ -94,17 +93,8 @@ def test_navigation_is_deterministic(page: Page) -> None:
     expect(panel.get_by_role("heading", name="Inference Arcade", exact=True)).to_be_visible()
     assert_equal(panel.get_by_role("link").count(), 1)
     expect(panel.get_by_role("link", name="Inference Arcade", exact=True)).to_have_attribute(
-        "href", "https://games.ailab-452.workers.dev/"
+        "href", "/games/"
     )
-    image = panel.get_by_role("img")
-    screenshot = Path(__file__).resolve().parents[1] / "public/images/tools/inference-arcade-gallery.png"
-    if screenshot.is_file():
-        image.scroll_into_view_if_needed()
-        expect(image).to_have_js_property("complete", True)
-        assert image.evaluate("img => img.naturalWidth > 0")
-    else:
-        expect(image).to_have_count(0)
-
     page.set_viewport_size({"width": 390, "height": 844})
     assert not page.locator(".tools-sidebar").is_visible()
     picker = page.locator("#tool-category")
@@ -115,6 +105,38 @@ def test_navigation_is_deterministic(page: Page) -> None:
     picker.select_option("model-access")
     assert page.url.endswith("/tools/#model-access")
     assert_selected_panel(page, "model-access")
+
+
+def test_arcade_gallery_matches_sandbox(page: Page) -> None:
+    for width in (1440, 390):
+        page.set_viewport_size({"width": width, "height": 900})
+        frames = []
+        for panel in ("sandbox", "arcade"):
+            load_tools(page, f"#{panel}")
+            image = page.locator(f"#panel-{panel}").get_by_role("img")
+            image.scroll_into_view_if_needed()
+            expect(image).to_be_visible()
+            if panel == "arcade":
+                expect(image).to_have_js_property("naturalWidth", 1890)
+                expect(image).to_have_js_property("naturalHeight", 1038)
+            frames.append(image.evaluate("""img => {
+                const frame = img.parentElement;
+                const bounds = frame.getBoundingClientRect();
+                const actions = frame.previousElementSibling.getBoundingClientRect();
+                const style = getComputedStyle(frame);
+                return [bounds.left, bounds.width, bounds.top - actions.bottom,
+                        style.border, style.borderRadius, style.boxShadow];
+            }"""))
+        assert frames[1][2] > 0
+        assert_equal(frames[1], frames[0])
+
+
+def test_games_redirect(page: Page) -> None:
+    arcade = "https://games.ailab-452.workers.dev/"
+    for path in ("/games", "/games/"):
+        response = page.request.get(f"{BASE_URL}{path}", max_redirects=0)
+        assert_equal(response.status, 301)
+        assert_equal(response.headers.get("location"), arcade)
 
 
 def test_tabs_and_accessibility_contract(page: Page) -> None:
@@ -249,6 +271,8 @@ def main() -> None:
         try:
             tests = (
                 test_navigation_is_deterministic,
+                test_games_redirect,
+                test_arcade_gallery_matches_sandbox,
                 test_tabs_and_accessibility_contract,
                 test_media_slider_accessibility,
                 test_mobile_initial_load_does_not_scroll,
