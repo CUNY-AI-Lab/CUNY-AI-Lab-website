@@ -4,7 +4,7 @@
     {
       "title": "Model Registry",
       "description": "Search the live Model API catalog and compare models by capability, context limit, and token price.",
-      "url": "/models",
+      "url": "/models/",
       "external": false,
       "link_text": "Browse models",
       "icon_bg": "bg-vibrant-100",
@@ -24,7 +24,7 @@
     {
       "title": "Events",
       "description": "Workshops, training sessions, and build clinics for learning to work with AI tools in teaching and research.",
-      "url": "/events",
+      "url": "/events/",
       "external": false,
       "link_text": "View upcoming events",
       "icon_bg": "bg-amber-100",
@@ -34,7 +34,7 @@
     {
       "title": "Guides & Tutorials",
       "description": "Slide decks, written guides, and workshop materials for learning to build with AI and using the CAIL Sandbox in the classroom.",
-      "url": "/guides",
+      "url": "/guides/",
       "external": false,
       "link_text": "Browse guides",
       "icon_bg": "bg-indigo-100",

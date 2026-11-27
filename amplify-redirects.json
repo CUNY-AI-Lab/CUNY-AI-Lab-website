@@ -1,0 +1,9 @@
+[
+  { "source": "/sandbox-docs", "target": "/docs/sandbox/", "status": "301" },
+  { "source": "/sandbox-docs/<*>", "target": "/docs/sandbox/<*>", "status": "301" },
+  { "source": "/stem-splitter-docs", "target": "/docs/stem-splitter/", "status": "301" },
+  { "source": "/stem-splitter-docs/<*>", "target": "/docs/stem-splitter/<*>", "status": "301" },
+  { "source": "/systems-mapping-docs", "target": "/docs/systems-mapping/", "status": "301" },
+  { "source": "/systems-mapping-docs/<*>", "target": "/docs/systems-mapping/<*>", "status": "301" },
+  { "source": "/<*>", "target": "/index.html", "status": "404-200" }
+]

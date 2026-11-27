@@ -1,0 +1,75 @@
+name: Search Console check
+
+# Weekly: inspect every sitemap URL and open (or update) one issue when a page
+# needs attention; close it once the check comes back clean. Authenticates to
+# Google with workload identity federation, so the repository holds no key.
+# Setup is in AGENTS.md under "Search Console check"; until the two repository
+# variables exist, the job is skipped.
+
+on:
+  schedule:
+    - cron: "0 13 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  issues: write
+
+concurrency:
+  group: search-console-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Inspect sitemap URLs
+    if: github.repository == 'CUNY-AI-Lab/CUNY-AI-Lab-website' && vars.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && vars.GCP_SEARCH_CONSOLE_SERVICE_ACCOUNT != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Get a read-only Search Console token
+        id: auth
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_SEARCH_CONSOLE_SERVICE_ACCOUNT }}
+          token_format: access_token
+          access_token_scopes: https://www.googleapis.com/auth/webmasters.readonly
+
+      - name: Inspect sitemap URLs
+        id: check
+        env:
+          SEARCH_CONSOLE_TOKEN: ${{ steps.auth.outputs.access_token }}
+        run: |
+          set +e
+          python3 tools/search_console_check.py report.md
+          code=$?
+          set -e
+          if [ -f report.md ]; then cat report.md >> "$GITHUB_STEP_SUMMARY"; fi
+          case "$code" in
+            0) echo "attention=false" >> "$GITHUB_OUTPUT" ;;
+            3) echo "attention=true" >> "$GITHUB_OUTPUT" ;;
+            *) exit "$code" ;;
+          esac
+
+      - name: Open, update or close the attention issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ATTENTION: ${{ steps.check.outputs.attention }}
+        run: |
+          title="Search Console: pages need attention"
+          number="$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number // empty')"
+          if [ "$ATTENTION" = true ]; then
+            if [ -n "$number" ]; then
+              gh issue comment "$number" --body-file report.md
+            else
+              gh issue create --title "$title" --body-file report.md
+            fi
+          elif [ -n "$number" ]; then
+            gh issue close "$number" --comment "The weekly check found nothing that needs attention."
+          fi

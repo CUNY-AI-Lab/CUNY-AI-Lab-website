@@ -27,7 +27,7 @@ const formatAuthors = (authors: string[]) => {
 
 <BaseLayout title={`${post.data.title} - CUNY AI Lab`} description={post.data.description}>
   <PageHero sectionClass="relative pt-24 pb-12 lg:pt-28 lg:pb-16" containerClass="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <a href={`${base}blog`} class="inline-flex items-center text-sm font-medium text-white/80 hover:text-white transition-colors mb-6">
+      <a href={`${base}blog/`} class="inline-flex items-center text-sm font-medium text-white/80 hover:text-white transition-colors mb-6">
         <span aria-hidden="true" class="mr-1">←</span> All posts
       </a>
       <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-display text-white tracking-tight leading-tight">{post.data.title}</h1>
@@ -50,7 +50,7 @@ const formatAuthors = (authors: string[]) => {
           <ul class="flex flex-wrap gap-2">
             {post.data.tags.map((tag) => (
               <li>
-                <a href={`${base}blog/tags/${tag}`} class="inline-block text-xs px-3 py-1 rounded-full bg-vibrant-50 text-vibrant-700 font-medium hover:bg-vibrant-100 hover:text-vibrant-800 transition-colors">{tag}</a>
+                <a href={`${base}blog/tags/${tag}/`} class="inline-block text-xs px-3 py-1 rounded-full bg-vibrant-50 text-vibrant-700 font-medium hover:bg-vibrant-100 hover:text-vibrant-800 transition-colors">{tag}</a>
               </li>
             ))}
           </ul>

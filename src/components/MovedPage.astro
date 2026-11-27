@@ -1,8 +1,10 @@
 ---
-// A docs page that moved under /docs/. The static hosts can't send a 301 from
-// here, so this page forwards the browser and keeps the query and #fragment:
-// old links such as /sandbox-docs/#student-onboarding depend on the fragment,
-// which a meta refresh would drop. The meta refresh is only the no-script path.
+// A docs page that moved under /docs/. Both hosts answer these addresses with a
+// 301 (public/_redirects on Cloudflare, amplify-redirects.json on Amplify), and
+// browsers keep the #fragment across it. This page is the fallback if a rule is
+// missing: it forwards the browser and keeps the query and #fragment, which old
+// links such as /sandbox-docs/#student-onboarding depend on and a meta refresh
+// would drop. The meta refresh is only the no-script path.
 interface Props {
   to: string;
 }

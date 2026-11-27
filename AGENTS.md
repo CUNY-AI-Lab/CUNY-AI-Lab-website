@@ -42,6 +42,7 @@ Because a bypassed push skips CI, run `bun run build` locally before pushing to 
 - Cloudflare Worker `cail-website` serves the same static `dist/` build at `https://cail-website.ailab-452.workers.dev`. `wrangler.jsonc` has no production routes or application bindings. The serialized `deploy` job publishes current `main` using the repository secret `CLOUDFLARE_API_TOKEN`, then checks the exact serving version and public routes. PR jobs have no deployment credentials and run the existing browser checks against local Wrangler.
 - Production remains on AWS Amplify app `d1j8mvw9hg41u1`, which builds `main` from `amplify.yml`. Keep its build aligned with CI. A later, separately authorized domain cutover requires CUNY DNS and Cloudflare zone/route readiness; then remove the obsolete Amplify path. This preview setup does not authorize DNS, plan, or email changes.
 - Request-access authentication and intake remain restricted to the canonical website origin. Do not broaden Doorway CORS or identity origins for this preview. Test those interactions locally with the existing explicit fixtures and verify the real flow on the canonical site.
+- Moved pages get permanent redirects on both hosts. `public/_redirects` deploys with the Cloudflare build. Amplify ignores that file: its rules live in the app settings, and `amplify-redirects.json` is the complete rule set to apply after changing it (`aws amplify update-app --app-id d1j8mvw9hg41u1 --custom-rules file://amplify-redirects.json`; the call replaces every rule, so the file keeps the existing not-found rule last). `tests/site_routes_test.py` fails the build if the two files disagree or a forwarding page has no rule. It also requires every indexable page to be its own canonical and in the sitemap, and every internal link to end in `/` so crawlers do not record redirects.
 - After a build-toolchain change, verify the deployment that currently serves production succeeded. A passing GitHub check alone does not prove the site deployed.
 
 **Data Layer:**
@@ -109,3 +110,35 @@ Use `<style is:global>` when CSS selectors need to target dynamically generated 
 - Team photos in `public/images/team/` — resize to max 800px width (`sips -Z 800 filename.jpg`)
 - Partner logos in `public/images/partners/`
 - Animated GIFs from screenshots: `magick -delay 250 -loop 0 frame1.png frame2.png frame3.png output.gif` (2.5s per frame)
+
+## Search Console check
+
+`.github/workflows/search-console.yml` runs every Monday and on demand. `tools/search_console_check.py` asks Google's URL Inspection API about every URL in the live sitemap and keeps one issue, "Search Console: pages need attention", open while any of these hold:
+
+- Google picks a canonical other than the one the page declares.
+- A fetch fails (404, soft 404, server error).
+- Indexing is blocked by noindex or robots.txt.
+- Google crawled a page more than 30 days ago and still left it out.
+- The sitemap itself has errors.
+
+It closes the issue when a run comes back clean. Pages Google has not reached yet are listed in the run summary without alerting. Addresses outside the sitemap (trailing-slash redirects, truncated links posted elsewhere) are never inspected. `tests/search_console_check_test.py` covers the classification.
+
+The job authenticates with workload identity federation and holds no key. It is skipped until two repository variables exist: `GCP_WORKLOAD_IDENTITY_PROVIDER` (the provider's full resource name) and `GCP_SEARCH_CONSOLE_SERVICE_ACCOUNT` (the service account email). One-time setup in a Google Cloud project:
+
+```bash
+PROJECT=<project-id>; NUMBER=$(gcloud projects describe $PROJECT --format='value(projectNumber)')
+gcloud services enable searchconsole.googleapis.com iamcredentials.googleapis.com --project $PROJECT
+gcloud iam service-accounts create cail-search-console --project $PROJECT
+gcloud iam workload-identity-pools create github --project $PROJECT --location global
+gcloud iam workload-identity-pools providers create-oidc cail-website --project $PROJECT \
+  --location global --workload-identity-pool github --issuer-uri https://token.actions.githubusercontent.com \
+  --attribute-mapping google.subject=assertion.sub,attribute.repository=assertion.repository \
+  --attribute-condition "assertion.repository == 'CUNY-AI-Lab/CUNY-AI-Lab-website'"
+for role in roles/iam.workloadIdentityUser roles/iam.serviceAccountTokenCreator; do
+  gcloud iam service-accounts add-iam-policy-binding cail-search-console@$PROJECT.iam.gserviceaccount.com \
+    --project $PROJECT --role $role \
+    --member "principalSet://iam.googleapis.com/projects/$NUMBER/locations/global/workloadIdentityPools/github/attribute.repository/CUNY-AI-Lab/CUNY-AI-Lab-website"
+done
+```
+
+Then, in Search Console, add the service account email as a **Full** user of the `https://ailab.gc.cuny.edu/` property; restricted users get only part of URL Inspection. The workflow requests only the `webmasters.readonly` scope, so it cannot change Search Console settings. Set the two variables, then run the workflow once by hand (`gh workflow run search-console.yml`).

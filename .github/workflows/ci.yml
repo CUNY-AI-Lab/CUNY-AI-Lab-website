@@ -38,8 +38,14 @@ jobs:
       - name: Check published documentation links
         run: python3 tests/docs_routes_test.py
 
+      - name: Check canonicals, sitemap, internal links and redirects
+        run: python3 tests/site_routes_test.py
+
       - name: Check guide importer
         run: python3 tests/docs_importer_test.py
+
+      - name: Check Search Console classification
+        run: python3 tests/search_console_check_test.py
 
       - name: Check Cloudflare deployment
         run: bun run deploy:cloudflare --dry-run
@@ -166,10 +172,12 @@ jobs:
             ' >/dev/null
           echo "Cloudflare preview serves version $version for $GITHUB_SHA"
           origin='https://cail-website.ailab-452.workers.dev'
-          for path in / /tools/ /request-access/ /blog/cuny-login-sso/ /rss.xml /docs/sandbox/ /docs/sandbox/system-prompts/ /docs/sandbox/student-onboarding/ /sandbox-docs/student-onboarding/; do
+          for path in / /tools/ /request-access/ /blog/cuny-login-sso/ /rss.xml /docs/sandbox/ /docs/sandbox/system-prompts/ /docs/sandbox/student-onboarding/; do
             status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' "$origin$path")"
             test "$status" = 200 || { echo "Preview $path returned $status" >&2; exit 1; }
           done
+          moved="$(curl --silent --show-error --output /dev/null --write-out '%{http_code} %{redirect_url}' "$origin/sandbox-docs/student-onboarding/")"
+          test "$moved" = "301 $origin/docs/sandbox/student-onboarding/" || { echo "Preview moved page returned $moved" >&2; exit 1; }
           status="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' "$origin/not-a-real-cail-page")"
           test "$status" = 404
 
