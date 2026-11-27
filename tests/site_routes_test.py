@@ -74,14 +74,19 @@ def main():
     for path, page in pages.items():
         if page.noindex and page.refresh:
             old_root = "/" + path.strip("/").split("/", 1)[0]
-            new_root = urlsplit(page.canonicals[0]).path if path == old_root + "/" else None
+            new_root = page.canonicals[0] if path == old_root + "/" else None
             moved.setdefault(old_root, None)
             if new_root:
                 moved[old_root] = new_root
     expected = []
-    for old_root, new_root in sorted(moved.items()):
-        assert new_root, f"{old_root}/ has no forwarding index page"
-        expected += [(old_root, new_root, "301"), (f"{old_root}/*", f"{new_root}:splat", "301")]
+    for old_root, canonical in sorted(moved.items()):
+        assert canonical, f"{old_root}/ has no forwarding index page"
+        target = urlsplit(canonical)
+        if target.netloc == urlsplit(SITE).netloc:
+            expected += [(old_root, target.path, "301"), (f"{old_root}/*", f"{target.path}:splat", "301")]
+        else:
+            # External app shortcuts cover only the root, with either slash spelling.
+            expected += [(old_root, canonical, "301"), (f"{old_root}/", canonical, "301")]
     cloudflare = cloudflare_rules()
     assert sorted(cloudflare) == sorted(expected), f"public/_redirects should hold exactly {expected}"
 
