@@ -10,6 +10,7 @@ from pathlib import Path
 
 from playwright.sync_api import Page, expect, sync_playwright
 from models_page_browser import CATALOG, CATALOG_URL, expect_checked
+from site_routes_test import Page as BuiltPage
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = os.environ.get("CAIL_TEST_BASE", "http://127.0.0.1:4321")
@@ -27,10 +28,14 @@ def check_accessibility(page: Page, label: str) -> None:
 
 
 def main() -> None:
-    # The old /<guide>-docs/ pages only forward to /docs/<guide>/, which is scanned.
-    routes = sorted(route for route in ("/" + str(path.relative_to(ROOT / "dist")).removesuffix("index.html")
-                                        for path in (ROOT / "dist").rglob("index.html"))
-                    if not route.startswith(("/sandbox-docs/", "/stem-splitter-docs/", "/systems-mapping-docs/")))
+    # The redirect checks cover forwarding pages. Scan the content this site serves.
+    dist = ROOT / "dist"
+    routes = []
+    for path in sorted(dist.rglob("index.html")):
+        document = BuiltPage(path)
+        if document.noindex and document.refresh:
+            continue
+        routes.append("/" + path.relative_to(dist).as_posix().removesuffix("index.html"))
     assert routes, "Build the website before running browser checks"
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
