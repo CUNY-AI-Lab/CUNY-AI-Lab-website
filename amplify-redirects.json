@@ -1,4 +1,6 @@
 [
+  { "source": "/games", "target": "https://games.ailab-452.workers.dev/", "status": "301" },
+  { "source": "/games/", "target": "https://games.ailab-452.workers.dev/", "status": "301" },
   { "source": "/sandbox-docs", "target": "/docs/sandbox/", "status": "301" },
   { "source": "/sandbox-docs/<*>", "target": "/docs/sandbox/<*>", "status": "301" },
   { "source": "/stem-splitter-docs", "target": "/docs/stem-splitter/", "status": "301" },
