@@ -33,4 +33,4 @@ For a proposed class adaptation, students can compare two verified revisions and
 
 Choose the source and task before creating the model. Build privately if you have **Workspace** access, test with the actual materials, and check access to every attached resource before sharing with the course group. The [Sample Activities](sample-activities.md) page turns these designs into proposed short tasks; [Roles & Permissions](roles-permissions.md) covers the sharing step.
 
-[← Return to Teaching Tips](teaching-tips.md) | [Return to Home](index.md)
+[← Return to Student Onboarding](student-onboarding.md) | [Return to Home](index.md)

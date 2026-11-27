@@ -55,4 +55,4 @@ After the activity, compare the work students produced with the goal you set. Ke
 
 The [Teach@CUNY AI Toolkit](https://aitoolkit.commons.gc.cuny.edu/) provides broader assignment-design guidance. Continue to [Sample Activities](sample-activities.md) for proposed tasks grounded in documented designs, then use [Student Onboarding](student-onboarding.md) to prepare access and expectations.
 
-[← Return to Home](index.md) | [Continue to Use Cases →](use-cases.md)
+[← Return to Roles & Permissions](roles-permissions.md) | [Continue to Sample Activities →](sample-activities.md)
