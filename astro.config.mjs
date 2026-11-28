@@ -8,7 +8,7 @@ import { satteri } from '@astrojs/markdown-satteri';
 export default defineConfig({
   site: 'https://ailab.gc.cuny.edu',
   base: '/',
-  redirects: { '/games': 'https://games.ailab-452.workers.dev/' },
+  redirects: { '/games': 'https://tools.ailab.gc.cuny.edu/games/' },
   // Amplify restores node_modules between builds. Do not restore previously
   // rendered Markdown when a link transformation changes but the source does not.
   cacheDir: './.astro/cache',

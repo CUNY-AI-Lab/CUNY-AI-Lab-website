@@ -132,7 +132,7 @@ def test_arcade_gallery_matches_sandbox(page: Page) -> None:
 
 
 def test_games_redirect(page: Page) -> None:
-    arcade = "https://games.ailab-452.workers.dev/"
+    arcade = "https://tools.ailab.gc.cuny.edu/games/"
     for path in ("/games", "/games/"):
         response = page.request.get(f"{BASE_URL}{path}", max_redirects=0)
         assert_equal(response.status, 301)
